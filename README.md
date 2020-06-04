@@ -1,5 +1,5 @@
 # TaskView
-Time and task Management www.handscream.com
+Service for daily planning, aimed at achieving results. For personal affairs, work tasks and teamwork. www.handscream.com
 
 <h2 align="center">TaskView</h2>  
 <p align="center">
