@@ -1,5 +1,14 @@
-# HAND_SCREAM
-Time and task Management     
-www.handscream.com
+# TaskView
+Time and task Management www.handscream.com
+
+<h2 align="center">TaskView</h2>  
+<p align="center">
+  <img width="400" height="400" src="./images/logo-circle-1024.png">
+</p>
+
+## Main workspace
+<p align="center">
+  <img src="./images/2.png">
+</p>
 
 If you have any question or a bug report please open a [Issue](https://github.com/Gimanh/handscream/issues)
