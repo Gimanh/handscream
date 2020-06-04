@@ -11,4 +11,6 @@ Service for daily planning, aimed at achieving results. For personal affairs, wo
   <img src="./images/2.png">
 </p>
 
+See more information in [Wiki](https://github.com/Gimanh/handscream/wiki)  
+
 If you have any question or a bug report please open a [Issue](https://github.com/Gimanh/handscream/issues)
