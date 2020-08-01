@@ -13,4 +13,13 @@ Service for daily planning, aimed at achieving results. For personal affairs, wo
 
 See more information in [Wiki](https://github.com/Gimanh/handscream/wiki)  
 
-If you have any question or a bug report please open a [Issue](https://github.com/Gimanh/handscream/issues)
+If you have any question or a bug report please open a [Issue](https://github.com/Gimanh/handscream/issues)  
+
+# Team LF  
+Hi!  
+I am looking for designer to my project for future development!  
+The main goal of this project is easy project management and time control.  
+Now available only desktop version, server side and mobile version coming soon.  
+
+If you can create beautiful interface or you are interested with you are welcome!  
+Write PM or to email hello@handscream.com.  
