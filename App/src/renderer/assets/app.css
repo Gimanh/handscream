@@ -1,0 +1,425 @@
+html{
+    overflow-y: auto !important;
+}
+.w100 {
+    width: 100%;
+}
+
+.goal-color-container {
+    padding: 1em 0.5em 0.9em 0.9em;
+}
+
+
+
+
+.theme--light .vionx-gray-bg__list-item {
+    background-color: rgba(37, 37, 37, 0.31) !important;
+}
+
+.theme--dark .editor__menubar,
+.theme--dark .vionx-gray-bg__list-item {
+    background-color: #303030 !important;
+}
+
+.theme--light .editor__menubar {
+    background: #d6d6d6;
+}
+
+.theme--dark .target-container {
+    background-color: rgba(37, 37, 37, 0.31) !important;
+}
+
+
+/*.datepicker {*/
+/*    width: 100% !important;*/
+/*    min-width: 100% !important;*/
+/*}*/
+
+/*.datepicker-container {*/
+/*    width: 70% !important;*/
+/*}*/
+
+/*.time-picker {*/
+/*    width: 30% !important;*/
+/*}*/
+
+/*.field-clear-button {*/
+/*    right: 0 !important;*/
+/*    font-size: 18px !important;*/
+/*    font-weight: 600 !important;*/
+/*    padding: 0 !important;*/
+/*}*/
+
+/*.date-time-picker > div {*/
+/*    padding: 0 !important;*/
+/*}*/
+
+/*.date-time-picker > div > label {*/
+/*    left: 0 !important;*/
+/*}*/
+
+/*.date-time-picker > div > input {*/
+/*    padding-left: 0 !important;*/
+/*}*/
+
+/*.date-time-picker .field-input, .custom-button {*/
+/*    background-color: unset !important;*/
+/*}*/
+
+.target-item_toolbar {
+    position: sticky;
+    top: -5px;
+    z-index: 1;
+}
+
+
+.editor__content blockquote {
+    border-left: 3px solid rgba(118, 118, 118, 0.62);
+    padding-left: .8rem;
+    margin-left: .5rem;
+    font-style: italic;
+}
+
+.editor__content p.is-empty:first-child::before {
+    content: attr(data-empty-text);
+    float: left;
+    color: #aaa;
+    pointer-events: none;
+    height: 0;
+    font-style: italic;
+}
+
+.editor__content table {
+    border-collapse: collapse;
+    table-layout: fixed;
+    width: 100%;
+    margin: 0;
+    overflow: hidden;
+    border-color: #828282;
+}
+
+.editor__content table td, .editor__content table th {
+    min-width: 1em;
+    border: 2px solid #ddd;
+    padding: 3px 5px;
+    vertical-align: top;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.editor__content table .selectedCell:after {
+    z-index: 0;
+    position: absolute;
+    content: "";
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: rgba(200, 200, 255, .4);
+    pointer-events: none;
+}
+
+.note-container__note-icon {
+    width: 100%;
+    padding: 6px !important;
+}
+
+/*.theme--dark .note-container__note-icon svg {*/
+/*    width: 100%;*/
+/*    height: 100%;*/
+/*}*/
+
+
+.theme--dark .note-container__note-icon path,
+.theme--dark .note-container__note-icon circle {
+    fill: #ffffff;
+}
+
+.theme--light .note-container__note-icon path,
+.theme--light .note-container__note-icon circle {
+    fill: #000000;
+}
+
+.editor__menubar {
+    position: sticky;
+    top: 59px;
+    /*background: #d6d6d6;*/
+    z-index: 1;
+}
+
+.editor__content img {
+    max-width: 100%;
+}
+
+.editor__content .ProseMirror-focused {
+    outline: none;
+}
+
+.target-item-content {
+    -webkit-animation: slide-down .3s ease-out;
+    -moz-animation: slide-down .3s ease-out;
+}
+
+@-webkit-keyframes slide-down {
+    0% {
+        opacity: 0;
+        -webkit-transform: translateY(-100%);
+    }
+    100% {
+        opacity: 1;
+        -webkit-transform: translateY(0);
+    }
+}
+
+@-moz-keyframes slide-down {
+    0% {
+        opacity: 0;
+        -moz-transform: translateY(-100%);
+    }
+    100% {
+        opacity: 1;
+        -moz-transform: translateY(0);
+    }
+}
+
+.ghost-item {
+    opacity: 0.5;
+    animation-name: stretch;
+    animation-duration: .5s;
+    animation-timing-function: ease-out;
+    animation-delay: 0ms;
+    animation-direction: alternate;
+    animation-iteration-count: infinite;
+    animation-fill-mode: none;
+    animation-play-state: running;
+}
+
+@keyframes stretch {
+    0% {
+        transform: scale(.9);
+    }
+    50% {
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/*.ghost-checklist-item {*/
+/*    opacity: 0.5;*/
+/*}*/
+
+/* Customize website's scrollbar like Mac OS
+Not supports in Firefox and IE */
+
+/* total width */
+/*body::-webkit-scrollbar {*/
+/*    background-color: #fff;*/
+/*    width: 16px*/
+/*}*/
+
+/*!* background of the scrollbar except button or resizer *!*/
+/*body::-webkit-scrollbar-track {*/
+/*    background-color: #fff*/
+/*}*/
+
+/*!* scrollbar itself *!*/
+/*body::-webkit-scrollbar-thumb {*/
+/*    background-color: #babac0;*/
+/*    border-radius: 16px;*/
+/*    border: 4px solid #fff*/
+/*}*/
+
+/*!* set button(top and bottom of the scrollbar) *!*/
+/*body::-webkit-scrollbar-button {*/
+/*    display: none*/
+/*}*/
+
+
+/*.checklist-node__date-select .v-btn--small .v-icon {*/
+/*    font-size: 15px;*/
+/*}*/
+
+/*.checklist-node__date-select .v-btn--small {*/
+/*    height: auto;*/
+/*    font-size: 12px;*/
+/*    margin: 0;*/
+/*}*/
+
+/*.checklist-node__date .v-text-field {*/
+/*    padding-top: 0;*/
+/*    margin-top: 0 !important;*/
+/*}*/
+
+/*.checklist-node__date .v-input__slot:before {*/
+/*    border-style: dashed !important;*/
+/*    opacity: 0;*/
+
+/*}*/
+
+/*.checklist-node__date .v-text-field__details {*/
+/*    display: none;*/
+/*}*/
+
+/*.checklist-node__date * {*/
+/*    font-size: 14px !important;*/
+/*}*/
+
+/*.datepicker-buttons-container.is-dark .datepicker-button[data-v-601c6e79], .datepicker-buttons-container.is-dark[data-v-601c6e79]:hover {*/
+/*    background-color: dodgerblue !important;*/
+/*}*/
+
+/*.datepicker-buttons-container .datepicker-button .datepicker-button-effect[data-v-601c6e79] {*/
+/*    background-color: rgba(28, 28, 28, 0) !important;*/
+/*}*/
+
+/*.checklist-node__div-display {*/
+/*    font-size: 16px;*/
+/*}*/
+
+
+
+.editor__menubar {
+    transition: opacity 1s ease;
+}
+
+.editor__menubar.is-hidden {
+    /*display: none;*/
+}
+
+.editor__menubar.is-focused {
+    display: block;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+ Lists COOL
+.hs-lists-container::-webkit-scrollbar {
+    height: 2.4rem;
+}
+
+.hs-lists-container::-webkit-scrollbar-thumb {
+    background-color: #66a3c7;
+    border: 0.8rem solid #0079bf;
+    border-top-width: 0;
+}
+
+.hs-lists-container {
+    display: flex;
+    align-items: stretch;
+    /*padding: 0 0.8rem 0.8rem;*/
+    overflow-x: auto;
+    height: calc(100vh - 64px);
+}
+
+.hs-list {
+    /*flex: 0 0 27rem;*/
+    display: flex;
+    flex-direction: column;
+    /*background-color: #e2e4e6;*/
+    /*max-height: calc(100vh - 11.8rem);*/
+    max-height: 100%;
+    border-radius: 0.3rem;
+}
+
+.hs-list:last-of-type {
+    margin-right: 0;
+}
+
+.hs-list-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #333;
+    padding: 1rem;
+}
+
+.hs-list-items {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-content: start;
+    padding: 0 0.6rem 0rem;
+    overflow-y: auto;
+}
+
+/*COOL*/
+/*.hs-list-items::-webkit-scrollbar {*/
+/*    width: 1rem;*/
+/*}*/
+
+/*.hs-list-items::-webkit-scrollbar-thumb {*/
+/*    background-color: #c4c9cc;*/
+/*    !*border-right: 0.6rem solid #e2e4e6;*!*/
+/*}*/
+.node-date {
+    text-align: justify;
+    display: block;
+}
+
+.node-date span {
+    cursor: pointer;
+}
+
+/*list node*/
+.checklist-node .node-date,
+.checklist-node .node-date * {
+    font-size: 13px;
+    color: #5f5f5f;
+    position: relative;
+}
+
+.checklist-node .action-group *,
+.checklist-node .action-group i {
+    font-size: 16px !important;
+}
+
+.checklist-node .v-input__slot:before {
+    border-style: none !important;
+}
+
+.checklist-node .v-text-field__details {
+    display: none;
+}
+
+.goal-container .color-container {
+    padding: 0.5em;
+    border-radius: 0.7em;
+    background-repeat: no-repeat !important;
+    background-clip: content-box !important;
+}
+
+.goal-container .goal-card {
+    border-radius: .7em !important;
+}
+
+.goal-container .goal-layout {
+    min-height: 64px;
+}
+
+.app-start-database {
+    background: rgba(128, 128, 128, 0.59);
+    border-radius: 50em;
+}
+
+.app-border-radius {
+    border-radius: 1em !important;
+}
