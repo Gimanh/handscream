@@ -1,4 +1,29 @@
-# TaskView
+# TaskView  
+
+Service for daily planning, aimed at achieving results. For personal affairs, work tasks and teamwork. www.handscream.com
+
+<h2 align="center">TaskView</h2>  
+<p align="center">
+  <img width="400" height="400" src="./images/logo-circle-1024.png">
+</p>
+
+## Main workspace
+<p align="center">
+  <img src="./images/2.png">
+</p>
+
+See more information in [Wiki](https://github.com/Gimanh/handscream/wiki)  
+
+If you have any question or a bug report please open a [Issue](https://github.com/Gimanh/handscream/issues)  
+
+# Team LF  
+Hi!  
+I am looking for designer to my project for future development!  
+The main goal of this project is easy project management and time control.  
+Now available only desktop version, server side and mobile version coming soon.  
+
+If you can create beautiful interface or you are interested with you are welcome!  
+Write PM or to email hello@handscream.com.  
 
 > An electron-vue project
 
@@ -34,9 +59,5 @@ npm run lint
 
 #### Clear cache MAC OS
 * Remove dir /Users/`{user}`/Library/Application Support/`{yourElectronApp}`/Cache
-  
-
-
----
 
 This project was generated with [electron-vue](https://github.com/SimulatedGREG/electron-vue) using [vue-cli](https://github.com/vuejs/vue-cli). Documentation about the original structure can be found [here](https://simulatedgreg.gitbooks.io/electron-vue/content/index.html).
