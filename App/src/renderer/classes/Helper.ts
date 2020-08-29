@@ -138,9 +138,6 @@ export class Helper {
     }
 
     static generateColor(): string {
-        // return 'hsla(' + 360 * Math.random() + ',70%,60%,0.8)';
-        // return `hsla(${ ~~( 360 * Math.random() ) },70%,70%,0.9)`;
-
         let saturation = Helper.getRandomInt( 20, 95 );
         let lightness = Helper.getRandomInt( 20, 95 );
         let opacity = 0.9;
@@ -195,10 +192,7 @@ export class Helper {
         // Multiply l and s by 100
         s = +( s * 100 ).toFixed( 1 );
         l = +( l * 100 ).toFixed( 1 );
-
-        let res = 'hsla(' + h + ',' + s + '%,' + l + '%,' + a + ')';
-        // console.log( res );
-        return res;
+        return 'hsla(' + h + ',' + s + '%,' + l + '%,' + a + ')';
     }
 
     /**
