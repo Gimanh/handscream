@@ -11,7 +11,7 @@ class MainStoreState {
 
     public name: string = 'Task View';
 
-    public version: string = '1.11.0';
+    public version: string = '1.12.0';
 
     public darkMode: boolean = false;
 

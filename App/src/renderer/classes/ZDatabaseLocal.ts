@@ -28,7 +28,6 @@ import {
     IArgUpdateGoal,
     INestedItem, IReportResult, TMoveTaskArg
 } from '@/store/IGoalsStore';
-import { IConfigDataTaskView } from '@/classes/IConfigStore';
 import { IAppSettingsItems } from '@/store/IAppMainSettings';
 import { IArgStartTimeRecord, IArgStopTimeRecord, ITimeRecords } from '@/store/ITimeRecord';
 
@@ -58,10 +57,16 @@ export default class ZDatabaseLocal implements IZDatabase {
         }
     }
 
+    /**
+     * Get database name return full name with file path
+     */
     public getName(): string {
         return this.db.name;
     }
 
+    /**
+     * Get config data from file
+     */
     public getConfigData(): { databaseList: { src: string, date: number }[], lastOpenedDatabase: string } {
         let configData = this.config.get( ZDatabaseLocal.localDataKey );
         if ( configData ) {
@@ -73,22 +78,17 @@ export default class ZDatabaseLocal implements IZDatabase {
         };
     }
 
+    /**
+     * Has active database
+     */
     public hasActiveDb(): boolean {
         return this.readyDb;
     }
 
-    // public addDbToConfigList( fullPath ) {
-    //     let data = this.config.get<IConfigDataTaskView>( ZDatabaseLocal.localDataKey );
-    //     if ( data ) {
-    //         data.databaseList.push( {
-    //             src: fullPath,
-    //             date: Helper.dateNow()
-    //         } );
-    //     }
-    //
-    //     this.config.set( ZDatabaseLocal.localDataKey, data );
-    // }
-
+    /**
+     * Set last opened database path in config file
+     * @param path
+     */
     public setLastOpenedDatabasePath( path: string ) {
         let configData = this.config.get( ZDatabaseLocal.localDataKey );
         if ( configData ) {
@@ -99,57 +99,52 @@ export default class ZDatabaseLocal implements IZDatabase {
         }
     }
 
-    // public addPathToConfig( path: string ) {
-    //     let data = this.config.get<IConfigDataTaskView>( ZDatabaseLocal.localDataKey );
-    //     let has = false;
-    //     if ( data ) {
-    //         for ( let k = 0; k < data.databaseList.length; k++ ) {
-    //             if ( data.databaseList[ k ].src == path ) {
-    //                 has = true;
-    //                 break;
-    //             }
-    //         }
-    //         if ( !has ) {
-    //             data.databaseList.unshift( {
-    //                 src: path,
-    //                 date: Helper.dateNow()
-    //             } )
-    //         }
-    //         this.config.set( ZDatabaseLocal.localDataKey, data );
-    //     }
-    // }
-
+    /**
+     * Open database fro given path if database file exists
+     * @param options
+     */
     public openDatabase( options?: DatabaseConnectOptions ): boolean {
-        const fs = require( 'fs' );
         if ( options && options.path ) {
+            const fs = require( 'fs' );
             if ( fs.existsSync( options.path ) ) {
-                this.config.addDbToConfigList( options.path );
-                const Database = require( 'better-sqlite3' );
-                this.db = new Database( options.path );
-                if ( this.readyDb ) {
-                    this.setLastOpenedDatabasePath( this.db.name );
-                }
-                return !!this.readyDb;
-            } else {
-                return false;
+                return this.createDbInstanceForPath( options.path );
             }
         }
-
         return false;
     }
 
+    /**
+     * Create SQLITE3 database for given path and use it for app
+     * @param path
+     */
+    public createDbInstanceForPath( path: string ): boolean {
+        this.db = new Database();
+        this.db = new Database( path );
+        if ( this.db.open ) {
+            this.db.exec( 'PRAGMA foreign_keys=ON;' );
+            this.config.addDbToConfigList( path );
+            if ( this.readyDb ) {
+                this.setLastOpenedDatabasePath( this.db.name );
+                return this.readyDb;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Create database and use for app as new
+     * @param name
+     * @param destination
+     */
     public createDatabase( name: string, destination?: string ): any {
         if ( !destination ) {
             destination = this.config.getUserBaseDbDirectory();
         }
         if ( name && destination ) {
-            const Database = require( 'better-sqlite3' );
             const path = require( 'path' );
             const dataBaseFullFilePath = path.join( destination, name + '.db' );
-            this.db = new Database( dataBaseFullFilePath );
-            if ( !!this.db ) {
-                this.config.addDbToConfigList( dataBaseFullFilePath );
-                this.setLastOpenedDatabasePath( this.db.name );
+            this.createDbInstanceForPath( dataBaseFullFilePath );
+            if ( this.readyDb ) {
                 const fs = require( 'fs' );
                 //@ts-ignore //FIXME add __static to config
                 let sql = path.join( __static, '/sql/001-init.sql' );
@@ -157,14 +152,20 @@ export default class ZDatabaseLocal implements IZDatabase {
                 resultSql = resultSql.toString();
                 this.db.exec( resultSql );
             }
-            return !!this.db.open;
+            return this.readyDb;
         }
     }
 
+    /**
+     * Is ready database for usage
+     */
     get readyDb() {
-        return this.db.open && this.db.memory === false;
+        return this.db && this.db.open && this.db.memory === false;
     }
 
+    /**
+     * Close current database connection
+     */
     public closeCurrentDatabase() {
         if ( this.readyDb ) {
             this.db.close();
@@ -172,6 +173,9 @@ export default class ZDatabaseLocal implements IZDatabase {
         return true;
     }
 
+    /**
+     * Get database version
+     */
     public getDbVersion(): string | false {
         let result = this.execQueryGet<IDatabaseTablesVersion, number>( 'SELECT * FROM version WHERE id = ?', 7 );
         if ( result ) {
@@ -180,6 +184,11 @@ export default class ZDatabaseLocal implements IZDatabase {
         return false;
     }
 
+    /**
+     * Execute query
+     * @param sql
+     * @param options
+     */
     public execQueryGet<S, O>( sql: string, options: O ): false | S {
         const result = this.db.prepare( sql ).get( options );
         if ( result ) {
@@ -188,6 +197,10 @@ export default class ZDatabaseLocal implements IZDatabase {
         return false;
     }
 
+    /**
+     * Set db version into database
+     * @param version
+     */
     public setDbVersion( version: string ): boolean {
         let parsedVersion = version.split( '.' );
         if ( parsedVersion.length === 3 ) {
@@ -198,6 +211,9 @@ export default class ZDatabaseLocal implements IZDatabase {
         return false;
     }
 
+    /**
+     * Fetch goals
+     */
     fetchGoals(): IGoal[] {
         let query = 'SELECT * FROM targets ORDER BY id';
         const stmt = this.db.prepare( query );
@@ -208,12 +224,20 @@ export default class ZDatabaseLocal implements IZDatabase {
         return allGoals;
     }
 
+    /**
+     * Fetch lists for goal
+     * @param goalId
+     */
     fetchGoalItems( goalId: number ): IGoalItem[] {
         let query = 'SELECT * FROM checklist_header WHERE parent = @id';
         const stmt = this.db.prepare( query );
         return stmt.all( { id: goalId } );
     }
 
+    /**
+     * Fetch tasks for list
+     * @param goalItemId
+     */
     fetchNestedGoalItems( goalItemId: string ): IGoalNestedItems {
         let query = 'SELECT ci.*,\n' +
             '       c.text          AS item_comment_text,\n' +
@@ -238,6 +262,10 @@ export default class ZDatabaseLocal implements IZDatabase {
         return all;
     }
 
+    /**
+     * Update checked status for task
+     * @param options
+     */
     updateNestedGoalItemCheckboxStatus( options: IArgCheckboxUpdate ): boolean {
         const stmt = this.db.prepare( 'UPDATE checklist_item SET checked = @checked, date_complete = @date_complete WHERE id = @id' );
         const result = stmt.run( {
@@ -248,6 +276,10 @@ export default class ZDatabaseLocal implements IZDatabase {
         return !!result.changes;
     }
 
+    /**
+     * Update exp. date for task
+     * @param options
+     */
     updateNestedGoalItemExpDate( options: IArgItemDate ): boolean {
         let selectStmt = this.db.prepare( 'SELECT * FROM reminder WHERE item_id = @itemId' );
         let selectResult = selectStmt.get( { itemId: options.item.id } );
@@ -268,6 +300,10 @@ export default class ZDatabaseLocal implements IZDatabase {
         return !!result.changes;
     }
 
+    /**
+     * Update note for task
+     * @param options
+     */
     updateNestedGoalItemComment( options: IArgItemComment ): boolean {
         let selectStmt = this.db.prepare( 'SELECT * FROM comment WHERE item_id = @itemId' );
         let selectResult = selectStmt.get( { itemId: options.item.id } );
@@ -288,7 +324,12 @@ export default class ZDatabaseLocal implements IZDatabase {
         return !!result.changes;
     }
 
+    /**
+     * Update task description
+     * @param options
+     */
     updateNestedGoalItemDescriptions( options: IArgItemDescription ): boolean {
+        debugger
         let stmt = this.db.prepare( 'UPDATE checklist_item SET description = @description WHERE id = @id' );
         let result = stmt.run( {
             description: options.description,
@@ -297,6 +338,10 @@ export default class ZDatabaseLocal implements IZDatabase {
         return !!result.changes;
     }
 
+    /**
+     * Update list name
+     * @param options
+     */
     updateGoalItemName( options: IArgItemName ): boolean {
         let stmt = this.db.prepare( 'UPDATE checklist_header SET name = @name WHERE id = @id' );
         let result = stmt.run( {
@@ -306,6 +351,10 @@ export default class ZDatabaseLocal implements IZDatabase {
         return !!result.changes;
     }
 
+    /**
+     * Add goal
+     * @param options
+     */
     addGoal( options: IArgAddGoal ): IGoal | false {
         let stmt = this.db.prepare( 'INSERT INTO targets (name, description, date_creation, owner, color, order_key) VALUES (@name, @description, @date_creation, @owner, @color, @orderKey)' );
         let result = stmt.run( {
@@ -327,27 +376,32 @@ export default class ZDatabaseLocal implements IZDatabase {
         return false;
     }
 
+    /**
+     * Delete goal
+     * @param goal
+     */
     deleteGoal( goal: IGoal ): boolean {
-        let stmt = this.db.prepare( 'DELETE FROM targets WHERE id = @id' )
-        let transaction = this.db.transaction( ( object: { id: number } ) => {
-            let allGoalItems = this.fetchGoalItems( object.id );
-            for ( let k in allGoalItems ) {
-                this.deleteGoalItem( allGoalItems[ k ].id );
-            }
-            stmt.run( {
-                id: goal.id
-            } );
+        let stmt = this.db.prepare( 'DELETE FROM targets WHERE id = @id' );
+        let result = stmt.run( {
+            id: goal.id
         } );
-        transaction( { id: goal.id } );
-        return true;
+        return !!result.changes;
     }
 
+    /**
+     * Update goal info
+     * @param goalInfo
+     */
     updateGoal( goalInfo: IArgUpdateGoal ): boolean {
         let stmt = this.db.prepare( 'UPDATE targets SET name = @name, description = @description, color = @color WHERE id = @id' )
         let result = stmt.run( goalInfo );
         return !!result.changes;
     }
 
+    /**
+     * Add list
+     * @param goalItem
+     */
     addGoalItem( goalItem: IArgAddGoalItem ): IGoalItem | false {
         let stmt = this.db.prepare( 'INSERT INTO checklist_header (name, description, date_creation, parent) VALUES (@name, @description, @date_creation, @parent)' );
         let result = stmt.run( {
@@ -366,52 +420,30 @@ export default class ZDatabaseLocal implements IZDatabase {
         return false;
     }
 
+    /**
+     * Delete list
+     * @param id
+     */
     deleteGoalItem( id: number ): boolean {
-        let stmtAllItemsId = this.db.prepare( 'SELECT id FROM checklist_item WHERE parent_id = @id' );
-        let allItems = stmtAllItemsId.all( { id: id } );
-
-        let hasItems: boolean = !!allItems.length;
-        let arr: string[] = [];
-        arr.length = allItems.length;
-        let placeholders = '(' + arr.fill( '?' ).join( ',' ) + ')';
-        let items: number[] = allItems.map( ( item ) => item.id );
-
-        let stmtDeleteComments = this.db.prepare( 'DELETE FROM comment WHERE item_id IN ' + placeholders );
-        let stmtDeleteReminders = this.db.prepare( 'DELETE FROM reminder WHERE item_id IN ' + placeholders );
-        let deleteLabelsStmt = this.db.prepare( 'DELETE FROM task_label WHERE task_id IN ' + placeholders );
-
-        let stmtDeleteNestedItems = this.db.prepare( 'DELETE FROM checklist_item WHERE parent_id = @id' )
         let stmtDeleteList = this.db.prepare( 'DELETE FROM checklist_header WHERE id = @id' );
-
-        let transaction = this.db.transaction( ( object: { id: number } ) => {
-            if ( hasItems ) {
-                stmtDeleteComments.run( items );
-                stmtDeleteReminders.run( items );
-                deleteLabelsStmt.run( items );
-            }
-            stmtDeleteNestedItems.run( object );
-            stmtDeleteList.run( object );
-        } );
-        transaction( { id: id } );
-        return true;
+        let result = stmtDeleteList.run( { id } );
+        return !!result.changes;
     }
 
+    /**
+     * Delete task
+     * @param item
+     */
     deleteNestedItem( item: INestedItem ): boolean {
-        let stmtDeleteComments = this.db.prepare( 'DELETE FROM comment WHERE item_id = @id' );
-        let stmtDeleteReminders = this.db.prepare( 'DELETE FROM reminder WHERE item_id = @id' );
         let stmtDeleteItems = this.db.prepare( 'DELETE FROM checklist_item WHERE id = @id' );
-        let stmtDeleteItemLabels = this.db.prepare( 'DELETE FROM task_label WHERE task_id = @id ' );
-
-        let transaction = this.db.transaction( () => {
-            stmtDeleteComments.run( { id: item.id } );
-            stmtDeleteReminders.run( { id: item.id } );
-            stmtDeleteItems.run( { id: item.id } );
-            stmtDeleteItemLabels.run( { id: item.id } );
-        } );
-        transaction( { id: item.id } );
-        return true;
+        let result = stmtDeleteItems.run( { id: item.id } );
+        return !!result.changes;
     }
 
+    /**
+     * Add new task
+     * @param nestedItem
+     */
     addNestedGoalItem( nestedItem: IArgNestedGoalItem ): IArgAddNested | false {
         let stmt = this.db.prepare( 'INSERT INTO checklist_item (description, parent_id, date_creation, order_key) VALUES (@description, @parentId, @dateCreation, @orderKey)' )
         let result = stmt.run( {
@@ -425,25 +457,37 @@ export default class ZDatabaseLocal implements IZDatabase {
             let items = selectStmt.all( {
                 parentId: nestedItem.parentId
             } )
-            let newItemsOrder: { order_key: number, id: number }[] = [];
+            let newItemsOrderResult: { order_key: number, id: number }[] = [];
+            let newItemsOrder: IGoalChangeItemsOrder = [];
             for ( let i = 0; i < items.length; i++ ) {
-                newItemsOrder.push( {
+                newItemsOrderResult.push( {
                     order_key: i,
                     id: items[ i ].id
-                } )
+                } );
+                newItemsOrder.push( {
+                    orderKey: i,
+                    id: items[ i ].id
+                } );
             }
-            this.updateNestedItemsOrder( newItemsOrder );
+            // this.updateNestedItemsOrder( newItemsOrder );
+            this.updateGoalNestedItemsOrder( newItemsOrder );
             let newItem = this.fetchNestedGoalItemById( result.lastInsertRowid );
             if ( newItem ) {
                 return {
                     newItem: newItem,
-                    itemsOrder: newItemsOrder
+                    itemsOrder: newItemsOrderResult
                 }
             }
         }
         return false;
     }
 
+    /**
+     * Update order for tasks
+     * !!! use updateGoalNestedItemsOrder instead
+     * @param items
+     * @deprecated
+     */
     updateNestedItemsOrder( items: { id: number, order_key: number }[] ): boolean {
         const update = this.db.prepare( 'UPDATE checklist_item SET order_key = @order_key WHERE id = @id' );
         const updateMany = this.db.transaction( ( cats ) => {
@@ -455,6 +499,10 @@ export default class ZDatabaseLocal implements IZDatabase {
         return true;
     }
 
+    /**
+     * Fetch task by id
+     * @param id
+     */
     fetchNestedGoalItemById( id: number ): INestedItem | false {
         let query = 'SELECT ci.*,\n' +
             '       c.text          AS item_comment_text,\n' +
@@ -477,6 +525,10 @@ export default class ZDatabaseLocal implements IZDatabase {
         return item;
     }
 
+    /**
+     * Set archive goal status
+     * @param options
+     */
     setArchiveGoalStatus( options: IArgUpdateArchiveGoalStatus ): boolean {
         let stmt = this.db.prepare( 'UPDATE targets SET archive = @archive WHERE id = @id' );
         let result = stmt.run( {
@@ -486,6 +538,10 @@ export default class ZDatabaseLocal implements IZDatabase {
         return !!result.changes;
     }
 
+    /**
+     * Fetch progress stats for goal
+     * @param goalId
+     */
     fetchProgressForGoal( goalId: number ): number {
         let queryProgress = 'SELECT ci.checked\n' +
             'FROM targets AS ts\n' +
@@ -507,6 +563,10 @@ export default class ZDatabaseLocal implements IZDatabase {
         return checkedCount > 0 ? Math.ceil( ( checkedCount / allItems.length ) * 100 ) : 0;
     }
 
+    /**
+     * Update order for goals
+     * @param items
+     */
     updateGoalsOrder( items: IGoalChangeItemsOrder ): boolean {
         const update = this.db.prepare( 'UPDATE targets SET order_key = @orderKey WHERE id = @id' );
         const updateMany = this.db.transaction( ( cats ) => {
@@ -518,6 +578,10 @@ export default class ZDatabaseLocal implements IZDatabase {
         return true;
     }
 
+    /**
+     * Update order for lists
+     * @param items
+     */
     updateGoalItemsOrder( items: IGoalChangeItemsOrder ): boolean {
         const update = this.db.prepare( 'UPDATE checklist_header SET order_key = @orderKey WHERE id = @id' );
         const updateMany = this.db.transaction( ( cats ) => {
@@ -529,6 +593,10 @@ export default class ZDatabaseLocal implements IZDatabase {
         return true;
     }
 
+    /**
+     * Update order for task items
+     * @param items
+     */
     updateGoalNestedItemsOrder( items: IGoalChangeItemsOrder ): boolean {
         const update = this.db.prepare( 'UPDATE checklist_item SET order_key = @orderKey WHERE id = @id' );
         const updateMany = this.db.transaction( ( cats ) => {
@@ -540,11 +608,18 @@ export default class ZDatabaseLocal implements IZDatabase {
         return true;
     }
 
+    /**
+     * Fetch all app settings
+     */
     fetchAllSettings(): IAppSettingsItems {
         let stmt = this.db.prepare( 'SELECT * FROM settings' )
         return stmt.all();
     }
 
+    /**
+     * Update all app settings in database
+     * @param items
+     */
     updateAllSettings( items: IAppSettingsItems ): boolean {
         let stmt = this.db.prepare( 'UPDATE settings SET value = @value WHERE name = @name AND id = @id' );
         const updateMany = this.db.transaction( ( cats ) => {
@@ -556,6 +631,10 @@ export default class ZDatabaseLocal implements IZDatabase {
         return true;
     }
 
+    /**
+     * Add new label to database
+     * @param label
+     */
     addNewLabel( label: IAppAddLabel ): IAppLabel | false {
         try {
             let stmt = this.db.prepare( 'INSERT INTO labels (name, color, date_creation) VALUES (@name, @color, @date_creation)' )
@@ -573,14 +652,19 @@ export default class ZDatabaseLocal implements IZDatabase {
         return false;
     }
 
+    /**
+     * Delete label from database
+     * @param label
+     */
     deleteLabel( label: IAppLabel ): boolean {
         let stmt = this.db.prepare( 'DELETE FROM labels WHERE id = @id' );
-        let stmtRelation = this.db.prepare( 'DELETE FROM task_label WHERE label_id = @id' );
         let result = stmt.run( label );
-        stmtRelation.run( label );
         return !!result.changes;
     }
 
+    /**
+     * Fetch all labels for app
+     */
     fetchAllLabels(): IAppLabels {
         try {
             let stmt = this.db.prepare( 'SELECT * FROM labels' );
@@ -590,6 +674,11 @@ export default class ZDatabaseLocal implements IZDatabase {
         }
     }
 
+    /**
+     * Update labels for task
+     * @param options.nestedId - task id
+     * @param options.labels - array with actual labels
+     */
     updateLabelsOnNestedItem( options: { nestedId: number; labels: IAppLabels } ): boolean {
         let deleteStmt = this.db.prepare( 'DELETE FROM task_label WHERE task_id = @nestedId' );
         deleteStmt.run( options );
@@ -610,6 +699,10 @@ export default class ZDatabaseLocal implements IZDatabase {
         return true;
     }
 
+    /**
+     * Fetch labels for given task id
+     * @param taskId
+     */
     fetchLabelsForNestedItemById( taskId: number ): IAppLabels {
         try {
             let selectStmt = this.db.prepare( 'SELECT id, name, color, date_creation FROM task_label as tl LEFT JOIN labels as l on tl.label_id = l.id WHERE task_id = @taskId' );
@@ -620,20 +713,7 @@ export default class ZDatabaseLocal implements IZDatabase {
     }
 
     /**
-     * SELECT ci.*,
-     ch.name        AS list_name,
-     ch.description AS list_description,
-     t.name         AS goal_name,
-     t.description  AS goal_description,
-     l.name         AS label_name,
-     l.color        AS label_color
-     FROM checklist_item AS ci
-     LEFT JOIN checklist_header AS ch ON ci.parent_id = ch.id
-     LEFT JOIN targets AS t ON ch.parent = t.id
-     LEFT JOIN task_label AS tl ON tl.task_id = ci.id
-     LEFT JOIN labels l on tl.label_id = l.id
-     WHERE ci.date_complete <= 1590699540000
-     AND ci.date_complete >= 1588453200000
+     * Fetch report data between given dates
      * @param options
      */
     fetchReportData( options: IArgReport ): IReportResult {
@@ -665,6 +745,10 @@ export default class ZDatabaseLocal implements IZDatabase {
         return stmt.all( options );
     }
 
+    /**
+     * Start time recording for task
+     * @param options
+     */
     startTimeRecordForTask( options: IArgStartTimeRecord ): false | number {
         let startSmt = this.db.prepare( 'INSERT INTO time_record (task_id, date_creation, date_start) VALUES (@taskId, @dateCreation, @dateStart)' )
         let result = startSmt.run( options );
@@ -674,12 +758,20 @@ export default class ZDatabaseLocal implements IZDatabase {
         return false;
     }
 
+    /**
+     * End time recording for task
+     * @param options
+     */
     stopTimeRecordForTask( options: IArgStopTimeRecord ): boolean {
         let endStmt = this.db.prepare( 'UPDATE time_record SET date_end = @dateEnd WHERE id = @activeRecordInDatabaseId AND task_id = @taskId' );
         let result = endStmt.run( options );
         return result.changes;
     }
 
+    /**
+     * Fetch planed report data
+     * @param options
+     */
     fetchPlanReportData( options: IArgReport ): IReportResult {
         let query = 'SELECT ci.*,\n' +
             '       ch.name        AS list_name,\n' +
@@ -709,11 +801,19 @@ export default class ZDatabaseLocal implements IZDatabase {
         return stmt.all( options );
     }
 
+    /**
+     * Fetch all time activity for task
+     * @param taskId
+     */
     fetchTimeActivityRecordsForTask( taskId: number ): ITimeRecords {
         let stmt = this.db.prepare( 'SELECT * FROM time_record WHERE task_id = @taskId' );
         return stmt.all( { taskId } );
     }
 
+    /**
+     * Fetch item stats. Needs for displaying progress in list by progress-circular
+     * @param listId
+     */
     fetchGoalItemStats( listId: number ): number {
         let stmt = this.db.prepare( 'SELECT COUNT(id) AS todo FROM checklist_item WHERE checked = 0 AND parent_id = @listId' );
         let stmtReady = this.db.prepare( 'SELECT COUNT(id) AS todo FROM checklist_item WHERE checked = 1 AND parent_id = @listId' );
@@ -727,12 +827,20 @@ export default class ZDatabaseLocal implements IZDatabase {
         return progress;
     }
 
+    /**
+     * Update label
+     * @param label
+     */
     updateLabel( label: IAppLabel ): boolean {
         let stmt = this.db.prepare( 'UPDATE labels SET name = @name, color = @color WHERE id = @id' );
         let result = stmt.run( label );
         return !!result.changes;
     }
 
+    /**
+     * Move task item to new list
+     * @param options
+     */
     moveTaskToNewList( options: TMoveTaskArg ): boolean {
         let stmt = this.db.prepare( 'UPDATE checklist_item SET parent_id = @parentId WHERE id = @id' );
         let result = stmt.run( {

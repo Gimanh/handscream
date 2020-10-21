@@ -263,7 +263,6 @@ class GoalsStoreMutations extends Mutations<GoalsStoreState> implements IGoalsSt
     updateLabelInfo( label: IAppLabel ) {
         for ( let k in this.state.labels ) {
             if ( this.state.labels[ k ].id == label.id ) {
-                debugger
                 this.state.labels[ k ] = label;
                 break;
             }

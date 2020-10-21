@@ -61,7 +61,31 @@ export default class DatabaseUpdater {
         this.createTaskLabelTable();
         this.createTimeRecordTable();
         this.addShowListStats();
+        this.fixDeleteCascadeForDataIntegrity();
         this.databaseInstance.setDbVersion( this.vionxVersion );
+    }
+
+    /**
+     * Fix data integrity in database lower than version '1.11.0'
+     * and add on delete cascade and update cascade listeners
+     */
+    public fixDeleteCascadeForDataIntegrity() {
+        let result = Helper.compareVersion( this.databaseVersion, '1.11.0' );
+        if ( result === -1 || result === 0 ) {
+            let files = [
+                'u002-fix-cascade-delete-checklist-header.sql',
+                'u002-fix-cascade-delete-checklist-item.sql',
+                'u002-fix-cascade-delete-comment.sql',
+                'u002-fix-cascade-delete-reminder.sql',
+                'u002-fix-cascade-delete-task_label.sql',
+                'u002-fix-cascade-delete-time_record.sql',
+            ];
+            let sql = '';
+            for ( let k in files ) {
+                sql += '\n ' + this.readFileContent( files[ k ] );
+            }
+            this.databaseInstance.db.exec( sql );
+        }
     }
 
     public addCheckedTimeColumnToCheckListItem() {

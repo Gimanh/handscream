@@ -81,13 +81,13 @@ export default class Start extends Vue {
     mounted() {
         if ( process.env.NODE_ENV === 'development' ) {
             this.useLocal();
-            this.$router.push( '/localUser/goal/237/nested-components/28044200' );
-            setTimeout( () => {
-                let el = document.getElementById( 'textarea-1784' );
-                if ( el ) {
-                    el.click();
-                }
-            }, 100 );
+            // this.$router.push( '/localUser/goal/237/nested-components/28044200' );
+            // setTimeout( () => {
+            //     let el = document.getElementById( 'textarea-1784' );
+            //     if ( el ) {
+            //         el.click();
+            //     }
+            // }, 100 );
         }
     }
 }

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>DATABASE</ID>
+  <OriginalElement>404b4882-3a0a-488c-8573-e699b9e610b6.SCHEMA:main</OriginalElement>
+  <nodes>
+    <node x="433.9365750528541" y="977.0">404b4882-3a0a-488c-8573-e699b9e610b6.TABLE:main.version</node>
+    <node x="286.0" y="546.0">404b4882-3a0a-488c-8573-e699b9e610b6.TABLE:main.checklist_item</node>
+    <node x="193.0" y="786.0">404b4882-3a0a-488c-8573-e699b9e610b6.TABLE:main.comment</node>
+    <node x="592.25" y="579.0">404b4882-3a0a-488c-8573-e699b9e610b6.TABLE:main.labels</node>
+    <node x="262.1416490486258" y="963.0697674418604">404b4882-3a0a-488c-8573-e699b9e610b6.TABLE:main.settings</node>
+    <node x="386.0" y="786.0">404b4882-3a0a-488c-8573-e699b9e610b6.TABLE:main.time_record</node>
+    <node x="579.0" y="819.5">404b4882-3a0a-488c-8573-e699b9e610b6.TABLE:main.task_label</node>
+    <node x="584.833509513742" y="264.6744186046512">404b4882-3a0a-488c-8573-e699b9e610b6.TABLE:main.notes</node>
+    <node x="289.5" y="0.0">404b4882-3a0a-488c-8573-e699b9e610b6.TABLE:main.targets</node>
+    <node x="0.0" y="786.0">404b4882-3a0a-488c-8573-e699b9e610b6.TABLE:main.reminder</node>
+    <node x="814.3969344608879" y="912.5877378435518">404b4882-3a0a-488c-8573-e699b9e610b6.TABLE:main.sqlite_master</node>
+    <node x="806.8604651162793" y="785.4767441860463">404b4882-3a0a-488c-8573-e699b9e610b6.TABLE:main.sqlite_sequence</node>
+    <node x="288.0" y="284.0">404b4882-3a0a-488c-8573-e699b9e610b6.TABLE:main.checklist_header</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="404b4882-3a0a-488c-8573-e699b9e610b6.TABLE:main.comment" target="404b4882-3a0a-488c-8573-e699b9e610b6.TABLE:main.checklist_item">
+      <point x="0.0" y="-73.0" />
+      <point x="279.5" y="766.0" />
+      <point x="353.5" y="766.0" />
+      <point x="-22.5" y="95.0" />
+    </edge>
+    <edge source="404b4882-3a0a-488c-8573-e699b9e610b6.TABLE:main.task_label" target="404b4882-3a0a-488c-8573-e699b9e610b6.TABLE:main.checklist_item">
+      <point x="-33.25" y="-39.5" />
+      <point x="612.25" y="756.0" />
+      <point x="443.5" y="756.0" />
+      <point x="67.5" y="95.0" />
+    </edge>
+    <edge source="404b4882-3a0a-488c-8573-e699b9e610b6.TABLE:main.task_label" target="404b4882-3a0a-488c-8573-e699b9e610b6.TABLE:main.labels">
+      <point x="33.25" y="-39.5" />
+      <point x="0.0" y="62.0" />
+    </edge>
+    <edge source="404b4882-3a0a-488c-8573-e699b9e610b6.TABLE:main.time_record" target="404b4882-3a0a-488c-8573-e699b9e610b6.TABLE:main.checklist_item">
+      <point x="0.0" y="-73.0" />
+      <point x="472.5" y="766.0" />
+      <point x="398.5" y="766.0" />
+      <point x="22.5" y="95.0" />
+    </edge>
+    <edge source="404b4882-3a0a-488c-8573-e699b9e610b6.TABLE:main.checklist_item" target="404b4882-3a0a-488c-8573-e699b9e610b6.TABLE:main.checklist_header">
+      <point x="0.0" y="-95.0" />
+      <point x="0.0" y="106.0" />
+    </edge>
+    <edge source="404b4882-3a0a-488c-8573-e699b9e610b6.TABLE:main.reminder" target="404b4882-3a0a-488c-8573-e699b9e610b6.TABLE:main.checklist_item">
+      <point x="0.0" y="-73.0" />
+      <point x="86.5" y="756.0" />
+      <point x="308.5" y="756.0" />
+      <point x="-67.5" y="95.0" />
+    </edge>
+    <edge source="404b4882-3a0a-488c-8573-e699b9e610b6.TABLE:main.checklist_header" target="404b4882-3a0a-488c-8573-e699b9e610b6.TABLE:main.targets">
+      <point x="0.0" y="-106.0" />
+      <point x="0.0" y="117.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.8959484346224678" x="487.0" y="533.0" />
+  <SelectedNodes>
+    <node>404b4882-3a0a-488c-8573-e699b9e610b6.TABLE:main.sqlite_sequence</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Key columns</Category>
+    <Category>Columns</Category>
+    <Category>Virtual foreign keys</Category>
+  </Categories>
+</Diagram>
+
