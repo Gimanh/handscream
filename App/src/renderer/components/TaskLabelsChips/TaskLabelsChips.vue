@@ -2,10 +2,10 @@
     <v-list dense>
         <v-list-item-group>
             <template
-                v-for="(label, i) in labels"
+                v-for="label in labels"
             >
                 <v-list-item
-                    :key="i"
+                    :key="label.id"
                     :style="{backgroundColor: getBackgroundColorWithOpacity(label.color, 0.4)}"
                     inactive
                     @click="toggleLabel(label)"
@@ -55,7 +55,7 @@
                     </v-icon>
                 </v-list-item-icon>
                 <v-list-item-content>
-                    {{ $t('msg.addLabel') }}
+                    {{ $t( 'msg.addLabel' ) }}
                 </v-list-item-content>
             </v-list-item>
             <v-list-item
@@ -70,7 +70,7 @@
                     </v-icon>
                 </v-list-item-icon>
                 <v-list-item-content>
-                    {{ $t('msg.iWantDeleteLabel') }}
+                    {{ $t( 'msg.iWantDeleteLabel' ) }}
                 </v-list-item-content>
             </v-list-item>
             <v-list-item
@@ -85,7 +85,7 @@
                     </v-icon>
                 </v-list-item-icon>
                 <v-list-item-content>
-                    {{ $t('msg.editLabel') }}
+                    {{ $t( 'msg.editLabel' ) }}
                 </v-list-item-content>
             </v-list-item>
         </v-list-item-group>
