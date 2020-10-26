@@ -216,7 +216,7 @@
                                 <a href="mailto:hello@handscream.com">
                                     hello@handscream.com
                                 </a>
-                                <br />
+                                <br>
                                 <a href="mailto:support@handscream.com">
                                     support@handscream.com
                                 </a>

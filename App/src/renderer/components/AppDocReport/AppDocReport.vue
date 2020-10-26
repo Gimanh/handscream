@@ -40,7 +40,7 @@
                     dismissible
                 >
                     {{ $t('rep.noTasks') }}
-                    <br />
+                    <br>
                     <template v-slot:close="{ toggle }">
                         <v-btn
                             icon
@@ -259,11 +259,10 @@
                                                         {{ $t('rep.withSelectedLabels') }}
                                                     </span>
                                                 </v-tooltip>
-
                                             </v-card-subtitle>
                                             <v-card-text
-                                                class="pa-1"
                                                 v-if="labels && labels.length > 0"
+                                                class="pa-1"
                                             >
                                                 <v-chip
 
@@ -279,7 +278,6 @@
                                                     </v-icon>
                                                     {{ item.name }}
                                                 </v-chip>
-
                                             </v-card-text>
                                             <v-card-text v-else>
                                                 {{ $t('msg.noLabelsFound') }}

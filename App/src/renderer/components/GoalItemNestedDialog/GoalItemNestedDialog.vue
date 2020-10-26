@@ -25,8 +25,6 @@
                 class="pt-3"
                 style="height: auto;"
             >
-
-
                 <v-row
                     class="goal-nested-items__info ma-0"
                 >

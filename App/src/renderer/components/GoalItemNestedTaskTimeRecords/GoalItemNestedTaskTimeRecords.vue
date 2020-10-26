@@ -7,20 +7,20 @@
         >
             <template v-slot:default>
                 <thead>
-                <tr>
-                    <th class="text-left">
-                        {{ $t('msg.beginning') }}
-                    </th>
-                    <th class="text-left">
-                        {{ $t('msg.duration') }}
-                    </th>
-                </tr>
+                    <tr>
+                        <th class="text-left">
+                            {{ $t('msg.beginning') }}
+                        </th>
+                        <th class="text-left">
+                            {{ $t('msg.duration') }}
+                        </th>
+                    </tr>
                 </thead>
                 <tbody>
-                <tr v-for="item in records" :key="item.id">
-                    <td>{{ item.dateCreation }}</td>
-                    <td>{{ item.duration }}</td>
-                </tr>
+                    <tr v-for="item in records" :key="item.id">
+                        <td>{{ item.dateCreation }}</td>
+                        <td>{{ item.duration }}</td>
+                    </tr>
                 </tbody>
             </template>
         </v-simple-table>

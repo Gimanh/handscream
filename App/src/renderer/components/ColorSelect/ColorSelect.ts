@@ -2,7 +2,7 @@ import {Component, Prop} from 'vue-property-decorator';
 import ZMixin from '@/mixins/mixin';
 import {Mutation, Action} from 'vuex-class';
 import {NS_ACTIVE_TARGET} from '@/store/types';
- //import {IRootStateMethods} from '@/store';
+//import {IRootStateMethods} from '@/store';
 import {Helper} from '@/classes/Helper';
 
 

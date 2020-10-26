@@ -73,7 +73,6 @@
                     </v-list-item-action>
                 </v-list-item>
             </v-list>
-
         </v-menu>
 
         <app-delete-record-bottom-sheet

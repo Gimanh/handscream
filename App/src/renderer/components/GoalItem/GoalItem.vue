@@ -31,7 +31,6 @@
                     check
                 </v-icon>
             </v-progress-circular>
-
         </v-list-item-action>
         <v-list-item-content>
             <v-list-item-title>

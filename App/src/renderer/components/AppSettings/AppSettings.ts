@@ -48,7 +48,7 @@ export default class AppSettings extends ZMixin {
         } );
     }
 
-    setShowStatsInList(value: boolean){
+    setShowStatsInList(value: boolean) {
         this.setItemValue( {
             name: 'showListStats',
             value: value

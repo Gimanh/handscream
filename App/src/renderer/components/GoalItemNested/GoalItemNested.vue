@@ -46,7 +46,6 @@
                             @focusout="deleteEmptyItem($event, item)"
                         >
                             <template v-slot:append>
-
                                 <v-btn
                                     icon
                                     :color="canShowAnimationForItem(item) ? 'red' : ''"

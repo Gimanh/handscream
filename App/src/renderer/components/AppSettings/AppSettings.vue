@@ -25,7 +25,7 @@
                 <v-toolbar-title>
                     {{ $t('msg.settings') }}
                 </v-toolbar-title>
-                <v-spacer></v-spacer>
+                <v-spacer />
                 <!--<v-toolbar-items>
                     <v-btn
                         depressed
