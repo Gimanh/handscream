@@ -83,12 +83,12 @@ function createWindow() {
     mainWindow.maximize();
     mainWindow.loadURL( winURL );
 
-    if ( process.env.NODE_ENV !== 'development' ) {
-        mainWindow.webContents.on( 'will-navigate', function ( e, url ) {
-            e.preventDefault();
-            require( 'electron' ).shell.openExternal( url );
-        } );
-    }
+    // if ( process.env.NODE_ENV !== 'development' ) {
+    mainWindow.webContents.on( 'will-navigate', function ( e, url ) {
+        e.preventDefault();
+        require( 'electron' ).shell.openExternal( url );
+    } );
+    // }
 
     //for debugger
     // mainWindow.webContents.openDevTools();

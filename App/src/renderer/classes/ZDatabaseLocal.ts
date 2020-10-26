@@ -855,4 +855,16 @@ export default class ZDatabaseLocal implements IZDatabase {
         let result = stmt.run( item );
         return result.changes;
     }
+
+    getLicenseText(): string {
+        const path = require( 'path' );
+        const fs = require( 'fs' );
+        //@ts-ignore //FIXME add __static to config
+        let sql = path.join( __static, '/LICENSE' );
+        return fs.readFileSync( sql, 'utf8' );
+    }
+
+    getRepository(): string {
+        return 'https://github.com/Gimanh/handscream';
+    }
 }

@@ -92,7 +92,6 @@
     "licInfo": "Lizenzinformationen",
     "agreeTerms": "Ich stimme den Bedingungen zu.",
     "mustAgree": "Sie müssen zustimmen, um fortzufahren!",
-    "licenseContent": "Copyright (c) 2020 Giman Nikolai \n\nThis license allows individuals who receive a copy of this software and related documentation (hereinafter referred to as the \"Software\") to use the Software free of charge.\n\nPersons who have received a copy of this Software in relation to this Software are prohibited from:\n - change;\n - merger;\n - publication;\n - sublicense and / or sale of copies of the Software;\n - use for illegal actions.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.",
     "locale": "Lokalisierung",
     "showCompletedTasks": "Abgeschlossene Aufgaben anzeigen",
     "hideCompletedTasks": "Abgeschlossene Aufgaben ausblenden",
@@ -138,7 +137,7 @@
     "itemNameEditing": "Bearbeiten",
     "name": "Name",
     "iWantDeleteLabel": "Ich möchte das Label löschen",
-    "beforeStart": "Bevor Sie beginnen, lesen Sie die folgenden Bedingungen und stimmen Sie ihnen zu.",
+    "beforeStart": "Lizenz",
     "contacts": "Kontakte",
     "noLabelsFound": "Keine Label gefunden",
     "addLabel": "Label hinzufügen",
@@ -155,7 +154,8 @@
     "labelName": "Labelbezeichnung",
     "editLabel": "Label bearbeiten",
     "active": "Aktiv",
-    "moveTask": "Aufgabe verschieben"
+    "moveTask": "Aufgabe verschieben",
+    "git": "Repository"
   },
   "stn": {
     "showCompletedItems": "Vervollständigte Aufgaben nicht ausblenden",

@@ -92,7 +92,6 @@
     "licInfo": "License information",
     "agreeTerms": "I agree to the terms conditions.",
     "mustAgree": "You must agree to continue!",
-    "licenseContent": "Copyright (c) 2020 Giman Nikolai \n\nThis license allows individuals who receive a copy of this software and related documentation (hereinafter referred to as the \"Software\") to use the Software free of charge.\n\nPersons who have received a copy of this Software in relation to this Software are prohibited from:\n - change;\n - merger;\n - publication;\n - sublicense and / or sale of copies of the Software;\n - use for illegal actions.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.",
     "locale": "Localization",
     "showCompletedTasks": "Show completed tasks",
     "hideCompletedTasks": "Hide completed tasks",
@@ -138,7 +137,7 @@
     "itemNameEditing": "Editing",
     "name": "Name",
     "iWantDeleteLabel": "I want delete label",
-    "beforeStart": "Before you begin, read the terms below and agree to them.",
+    "beforeStart": "LICENSE",
     "contacts": "Contacts",
     "noLabelsFound": "No labels found",
     "addLabel": "Add label",
@@ -155,7 +154,8 @@
     "labelName": "Label name",
     "editLabel": "Edit label",
     "active": "Active",
-    "moveTask": "Move task"
+    "moveTask": "Move task",
+    "git": "Repository"
   },
   "stn": {
     "showCompletedItems": "Do not hide completed tasks",

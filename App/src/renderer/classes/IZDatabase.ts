@@ -261,4 +261,8 @@ export interface IZDatabase {
     moveTaskToNewList( options: TMoveTaskArg ): boolean;
 
     deleteNestedGoalItemsExpDate( item: IGoalNestedItems[0] ): boolean;
+
+    getLicenseText(): string;
+
+    getRepository(): string;
 }

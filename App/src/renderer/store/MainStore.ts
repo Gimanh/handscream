@@ -1,6 +1,7 @@
 import { Getters, Mutations, Actions, Module } from 'vuex-smart-module'
 import { IMainStoreMutations } from '@/store/IMainStoreMutations';
 import { I18N } from '@/classes/IZDatabase';
+import { $database } from '@/store/plugins/API';
 
 /**
  * Class for root state each request to database
@@ -42,6 +43,10 @@ class MainStoreState {
     public completeGoalIconColor: string = '#00B8D9';
 
     public allowSort: boolean = false;
+
+    public licenseText: string = '';
+
+    public repository: string = '';
 }
 
 class MainStoreMutations extends Mutations<MainStoreState> implements IMainStoreMutations {
@@ -65,6 +70,14 @@ class MainStoreMutations extends Mutations<MainStoreState> implements IMainStore
     setAllowSort( v: boolean ) {
         this.state.allowSort = v;
     }
+
+    setLicenseText( text: string ) {
+        this.state.licenseText = text;
+    }
+
+    setRepository( repo: string ) {
+        this.state.repository = repo;
+    }
 }
 
 class MainStoreGetters extends Getters<MainStoreState> {
@@ -73,7 +86,23 @@ class MainStoreGetters extends Getters<MainStoreState> {
 
 
 class MainStoreActions extends Actions<MainStoreState, MainStoreGetters, MainStoreMutations, MainStoreActions> {
+    fetchLicenseText() {
+        let result = $database.getLicenseText();
+        if ( result ) {
+            this.commit( 'setLicenseText', result );
+        } else {
+            this.commit( 'setLicenseText', 'Can not get license text!' );
+        }
+    }
 
+    fetchRepository() {
+        let result = $database.getRepository();
+        if ( result ) {
+            this.commit( 'setRepository', result );
+        } else {
+            this.commit( 'setRepository', 'https://github.com/Gimanh/handscream' );
+        }
+    }
 }
 
 

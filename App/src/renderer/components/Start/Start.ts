@@ -1,11 +1,12 @@
-import { Component, Vue } from 'vue-property-decorator';
-import { State, Mutation } from 'vuex-class';
+import { Component } from 'vue-property-decorator';
+import { State, Mutation, Action } from 'vuex-class';
 import { KEY_CFG_LICENSE, NS_MAIN_STORE } from '@/store/types';
 import { $vionxConfig, initializeDatabase } from '@/store/plugins/API';
 import { IConfigAll, IConfigStoreLicense } from '@/classes/IConfigStore';
+import ZMixin from '@/mixins/mixin';
 
 @Component
-export default class Start extends Vue {
+export default class Start extends ZMixin {
 
     public name: string = 'Start';
 
@@ -18,6 +19,10 @@ export default class Start extends Vue {
     @Mutation( 'setLayout', { namespace: NS_MAIN_STORE } ) setLayout;
 
     @Mutation( 'setDarkMode', { namespace: NS_MAIN_STORE } ) setDarkMode!: ( v: boolean ) => void;
+
+    @Action( 'fetchLicenseText', { namespace: NS_MAIN_STORE } ) fetchLicenseText!: () => void;
+
+    @Action( 'fetchRepository', { namespace: NS_MAIN_STORE } ) fetchRepository!: () => void;
 
     get checkBoxRule() {
         return [ v => !!v || this.$t( 'msg.mustAgree' ) ];
@@ -48,17 +53,18 @@ export default class Start extends Vue {
         if ( license !== null ) {
             this.appliedTerms = license.agreed;
             if ( !this.appliedTerms ) {
-                alert( 'License error' );
+                this.showLicenseDialog = true;
                 return false;
             }
         }
 
-        initializeDatabase( 'local', this.version );
         this.setLayout( 'MainLayout' );
         this.$router.push( { name: 'user', params: { user: 'localUser' } } );
     }
 
     created() {
+        initializeDatabase( 'local', this.version );
+
         let darkMode = $vionxConfig.get( 'darkMode' );
         if ( darkMode !== null ) {
             this.$vuetify.theme.dark = darkMode;
@@ -73,9 +79,14 @@ export default class Start extends Vue {
         let license = $vionxConfig.get<IConfigStoreLicense>( KEY_CFG_LICENSE );
         if ( license !== null ) {
             this.appliedTerms = license.agreed;
+            if ( license.version != this.version ) {
+                this.disagree();
+            }
         }
 
         this.setLayout( 'StartLayout' );
+        this.fetchLicenseText();
+        this.fetchRepository();
     }
 
     mounted() {

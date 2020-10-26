@@ -42,6 +42,10 @@ export default class ZMixin extends Vue {
 
     @State( state => state[ NS_MAIN_STORE ].darkMode ) dark!: boolean;
 
+    @State( state => state[ NS_MAIN_STORE ].licenseText ) licenseText!: string;
+
+    @State( state => state[ NS_MAIN_STORE ].repository ) repository!: string;
+
     @State( state => state[ NS_GOALS ].labels ) labels!: IGoalStoreState['labels'];
 
     @State( state => state[ NS_TIME_CONTROL ].activeRecordTask )
