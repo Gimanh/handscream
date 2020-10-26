@@ -73,8 +73,8 @@ function createWindow() {
         height: 763,
         useContentSize: true,
         width: 1020,
-        minWidth: 820,
-        minHeight: 763,
+        minWidth: 600,
+        minHeight: 300,
         webPreferences: {
             nodeIntegration: true,
             devTools: process.env.NODE_ENV === 'development'
