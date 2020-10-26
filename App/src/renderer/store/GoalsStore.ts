@@ -5,7 +5,7 @@ import {
     IGoalItems,
     IGoalNestedItems,
     IGoals
-} from '@/Interfaces/IApp';
+} from '@/interfaces/IApp';
 import { Actions, Getters, Module, Mutations } from 'vuex-smart-module'
 import {
     IArgAddGoal, IArgAddGoalItem,

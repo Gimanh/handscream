@@ -1,6 +1,6 @@
 import { Component, Prop } from 'vue-property-decorator';
 import ZMixin from '@/mixins/mixin';
-import { IGoalNestedItems } from '@/Interfaces/IApp';
+import { IGoalNestedItems } from '@/interfaces/IApp';
 
 type Item = IGoalNestedItems[0];
 

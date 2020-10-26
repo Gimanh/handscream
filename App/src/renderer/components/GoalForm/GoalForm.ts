@@ -1,7 +1,7 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import ZMixin from '@/mixins/mixin';
 import { Helper } from '@/classes/Helper';
-import { IGoal } from '@/Interfaces/IApp';
+import { IGoal } from '@/interfaces/IApp';
 
 @Component
 export default class GoalForm extends ZMixin {

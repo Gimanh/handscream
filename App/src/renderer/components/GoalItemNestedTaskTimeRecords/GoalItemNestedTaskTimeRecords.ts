@@ -1,6 +1,6 @@
 import { Component, Prop } from 'vue-property-decorator';
 import ZMixin from '@/mixins/mixin';
-import { IGoalNestedItems } from '@/Interfaces/IApp';
+import { IGoalNestedItems } from '@/interfaces/IApp';
 import { Action } from 'vuex-class';
 import { NS_GOALS } from '@/store/types';
 import { IGoalsStoreActions } from '@/store/IGoalsStore';

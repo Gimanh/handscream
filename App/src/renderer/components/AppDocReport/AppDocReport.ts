@@ -8,7 +8,7 @@ import {
     IReportResult,
     IReportResultClean, IReportResultCleanItem
 } from '@/store/IGoalsStore';
-import { IAppVTableHeaderItem, IAppVTableHeaders } from '@/Interfaces/IApp';
+import { IAppVTableHeaderItem, IAppVTableHeaders } from '@/interfaces/IApp';
 import HelperNode from '@/classes/HelperNode';
 
 interface IHeader extends IAppVTableHeaderItem {

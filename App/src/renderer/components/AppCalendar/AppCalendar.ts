@@ -1,6 +1,6 @@
 import {Component} from 'vue-property-decorator';
 import ZMixin from '@/mixins/mixin';
-import {AppCalendarEvent} from '@/Interfaces/IAppCalendar';
+import {AppCalendarEvent} from '@/interfaces/IAppCalendar';
 
 @Component
 export default class AppCalendar extends ZMixin {

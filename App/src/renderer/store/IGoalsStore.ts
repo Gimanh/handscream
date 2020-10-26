@@ -5,7 +5,7 @@ import {
     IGoalItems,
     IGoalNestedItems,
     IGoals
-} from '@/Interfaces/IApp';
+} from '@/interfaces/IApp';
 import { IArgAddNested } from '@/classes/IZDatabase';
 import { ITimeRecords } from '@/store/ITimeRecord';
 

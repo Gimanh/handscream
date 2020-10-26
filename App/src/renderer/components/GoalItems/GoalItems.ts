@@ -5,7 +5,7 @@ import { NS_GOALS } from '@/store/types';
 import { Helper } from '@/classes/Helper';
 import { Watch } from 'vue-property-decorator';
 import { IGoalsStoreActions } from '@/store/IGoalsStore';
-import { IGoalItems } from '@/Interfaces/IApp';
+import { IGoalItems } from '@/interfaces/IApp';
 import { ROUTE_NAME_NESTED_COMPONENTS } from '@/AppConsts';
 
 @Component

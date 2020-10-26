@@ -1,7 +1,7 @@
 import { Component, Prop } from 'vue-property-decorator';
 import ZMixin from '@/mixins/mixin';
 import { Action } from 'vuex-class';
-import { IGoal } from '@/Interfaces/IApp';
+import { IGoal } from '@/interfaces/IApp';
 import { IArgUpdateGoal, IGoalsStoreActions } from '@/store/IGoalsStore';
 import { NS_GOALS } from '@/store/types';
 

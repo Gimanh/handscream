@@ -1,7 +1,7 @@
 import { Component, Prop } from 'vue-property-decorator';
 import ZMixin from '@/mixins/mixin';
 import { Helper } from '@/classes/Helper';
-import { IAppAddLabel, IAppLabel } from '@/Interfaces/IApp';
+import { IAppAddLabel, IAppLabel } from '@/interfaces/IApp';
 
 @Component
 export default class AddEditLabelDialog extends ZMixin {

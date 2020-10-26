@@ -5,7 +5,7 @@ import { NS_GOALS } from '@/store/types';
 import {
     IAppLabel, IAppLabels, IGoal,
     IGoalNestedItems,
-} from '@/Interfaces/IApp';
+} from '@/interfaces/IApp';
 import { IArgNestedGoalItem, IGoalsStoreActions } from '@/store/IGoalsStore';
 import { Helper } from '@/classes/Helper';
 import { APP_EVENT_TASK_COMPLETE_STATUS } from '@/AppConsts';

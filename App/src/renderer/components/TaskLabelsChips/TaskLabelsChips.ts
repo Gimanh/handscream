@@ -1,6 +1,6 @@
 import { Component, Prop, Watch } from 'vue-property-decorator';
 import ZMixin from '@/mixins/mixin';
-import { IAppAddLabel, IAppLabel, IAppLabels } from '@/Interfaces/IApp';
+import { IAppAddLabel, IAppLabel, IAppLabels } from '@/interfaces/IApp';
 import { Helper } from '@/classes/Helper';
 import { Action, State } from 'vuex-class';
 import { NS_GOALS } from '@/store/types';

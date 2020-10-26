@@ -6,7 +6,7 @@ import {
     IGoalItem,
     IGoalItems,
     IGoalNestedItems
-} from '@/Interfaces/IApp';
+} from '@/interfaces/IApp';
 import {
     IArgAddGoal,
     IArgAddGoalItem,
