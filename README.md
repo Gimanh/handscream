@@ -45,13 +45,19 @@ Write PM or to email hello@handscream.com.
 ### Thanks for the help
 * [Jisco](https://github.com/Jisco)
 
-> An electron-vue project
+
 
 #### Build Setup
+
+> An electron-vue project
 
 ``` bash
 # install dependencies
 npm install
+
+# add config file task_view.app.conf.ts and export let notarizeConfig
+# notarizeConfig has next property [appBundleId: sting, appPath: string, appleId: string, appleIdPassword: string] 
+# all property is required for app notarize in MacOS 
 
 # serve with hot reload at localhost:9080
 npm run dev
