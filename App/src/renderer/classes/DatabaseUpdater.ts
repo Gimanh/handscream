@@ -84,7 +84,9 @@ export default class DatabaseUpdater {
             for ( let k in files ) {
                 sql += '\n ' + this.readFileContent( files[ k ] );
             }
+            this.databaseInstance.db.exec( 'PRAGMA foreign_keys=OFF;' );
             this.databaseInstance.db.exec( sql );
+            this.databaseInstance.db.exec( 'PRAGMA foreign_keys=ON;' );
         }
     }
 

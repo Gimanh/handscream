@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS time_record_dg_tmp;
 CREATE TABLE time_record_dg_tmp
 (
     id            INTEGER NOT NULL

@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS checklist_header_dg_tmp;
 CREATE TABLE checklist_header_dg_tmp
 (
     id            INTEGER NOT NULL

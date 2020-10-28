@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS comment_dg_tmp;
 CREATE TABLE comment_dg_tmp
 (
     id            INTEGER NOT NULL

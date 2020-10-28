@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS task_label_dg_tmp;
 CREATE TABLE task_label_dg_tmp
 (
     task_id  INTEGER NOT NULL

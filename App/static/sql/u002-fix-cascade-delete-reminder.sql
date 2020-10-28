@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS reminder_dg_tmp;
 CREATE TABLE reminder_dg_tmp
 (
     id            INTEGER NOT NULL
