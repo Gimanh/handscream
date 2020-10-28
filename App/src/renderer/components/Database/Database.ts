@@ -222,6 +222,12 @@ export default class Database extends ZMixin {
             $database.openDatabase( { path: filePath } );
             this.showDialogOpenStorage = false;
             if ( $database.db.open === true && $database.db.name === filePath ) {
+
+                if ( $database instanceof ZDatabaseLocal ) {
+                    let updater = new DatabaseUpdater( this.version, $database );
+                    updater.updateDatabase();
+                }
+
                 this.goToLocalUserPage();
             } else {
                 this.$router.push( { name: 'start' } )
