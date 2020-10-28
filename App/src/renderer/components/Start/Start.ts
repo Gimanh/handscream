@@ -63,7 +63,11 @@ export default class Start extends ZMixin {
     }
 
     created() {
-        initializeDatabase( 'local', this.version );
+        try {
+            initializeDatabase('local', this.version);
+        } catch (e) {
+            console.log(e);
+        }
 
         let darkMode = $vionxConfig.get( 'darkMode' );
         if ( darkMode !== null ) {
