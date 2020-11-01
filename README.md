@@ -47,6 +47,10 @@ Write PM or to email hello@handscream.com.
 
 
 
+# Devel
+TaskView use better-sqlite3 for storage see sql diagram before start
+* [Database diagram](https://github.com/Gimanh/handscream/blob/devel/App/src/renderer/diagrams/main.png)
+
 #### Build Setup
 
 > An electron-vue project
