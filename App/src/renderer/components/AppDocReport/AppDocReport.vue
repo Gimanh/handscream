@@ -146,9 +146,9 @@
                                             <v-date-picker
                                                 v-if="showCalendar"
                                                 v-model="selectedDates"
+                                                :locale="$i18n.locale"
                                                 range
                                                 show-week
-                                                locale="ru"
                                                 width="100%"
                                                 next-icon="navigate_next"
                                                 prev-icon="navigate_before"
