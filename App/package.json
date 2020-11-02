@@ -128,7 +128,7 @@
     "afterSign": "./notarize.js",
     "buildDependenciesFromSource": true,
     "productName": "TaskView",
-    "appId": "com.TaskView.app",
+    "appId": "com.handscream.taskview",
     "mac": {
       "gatekeeperAssess": false,
       "hardenedRuntime": true,
