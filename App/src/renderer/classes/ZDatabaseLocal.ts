@@ -329,7 +329,6 @@ export default class ZDatabaseLocal implements IZDatabase {
      * @param options
      */
     updateNestedGoalItemDescriptions( options: IArgItemDescription ): boolean {
-        debugger
         let stmt = this.db.prepare( 'UPDATE checklist_item SET description = @description WHERE id = @id' );
         let result = stmt.run( {
             description: options.description,
