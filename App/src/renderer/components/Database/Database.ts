@@ -59,17 +59,16 @@ export default class Database extends ZMixin {
         this.$on( 'selectFolder', this.showDialog );
     }
 
-    selectFolder() {
+    async selectFolder() {
         const { dialog } = require( 'electron' ).remote;
-        dialog.showOpenDialog( {
+        let result = await dialog.showOpenDialog( {
             title: 'Select directory for storing database',
             properties: [ 'openDirectory' ]
-        }, ( selectedPath ) => {
-            if ( selectedPath && selectedPath.length === 1 ) {
-                this.databaseDestinationFolder = selectedPath[ 0 ];
-                this.$emit( 'selectFolder', selectedPath[ 0 ] );
-            }
         } );
+        if ( result && result.filePaths.length > 0 ) {
+            this.databaseDestinationFolder = result.filePaths[ 0 ];
+            this.$emit( 'selectFolder', this.databaseDestinationFolder );
+        }
     }
 
     createDatabase() {
@@ -235,16 +234,15 @@ export default class Database extends ZMixin {
         }
     }
 
-    openSelectDatabaseFolderDialog() {
+    async openSelectDatabaseFolderDialog() {
         const { dialog } = require( 'electron' ).remote;
-        dialog.showOpenDialog( {
+        let result = await dialog.showOpenDialog( {
             title: this.$t( 'msg.selectDatabaseFile' ).toString(),
             properties: [ 'openFile' ]
-        }, ( selectedPath ) => {
-            if ( selectedPath && selectedPath.length === 1 ) {
-                this.openDatabaseFile( selectedPath[ 0 ] );
-            }
         } );
+        if ( result && result.filePaths.length > 0 ) {
+            await this.openDatabaseFile( result.filePaths[ 0 ] );
+        }
     }
 
     /**

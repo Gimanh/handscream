@@ -379,14 +379,13 @@ export default class AppDocReport extends ZMixin {
 
     async downloadReport() {
         const { dialog } = require( 'electron' ).remote;
-        await dialog.showOpenDialog( {
+        let result = await dialog.showOpenDialog( {
             title: 'Select directory for storing database',
             properties: [ 'openDirectory' ]
-        }, ( selectedPath ) => {
-            if ( selectedPath && selectedPath.length === 1 ) {
-                this.prepareReportDataAndSaveToPath( selectedPath[ 0 ] );
-            }
         } );
+        if ( result && result.filePaths.length > 0 ) {
+            this.prepareReportDataAndSaveToPath( result.filePaths[ 0 ] );
+        }
     }
 
     toggleActiveOnItem( item: IHeader ) {

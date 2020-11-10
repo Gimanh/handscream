@@ -2,6 +2,7 @@
 
 import { app, BrowserWindow, Menu } from 'electron';
 
+app.allowRendererProcessReuse =  false;
 const isMac = process.platform === 'darwin';
 const template = [
     ...( isMac ? [ {
@@ -76,6 +77,7 @@ function createWindow() {
         minWidth: 600,
         minHeight: 300,
         webPreferences: {
+            enableRemoteModule:true,
             nodeIntegration: true,
             devTools: process.env.NODE_ENV === 'development'
         },
