@@ -133,8 +133,8 @@
       "gatekeeperAssess": false,
       "hardenedRuntime": true,
       "icon": "build/icons/taskview.icns",
-      "entitlements": "build/entitlements.mac.plist",
-      "entitlementsInherit": "build/entitlements.mac.plist"
+      "entitlements": "plists/entitlements.mac.plist",
+      "entitlementsInherit": "plists/entitlements.mac.plist"
     },
     "nsis": {
       "oneClick": false,
