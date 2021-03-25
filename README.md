@@ -29,6 +29,7 @@ Write PM or to email hello@handscream.com.
 [-] Optimize list  
 [-] Show completed tasks in table  
 [-] Add "Notes" component  
+[-] Add diagram creator
 [-] Create backend
 
 # How to add a new translation
