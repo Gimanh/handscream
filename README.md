@@ -25,6 +25,12 @@ Now available only desktop version, server side and mobile version coming soon.
 If you can create beautiful interface or you are interested with you are welcome!  
 Write PM or to email hello@handscream.com.  
 
+# TODO 
+[-] Optimize list  
+[-] Show completed tasks in table  
+[-] Add "Notes" component  
+[-] Create backend
+
 # How to add a new translation
 
 1. Translate one of the existing files in [locale folder](https://github.com/Gimanh/handscream/tree/devel/App/src/renderer/locale)
