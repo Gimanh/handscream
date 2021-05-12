@@ -3,7 +3,7 @@ import path from 'path'
 import fs from 'fs'
 import { IConfigAll, IConfigDataTaskView } from '@/classes/IConfigStore';
 import { Helper } from '@/classes/Helper';
-import ZDatabaseLocal from '@/classes/ZDatabaseLocal';
+import DatabaseLocal from '@/classes/DatabaseLocal';
 
 export class ConfigStore {
 
@@ -52,7 +52,7 @@ export class ConfigStore {
      * @param fullPath
      */
     public addDbToConfigList( fullPath ) {
-        let data = this.get<IConfigDataTaskView>( ZDatabaseLocal.localDataKey );
+        let data = this.get<IConfigDataTaskView>( DatabaseLocal.localDataKey );
         let has = false;
         if ( data ) {
             for ( let k = 0; k < data.databaseList.length; k++ ) {
@@ -68,7 +68,7 @@ export class ConfigStore {
                     date: Helper.dateNow()
                 } )
             }
-            this.set( ZDatabaseLocal.localDataKey, data );
+            this.set( DatabaseLocal.localDataKey, data );
         }
     }
 
@@ -77,7 +77,7 @@ export class ConfigStore {
     }
 
     getUserBaseDbDirectory() {
-        return path.join( this.getUserDataPath(), ZDatabaseLocal.databaseDirectoryName );
+        return path.join( this.getUserDataPath(), DatabaseLocal.databaseDirectoryName );
     }
 
     existConfig( path: string ): boolean {

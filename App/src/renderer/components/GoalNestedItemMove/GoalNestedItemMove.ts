@@ -1,13 +1,11 @@
 import { Component, Prop } from 'vue-property-decorator';
 import { Action } from 'vuex-class';
 import ZMixin from '@/mixins/mixin';
-import { IGoal, IGoalItems, IGoalNestedItems } from '@/interfaces/IApp';
+import { IGoal, IGoalItems, TaskItem } from '@/interfaces/IApp';
 import { State } from 'vuex-class';
-import { NS_GOALS } from '@/store/types';
-import { IGoalsStoreActions } from '@/store/IGoalsStore';
+import { NS_GOALS } from '@/store/Types/Consts';
 import { APP_EVENT_TASK_COMPLETE_STATUS } from '@/AppConsts';
-
-type Item = IGoalNestedItems[0];
+import { IGoalsStoreActions } from '@/store/Types/Goals/IGoalsStoreActions';
 
 @Component
 export default class GoalNestedItemMove extends ZMixin {
@@ -17,7 +15,7 @@ export default class GoalNestedItemMove extends ZMixin {
             return {};
         }
     } )
-    public item!: Item;
+    public item!: TaskItem;
 
     @State( state => state[ NS_GOALS ].goals ) goals!: IGoal[];
 

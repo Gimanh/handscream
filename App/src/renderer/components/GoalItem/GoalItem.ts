@@ -3,9 +3,9 @@ import { Component, Prop } from 'vue-property-decorator';
 import { Action } from 'vuex-class';
 import { IGoalItem } from '@/interfaces/IApp';
 import { Helper } from '@/classes/Helper';
-import { NS_GOALS } from '@/store/types';
-import { IGoalsStoreActions } from '@/store/IGoalsStore';
+import { NS_GOALS } from '@/store/Types/Consts';
 import { APP_EVENT_TASK_COMPLETE_STATUS } from '@/AppConsts';
+import { IGoalsStoreActions } from '@/store/Types/Goals/IGoalsStoreActions';
 
 @Component
 export default class GoalItem extends ZMixin implements IGoalItem {
@@ -56,16 +56,24 @@ export default class GoalItem extends ZMixin implements IGoalItem {
 
     public stat: number = 0;
 
+    get routeTo() {
+        return {
+            name: 'nested-components',
+            params: {
+                nestedId: this.id.toString()
+            }
+        };
+    }
+
+    get showStat() {
+        return this.stat > 0;
+    }
+
     get progressColor() {
-        if ( this.stat === 100 ) {
+        if ( this.stat === 0 ) {
             return '#36B37E';
         }
-        if ( this.stat < 100 && this.stat >= 50 ) {
-            return '#FFAB00';
-        }
-        if ( this.stat < 50 ) {
-            return '#FF5630';
-        }
+        return '#FFAB00';
     }
 
     get disabledSaveBtn() {

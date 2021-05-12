@@ -18,8 +18,8 @@
                         <template v-for="(goalItem) in sortedGoalItems">
                             <goal-item
                                 :key="goalItem.id"
-                                v-bind="goalItem"
                                 :drag-enabled="dragEnabled"
+                                v-bind="goalItem"
                             />
                         </template>
                     </draggable>
@@ -48,7 +48,7 @@
                                         <v-list-item-title
                                             v-if="!fab"
                                         >
-                                            {{ $t('msg.addItem') }}
+                                            {{ $t( 'msg.addItem' ) }}
                                         </v-list-item-title>
                                     </component>
                                 </v-list-item-content>
@@ -59,7 +59,7 @@
             </v-list>
         </v-col>
         <v-col
-            v-if="canShowRightColumn"
+            v-if="showHintSelectComponent"
             class="user-container__goal-items-row__col-right pa-0"
             :class="showHintSelectComponent ? 'app-flex-left-in-center pl-5' : ''"
             md="8"
@@ -69,10 +69,10 @@
                 v-if="showHintSelectComponent"
                 class="font-weight-regular"
             >
-                {{ $t('msg.selectComponentOrCreateNew') }}
+                {{ $t( 'msg.selectComponentOrCreateNew' ) }}
             </h3>
-            <router-view />
         </v-col>
+        <router-view />
     </v-row>
 </template>
 

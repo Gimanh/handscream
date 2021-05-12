@@ -1,4 +1,4 @@
-import ZDatabaseLocal from '@/classes/ZDatabaseLocal';
+import DatabaseLocal from '@/classes/DatabaseLocal';
 import HelperNode from '@/classes/HelperNode';
 import { Helper } from '@/classes/Helper';
 
@@ -10,9 +10,9 @@ export default class DatabaseUpdater {
 
     public databaseVersion: string;
 
-    public databaseInstance: ZDatabaseLocal;
+    public databaseInstance: DatabaseLocal;
 
-    constructor( vionxVersion: string, databaseInstance: ZDatabaseLocal ) {
+    constructor( vionxVersion: string, databaseInstance: DatabaseLocal ) {
         const path = require( 'path' );
         //@ts-ignore
         this.path = path.join( __static, '/sql/' );

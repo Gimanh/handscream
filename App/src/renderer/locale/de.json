@@ -155,7 +155,8 @@
     "editLabel": "Label bearbeiten",
     "active": "Aktiv",
     "moveTask": "Aufgabe verschieben",
-    "git": "Repository"
+    "git": "Repository",
+    "newTask": "Neue aufgabe"
   },
   "stn": {
     "showCompletedItems": "Vervollständigte Aufgaben nicht ausblenden",

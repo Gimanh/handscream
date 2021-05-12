@@ -2,8 +2,9 @@ import { Component, Prop } from 'vue-property-decorator';
 import ZMixin from '@/mixins/mixin';
 import { Action } from 'vuex-class';
 import { IGoal } from '@/interfaces/IApp';
-import { IArgUpdateGoal, IGoalsStoreActions } from '@/store/IGoalsStore';
-import { NS_GOALS } from '@/store/types';
+import { NS_GOALS } from '@/store/Types/Consts';
+import { IGoalsStoreActions } from '@/store/Types/Goals/IGoalsStoreActions';
+import { IArgUpdateGoal } from '@/store/Types/Goals/Types';
 
 @Component
 export default class EditGoal extends ZMixin {

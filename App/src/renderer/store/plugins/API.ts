@@ -1,21 +1,21 @@
 import { IZDatabase } from '@/classes/IZDatabase';
-import ZDatabaseLocal from '@/classes/ZDatabaseLocal';
+import DatabaseLocal from '@/classes/DatabaseLocal';
 import DatabaseUpdater from '@/classes/DatabaseUpdater';
 import Vue from 'vue';
 import { ConfigStore } from '@/classes/ConfigStore';
 
 let $database: IZDatabase;
-let $vionxConfig: ConfigStore = new ConfigStore( ZDatabaseLocal.configFileName, ZDatabaseLocal.databaseDirectoryName );
+let $vionxConfig: ConfigStore = new ConfigStore( DatabaseLocal.configFileName, DatabaseLocal.databaseDirectoryName );
 
 export function initializeDatabase( mode: string, version ) {
 
     if ( mode === 'local' ) {
-        $database = new ZDatabaseLocal();
+        $database = new DatabaseLocal();
         let configData = $database.getConfigData();
         let successOpen = $database.openDatabase( { path: configData.lastOpenedDatabase } );
 
         if ( successOpen ) {
-            if ( $database instanceof ZDatabaseLocal ) {
+            if ( $database instanceof DatabaseLocal ) {
                 let updater = new DatabaseUpdater( version, $database );
                 updater.updateDatabase();
             }

@@ -1,10 +1,11 @@
 import { Component } from 'vue-property-decorator';
 import ZMixin from '@/mixins/mixin';
 import { State, Action } from 'vuex-class';
-import { NS_GOALS } from '@/store/types';
-import { IGoal } from '@/interfaces/IApp';
-import { IArgUpdateArchiveGoalStatus, IGoalsStoreActions } from '@/store/IGoalsStore';
+import { NS_GOALS } from '@/store/Types/Consts';
+import { IGoal, IGoalChangeItemsOrder } from '@/interfaces/IApp';
 import { Helper } from '@/classes/Helper';
+import { IGoalsStoreActions } from '@/store/Types/Goals/IGoalsStoreActions';
+import { IArgUpdateArchiveGoalStatus } from '@/store/Types/Goals/Types';
 
 @Component
 export default class Goals extends ZMixin {
@@ -68,14 +69,6 @@ export default class Goals extends ZMixin {
         return !( goal.archive && !this.showArchive );
     }
 
-    showMoreActions( id: number ) {
-        if ( this.activeActions === id ) {
-            this.activeActions = null;
-        } else {
-            this.activeActions = id;
-        }
-    }
-
     getStyleBorderForGoal( goal: IGoal ) {
         if ( Number( this.$route.params.id ) === Number( goal.id ) ) {
             let color = Helper.appHslToRgb( goal.color );
@@ -114,11 +107,11 @@ export default class Goals extends ZMixin {
     }
 
     set sortedGoals( value: IGoal[] ) {
-        let items: { id: number, orderKey: number }[] = [];
+        let items: IGoalChangeItemsOrder = [];
         for ( let k in value ) {
             items.push( {
                 id: Number( value[ k ].id ),
-                orderKey: Number( k ) + 1
+                order_key: Number( k ) + 1
             } )
         }
         this.updateGoalsOrder( items );

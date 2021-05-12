@@ -1,6 +1,6 @@
 import { Component, Watch } from 'vue-property-decorator';
 import { Mutation, State } from 'vuex-class';
-import { NS_MAIN_STORE, NS_NOTIFICATIONS } from '@/store/types';
+import { NS_MAIN_STORE, NS_NOTIFICATIONS } from '@/store/Types/Consts';
 import ZMixin from '@/mixins/mixin';
 import { $database } from '@/store/plugins/API';
 

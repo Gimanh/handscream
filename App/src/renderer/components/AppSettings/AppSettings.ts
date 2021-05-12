@@ -1,12 +1,10 @@
 import { Component } from 'vue-property-decorator';
 import ZMixin from '@/mixins/mixin';
 import { Action, Mutation, State } from 'vuex-class';
-import { NS_SETTINGS } from '@/store/types';
-import {
-    IAppMainSettingsActions,
-    IAppMainSettingsMutation,
-    IAppMainSettingsState
-} from '@/store/IAppMainSettings';
+import { NS_SETTINGS } from '@/store/Types/Consts';
+import { IAppMainSettingsActions } from '@/store/Types/AppSettings/IAppMainSettingsActions';
+import { IAppMainSettingsMutation } from '@/store/Types/AppSettings/IAppMainSettingsMutations';
+
 
 @Component
 export default class AppSettings extends ZMixin {

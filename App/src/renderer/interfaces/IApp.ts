@@ -63,16 +63,18 @@ export interface IAppVTableHeaderItem {
     text: string
     align?: string
     sortable?: boolean
-    visible?:boolean
+    visible?: boolean
     value: string
     styles?: {
         width: number
     }
 }
 
-export type IAppVTableHeaders = IAppVTableHeaderItem[];
+export type TaskItem = IGoalNestedItemWithCommentAndReminder;
+export type TasksOrderItems = { id: number, order_key: number }[];
+
 export type IAppLabels = IAppLabel[];
 export type IGoals = IGoal[];
 export type IGoalNestedItems = IGoalNestedItemWithCommentAndReminder[];//checklist_items
 export type IGoalItems = IGoalItem[];//checklist_headers
-export type IGoalChangeItemsOrder = { id: number, orderKey: number }[];
+export type IGoalChangeItemsOrder = { id: number, order_key: number }[];

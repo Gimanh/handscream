@@ -1,17 +1,14 @@
 import ZMixin from '@/mixins/mixin';
 import { Component } from 'vue-property-decorator';
 import { Action } from 'vuex-class';
-import { NS_GOALS } from '@/store/types';
-import { IArgUpdateGoal, IGoalsStoreActions } from '@/store/IGoalsStore';
+import { NS_GOALS } from '@/store/Types/Consts';
+import { IGoalsStoreActions } from '@/store/Types/Goals/IGoalsStoreActions';
+import { IArgUpdateGoal } from '@/store/Types/Goals/Types';
 
 @Component
 export default class AddGoal extends ZMixin {
 
     public dialog: boolean = false;
-
-    $refs!: {
-        form: any
-    };
 
     @Action( 'addGoal', { namespace: NS_GOALS } )
     addGoal!: IGoalsStoreActions['addGoal'];

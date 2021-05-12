@@ -1,13 +1,17 @@
 import Vue from 'vue'
 import Component from 'vue-class-component'
 import { State, Mutation, Action } from 'vuex-class';
-import { NS_GOALS, NS_MAIN_STORE, NS_SETTINGS, NS_TIME_CONTROL } from '@/store/types';
+import { NS_GOALS, NS_MAIN_STORE, NS_SETTINGS, NS_TIME_CONTROL } from '@/store/Types/Consts';
 import { LOCAL_USER_LOGIN, TARGET_ACTIONS_COLOR } from '@/classes/IZBaseProp';
 import { $database } from '@/store/plugins/API';
-import { IGoalsStoreMutations, IGoalStoreState } from '@/store/IGoalsStore';
-import { IMainStoreMutations } from '@/store/IMainStoreMutations';
-import { IAppMainSettingsState } from '@/store/IAppMainSettings';
-import { ITimeRecordActions, ITimeRecordState } from '@/store/ITimeRecord';
+import { IGoalStoreState } from '@/store/Types/Goals/IGoalsState';
+import { IGoalsStoreMutations } from '@/store/Types/Goals/IGoalsStoreMutations';
+import { ITimeRecordState } from '@/store/Types/TimeRecord/ITimeRecordState';
+import { ITimeRecordActions } from '@/store/Types/TimeRecord/ITimeRecordActions';
+import { IAppMainSettingsState } from '@/store/Types/AppSettings/IAppMainSettingsState';
+import { IMainStoreMutations } from '@/store/Types/MainStore/IMainStoreMutations';
+import { TaskItem } from '@/interfaces/IApp';
+import { APP_EVENT_TASK_COMPLETE_STATUS, ROUTE_NAME_TASK_DIALOG } from '@/AppConsts';
 
 
 @Component
@@ -48,6 +52,9 @@ export default class ZMixin extends Vue {
 
     @State( state => state[ NS_GOALS ].labels ) labels!: IGoalStoreState['labels'];
 
+    @State( state => state[ NS_GOALS ].selectedTaskForDialog )
+    selectedTaskForDialog!: IGoalStoreState['selectedTaskForDialog'];
+
     @State( state => state[ NS_TIME_CONTROL ].activeRecordTask )
     activeRecordTask!: ITimeRecordState['activeRecordTask']
 
@@ -62,6 +69,9 @@ export default class ZMixin extends Vue {
 
     public reorderHandleClass: string = 'reorder-node-handle';
 
+    public dialogWidth: string = '500px';
+
+    //TODO we do not use this prop
     get showCompletedSettings() {
         return this.settingItems[ 'showCompletedTasks' ].value;
     }
@@ -93,10 +103,6 @@ export default class ZMixin extends Vue {
         }
 
         return false;
-    }
-
-    get actionsBtnColor() {
-        return TARGET_ACTIONS_COLOR;
     }
 
     get dragOptions() {
@@ -156,5 +162,29 @@ export default class ZMixin extends Vue {
             return hours + '' + this.$t( 'msg.hours' ) + ' ' + min + '' + this.$t( 'msg.min' );
         }
         return min + '' + this.$t( 'msg.min' );
+    }
+
+    logError( error: any ) {
+        console.log( error );
+    }
+
+    emitEventForList( taskListId: number ): void {
+        this.$eventBus.$emit( APP_EVENT_TASK_COMPLETE_STATUS + taskListId );
+    }
+
+    goBack( step?: number ): void {
+        if ( step ) {
+            step = step * -1;
+            this.$router.go( step );
+        } else {
+            this.$router.back();
+        }
+    }
+
+    goToTaskDialog( id: number ): void {
+        this.$router.push( {
+            name: ROUTE_NAME_TASK_DIALOG,
+            params: { taskId: id.toString() }
+        } );
     }
 }

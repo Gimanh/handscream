@@ -1,7 +1,7 @@
 import { Getters, Mutations, Actions, Module } from 'vuex-smart-module'
-import { IMainStoreMutations } from '@/store/IMainStoreMutations';
 import { I18N } from '@/classes/IZDatabase';
 import { $database } from '@/store/plugins/API';
+import { IMainStoreMutations } from '@/store/Types/MainStore/IMainStoreMutations';
 
 /**
  * Class for root state each request to database

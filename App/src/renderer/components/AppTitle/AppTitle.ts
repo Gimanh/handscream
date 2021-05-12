@@ -1,7 +1,7 @@
 import {Component} from 'vue-property-decorator'
 import ZMixin from '@/mixins/mixin';
 import {State} from 'vuex-class';
-import {NS_MAIN_STORE} from '@/store/types';
+import {NS_MAIN_STORE} from '@/store/Types/Consts';
 
 @Component
 export default class AppTitle extends ZMixin {

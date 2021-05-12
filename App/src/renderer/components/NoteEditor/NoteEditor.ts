@@ -2,7 +2,7 @@ import ZMixin from '@/mixins/mixin';
 import { Component, Prop } from 'vue-property-decorator';
 import { NOTE_EDITOR_NIGHT } from '@/classes/IZBaseProp';
 import { Action } from 'vuex-class';
-import { NS_ACTIVE_TARGET } from '@/store/types';
+import { NS_ACTIVE_TARGET } from '@/store/Types/Consts';
 import { Editor, EditorContent, EditorMenuBar } from 'tiptap'
 import {
     Blockquote,

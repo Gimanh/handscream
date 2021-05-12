@@ -1,8 +1,9 @@
-import { Component, Prop, Watch } from 'vue-property-decorator';
+import { Component, Watch } from 'vue-property-decorator';
 import ZMixin from '@/mixins/mixin';
 import { Action, State } from 'vuex-class';
-import { NS_GOALS } from '@/store/types';
-import { IGoalsStoreActions, IGoalStoreState } from '@/store/IGoalsStore';
+import { NS_GOALS } from '@/store/Types/Consts';
+import { IGoalStoreState } from '@/store/Types/Goals/IGoalsState';
+import { IGoalsStoreActions } from '@/store/Types/Goals/IGoalsStoreActions';
 
 @Component
 export default class AddGoalItem extends ZMixin {

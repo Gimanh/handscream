@@ -155,7 +155,8 @@
     "editLabel": "Edit label",
     "active": "Active",
     "moveTask": "Move task",
-    "git": "Repository"
+    "git": "Repository",
+    "newTask": "New task"
   },
   "stn": {
     "showCompletedItems": "Do not hide completed tasks",

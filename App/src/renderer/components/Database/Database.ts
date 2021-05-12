@@ -1,7 +1,7 @@
 import { Component, Watch } from 'vue-property-decorator';
 import { State } from 'vuex-class';
-import { NS_MAIN_STORE } from '@/store/types';
-import ZDatabaseLocal from '@/classes/ZDatabaseLocal';
+import { NS_MAIN_STORE } from '@/store/Types/Consts';
+import DatabaseLocal from '@/classes/DatabaseLocal';
 import ZMixin from '@/mixins/mixin';
 import { $database, createDatabaseFile } from '@/store/plugins/API';
 import DatabaseUpdater from '@/classes/DatabaseUpdater';
@@ -103,7 +103,7 @@ export default class Database extends ZMixin {
 
         this.hideDialog();
 
-        if ( $database instanceof ZDatabaseLocal ) {
+        if ( $database instanceof DatabaseLocal ) {
             let updater = new DatabaseUpdater( this.version, $database );
             updater.updateDatabase();
         }
@@ -182,8 +182,8 @@ export default class Database extends ZMixin {
 
     deleteStorageListItem() {
         if ( this.itemWillBeDeleted ) {
-            if ( $database instanceof ZDatabaseLocal ) {
-                let data = $database.config.get<IConfigDataTaskView>( ZDatabaseLocal.localDataKey );
+            if ( $database instanceof DatabaseLocal ) {
+                let data = $database.config.get<IConfigDataTaskView>( DatabaseLocal.localDataKey );
                 if ( data ) {
                     for ( let k = 0; k < data.databaseList.length; k++ ) {
                         if ( data.databaseList[ k ].src == this.itemWillBeDeleted.src ) {
@@ -202,7 +202,7 @@ export default class Database extends ZMixin {
                         } );
                     } );
                 }
-                $database.config.set( ZDatabaseLocal.localDataKey, data );
+                $database.config.set( DatabaseLocal.localDataKey, data );
             }
         }
         this.showDeleteStorageFileDialog = false;
@@ -222,7 +222,7 @@ export default class Database extends ZMixin {
             this.showDialogOpenStorage = false;
             if ( $database.db.open === true && $database.db.name === filePath ) {
 
-                if ( $database instanceof ZDatabaseLocal ) {
+                if ( $database instanceof DatabaseLocal ) {
                     let updater = new DatabaseUpdater( this.version, $database );
                     updater.updateDatabase();
                 }

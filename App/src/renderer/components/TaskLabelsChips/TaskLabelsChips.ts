@@ -1,10 +1,10 @@
-import { Component, Prop, Watch } from 'vue-property-decorator';
+import { Component, Prop } from 'vue-property-decorator';
 import ZMixin from '@/mixins/mixin';
 import { IAppAddLabel, IAppLabel, IAppLabels } from '@/interfaces/IApp';
 import { Helper } from '@/classes/Helper';
 import { Action, State } from 'vuex-class';
-import { NS_GOALS } from '@/store/types';
-import { IGoalsStoreActions, IGoalStoreState } from '@/store/IGoalsStore';
+import { NS_GOALS } from '@/store/Types/Consts';
+import { IGoalsStoreActions } from '@/store/Types/Goals/IGoalsStoreActions';
 
 @Component
 export default class TaskLabelsChips extends ZMixin {
@@ -85,6 +85,7 @@ export default class TaskLabelsChips extends ZMixin {
             nestedId: this.nestedItemId,
             labels: e
         } );
+        this.emitChange();
     }
 
     editLabel( label: IAppLabel ) {
@@ -117,5 +118,9 @@ export default class TaskLabelsChips extends ZMixin {
     async updateLabel( label: IAppLabel ) {
         await this.updateLabelInDB( label );
         this.closeAddDialog();
+    }
+
+    emitChange() {
+        this.$emit( 'change' );
     }
 }

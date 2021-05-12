@@ -1,6 +1,6 @@
 import { Component, Prop } from 'vue-property-decorator';
 import ZMixin from '@/mixins/mixin';
-import { IArgUpdateArchiveGoalStatus } from '@/store/IGoalsStore';
+import { IArgUpdateArchiveGoalStatus } from '@/store/Types/Goals/Types';
 
 @Component
 export default class GoalItemMoreActions extends ZMixin {

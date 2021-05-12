@@ -1,9 +1,8 @@
 import { Getters, Mutations, Actions, Module } from 'vuex-smart-module'
-import { IMainStoreMutations } from '@/store/IMainStoreMutations';
-import { I18N } from '@/classes/IZDatabase';
-import { DEF_ACTIVE_RECORD_VAL, ITimeRecordActions } from '@/store/ITimeRecord';
 import { $database } from '@/store/plugins/API';
 import { Helper } from '@/classes/Helper';
+import { DEF_ACTIVE_RECORD_VAL } from '@/store/Types/TimeRecord/Types';
+import { ITimeRecordActions } from '@/store/Types/TimeRecord/ITimeRecordActions';
 
 /**
  * Class for root state each request to database
@@ -35,7 +34,10 @@ class TimeRecordStoreGetters extends Getters<TimeRecordStoreState> {
 
 }
 
-class TimeRecordStoreActions extends Actions<TimeRecordStoreState, TimeRecordStoreGetters, TimeRecordStoreMutations, TimeRecordStoreActions> implements ITimeRecordActions {
+class TimeRecordStoreActions extends Actions<TimeRecordStoreState,
+    TimeRecordStoreGetters,
+    TimeRecordStoreMutations,
+    TimeRecordStoreActions> implements ITimeRecordActions {
 
     stopTimeRecordForTask( taskId: number ): Promise<boolean> {
         let result = $database.stopTimeRecordForTask( {

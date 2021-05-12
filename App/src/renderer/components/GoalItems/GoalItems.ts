@@ -1,12 +1,12 @@
 import ZMixin from '@/mixins/mixin';
 import { Component } from 'vue-property-decorator'
 import { State, Action } from 'vuex-class';
-import { NS_GOALS } from '@/store/types';
+import { NS_GOALS } from '@/store/Types/Consts';
 import { Helper } from '@/classes/Helper';
 import { Watch } from 'vue-property-decorator';
-import { IGoalsStoreActions } from '@/store/IGoalsStore';
-import { IGoalItems } from '@/interfaces/IApp';
+import { IGoalChangeItemsOrder, IGoalItems } from '@/interfaces/IApp';
 import { ROUTE_NAME_NESTED_COMPONENTS } from '@/AppConsts';
+import { IGoalsStoreActions } from '@/store/Types/Goals/IGoalsStoreActions';
 
 @Component
 export default class GoalItems extends ZMixin {
@@ -63,14 +63,16 @@ export default class GoalItems extends ZMixin {
     }
 
     get canShowRightColumn() {
-        if ( this.$route.name === ROUTE_NAME_NESTED_COMPONENTS ) {
-            if ( this.$vuetify.breakpoint.sm ) {
-                return true;
-            } else {
-                return true;
-            }
-        }
-        return false;
+        return true;
+        // debugger
+        // if ( this.$route.name === ROUTE_NAME_NESTED_COMPONENTS ) {
+        //     if ( this.$vuetify.breakpoint.sm ) {
+        //         return true;
+        //     } else {
+        //         return true;
+        //     }
+        // }
+        // return false;
     }
 
     get sortedGoalItems(): IGoalItems {
@@ -88,11 +90,11 @@ export default class GoalItems extends ZMixin {
     }
 
     set sortedGoalItems( value: IGoalItems ) {
-        let items: { id: number, orderKey: number }[] = [];
+        let items: IGoalChangeItemsOrder = [];
         for ( let k in value ) {
             items.push( {
                 id: Number( value[ k ].id ),
-                orderKey: Number( k ) + 1
+                order_key: Number( k ) + 1
             } )
         }
         this.updateGoalItemsOrder( items );

@@ -1,12 +1,10 @@
 import { Getters, Mutations, Actions, Module } from 'vuex-smart-module'
-import {
-    AllAllowedSettings,
-    IAppItemValue,
-    IAppMainSettingsActions,
-    IAppMainSettingsMutation,
-    IAppMainSettingsState, IAppSettingsItems, setItemArg
-} from '@/store/IAppMainSettings';
+
 import { $database } from '@/store/plugins/API';
+import { IAppMainSettingsState } from '@/store/Types/AppSettings/IAppMainSettingsState';
+import { AllAllowedSettings, IAppSettingsItems } from '@/store/Types/AppSettings/Types';
+import { IAppMainSettingsMutation } from '@/store/Types/AppSettings/IAppMainSettingsMutations';
+import { IAppMainSettingsActions } from '@/store/Types/AppSettings/IAppMainSettingsActions';
 
 class AppMainSettingsState implements IAppMainSettingsState {
 
@@ -50,7 +48,10 @@ class AppMainSettingsMutations extends Mutations<AppMainSettingsState> implement
     }
 }
 
-class AppMainSettingsActions extends Actions<AppMainSettingsState, AppMainSettingsGetters, AppMainSettingsMutations, AppMainSettingsActions> implements IAppMainSettingsActions {
+class AppMainSettingsActions extends Actions<AppMainSettingsState,
+    AppMainSettingsGetters,
+    AppMainSettingsMutations,
+    AppMainSettingsActions> implements IAppMainSettingsActions {
 
     updateSettings() {
         let updateSettings: IAppSettingsItems = [];

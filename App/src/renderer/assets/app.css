@@ -1,6 +1,7 @@
-html{
+html {
     overflow-y: auto !important;
 }
+
 .w100 {
     width: 100%;
 }
@@ -8,8 +9,6 @@ html{
 .goal-color-container {
     padding: 1em 0.5em 0.9em 0.9em;
 }
-
-
 
 
 .theme--light .vionx-gray-bg__list-item {
@@ -279,7 +278,6 @@ Not supports in Firefox and IE */
 /*}*/
 
 
-
 .editor__menubar {
     transition: opacity 1s ease;
 }
@@ -312,7 +310,7 @@ Not supports in Firefox and IE */
     background: #555;
 }
 
- Lists COOL
+Lists COOL
 .hs-lists-container::-webkit-scrollbar {
     height: 2.4rem;
 }
@@ -422,4 +420,8 @@ Not supports in Firefox and IE */
 
 .app-border-radius {
     border-radius: 1em !important;
+}
+
+.rotate180 {
+    transform: rotate(180deg);
 }

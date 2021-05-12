@@ -1,6 +1,6 @@
 import { Component, Prop, Watch } from 'vue-property-decorator'
 import { State } from 'vuex-class';
-import { NS_MAIN_STORE } from '@/store/types';
+import { NS_MAIN_STORE } from '@/store/Types/Consts';
 import ZMixin from '@/mixins/mixin';
 import { Helper } from '@/classes/Helper';
 

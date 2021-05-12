@@ -2,14 +2,15 @@ import { Component, Vue, Watch } from 'vue-property-decorator';
 import { Action } from 'vuex-class';
 import ZMixin from '@/mixins/mixin';
 import { Helper } from '@/classes/Helper';
-import { NS_GOALS } from '@/store/types';
-import {
-    IGoalsStoreActions,
-    IReportResult,
-    IReportResultClean, IReportResultCleanItem
-} from '@/store/IGoalsStore';
-import { IAppVTableHeaderItem, IAppVTableHeaders } from '@/interfaces/IApp';
+import { NS_GOALS } from '@/store/Types/Consts';
+import { IAppVTableHeaderItem } from '@/interfaces/IApp';
 import HelperNode from '@/classes/HelperNode';
+import {
+    IReportResult,
+    IReportResultClean,
+    IReportResultCleanItem
+} from '@/store/Types/Goals/Types';
+import { IGoalsStoreActions } from '@/store/Types/Goals/IGoalsStoreActions';
 
 interface IHeader extends IAppVTableHeaderItem {
     active: boolean

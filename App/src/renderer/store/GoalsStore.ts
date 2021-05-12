@@ -3,36 +3,31 @@ import {
     IGoal, IGoalChangeItemsOrder,
     IGoalItem,
     IGoalItems,
-    IGoalNestedItems,
-    IGoals
+    IGoalNestedItems, IGoalNestedItemWithCommentAndReminder,
+    IGoals, TaskItem, TasksOrderItems
 } from '@/interfaces/IApp';
 import { Actions, Getters, Module, Mutations } from 'vuex-smart-module'
 import {
+    ArgFetchTasks,
     IArgAddGoal, IArgAddGoalItem,
     IArgCheckboxUpdate,
     IArgItemComment,
     IArgItemDate,
     IArgItemDescription,
-    IArgItemName, IArgNestedGoalItem, IArgReport, IArgSetGoalProgress, IArgUpdateArchiveGoalStatus,
+    IArgItemName, IArgAddTask, IArgReport, IArgSetGoalProgress, IArgUpdateArchiveGoalStatus,
     IArgUpdateGoal,
-    IGoalsStoreActions,
-    IGoalsStoreMutations, IGoalStoreState, INestedItem, INestedOrders, IReportResult, TMoveTaskArg
-} from '@/store/IGoalsStore';
+    IReportResult, NoMoreTasks, TMoveTaskArg, IArgAddTaskInMutation
+} from '@/store/Types/Goals/Types';
 import { $database } from '@/store/plugins/API';
-import { Vue } from 'vue-property-decorator';
-import { ITimeRecords } from '@/store/ITimeRecord';
+import { IGoalStoreState } from '@/store/Types/Goals/IGoalsState';
+import { IGoalsStoreMutations } from '@/store/Types/Goals/IGoalsStoreMutations';
+import { IGoalsStoreActions } from '@/store/Types/Goals/IGoalsStoreActions';
+import { ITimeRecords } from '@/store/Types/TimeRecord/Types';
 
 class GoalsStoreState implements IGoalStoreState {
-    /**
-     * Цели доступные
-     */
+
     goals: IGoals = [];
 
-    /**
-     * Первый уровень содежимого цели
-     * это могут быть заметки листы
-     * либо отдельные компоненты
-     */
     goalItems: IGoalItems = [];
 
     nestedGoalItems: IGoalNestedItems = [];
@@ -40,6 +35,27 @@ class GoalsStoreState implements IGoalStoreState {
     selectedNestedItemId: number = -1;
 
     labels: IAppLabels = [];
+
+    selectedTaskForDialog: IGoalNestedItemWithCommentAndReminder = {
+        checked: 0,
+        date_complete: 0,
+        date_creation: '',
+        description: '',
+        id: -1,
+        item_comment_date_creation: 0,
+        item_comment_id: 0,
+        item_comment_owner: '',
+        item_comment_parent_id: 0,
+        item_comment_text: '',
+        item_reminder_date_creation: 0,
+        item_reminder_exp_date: 0,
+        item_reminder_id: 0,
+        item_reminder_owner: '',
+        item_reminder_parent_id: 0,
+        labels: [],
+        order_key: 0,
+        parent_id: 0
+    };
 }
 
 class GoalsStoreGetters extends Getters<GoalsStoreState> {
@@ -58,6 +74,11 @@ class GoalsStoreMutations extends Mutations<GoalsStoreState> implements IGoalsSt
 
     setNestedGoalItems( nestedItems: IGoalNestedItems ) {
         this.state.nestedGoalItems = nestedItems;
+    }
+
+    addMoreTasks( nestedItems: IGoalNestedItems ) {
+        //TODO
+        this.state.nestedGoalItems = [ ...this.state.nestedGoalItems, ...nestedItems ];
     }
 
     setNestedGoalItemsCheckboxStatus( options: IArgCheckboxUpdate ): void {
@@ -144,11 +165,21 @@ class GoalsStoreMutations extends Mutations<GoalsStoreState> implements IGoalsSt
         }
     }
 
-    addNestedGoalItem( item: INestedItem ): void {
-        this.state.nestedGoalItems.push( item );
+    addTask( item: IArgAddTaskInMutation ): void {
+        // debugger
+        if ( item.insertAfterItem !== undefined ) {
+            for ( let i = 0; i < this.state.nestedGoalItems.length; i++ ) {
+                if ( this.state.nestedGoalItems[ i ].id == item.insertAfterItem ) {
+                    this.state.nestedGoalItems.splice( i + 1, 0, item.item );
+                    break;
+                }
+            }
+        } else {
+            this.state.nestedGoalItems.splice( item.insertAfterItem, 0, item.item );
+        }
     }
 
-    updateOrderForNestedItems( values: INestedOrders ) {
+    updateOrderForNestedItems( values: TasksOrderItems ) {
         values.map( ( item ) => {
             let stateItem = this.state.nestedGoalItems.find( ( x ) => x.id === item.id );
             if ( stateItem ) {
@@ -175,7 +206,7 @@ class GoalsStoreMutations extends Mutations<GoalsStoreState> implements IGoalsSt
         }
     }
 
-    deleteNestedItem( item: INestedItem ) {
+    deleteTask( item: TaskItem ) {
         for ( let i = 0; i < this.state.nestedGoalItems.length; i++ ) {
             if ( this.state.nestedGoalItems[ i ].id == item.id ) {
                 this.state.nestedGoalItems.splice( i, 1 );
@@ -187,7 +218,7 @@ class GoalsStoreMutations extends Mutations<GoalsStoreState> implements IGoalsSt
     setGoalsOrder( items: IGoalChangeItemsOrder ) {
         let orderIndex: { [ key: string ]: number } = {}
         items.forEach( function ( value ) {
-            orderIndex[ value.id ] = value.orderKey;
+            orderIndex[ value.id ] = value.order_key;
         } )
 
         this.state.goals.forEach( function ( value ) {
@@ -201,7 +232,7 @@ class GoalsStoreMutations extends Mutations<GoalsStoreState> implements IGoalsSt
     setGoalItemsOrder( items: IGoalChangeItemsOrder ) {
         let orderIndex: { [ key: string ]: number } = {}
         items.forEach( function ( value ) {
-            orderIndex[ value.id ] = value.orderKey;
+            orderIndex[ value.id ] = value.order_key;
         } )
 
         this.state.goalItems.forEach( function ( value ) {
@@ -215,7 +246,7 @@ class GoalsStoreMutations extends Mutations<GoalsStoreState> implements IGoalsSt
     setGoalNestedItemsOrder( items: IGoalChangeItemsOrder ) {
         let orderIndex: { [ key: string ]: number } = {}
         items.forEach( function ( value ) {
-            orderIndex[ value.id ] = value.orderKey;
+            orderIndex[ value.id ] = value.order_key;
         } )
 
         this.state.nestedGoalItems.forEach( function ( value ) {
@@ -278,7 +309,7 @@ class GoalsStoreMutations extends Mutations<GoalsStoreState> implements IGoalsSt
         }
     }
 
-    deleteNestedGoalItemsExpDate( item: IGoalNestedItems[0] ) {
+    deleteNestedGoalItemsExpDate( item: TaskItem ) {
         for ( let k in this.state.nestedGoalItems ) {
             if ( this.state.nestedGoalItems[ k ].id === item.id ) {
                 this.state.nestedGoalItems[ k ].item_reminder_exp_date = null;
@@ -286,23 +317,35 @@ class GoalsStoreMutations extends Mutations<GoalsStoreState> implements IGoalsSt
             }
         }
     }
+
+    setSelectedTaskForDialog( item: IGoalNestedItemWithCommentAndReminder ) {
+        this.state.selectedTaskForDialog = item;
+    }
 }
 
 class GoalsStoreActions extends Actions<GoalsStoreState, GoalsStoreGetters, GoalsStoreMutations, GoalsStoreActions> implements IGoalsStoreActions {
-    fetchGoalsFromStorage() {
+    async fetchGoals() {
         this.commit( 'setGoals', $database.fetchGoals() );
     }
 
-    fetchGoalItems( goalId: number ) {
-        this.fetchAllLabels();
+    async fetchGoalItems( goalId: number ) {
+        await this.fetchAllLabels();
         this.commit( 'setGoalItems', $database.fetchGoalItems( goalId ) );
     }
 
-    fetchNestedGoalItems( goalItemId: string ): void {
-        this.commit( 'setNestedGoalItems', $database.fetchNestedGoalItems( goalItemId ) );
+    async fetchTasks( options: ArgFetchTasks ) {
+        this.commit( 'setNestedGoalItems', $database.fetchTasks( options ) );
     }
 
-    updateNestedGoalItemsCheckboxStatus( options: IArgCheckboxUpdate ): void {
+    async loadMoreTasks( options: ArgFetchTasks ): Promise<void | NoMoreTasks> {
+        let tasks = $database.fetchTasks( options );
+        if ( tasks.length === 0 ) {
+            return true;
+        }
+        this.commit( 'addMoreTasks', tasks );
+    }
+
+    async updateTaskStatus( options: IArgCheckboxUpdate ) {
         let result = $database.updateNestedGoalItemCheckboxStatus( options );
         if ( result ) {
             this.commit( 'setNestedGoalItemsCheckboxStatus', options );
@@ -311,8 +354,8 @@ class GoalsStoreActions extends Actions<GoalsStoreState, GoalsStoreGetters, Goal
         }
     }
 
-    updateNestedGoalItemsExpDate( options: IArgItemDate ): void {
-        let result = $database.updateNestedGoalItemExpDate( options );
+    async updateTaskExpDate( options: IArgItemDate ) {
+        let result = $database.updateTaskExpDate( options );
         if ( result ) {
             this.commit( 'setNestedGoalItemsExpDate', options );
         } else {
@@ -320,7 +363,7 @@ class GoalsStoreActions extends Actions<GoalsStoreState, GoalsStoreGetters, Goal
         }
     }
 
-    updateNestedGoalItemsComment( options: IArgItemComment ): void {
+    async updateTaskComment( options: IArgItemComment ) {
         let result = $database.updateNestedGoalItemComment( options );
         if ( result ) {
             this.commit( 'setNestedGoalItemsComment', options );
@@ -329,7 +372,7 @@ class GoalsStoreActions extends Actions<GoalsStoreState, GoalsStoreGetters, Goal
         }
     }
 
-    updateNestedGoalItemDescription( options: IArgItemDescription ): void {
+    async updateTaskDescription( options: IArgItemDescription ) {
         let result = $database.updateNestedGoalItemDescriptions( options );
         if ( result ) {
             this.commit( 'setNestedGoalItemDescription', options );
@@ -338,191 +381,179 @@ class GoalsStoreActions extends Actions<GoalsStoreState, GoalsStoreGetters, Goal
         }
     }
 
-    updateGoalItemName( options: IArgItemName ) {
+    async updateGoalItemName( options: IArgItemName ) {
         let result = $database.updateGoalItemName( options );
         if ( result ) {
             this.commit( 'setGoalItemName', options );
         }
     }
 
-    addGoal( options: IArgAddGoal ): Promise<IGoal | false> {
+    async addGoal( options: IArgAddGoal ): Promise<IGoal | false> {
         let result: IGoal | false = $database.addGoal( options );
         if ( result ) {
             this.commit( 'addGoal', result );
         }
-        return new Promise( resolve => {
-            resolve( result );
-        } );
+        return result;
     }
 
-    deleteGoal( goal: IGoal ): void {
+    async deleteGoal( goal: IGoal ) {
         let result = $database.deleteGoal( goal );
         if ( result ) {
             this.commit( 'deleteGoal', goal );
         }
     }
 
-    updateGoal( goalInfo: IArgUpdateGoal ): void {
+    async updateGoal( goalInfo: IArgUpdateGoal ) {
         let result = $database.updateGoal( goalInfo );
         if ( result ) {
             this.commit( 'updateGoal', goalInfo );
         }
     }
 
-    addGoalItem( goalItem: IArgAddGoalItem ): void {
+    async addGoalItem( goalItem: IArgAddGoalItem ) {
         let result = $database.addGoalItem( goalItem );
         if ( result ) {
             this.commit( 'addGoalItem', result );
         }
     }
 
-    deleteGoalItem( id: number ): void {
+    async deleteGoalItem( id: number ) {
         let result = $database.deleteGoalItem( id );
         if ( result ) {
             this.commit( 'deleteGoalItem', id );
         }
     }
 
-    addNestedGoalItem( nestedItem: IArgNestedGoalItem ): void {
-        let result = $database.addNestedGoalItem( nestedItem );
+    async addTask( nestedItem: IArgAddTask ): Promise<TaskItem | false> {
+        let result = $database.addTask( nestedItem );
         if ( result ) {
-            this.commit( 'addNestedGoalItem', result.newItem );
+            this.commit( 'addTask', {
+                item: result.newItem,
+                insertAfterItem: nestedItem.insertAfterItem
+            } );
             this.commit( 'updateOrderForNestedItems', result.itemsOrder );
+            return result.newItem;
         }
+        return false;
     }
 
-    setArchiveGoalStatus( options: IArgUpdateArchiveGoalStatus ): void {
+    async setArchiveGoalStatus( options: IArgUpdateArchiveGoalStatus ) {
         let result = $database.setArchiveGoalStatus( options );
         if ( result ) {
             this.commit( 'setArchiveGoal', options );
         }
     }
 
-    fetchGoalProgress( goalId: number ) {
+    async fetchGoalProgress( goalId: number ) {
         let progress = $database.fetchProgressForGoal( goalId );
         this.commit( 'setGoalProgress', { goalId: goalId, progress: progress } );
     }
 
-    deleteNestedItem( item: INestedItem ): void {
-        let result = $database.deleteNestedItem( item );
+    async deleteTask( item: TaskItem ) {
+        let result = $database.deleteTask( item );
         if ( result ) {
-            this.commit( 'deleteNestedItem', item );
+            this.commit( 'deleteTask', item );
         }
     }
 
-    updateGoalsOrder( items: IGoalChangeItemsOrder ) {
+    async updateGoalsOrder( items: IGoalChangeItemsOrder ) {
         let result = $database.updateGoalsOrder( items );
         if ( result ) {
             this.commit( 'setGoalsOrder', items );
         }
     }
 
-    updateGoalItemsOrder( items: IGoalChangeItemsOrder ) {
+    async updateGoalItemsOrder( items: IGoalChangeItemsOrder ) {
         let result = $database.updateGoalItemsOrder( items );
         if ( result ) {
             this.commit( 'setGoalItemsOrder', items );
         }
     }
 
-    updateGoalNestedItemsOrder( items: IGoalChangeItemsOrder ) {
+    async updateGoalNestedItemsOrder( items: IGoalChangeItemsOrder ) {
         let result = $database.updateGoalNestedItemsOrder( items );
         if ( result ) {
             this.commit( 'setGoalNestedItemsOrder', items );
         }
     }
 
-    addNewLabelToDb( label: IAppAddLabel ): Promise<IAppLabel | false> {
+    async addNewLabelToDb( label: IAppAddLabel ): Promise<IAppLabel | false> {
         let result = $database.addNewLabel( label );
         if ( result !== false ) {
             this.commit( 'addNewLabel', result );
         }
-        return new Promise( ( resolve ) => {
-            resolve( result )
-        } );
+        return result;
     }
 
-    deleteLabelFromDb( label: IAppLabel ) {
+    async deleteLabelFromDb( label: IAppLabel ) {
         let result = $database.deleteLabel( label );
         if ( result ) {
             this.commit( 'deleteLabel', label );
         }
     }
 
-    fetchAllLabels() {
+    async fetchAllLabels() {
         let result = $database.fetchAllLabels();
         this.commit( 'setLabels', result );
     }
 
-    updateLabelsOnNestedItem( options: { nestedId: number; labels: IAppLabels } ) {
+    async updateLabelsOnNestedItem( options: { nestedId: number; labels: IAppLabels } ) {
         let result = $database.updateLabelsOnNestedItem( options );
         if ( result ) {
             this.commit( 'updateLabelsOnNestedItem', options );
         }
     }
 
-    fetchReportData( options: IArgReport ): Promise<IReportResult> {
-        let reportData = $database.fetchReportData( options );
-        return new Promise( resolve => {
-            resolve( reportData );
-        } );
+    async fetchReportData( options: IArgReport ): Promise<IReportResult> {
+        return $database.fetchReportData( options );
     }
 
-    fetchPlanReportData( options: IArgReport ): Promise<IReportResult> {
-        let reportData = $database.fetchPlanReportData( options );
-        return new Promise( resolve => {
-            resolve( reportData );
-        } );
+    async fetchPlanReportData( options: IArgReport ): Promise<IReportResult> {
+        return $database.fetchPlanReportData( options );
     }
 
-    fetchTimeActivityRecords( taskId: number ): Promise<ITimeRecords> {
-        let result = $database.fetchTimeActivityRecordsForTask( taskId );
-        return new Promise( resolve => {
-            resolve( result );
-        } );
+    async fetchTimeActivityRecords( taskId: number ): Promise<ITimeRecords> {
+        return $database.fetchTimeActivityRecordsForTask( taskId );
     }
 
-    fetchGoalItemStats( listId: number ): Promise<number> {
-        let result = $database.fetchGoalItemStats( listId );
-        return new Promise( resolve => {
-            resolve( result );
-        } )
+    async fetchGoalItemStats( listId: number ): Promise<number> {
+        return $database.fetchGoalItemStats( listId );
     }
 
-    updateLabel( label: IAppLabel ): Promise<boolean> {
+    async updateLabel( label: IAppLabel ): Promise<boolean> {
         let result = $database.updateLabel( label );
         if ( result ) {
             this.commit( 'updateLabelInfo', label );
         }
-        return new Promise( resolve => {
-            resolve( result );
-        } );
+        return result;
     }
 
-    fetchGoalItemsWithoutCommit( goalId: number ): Promise<IGoalItems> {
-        let result = $database.fetchGoalItems( goalId );
-        return new Promise( ( resolve ) => {
-            resolve( result )
-        } )
+    async fetchGoalItemsWithoutCommit( goalId: number ): Promise<IGoalItems> {
+        return $database.fetchGoalItems( goalId );
     }
 
-    moveTaskToNewList( options: { taskId: number; newParentListId: number } ): Promise<boolean> {
+    async moveTaskToNewList( options: { taskId: number; newParentListId: number } ): Promise<boolean> {
         let result = $database.moveTaskToNewList( options );
         if ( result ) {
             this.commit( 'removeNestedItemFromList', options );
         }
-        return new Promise( ( resolve ) => {
-            resolve( result );
-        } )
+        return result;
     }
 
-    deleteNestedGoalItemsExpDate( item: IGoalNestedItems[0] ): Promise<boolean> {
+    async deleteNestedGoalItemsExpDate( item: TaskItem ): Promise<boolean> {
         let result = $database.deleteNestedGoalItemsExpDate( item );
         if ( result ) {
             this.commit( 'deleteNestedGoalItemsExpDate', item );
         }
-        return new Promise( ( resolve ) => {
-            resolve( result );
-        } )
+        return result;
+    }
+
+    async fetchSelectedTaskForDialog( id: number ): Promise<IGoalNestedItemWithCommentAndReminder> {
+        let result = $database.fetchTaskById( id );
+        if ( result ) {
+            this.commit( 'setSelectedTaskForDialog', result );
+        }
+        return result;
     }
 }
 

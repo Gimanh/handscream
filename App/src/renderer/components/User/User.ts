@@ -1,33 +1,28 @@
 import { Component, Watch } from 'vue-property-decorator';
 import { Mutation, Action } from 'vuex-class';
-import { NS_GOALS, NS_MAIN_STORE } from '@/store/types';
+import { NS_GOALS, NS_MAIN_STORE } from '@/store/Types/Consts';
 import ZMixin from '@/mixins/mixin';
 import { $database } from '@/store/plugins/API';
+import { IGoalsStoreActions } from '@/store/Types/Goals/IGoalsStoreActions';
+import { IMainStoreMutations } from '@/store/Types/MainStore/IMainStoreMutations';
 
 @Component
 export default class User extends ZMixin {
 
-    @Mutation( 'setLayout', { namespace: NS_MAIN_STORE } ) setLayout;
-
-    @Action( 'fetchGoalsFromStorage', { namespace: NS_GOALS } ) fetchGoals;
-
-    /**
-     * Срабатывает постоянно так как при переходе от активной записи назад компонент создается
-     * @param val
-     * @param old
-     */
-    @Watch( 'database', { deep: true, immediate: true } )
-    handler( val, old ) {
-        // console.log( '@Watch( \'database\'' );
-        if ( val.hasActiveDb() ) {
-            // console.log( '@Watch( \'database\' HAS ACTIVE' );
-            this.fetchGoals();
-        }
-    }
-
     private _dialog: boolean = !this.isActiveDb;
 
     public showHintSelectGoal: boolean = false;
+
+    @Mutation( 'setLayout', { namespace: NS_MAIN_STORE } ) setLayout!: IMainStoreMutations['setLayout'];
+
+    @Action( 'fetchGoals', { namespace: NS_GOALS } ) fetchGoals!: IGoalsStoreActions['fetchGoals'];
+
+    @Watch( 'database', { deep: true, immediate: true } )
+    async handler( val ) {
+        if ( val.hasActiveDb() ) {
+            await this.fetchGoals().catch( this.logError );
+        }
+    }
 
     @Watch( '$route' )
     watcherRoute() {
@@ -57,11 +52,4 @@ export default class User extends ZMixin {
         }
         return false;
     }
-
-    beforeDestroy() {
-        // console.log('beforeDestroy');
-        //FIXME
-        // this.clearTargets();
-    }
-
 }

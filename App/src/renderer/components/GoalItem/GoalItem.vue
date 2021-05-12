@@ -1,25 +1,20 @@
 <template>
     <v-list-item
-        :to="{
-            name: 'nested-components',
-            params: {
-                nestedId: id.toString()
-            }
-        }"
+        :to="routeTo"
     >
         <v-list-item-action
             v-if="showStatsInListSettings"
             class="ma-0 mr-3"
         >
             <v-progress-circular
-                :value="stat"
+                :color="progressColor"
+                :value="100"
                 size="30"
                 width="2"
-                :color="progressColor"
             >
                 <span
-                    v-if="stat < 100"
-                    style="font-size: 12px"
+                    v-if="showStat"
+                    style="font-size: 12px; color: black;"
                 >
                     {{ stat }}
                 </span>
@@ -55,7 +50,7 @@
                                 </v-icon>
                             </v-btn>
                         </template>
-                        <span>{{ $t('msg.moreActions') }}</span>
+                        <span>{{ $t( 'msg.moreActions' ) }}</span>
                     </v-tooltip>
                 </template>
                 <v-list>
@@ -64,7 +59,7 @@
                     >
                         <v-list-item-content>
                             <v-list-item-title>
-                                {{ $t('msg.edit') }}
+                                {{ $t( 'msg.edit' ) }}
                             </v-list-item-title>
                         </v-list-item-content>
                         <v-list-item-action>
@@ -82,7 +77,7 @@
                     >
                         <v-list-item-content>
                             <v-list-item-title>
-                                {{ $t('msg.delete') }}
+                                {{ $t( 'msg.delete' ) }}
                             </v-list-item-title>
                         </v-list-item-content>
                         <v-list-item-action>
@@ -104,37 +99,6 @@
                 @cancel="deleteDialog = false"
                 @delete="deleteItem"
             />
-            <!--<v-bottom-sheet
-                v-model="deleteDialog"
-                inset
-                persistent
-            >
-                <v-sheet
-                    class="text-center app-form"
-                    height="100px"
-                >
-                    <v-icon color="red">
-                        warning
-                    </v-icon>
-                    <h4>
-                        {{ $t('msg.areYouWantDeleteRecord') }}
-                    </h4>
-                    <v-btn
-                        class="app-form-submit-btn"
-                        depressed
-                        @click="deleteDialog = false"
-                    >
-                        {{ $t('msg.cancel') }}
-                    </v-btn>
-                    <v-btn
-                        class="app-form-cancel-btn"
-                        depressed
-                        @click="deleteItem"
-                    >
-                        {{ $t('msg.agree') }}
-                    </v-btn>
-                </v-sheet>
-            </v-bottom-sheet>-->
             <v-divider />
         </v-list-item-action>
         <v-dialog
@@ -142,7 +106,7 @@
             width="500"
         >
             <v-card>
-                <v-card-title>{{ $t('msg.itemNameEditing') }}</v-card-title>
+                <v-card-title>{{ $t( 'msg.itemNameEditing' ) }}</v-card-title>
                 <v-divider />
                 <v-card-text style="height: 100px;">
                     <v-text-field
@@ -158,7 +122,7 @@
                         elevation="1"
                         @click="cancelEditing"
                     >
-                        {{ $t('msg.cancel') }}
+                        {{ $t( 'msg.cancel' ) }}
                     </v-btn>
                     <v-btn
                         color="blue--text darken-1"
@@ -166,7 +130,7 @@
                         :disabled="disabledSaveBtn"
                         @click="updateName"
                     >
-                        {{ $t('msg.save') }}
+                        {{ $t( 'msg.save' ) }}
                     </v-btn>
                 </v-card-actions>
             </v-card>
