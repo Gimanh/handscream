@@ -2,7 +2,7 @@
 
 import { app, BrowserWindow, Menu } from 'electron';
 
-app.allowRendererProcessReuse =  false;
+app.allowRendererProcessReuse = false;
 const isMac = process.platform === 'darwin';
 const template = [
     ...( isMac ? [ {
@@ -77,7 +77,7 @@ function createWindow() {
         minWidth: 600,
         minHeight: 300,
         webPreferences: {
-            enableRemoteModule:true,
+            enableRemoteModule: true,
             nodeIntegration: true,
             devTools: process.env.NODE_ENV === 'development'
         },
@@ -85,12 +85,12 @@ function createWindow() {
     mainWindow.maximize();
     mainWindow.loadURL( winURL );
 
-    // if ( process.env.NODE_ENV !== 'development' ) {
-    mainWindow.webContents.on( 'will-navigate', function ( e, url ) {
-        e.preventDefault();
-        require( 'electron' ).shell.openExternal( url );
-    } );
-    // }
+    if ( process.env.NODE_ENV !== 'development' ) {
+        mainWindow.webContents.on( 'will-navigate', function ( e, url ) {
+            e.preventDefault();
+            require( 'electron' ).shell.openExternal( url );
+        } );
+    }
 
     //for debugger
     // mainWindow.webContents.openDevTools();
