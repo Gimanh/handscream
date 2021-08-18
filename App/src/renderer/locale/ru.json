@@ -156,7 +156,11 @@
         "active": "Активная",
         "moveTask": "Перенести задачу",
         "git": "Репозиторий",
-        "newTask": "New task"
+        "newTask": "New task",
+        "server": "Сервер",
+        "login": "Логин",
+        "password": "Пароль",
+        "submit": "Отправить"
     },
     "stn": {
         "showCompletedItems": "Не скрывать выполненые задачи",

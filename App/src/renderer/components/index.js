@@ -45,3 +45,5 @@ export * from './TaskLabelsChips/components/AddEditLabelDialog'
 export * from './GoalNestedItemMove'
 export * from './AppBtn'
 export * from './AppTextArea'
+
+export * from './AppRemoteCredentialsForm'

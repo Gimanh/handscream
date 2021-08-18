@@ -14,6 +14,8 @@ export default class Start extends ZMixin {
 
     public showLicenseDialog: boolean = false;
 
+    public remote: boolean = false;
+
     @State( state => state[ NS_MAIN_STORE ].version ) version!: string;
 
     @Mutation( 'setLayout', { namespace: NS_MAIN_STORE } ) setLayout;
@@ -62,11 +64,15 @@ export default class Start extends ZMixin {
         this.$router.push( { name: 'user', params: { user: 'localUser' } } );
     }
 
+    useRemote() {
+        this.remote = true;
+    }
+
     created() {
         try {
-            initializeDatabase('local', this.version);
-        } catch (e) {
-            console.log(e);
+            initializeDatabase( 'local', this.version );
+        } catch ( e ) {
+            console.log( e );
         }
 
         let darkMode = $vionxConfig.get( 'darkMode' );
@@ -95,7 +101,7 @@ export default class Start extends ZMixin {
 
     mounted() {
         if ( process.env.NODE_ENV === 'development' ) {
-            this.useLocal();
+            // this.useLocal();
             // this.$router.push( '/localUser/goal/237/nested-components/28044200' );
             // setTimeout( () => {
             //     let el = document.getElementById( 'textarea-1784' );
@@ -104,5 +110,9 @@ export default class Start extends ZMixin {
             //     }
             // }, 100 );
         }
+    }
+
+    cancelRemote() {
+        this.remote = false;
     }
 }

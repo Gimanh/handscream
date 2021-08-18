@@ -1,7 +1,9 @@
 <template>
     <div class="text-xs-center">
         <form>
-            <v-row>
+            <v-row
+                v-if="!remote"
+            >
                 <v-col style="display: flex; justify-content: center;">
                     <v-btn
                         :disabled="!appliedTerms"
@@ -12,16 +14,21 @@
                         {{ $t( 'msg.local' ) }}
                     </v-btn>
                     <v-btn
-                        :disabled="true"
                         color="blue-grey"
+                        @click="useRemote"
                     >
                         {{ $t( 'msg.remote' ) }}
                     </v-btn>
                 </v-col>
             </v-row>
 
+            <app-remote-credentials-form
+                v-if="remote"
+                @cancel="cancelRemote"
+            />
 
             <v-row
+                v-if="!remote"
                 class="ma-0"
             >
                 <v-dialog
