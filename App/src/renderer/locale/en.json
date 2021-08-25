@@ -160,7 +160,9 @@
         "server": "Server",
         "login": "Login",
         "password": "Password",
-        "submit": "Submit"
+        "submit": "Submit",
+        "passwordRepeat": "Repeat password",
+        "email": "Email"
     },
     "stn": {
         "showCompletedItems": "Do not hide completed tasks",

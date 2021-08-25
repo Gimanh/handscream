@@ -47,3 +47,5 @@ export * from './AppBtn'
 export * from './AppTextArea'
 
 export * from './AppRemoteCredentialsForm'
+export * from './AppRemoteCredentialsForm/components/LoginForm'
+export * from './AppRemoteCredentialsForm/components/RegistrationForm'

@@ -160,7 +160,9 @@
         "server": "Сервер",
         "login": "Логин",
         "password": "Пароль",
-        "submit": "Отправить"
+        "submit": "Отправить",
+        "passwordRepeat": "Повторите пароль",
+        "email": "Почта"
     },
     "stn": {
         "showCompletedItems": "Не скрывать выполненые задачи",

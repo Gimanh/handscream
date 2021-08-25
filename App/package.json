@@ -95,6 +95,7 @@
     "multispinner": "^0.2.1",
     "node-loader": "^0.6.0",
     "node-sass": "^4.9.2",
+    "qs": "^6.10.1",
     "require-dir": "^1.0.0",
     "sass": "^1.24.5",
     "sass-loader": "^7.3.1",
