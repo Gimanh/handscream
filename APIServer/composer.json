@@ -1,0 +1,12 @@
+{
+    "require": {
+        "giman/zxc_php": "dev-master",
+        "ext-pdo": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "server/App",
+            "ZXC\\": "server/ZXC_PHP/src/ZXC"
+        }
+    }
+}

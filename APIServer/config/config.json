@@ -1,0 +1,98 @@
+{
+    "router": {
+        "enableCors": true,
+        "useAppMiddlewares": {
+            "appMiddlewareAlias": true,
+            "cors": true
+        },
+        "middlewares": {
+            "firstMiddlewareAlias": "App\\Middleware\\Route\\RouteMiddlewares:myMiddleware",
+            "secondMiddlewareAlias": "App\\Middleware\\Route\\RouteMiddlewares:myMiddleware2",
+            "appMiddlewareAlias": "App\\Middleware\\App\\AppMiddlewareClass",
+            "cors": "ZXC\\Modules\\Cors\\Middlewares\\Cors"
+        },
+        "notFoundHandler": "App\\RouteMiddlewares:notFound",
+        "routes": [
+            {
+                "middlewares": [
+                    "firstMiddlewareAlias"
+                ],
+                "method": "GET",
+                "route": "/",
+                "handler": "App\\Application:hello",
+                "children": {
+                    "middlewares": [
+                        "firstMiddlewareAlias",
+                        "secondMiddlewareAlias"
+                    ],
+                    "route": ":user",
+                    "handler": "App\\Application:helloUser",
+                    "children": {
+                        "middlewares": [],
+                        "route": "static/profile",
+                        "handler": "App\\Application:profile"
+                    }
+                }
+            },
+            {
+                "middlewares": [
+                    "firstMiddlewareAlias"
+                ],
+                "method": "GET",
+                "route": "/:user/static",
+                "handler": "App\\Application:helloStatic"
+            },
+            {
+                "middlewares": [],
+                "method": "POST",
+                "route": "/module/auth/login",
+                "handler": "ZXC\\Modules\\Auth\\Handlers\\AuthenticationLogin"
+            },
+            {
+                "middlewares": [],
+                "method": "POST",
+                "route": "/module/auth/registration",
+                "handler": "ZXC\\Modules\\Auth\\Handlers\\AuthenticationRegistration"
+            }
+        ]
+    },
+    "modules": {
+        "Auth": {
+            "class": "ZXC\\Modules\\Auth\\Auth",
+            "defer": false,
+            "options": {
+                "storageProvider": "ZXC\\Modules\\Auth\\Storages\\AuthPgSqlStorage",
+                "email": {
+                    "confirm": true,
+                    "codeProvider": ""
+                }
+            }
+        },
+        "DB": {
+            "class": "ZXC\\Modules\\DB\\DB",
+            "defer": true,
+            "options": {
+                "dsn": "pgsql:host=localhost;dbname=task_view_server",
+                "username": "test_user",
+                "password": "123456"
+            }
+        },
+        "Cors": {
+            "class": "ZXC\\Modules\\Cors\\Cors",
+            "defer": false,
+            "options": {
+                "origin": "http://localhost:9080",
+                "methods": [
+                    "POST",
+                    "GET",
+                    "OPTIONS"
+                ],
+                "credentials": true,
+                "maxAge": 86400,
+                "headers": [
+                    "content-type"
+                ]
+            }
+        }
+    }
+}

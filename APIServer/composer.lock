@@ -1,0 +1,73 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "fcd7aee2aa66d893f813a2fdc9addbb6",
+    "packages": [
+        {
+            "name": "giman/zxc_php",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Gimanh/ZXC_PHP.git",
+                "reference": "aa58ab984c9ca1788237494c281d6faa6145e223"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Gimanh/ZXC_PHP/zipball/aa58ab984c9ca1788237494c281d6faa6145e223",
+                "reference": "aa58ab984c9ca1788237494c281d6faa6145e223",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "php": ">=7.3"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "9.5.4"
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "ZXC\\": "src/ZXC"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Giman Nikolay",
+                    "email": "gimanhead@gmail.com"
+                }
+            ],
+            "description": "PHP micro framework",
+            "keywords": [
+                "api",
+                "framework",
+                "micro",
+                "router",
+                "zxc_php"
+            ],
+            "support": {
+                "issues": "https://github.com/Gimanh/ZXC_PHP/issues",
+                "source": "https://github.com/Gimanh/ZXC_PHP/tree/master"
+            },
+            "time": "2021-05-06T18:48:56+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": {
+        "giman/zxc_php": 20
+    },
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": [],
+    "plugin-api-version": "2.0.0"
+}
