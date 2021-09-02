@@ -14,8 +14,6 @@ class AppMiddlewareClass implements MiddlewareInterface
 {
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        $response = $handler->handle($request);
-        $response->getBody()->write('World');
-        return $response;
+        return $handler->handle($request);
     }
 }

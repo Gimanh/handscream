@@ -64,7 +64,7 @@
                 "storageProvider": "ZXC\\Modules\\Auth\\Storages\\AuthPgSqlStorage",
                 "email": {
                     "confirm": true,
-                    "codeProvider": ""
+                    "codeProvider": "App\\Auth\\RegistrationCodeProvider"
                 }
             }
         },
