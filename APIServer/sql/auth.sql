@@ -1,4 +1,5 @@
-CREATE SCHEMA IF NOT EXISTS tv_auth;
+CREATE
+SCHEMA IF NOT EXISTS tv_auth;
 CREATE TABLE IF NOT EXISTS tv_auth.users
 (
     id                   serial PRIMARY KEY,
@@ -11,6 +12,8 @@ CREATE TABLE IF NOT EXISTS tv_auth.users
     remember_token       varchar(256)
 );
 CREATE UNIQUE INDEX IF NOT EXISTS users_id ON tv_auth.users (id);
+CREATE UNIQUE INDEX IF NOT EXISTS users_email ON tv_auth.users (email);
+CREATE UNIQUE INDEX IF NOT EXISTS users_login ON tv_auth.users (login);
 
 CREATE TABLE IF NOT EXISTS tv_auth.sessions
 (
@@ -73,34 +76,48 @@ CREATE TABLE IF NOT EXISTS tv_auth.user_to_groups
 alter table tv_auth.user_to_groups
     add constraint user_to_groups_groups_id_fk
         foreign key (group_id) references tv_auth.groups
-            on delete cascade;
+    on
+delete
+cascade;
 
 alter table tv_auth.user_to_groups
     add constraint user_to_groups_users_id_fk
         foreign key (user_id) references tv_auth.users
-            on delete cascade;
+    on
+delete
+cascade;
 
 alter table tv_auth.sessions
     add constraint sessions_user_id_fk
         foreign key (user_id) references tv_auth.users
-            on delete cascade;
+    on
+delete
+cascade;
 
 alter table tv_auth.role_to_permissions
     add constraint role_to_permissions_role_id_fk
         foreign key (role_id) references tv_auth.roles
-            on delete cascade;
+    on
+delete
+cascade;
 
 alter table tv_auth.role_to_permissions
     add constraint role_to_permissions_permission_id_fk
         foreign key (permission_id) references tv_auth.permissions
-            on delete cascade;
+    on
+delete
+cascade;
 
 alter table tv_auth.group_to_roles
     add constraint group_to_roles_group_id_fk
         foreign key (group_id) references tv_auth.groups
-            on delete cascade;
+    on
+delete
+cascade;
 
 alter table tv_auth.group_to_roles
     add constraint group_to_roles_role_id_fk
         foreign key (role_id) references tv_auth.roles
-            on delete cascade;
+    on
+delete
+cascade;
