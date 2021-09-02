@@ -1,5 +1,5 @@
 import { Component, Vue } from 'vue-property-decorator';
-import { NS_GOALS, NS_MAIN_STORE, NS_SETTINGS, NS_TIME_CONTROL } from '@/store/Types/Consts.ts';
+import { NS_GOALS, NS_MAIN_STORE, NS_SETTINGS, NS_TIME_CONTROL } from '@/store/Types/Consts';
 import { State } from 'vuex-class';
 import { registerModule } from 'vuex-smart-module';
 import mainStore from '@/store/MainStore'

@@ -33,7 +33,7 @@
     "vuex-electron": "^1.0.0"
   },
   "devDependencies": {
-    "@mdi/font": "^5.0.45",
+    "@mdi/font": "^5.9.55",
     "@types/better-sqlite3": "^5.4.0",
     "@vue/cli-plugin-eslint": "^3.8.0",
     "@vue/eslint-config-airbnb": "^4.0.0",
