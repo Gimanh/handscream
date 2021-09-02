@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fcd7aee2aa66d893f813a2fdc9addbb6",
+    "content-hash": "25cf40d59e4074d414b366d4feedf7c9",
     "packages": [
         {
             "name": "giman/zxc_php",
@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Gimanh/ZXC_PHP.git",
-                "reference": "aa58ab984c9ca1788237494c281d6faa6145e223"
+                "reference": "cc8d06b96a1ce003ea9024938facadaf2cd13d5d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Gimanh/ZXC_PHP/zipball/aa58ab984c9ca1788237494c281d6faa6145e223",
-                "reference": "aa58ab984c9ca1788237494c281d6faa6145e223",
+                "url": "https://api.github.com/repos/Gimanh/ZXC_PHP/zipball/cc8d06b96a1ce003ea9024938facadaf2cd13d5d",
+                "reference": "cc8d06b96a1ce003ea9024938facadaf2cd13d5d",
                 "shasum": ""
             },
             "require": {
@@ -56,7 +56,7 @@
                 "issues": "https://github.com/Gimanh/ZXC_PHP/issues",
                 "source": "https://github.com/Gimanh/ZXC_PHP/tree/master"
             },
-            "time": "2021-05-06T18:48:56+00:00"
+            "time": "2021-08-08T16:37:04+00:00"
         }
     ],
     "packages-dev": [],
@@ -67,7 +67,9 @@
     },
     "prefer-stable": false,
     "prefer-lowest": false,
-    "platform": [],
+    "platform": {
+        "ext-pdo": "*"
+    },
     "platform-dev": [],
     "plugin-api-version": "2.0.0"
 }
