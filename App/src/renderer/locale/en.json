@@ -162,7 +162,11 @@
         "password": "Password",
         "submit": "Submit",
         "passwordRepeat": "Repeat password",
-        "email": "Email"
+        "email": "Email",
+        "registrationError": "Registration error.",
+        "registrationSuccess": "Registration successful.",
+        "confirmEmail": "Please confirm email.",
+        "registration": "Registration"
     },
     "stn": {
         "showCompletedItems": "Do not hide completed tasks",

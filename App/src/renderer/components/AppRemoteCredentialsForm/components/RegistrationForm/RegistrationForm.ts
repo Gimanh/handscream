@@ -2,6 +2,7 @@ import { Component } from 'vue-property-decorator';
 import ZMixin from '@/mixins/mixin';
 import axios from 'axios';
 import qs from 'qs';
+import { RegistrationResult } from '@/components/AppRemoteCredentialsForm/components/RegistrationForm/Types';
 
 @Component
 export default class RegistrationForm extends ZMixin {
@@ -18,9 +19,34 @@ export default class RegistrationForm extends ZMixin {
 
     public valid: boolean = true;
 
-    $refs!: {
+    public registrationResponse: RegistrationResult = {
+        registration: false,
+        confirmEmail: false
+    };
+
+    public $refs!: {
         form: any
     };
+
+    public showAlert: boolean = false;
+
+    get alertType() {
+        return this.registrationResponse.registration ? 'success' : 'warning';
+    }
+
+    get messageRegistration(): string {
+        if ( this.registrationResponse.registration ) {
+            return this.$t( 'msg.registrationSuccess' ) as string;
+        }
+        return this.$t( 'msg.registrationError' ) as string;
+    }
+
+    get confirmMessage(): string {
+        if ( this.registrationResponse.confirmEmail ) {
+            return this.$t( 'msg.confirmEmail' ) as string;
+        }
+        return '';
+    }
 
     get credentialsRules() {
         return [
@@ -28,8 +54,8 @@ export default class RegistrationForm extends ZMixin {
         ];
     }
 
-    get serverLabel() {
-        return this.$t( 'msg.server' );
+    get serverLabel(): string {
+        return this.$t( 'msg.server' ) as string;
     }
 
     get loginLabel() {
@@ -63,7 +89,7 @@ export default class RegistrationForm extends ZMixin {
         ];
     }
 
-    submit() {
+    async submit() {
         let { server, login, password, passwordRepeat, email } = this;
         let data = {
             email: email.toLowerCase(),
@@ -72,11 +98,12 @@ export default class RegistrationForm extends ZMixin {
             passwordRepeat
         };
         let validation = this.$refs.form.validate();
-        console.log( validation );
         if ( validation ) {
-            axios.post( server, qs.stringify( data ) ).then(
-                ( result ) => console.log( result )
-            );
+            let result = await axios.post<RegistrationResult>( server, qs.stringify( data ) ).catch( this.logError );
+            if ( result ) {
+                this.registrationResponse = result.data;
+                this.showAlert = true;
+            }
         }
     }
 

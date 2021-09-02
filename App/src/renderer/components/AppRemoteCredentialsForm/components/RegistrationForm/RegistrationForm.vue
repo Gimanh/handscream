@@ -3,6 +3,18 @@
         ref="form"
         v-model="valid"
     >
+        <v-alert
+            v-model="showAlert"
+            :type="alertType"
+            dismissible
+        >
+            <div>
+                {{ messageRegistration }}
+            </div>
+            <div>
+                {{ confirmMessage }}
+            </div>
+        </v-alert>
         <v-text-field
             v-model="server"
             :label="serverLabel"

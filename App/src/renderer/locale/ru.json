@@ -162,7 +162,11 @@
         "password": "Пароль",
         "submit": "Отправить",
         "passwordRepeat": "Повторите пароль",
-        "email": "Почта"
+        "email": "Почта",
+        "registrationError": "Ошибка регистрации.",
+        "registrationSuccess": "Успешная регистрация.",
+        "confirmEmail": "Пожалуйста, подтвердите почту.",
+        "registration": "Регистрация"
     },
     "stn": {
         "showCompletedItems": "Не скрывать выполненые задачи",
