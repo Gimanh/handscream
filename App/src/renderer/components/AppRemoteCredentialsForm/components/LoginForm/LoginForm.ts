@@ -9,7 +9,7 @@ export default class LoginForm extends ZMixin {
 
     public login: string = 'user';
 
-    public password: string = 'user1!';
+    public password: string = 'user1!#Q';
 
     public valid: boolean = true;
 
