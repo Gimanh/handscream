@@ -1,5 +1,4 @@
-CREATE
-SCHEMA IF NOT EXISTS tv_auth;
+CREATE SCHEMA IF NOT EXISTS tv_auth;
 CREATE TABLE IF NOT EXISTS tv_auth.users
 (
     id                   serial PRIMARY KEY,
@@ -76,48 +75,78 @@ CREATE TABLE IF NOT EXISTS tv_auth.user_to_groups
 alter table tv_auth.user_to_groups
     add constraint user_to_groups_groups_id_fk
         foreign key (group_id) references tv_auth.groups
-    on
-delete
-cascade;
+            on delete cascade;
 
 alter table tv_auth.user_to_groups
     add constraint user_to_groups_users_id_fk
         foreign key (user_id) references tv_auth.users
-    on
-delete
-cascade;
+            on delete cascade;
 
 alter table tv_auth.sessions
     add constraint sessions_user_id_fk
         foreign key (user_id) references tv_auth.users
-    on
-delete
-cascade;
+            on delete cascade;
 
 alter table tv_auth.role_to_permissions
     add constraint role_to_permissions_role_id_fk
         foreign key (role_id) references tv_auth.roles
-    on
-delete
-cascade;
+            on delete cascade;
 
 alter table tv_auth.role_to_permissions
     add constraint role_to_permissions_permission_id_fk
         foreign key (permission_id) references tv_auth.permissions
-    on
-delete
-cascade;
+            on delete cascade;
 
 alter table tv_auth.group_to_roles
     add constraint group_to_roles_group_id_fk
         foreign key (group_id) references tv_auth.groups
-    on
-delete
-cascade;
+            on delete cascade;
 
 alter table tv_auth.group_to_roles
     add constraint group_to_roles_role_id_fk
         foreign key (role_id) references tv_auth.roles
-    on
-delete
-cascade;
+            on delete cascade;
+
+--FIXME test data start
+INSERT INTO tv_auth.permissions (id, name, description)
+VALUES (1, 'read', 'Read'),
+       (2, 'edit', 'Edit'),
+       (3, 'delete', 'Delete'),
+       (4, 'create', 'Create'),
+       (5, 'block_users', 'Block users');
+
+INSERT INTO tv_auth.roles (id, name, description)
+VALUES (1, 'user', 'User'),
+       (2, 'moderator', 'Moderator'),
+       (3, 'writer', 'Writer'),
+       (4, 'guest', 'Guest');
+
+INSERT INTO tv_auth.groups (id, name, description)
+VALUES (1, 'users', 'App users'),
+       (2, 'stuff', 'App stuff'),
+       (3, 'guest', 'Guest');
+
+INSERT INTO tv_auth.role_to_permissions (role_id, permission_id)
+VALUES (1, 1),
+       (1, 2),
+       (1, 3),
+       (1, 4),
+       (2, 3),
+       (2, 5),
+       (3, 1),
+       (3, 2),
+       (3, 3),
+       (3, 4),
+       (4, 1);
+INSERT INTO tv_auth.group_to_roles (group_id, role_id)
+VALUES (1, 1),
+       (2, 1),
+       (2, 2),
+       (3, 4);
+
+INSERT INTO tv_auth.users (id, login, email, password, block, confirm_email_code, remind_password_code, remember_token)
+VALUES (1, 'user', 'test@mail.dest', '$2y$10$q8SLauZ0Syz9aEFdiq0i8.jIlafLj5T0ujXYD7RmRzyNkZ2hR7uhO', 0,
+        '40390b741a906a45119390922eaaff1d', null, null);
+
+INSERT INTO tv_auth.user_to_groups (user_id, group_id) VALUES (1,1);
+--FIXME test data end
