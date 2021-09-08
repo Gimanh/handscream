@@ -14,9 +14,11 @@ import VueI18n from 'vue-i18n'
 import draggable from 'vuedraggable'
 import VueCtkDateTimePicker from 'vue-ctk-date-time-picker';
 import vuetify from '@/plugins/vuetify'
+import { AxiosPlugin } from '@/plugins/axios';
 
 Vue.use( VueI18n );
 Vue.use( TaskView );
+Vue.use( AxiosPlugin, { withCredentials: true } );
 
 if ( !process.env.IS_WEB ) Vue.use( require( 'vue-electron' ) );
 
@@ -47,6 +49,7 @@ const i18n = new VueI18n( {
     silentTranslationWarn: true,
 } );
 
+let qwee = { q: 'w' };
 /* eslint-disable no-new */
 new Vue( {
     components: { App },

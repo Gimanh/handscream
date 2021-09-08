@@ -1,6 +1,5 @@
 import { Component } from 'vue-property-decorator';
 import ZMixin from '@/mixins/mixin';
-import axios from 'axios';
 import qs from 'qs';
 
 @Component
@@ -41,7 +40,7 @@ export default class LoginForm extends ZMixin {
         let validation = this.$refs.form.validate();
         console.log( validation );
         if ( validation ) {
-            axios.post( server, qs.stringify( data ) ).then(
+            this.$axios.post( server, qs.stringify( data ) ).then(
                 ( result ) => console.log( result )
             );
         }
