@@ -1,7 +1,8 @@
 {
     "require": {
         "giman/zxc_php": "dev-master",
-        "ext-pdo": "*"
+        "ext-pdo": "*",
+        "ext-json": "*"
     },
     "autoload": {
         "psr-4": {

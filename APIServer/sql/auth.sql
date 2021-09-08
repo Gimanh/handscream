@@ -14,7 +14,7 @@ CREATE UNIQUE INDEX IF NOT EXISTS users_id ON tv_auth.users (id);
 CREATE UNIQUE INDEX IF NOT EXISTS users_email ON tv_auth.users (email);
 CREATE UNIQUE INDEX IF NOT EXISTS users_login ON tv_auth.users (login);
 
-CREATE TABLE IF NOT EXISTS tv_auth.sessions
+CREATE TABLE IF NOT EXISTS tv_auth.user_tokens
 (
     id            serial PRIMARY KEY,
     user_id       integer,
@@ -23,7 +23,19 @@ CREATE TABLE IF NOT EXISTS tv_auth.sessions
     user_ip       varchar(50),
     time_creation timestamp default now()
 );
+CREATE UNIQUE INDEX IF NOT EXISTS user_tokens_id ON tv_auth.user_tokens (id);
+
+CREATE TABLE IF NOT EXISTS tv_auth.sessions
+(
+    id            serial PRIMARY KEY,
+    user_id       integer,
+    session_id    varchar(32),
+    session_data  varchar(500),
+    user_ip       varchar(50),
+    time_creation timestamp default now()
+);
 CREATE UNIQUE INDEX IF NOT EXISTS session_id ON tv_auth.sessions (id);
+CREATE UNIQUE INDEX IF NOT EXISTS session_session_id ON tv_auth.sessions (session_id);
 
 CREATE TABLE IF NOT EXISTS tv_auth.permissions
 (
@@ -79,6 +91,11 @@ alter table tv_auth.user_to_groups
 
 alter table tv_auth.user_to_groups
     add constraint user_to_groups_users_id_fk
+        foreign key (user_id) references tv_auth.users
+            on delete cascade;
+
+alter table tv_auth.user_tokens
+    add constraint user_tokens_user_id_fk
         foreign key (user_id) references tv_auth.users
             on delete cascade;
 
@@ -148,5 +165,6 @@ INSERT INTO tv_auth.users (id, login, email, password, block, confirm_email_code
 VALUES (1, 'user', 'test@mail.dest', '$2y$10$q8SLauZ0Syz9aEFdiq0i8.jIlafLj5T0ujXYD7RmRzyNkZ2hR7uhO', 0,
         '40390b741a906a45119390922eaaff1d', null, null);
 
-INSERT INTO tv_auth.user_to_groups (user_id, group_id) VALUES (1,1);
+INSERT INTO tv_auth.user_to_groups (user_id, group_id)
+VALUES (1, 1);
 --FIXME test data end
