@@ -24,13 +24,14 @@
   },
   "main": "./dist/electron/main.js",
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.21.4",
     "better-sqlite3": "^7.1.1",
     "vue": "^2.5.16",
     "vue-electron": "^1.0.6",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1",
-    "vuex-electron": "^1.0.0"
+    "vuex-electron": "^1.0.0",
+    "qs": "^6.10.1"
   },
   "devDependencies": {
     "@mdi/font": "^5.9.55",
@@ -95,7 +96,6 @@
     "multispinner": "^0.2.1",
     "node-loader": "^0.6.0",
     "node-sass": "^4.9.2",
-    "qs": "^6.10.1",
     "require-dir": "^1.0.0",
     "sass": "^1.24.5",
     "sass-loader": "^7.3.1",
