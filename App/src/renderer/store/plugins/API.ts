@@ -3,17 +3,18 @@ import DatabaseLocal from '@/classes/DatabaseLocal';
 import DatabaseUpdater from '@/classes/DatabaseUpdater';
 import Vue from 'vue';
 import { ConfigStore } from '@/classes/ConfigStore';
+import ZDatabaseRemote from '@/classes/ZDatabaseRemote';
 
 let $database: IZDatabase;
 let $vionxConfig: ConfigStore = new ConfigStore( DatabaseLocal.configFileName, DatabaseLocal.databaseDirectoryName );
 
-export function initializeDatabase( mode: string, version ) {
+type Modes = 'local' | 'remote';
 
+export function initializeDatabase( mode: Modes, version: string ) {
     if ( mode === 'local' ) {
         $database = new DatabaseLocal();
         let configData = $database.getConfigData();
         let successOpen = $database.openDatabase( { path: configData.lastOpenedDatabase } );
-
         if ( successOpen ) {
             if ( $database instanceof DatabaseLocal ) {
                 let updater = new DatabaseUpdater( version, $database );
@@ -21,10 +22,9 @@ export function initializeDatabase( mode: string, version ) {
             }
         }
         $database = Vue.observable( $database );
-
-
     } else {
         //TODO remote plugin
+        $database = new ZDatabaseRemote();
     }
 }
 

@@ -20,5 +20,6 @@ export default class App extends Vue {
         registerModule( this.$store, NS_SETTINGS, NS_SETTINGS, settingsStore );
         registerModule( this.$store, NS_TIME_CONTROL, NS_TIME_CONTROL, timeControl );
         this.$router.push( '/' );
+        this.$ls.checkTokenAndSetForAxios(this.$axios);
     }
 }

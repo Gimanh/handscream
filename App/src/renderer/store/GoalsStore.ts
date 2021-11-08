@@ -77,8 +77,7 @@ class GoalsStoreMutations extends Mutations<GoalsStoreState> implements IGoalsSt
     }
 
     addMoreTasks( nestedItems: IGoalNestedItems ) {
-        //TODO
-        this.state.nestedGoalItems = [ ...this.state.nestedGoalItems, ...nestedItems ];
+        this.state.nestedGoalItems = this.state.nestedGoalItems.concat(nestedItems);
     }
 
     setNestedGoalItemsCheckboxStatus( options: IArgCheckboxUpdate ): void {

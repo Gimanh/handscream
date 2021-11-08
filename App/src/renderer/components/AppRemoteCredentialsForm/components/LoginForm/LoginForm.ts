@@ -1,10 +1,17 @@
 import { Component } from 'vue-property-decorator';
 import ZMixin from '@/mixins/mixin';
 import qs from 'qs';
+import { LoginResponse } from '@/components/AppRemoteCredentialsForm/components/LoginForm/Types';
+import { Mutation } from 'vuex-class';
+import { NS_MAIN_STORE } from '@/store/Types/Consts';
+import { initializeDatabase } from '@/store/plugins/API';
 
 @Component
 export default class LoginForm extends ZMixin {
-    public server: string = 'http://taskviewapi.com/module/auth/login';
+
+    @Mutation( 'setLayout', { namespace: NS_MAIN_STORE } ) setLayout;
+
+    public server: string = 'http://tvapi.localhost/module/auth/login';
 
     public login: string = 'user';
 
@@ -34,15 +41,20 @@ export default class LoginForm extends ZMixin {
         return this.$t( 'msg.password' )
     }
 
-    submit() {
+    async submit() {
         let { server, login, password } = this;
         let data = { login, password };
         let validation = this.$refs.form.validate();
-        console.log( validation );
         if ( validation ) {
-            this.$axios.post( server, qs.stringify( data ) ).then(
-                ( result ) => console.log( result )
-            );
+            let result = await this.$axios.post<LoginResponse>( server, qs.stringify( data ) );
+            if ( result && result.data ) {
+                this.$ls.setToken( result.data.access );
+                this.$ls.setRefreshToken( result.data.refresh );
+                this.$ls.checkTokenAndSetForAxios( this.$axios );
+                initializeDatabase( 'remote', this.version );
+                this.setLayout( 'MainLayout' );
+                this.$router.push( { name: 'user', params: { user: result.data.userData.login } } );
+            }
         }
     }
 

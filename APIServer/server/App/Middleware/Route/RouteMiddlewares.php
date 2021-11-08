@@ -15,7 +15,7 @@ class RouteMiddlewares
     public function myMiddleware(ServerRequestInterface $request, RequestHandlerInterface $handler)
     {
         $response = $handler->handle($request);
-        $response->getBody()->write(' [middleware first======] ');
+        $response->getBody()->write(' [middleware first=11=====] ');
         return $response;
     }
 

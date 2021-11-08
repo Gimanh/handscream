@@ -15,14 +15,22 @@ import draggable from 'vuedraggable'
 import VueCtkDateTimePicker from 'vue-ctk-date-time-picker';
 import vuetify from '@/plugins/vuetify'
 import { AxiosPlugin } from '@/plugins/axios';
+import { LocalStoragePlugin } from '@/plugins/local_storage';
 
 Vue.use( VueI18n );
 Vue.use( TaskView );
-Vue.use( AxiosPlugin, { withCredentials: true } );
+Vue.use( LocalStoragePlugin, { namespace: 'tv' } );
+Vue.use( AxiosPlugin, {
+    withCredentials: true,
+    baseURL: 'http://tvapi.localhost',
+    xsrfHeaderName: 'X-XSRF-TOKEN',
+    xsrfCookieName: 'XSRF-TOKEN',
+    adapter: require( 'axios/lib/adapters/xhr' )
+} );
 
 if ( !process.env.IS_WEB ) Vue.use( require( 'vue-electron' ) );
 
-Vue.http = Vue.prototype.$http = axios;
+// Vue.http = Vue.prototype.$http = axios;
 Vue.config.productionTip = false;
 
 Vue.component( 'draggable', draggable );
@@ -49,7 +57,6 @@ const i18n = new VueI18n( {
     silentTranslationWarn: true,
 } );
 
-let qwee = { q: 'w' };
 /* eslint-disable no-new */
 new Vue( {
     components: { App },

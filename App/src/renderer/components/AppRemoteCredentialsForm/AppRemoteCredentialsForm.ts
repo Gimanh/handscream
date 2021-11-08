@@ -9,11 +9,11 @@ export default class AppRemoteCredentialsForm extends ZMixin {
         return [
             {
                 'title': this.$t( 'msg.login' ),
-                'component':'login-form'
+                'component': 'login-form'
             },
             {
                 'title': this.$t( 'msg.registration' ),
-                'component':'registration-form'
+                'component': 'registration-form'
             }
         ];
     }

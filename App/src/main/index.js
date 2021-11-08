@@ -2,6 +2,10 @@
 
 import { app, BrowserWindow, Menu } from 'electron';
 
+if ( process.env.NODE_ENV === 'development' ) {
+    app.commandLine.appendSwitch( 'ignore-certificate-errors' );
+}
+
 app.allowRendererProcessReuse = false;
 const isMac = process.platform === 'darwin';
 const template = [

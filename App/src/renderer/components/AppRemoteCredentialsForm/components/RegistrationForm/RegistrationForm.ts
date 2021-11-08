@@ -7,7 +7,7 @@ import { RegistrationResult } from '@/components/AppRemoteCredentialsForm/compon
 @Component
 export default class RegistrationForm extends ZMixin {
 
-    public server: string = 'http://taskviewapi.com/module/auth/registration';
+    public server: string = 'http://tvapi.localhost/module/auth/registration';
 
     public login: string = 'user';
 
