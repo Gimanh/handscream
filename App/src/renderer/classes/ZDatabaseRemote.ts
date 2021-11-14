@@ -32,13 +32,14 @@ import { IConfigDataTaskView } from '@/classes/IConfigStore';
 
 export default class ZDatabaseRemote implements IZDatabase {
     constructor() {
-        debugger
+
     }
 
     config: ConfigStore;
     db: any;
 
     addGoal( options: IArgAddGoal ): IGoal | false {
+        debugger
         return undefined;
     }
 
@@ -157,9 +158,9 @@ export default class ZDatabaseRemote implements IZDatabase {
         return false;
     }
 
-    openDatabase( options?: DatabaseConnectOptions ): boolean {
-        return false;
-    }
+    // openDatabase( options?: DatabaseConnectOptions ): boolean {
+    //     return false;
+    // }
 
     setArchiveGoalStatus( options: IArgUpdateArchiveGoalStatus ): boolean {
         return false;

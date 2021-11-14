@@ -1,7 +1,7 @@
 import { Component } from 'vue-property-decorator';
 import { State, Mutation, Action } from 'vuex-class';
 import { KEY_CFG_LICENSE, NS_MAIN_STORE } from '@/store/Types/Consts';
-import { $vionxConfig, initializeDatabase } from '@/store/plugins/API';
+import { $vionxConfig, initializeDatabase, ApplicationModes } from '@/store/plugins/API';
 import { IConfigAll, IConfigStoreLicense } from '@/classes/IConfigStore';
 import ZMixin from '@/mixins/mixin';
 
@@ -25,6 +25,8 @@ export default class Start extends ZMixin {
     @Action( 'fetchLicenseText', { namespace: NS_MAIN_STORE } ) fetchLicenseText!: () => void;
 
     @Action( 'fetchRepository', { namespace: NS_MAIN_STORE } ) fetchRepository!: () => void;
+
+    @Mutation( 'setUsagesMode', { namespace: NS_MAIN_STORE } ) setUsagesMode!: ( v: ApplicationModes ) => void;
 
     get checkBoxRule() {
         return [ v => !!v || this.$t( 'msg.mustAgree' ) ];
@@ -66,6 +68,7 @@ export default class Start extends ZMixin {
 
     useRemote() {
         this.remote = true;
+        this.setUsagesMode( 'remote' );
     }
 
     created() {

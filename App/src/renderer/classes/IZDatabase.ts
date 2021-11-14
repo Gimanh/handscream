@@ -53,7 +53,7 @@ export interface IZDatabase {
 
     createDatabase( name: string, destination?: string ): any;
 
-    openDatabase( options?: DatabaseConnectOptions ): boolean;
+    // openDatabase( options?: DatabaseConnectOptions ): boolean;
 
     hasActiveDb(): boolean;
 

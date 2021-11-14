@@ -218,18 +218,20 @@ export default class Database extends ZMixin {
     async openDatabaseFile( filePath ) {
         await this.workingOnTask( -1 );
         if ( filePath ) {
-            $database.openDatabase( { path: filePath } );
-            this.showDialogOpenStorage = false;
-            if ( $database.db.open === true && $database.db.name === filePath ) {
+            if ( $database instanceof DatabaseLocal ) {
+                $database.openDatabase( { path: filePath } );
+                this.showDialogOpenStorage = false;
+                if ( $database.db.open === true && $database.db.name === filePath ) {
 
-                if ( $database instanceof DatabaseLocal ) {
-                    let updater = new DatabaseUpdater( this.version, $database );
-                    updater.updateDatabase();
+                    if ( $database instanceof DatabaseLocal ) {
+                        let updater = new DatabaseUpdater( this.version, $database );
+                        updater.updateDatabase();
+                    }
+
+                    this.goToLocalUserPage();
+                } else {
+                    this.$router.push( { name: 'start' } )
                 }
-
-                this.goToLocalUserPage();
-            } else {
-                this.$router.push( { name: 'start' } )
             }
         }
     }

@@ -3,7 +3,7 @@ import Component from 'vue-class-component'
 import { State, Mutation, Action } from 'vuex-class';
 import { NS_GOALS, NS_MAIN_STORE, NS_SETTINGS, NS_TIME_CONTROL } from '@/store/Types/Consts';
 import { LOCAL_USER_LOGIN, TARGET_ACTIONS_COLOR } from '@/classes/IZBaseProp';
-import { $database } from '@/store/plugins/API';
+import { $database, ApplicationModes } from '@/store/plugins/API';
 import { IGoalStoreState } from '@/store/Types/Goals/IGoalsState';
 import { IGoalsStoreMutations } from '@/store/Types/Goals/IGoalsStoreMutations';
 import { ITimeRecordState } from '@/store/Types/TimeRecord/ITimeRecordState';
@@ -22,7 +22,7 @@ export default class ZMixin extends Vue {
 
     @State( state => state[ NS_MAIN_STORE ].version ) version!: any;
 
-    @State( state => state[ NS_MAIN_STORE ].usagesMode ) mode!: any;
+    @State( state => state[ NS_MAIN_STORE ].usagesMode ) mode!: ApplicationModes;
 
     @State( state => state[ NS_MAIN_STORE ].colorAddGoal ) colorAddGoal!: string;
 
@@ -98,7 +98,7 @@ export default class ZMixin extends Vue {
             if ( this.mode === 'local' ) {
                 return $database.db.open && $database.db.memory === false;
             } else {
-                return false;
+                return true;
             }
         }
 
