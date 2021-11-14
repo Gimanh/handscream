@@ -17,7 +17,10 @@ CREATE UNIQUE INDEX IF NOT EXISTS users_login ON tv_auth.users (login);
 CREATE TABLE IF NOT EXISTS tv_auth.user_tokens
 (
     id            serial PRIMARY KEY,
-    user_id       integer,
+    user_id       integer
+        constraint fr_user_id_user_tokens
+            references tv_auth.users (id)
+            on delete cascade,
     access_token  varchar(500),
     refresh_token varchar(500),
     user_ip       varchar(50),
@@ -28,7 +31,10 @@ CREATE UNIQUE INDEX IF NOT EXISTS user_tokens_id ON tv_auth.user_tokens (id);
 CREATE TABLE IF NOT EXISTS tv_auth.sessions
 (
     id            serial PRIMARY KEY,
-    user_id       integer,
+    user_id       integer
+        constraint fr_user_id_sessions
+            references tv_auth.users (id)
+            on delete cascade,
     session_id    varchar(32),
     session_data  varchar(500),
     user_ip       varchar(50),
@@ -63,66 +69,46 @@ CREATE UNIQUE INDEX IF NOT EXISTS group_id ON tv_auth.groups (id);
 
 CREATE TABLE IF NOT EXISTS tv_auth.group_to_roles
 (
-    group_id int,
-    role_id  int,
+    group_id int
+        constraint fr_group_id_group_to_roles
+            references tv_auth.groups (id)
+            on delete cascade,
+    role_id  int
+        constraint fr_role_id_group_to_roles
+            references tv_auth.roles
+            on delete cascade,
     PRIMARY KEY (group_id, role_id)
 );
 
 CREATE TABLE IF NOT EXISTS tv_auth.role_to_permissions
 (
-    role_id       int,
-    permission_id int,
+    role_id       int
+        constraint fr_role_id_role_to_permissions
+            references tv_auth.roles (id)
+            on delete cascade,
+    permission_id int
+        constraint fr_permission_id_role_to_permissions
+            references tv_auth.permissions
+            on delete cascade,
     PRIMARY KEY (permission_id, role_id)
 );
 
 
 CREATE TABLE IF NOT EXISTS tv_auth.user_to_groups
 (
-    user_id  int,
-    group_id int,
+    user_id  int
+        constraint fk_user_to_groups_users_id
+            references tv_auth.users (id)
+            on delete cascade,
+    group_id int
+        constraint user_to_groups_groups_id_fk
+            references tv_auth.groups (id)
+            on delete cascade,
     PRIMARY KEY (user_id, group_id)
+
+
 );
 
-
-alter table tv_auth.user_to_groups
-    add constraint user_to_groups_groups_id_fk
-        foreign key (group_id) references tv_auth.groups
-            on delete cascade;
-
-alter table tv_auth.user_to_groups
-    add constraint user_to_groups_users_id_fk
-        foreign key (user_id) references tv_auth.users
-            on delete cascade;
-
-alter table tv_auth.user_tokens
-    add constraint user_tokens_user_id_fk
-        foreign key (user_id) references tv_auth.users
-            on delete cascade;
-
-alter table tv_auth.sessions
-    add constraint sessions_user_id_fk
-        foreign key (user_id) references tv_auth.users
-            on delete cascade;
-
-alter table tv_auth.role_to_permissions
-    add constraint role_to_permissions_role_id_fk
-        foreign key (role_id) references tv_auth.roles
-            on delete cascade;
-
-alter table tv_auth.role_to_permissions
-    add constraint role_to_permissions_permission_id_fk
-        foreign key (permission_id) references tv_auth.permissions
-            on delete cascade;
-
-alter table tv_auth.group_to_roles
-    add constraint group_to_roles_group_id_fk
-        foreign key (group_id) references tv_auth.groups
-            on delete cascade;
-
-alter table tv_auth.group_to_roles
-    add constraint group_to_roles_role_id_fk
-        foreign key (role_id) references tv_auth.roles
-            on delete cascade;
 
 --FIXME test data start
 INSERT INTO tv_auth.permissions (id, name, description)
