@@ -3,6 +3,7 @@ CREATE TABLE IF NOT EXISTS tasks.goals
     id              serial,
     name            varchar,
     description     varchar,
+    color           varchar,
     date_creation   timestamp default now(),
     owner           int
         constraint fr_goals_user_id
