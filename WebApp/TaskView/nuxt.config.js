@@ -20,16 +20,17 @@ export default {
     },
 
     // Global CSS: https://go.nuxtjs.dev/config-css
-    css: [
-    ],
+    css: [],
 
     // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
     plugins: [
+        '@/plugins/components-plugin.ts',
+        '@/plugins/local-storage.ts'
     ],
 
     // Auto import components: https://go.nuxtjs.dev/config-components
-    components: true,
-
+    components: false,
+    // extensions: [ 'ts', 'js', 'vue' ],
     // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
     buildModules: [
     // https://go.nuxtjs.dev/typescript
@@ -43,11 +44,42 @@ export default {
     // https://go.nuxtjs.dev/axios
         '@nuxtjs/axios',
         // https://go.nuxtjs.dev/pwa
-        '@nuxtjs/pwa'
+        '@nuxtjs/pwa',
+        '@nuxtjs/i18n'
     ],
-
+    i18n: {
+        locales: [ 'en', 'fr', 'es' ],
+        defaultLocale: 'en',
+        vueI18n: {
+            fallbackLocale: 'en',
+            locales: [
+                {
+                    code: 'ru',
+                    file: 'ru.json'
+                },
+                {
+                    code: 'de',
+                    file: 'de.json'
+                },
+                {
+                    code: 'en',
+                    file: 'en.json'
+                }
+            ],
+            lazy: true,
+            langDir: 'lang/',
+            defaultLocale: 'en',
+            messages: {
+                en: require( './lang/en.json' ),
+                ru: require( './lang/ru.json' ),
+                de: require( './lang/de.json' )
+            }
+        }
+    },
     // Axios module configuration: https://go.nuxtjs.dev/config-axios
-    axios: {},
+    axios: {
+        baseURL: 'http://tvapi.localhost'
+    },
 
     // PWA module configuration: https://go.nuxtjs.dev/pwa
     pwa: {
@@ -76,6 +108,5 @@ export default {
     },
 
     // Build Configuration: https://go.nuxtjs.dev/config-build
-    build: {
-    }
+    build: {}
 }

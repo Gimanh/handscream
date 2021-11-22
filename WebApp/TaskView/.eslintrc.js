@@ -26,6 +26,12 @@ module.exports = {
             ignores: []
         }
         ],
+        'no-console': 0,
+        'space-before-function-paren': 0,
+        'space-in-parens': 0,
+        'template-curly-spacing': 0,
+        'dot-notation': 0,
+        'computed-property-spacing': 0,
         semi: 'off',
         'vue/html-indent': [ 'error', 4, {
             attribute: 1,
