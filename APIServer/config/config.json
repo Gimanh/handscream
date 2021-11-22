@@ -102,7 +102,7 @@
             "class": "ZXC\\Modules\\Cors\\Cors",
             "defer": false,
             "options": {
-                "origin": "http://localhost:9080",
+                "origin": "http://localhost:3000",
                 "methods": [
                     "GET",
                     "POST",

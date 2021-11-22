@@ -8,13 +8,17 @@ export default class AppCredentialsForm extends AppBase {
     get tabs() {
         return [
             {
-                title: this.$t('msg.login'),
+                title: this.$t( 'msg.login' ),
                 component: 'login-form'
             },
             {
-                title: this.$t('msg.registration'),
+                title: this.$t( 'msg.registration' ),
                 component: 'registration-form'
             }
         ];
+    }
+
+    created() {
+        console.log( this.$store );
     }
 }
