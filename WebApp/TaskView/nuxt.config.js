@@ -1,4 +1,4 @@
-import colors from 'vuetify/es5/util/colors'
+import colors from 'vuetify/es5/util/colors';
 
 export default {
     // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
@@ -18,14 +18,16 @@ export default {
             { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
         ]
     },
-
+    router: {
+        middleware: []
+    },
     // Global CSS: https://go.nuxtjs.dev/config-css
     css: [],
 
     // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
     plugins: [
-        '@/plugins/components-plugin.ts',
-        '@/plugins/local-storage.ts'
+        '@/plugins/fetch-app-config.ts',
+        '@/plugins/components-plugin.ts'
     ],
 
     // Auto import components: https://go.nuxtjs.dev/config-components
@@ -48,7 +50,6 @@ export default {
         '@nuxtjs/i18n'
     ],
     i18n: {
-        locales: [ 'en', 'fr', 'es' ],
         defaultLocale: 'en',
         vueI18n: {
             fallbackLocale: 'en',
@@ -113,4 +114,4 @@ export default {
 
     // Build Configuration: https://go.nuxtjs.dev/config-build
     build: {}
-}
+};

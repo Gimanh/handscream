@@ -1,13 +1,20 @@
 import { AxiosInstance } from 'axios';
+import { Store } from 'vuex';
+import { parseJwt } from '~/classes/util/Helper';
+import { JWTPayload } from '~/classes/util/AppTypes';
 
 export const ACCESS_TOKEN_KEY = 'access';
 export const REFRESH_TOKEN_KEY = 'refresh';
 
 export default class LocalStorage {
+
     protected namespace: string = '';
 
-    constructor( options: { namespace: string } ) {
+    protected axios!: AxiosInstance;
+
+    constructor( options: { namespace: string, axios: AxiosInstance } ) {
         this.namespace = options.namespace;
+        this.axios = options.axios;
     }
 
     private key( key: string ): string {
@@ -27,6 +34,7 @@ export default class LocalStorage {
 
     setToken( token: string ): void {
         this.setValue( ACCESS_TOKEN_KEY, token );
+        this.checkTokenAndSetForAxios();
     }
 
     setRefreshToken( refreshToken: string ): void {
@@ -41,10 +49,26 @@ export default class LocalStorage {
         return this.getValue( REFRESH_TOKEN_KEY );
     }
 
-    checkTokenAndSetForAxios( axios: AxiosInstance ): void {
+    checkTokenAndSetForAxios(): void {
         const token = this.getToken();
         if ( token ) {
-            axios.defaults.headers.common[ 'Authorization' ] = `Bearer ${ token }`
+            this.axios.defaults.headers.common[ 'Authorization' ] = `Bearer ${ token }`;
+        }
+    }
+
+    invalidateTokens() {
+        localStorage.removeItem( this.key( REFRESH_TOKEN_KEY ) );
+        localStorage.removeItem( this.key( ACCESS_TOKEN_KEY ) );
+    }
+
+    updateUserStoreByToken( $store: Store<any> ) {
+        const accessToken = this.getToken();
+        if ( accessToken ) {
+            $store.commit( 'User/setAccessToken', accessToken );
+            $store.commit( 'User/setRefreshToken', this.getRefreshToken() );
+            const payload = parseJwt<JWTPayload>( accessToken );
+            $store.commit( 'User/setLogin', payload.userData.login );
+            $store.commit( 'User/setEmail', payload.userData.email );
         }
     }
 }

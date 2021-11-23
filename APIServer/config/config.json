@@ -65,10 +65,26 @@
                 "method": "GET",
                 "route": "/init/xsrf/protection",
                 "handler": "ZXC\\Modules\\XSRF\\Handlers\\XSRFApp"
+            },
+            {
+                "middlewares": [],
+                "method": "GET",
+                "route": "/fetch/app/config",
+                "handler": "App\\Modules\\AppConfig\\Handlers\\AppConfig"
             }
         ]
     },
     "modules": {
+        "AppConfig": {
+            "class": "App\\Modules\\AppConfig\\AppConfig",
+            "options": {
+                "public": {
+                    "namespace": "task_view"
+                },
+                "private": {
+                }
+            }
+        },
         "Auth": {
             "class": "ZXC\\Modules\\Auth\\Auth",
             "defer": false,

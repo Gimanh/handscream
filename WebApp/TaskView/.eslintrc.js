@@ -32,7 +32,7 @@ module.exports = {
         'template-curly-spacing': 0,
         'dot-notation': 0,
         'computed-property-spacing': 0,
-        semi: 'off',
+        semi: [ 2, 'always' ],
         'vue/html-indent': [ 'error', 4, {
             attribute: 1,
             baseIndent: 1,

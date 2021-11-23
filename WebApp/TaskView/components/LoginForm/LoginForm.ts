@@ -25,11 +25,11 @@ export default class LoginForm extends AppBase {
     }
 
     get loginLabel() {
-        return this.$t( 'msg.login' )
+        return this.$t( 'msg.login' );
     }
 
     get passwordLabel() {
-        return this.$t( 'msg.password' )
+        return this.$t( 'msg.password' );
     }
 
     async submit() {
@@ -41,12 +41,13 @@ export default class LoginForm extends AppBase {
             if ( result && result.data ) {
                 this.$ls.setToken( result.data.access );
                 this.$ls.setRefreshToken( result.data.refresh );
-                this.$ls.checkTokenAndSetForAxios( this.$axios );
+                this.$ls.updateUserStoreByToken( this.$store );
+                this.redirectToUser();
             }
         }
     }
 
     cancel() {
-        this.$emit( 'cancel' )
+        this.$emit( 'cancel' );
     }
 }

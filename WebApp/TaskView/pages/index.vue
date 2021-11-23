@@ -5,3 +5,5 @@
         </v-col>
     </v-row>
 </template>
+
+<script src="../classes/pages/Index.ts" />

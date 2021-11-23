@@ -1,7 +1,9 @@
 import { Component } from 'vue-property-decorator';
 import AppBase from '~/components/AppBase';
 
-@Component
+@Component( {
+    middleware: 'authenticated'
+} )
 export default class User extends AppBase {
 
     created() {
