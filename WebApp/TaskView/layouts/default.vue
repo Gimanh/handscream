@@ -21,7 +21,9 @@
             absolute
             app
         >
+            <v-spacer />
             <span>&copy; TaskView by Giman Nikoay {{ new Date().getFullYear() }}</span>
+            <v-spacer />
         </v-footer>
     </v-app>
 </template>
