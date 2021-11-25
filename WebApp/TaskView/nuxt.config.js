@@ -19,7 +19,7 @@ export default {
         ]
     },
     router: {
-        middleware: []
+        mode: 'hash'
     },
     // Global CSS: https://go.nuxtjs.dev/config-css
     css: [],
