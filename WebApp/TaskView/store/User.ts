@@ -1,4 +1,5 @@
 import { Getters, Mutations, Actions, Module } from 'vuex-smart-module';
+import { Store } from 'vuex';
 import { JWTPayload } from '~/classes/util/AppTypes';
 
 /**
@@ -42,11 +43,17 @@ export class UserMutations extends Mutations<UserState> {
     }
 }
 
-class UserStoreGetters extends Getters<UserState> {
+export class UserStoreGetters extends Getters<UserState> {
 
 }
 
-class UserStoreActions extends Actions<UserState, UserStoreGetters, UserMutations, UserStoreActions> {
+export class UserStoreActions extends Actions<UserState, UserStoreGetters, UserMutations, UserStoreActions> {
+
+    private store!: Store<any>
+
+    $init( store: Store<any> ) {
+        this.store = store;
+    }
 
 }
 
@@ -56,4 +63,5 @@ const module = new Module( {
     mutations: UserMutations,
     actions: UserStoreActions
 } );
+export { module as User };
 export default module;

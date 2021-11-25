@@ -1,10 +1,15 @@
 import { Module } from 'vuex-smart-module';
-import User from '~/store/User';
+import * as stores from './vuex-smart';
+
+const md: any = {};
+const storeModules = stores as { [ key: string ]: Module<any, any, any, any> };
+
+for ( const k in storeModules ) {
+    md[ k ] = storeModules[ k ];
+}
 
 const root = new Module( {
-    modules: {
-        User
-    }
+    modules: md
 } );
 
 export const {
