@@ -18,3 +18,8 @@ export type JWTPayload = {
         }
     }
 };
+
+export type RefreshTokenResponse = {
+    access: string
+    refresh: string
+}

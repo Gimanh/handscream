@@ -1,6 +1,6 @@
 <template>
-    <div>
+    <v-col>
         Selected list {{ $route.params.list }}
         <div></div>
-    </div>
+    </v-col>
 </template>

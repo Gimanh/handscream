@@ -4,6 +4,8 @@ import AppBase from '~/components/AppBase';
 @Component
 export default class Index extends AppBase {
     created() {
-        this.redirectToUser();
+        setTimeout( () => {
+            this.redirectToUser();
+        }, 5000 );
     }
 }

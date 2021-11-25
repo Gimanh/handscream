@@ -1,13 +1,19 @@
 import { Component } from 'vue-property-decorator';
+// import { Action } from 'vuex-class';
 import AppBase from '~/components/AppBase';
+// import { UserStoreActions } from '~/store/User';
 
 @Component( {
     middleware: 'authenticated'
 } )
 export default class User extends AppBase {
 
-    created() {
-        console.log( this.$ls );
+    // @Action( 'fetchTasks', { namespace: 'User' } ) fetchTasks!: UserStoreActions['fetchTasks'];
+
+    async created() {
+        // debugger;
+        // console.log( await this.fetchTasks() );
+        // console.log( this.$ls );
     }
 
 }

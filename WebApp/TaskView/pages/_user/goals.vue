@@ -1,8 +1,9 @@
 <template>
-    <div>
-        <div>
+    <v-row>
+        <v-col>
             All Goals list here
-        </div>
+            <goals />
+        </v-col>
         <nuxt-child />
-    </div>
+    </v-row>
 </template>
