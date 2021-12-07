@@ -2,29 +2,22 @@
     "router": {
         "enableCors": true,
         "useAppMiddlewares": {
-            "appMiddlewareAlias": true,
-            "cors": true
+            "cors": true,
+            "injectUser": true
         },
         "middlewares": {
-            "firstMiddlewareAlias": "App\\Middleware\\Route\\RouteMiddlewares:myMiddleware",
-            "secondMiddlewareAlias": "App\\Middleware\\Route\\RouteMiddlewares:myMiddleware2",
-            "appMiddlewareAlias": "App\\Middleware\\App\\AppMiddlewareClass",
-            "cors": "ZXC\\Modules\\Cors\\Middlewares\\Cors"
+            "cors": "ZXC\\Modules\\Cors\\Middlewares\\Cors",
+            "injectUser": "ZXC\\Modules\\Auth\\Middlewares\\AuthInjectUser"
         },
-        "notFoundHandler": "App\\RouteMiddlewares:notFound",
+        "notFoundHandler": "App\\AppNotFound:notFound",
         "routes": [
             {
-                "middlewares": [
-                    "firstMiddlewareAlias"
-                ],
+                "middlewares": [],
                 "method": "GET",
                 "route": "/",
                 "handler": "App\\Application:hello",
                 "children": {
-                    "middlewares": [
-                        "firstMiddlewareAlias",
-                        "secondMiddlewareAlias"
-                    ],
+                    "middlewares": [],
                     "route": ":user",
                     "handler": "App\\Application:helloUser",
                     "children": {
@@ -36,7 +29,6 @@
             },
             {
                 "middlewares": [
-                    "firstMiddlewareAlias"
                 ],
                 "method": "GET",
                 "route": "/:user/static",
@@ -71,6 +63,18 @@
                 "method": "GET",
                 "route": "/fetch/app/config",
                 "handler": "App\\Modules\\AppConfig\\Handlers\\AppConfig"
+            },
+            {
+                "middlewares": [],
+                "method": "POST",
+                "route": "/module/goals/add",
+                "handler": "App\\Modules\\Goals\\Handlers\\GoalAdd"
+            },
+            {
+                "middlewares": [],
+                "method": "GET",
+                "route": "/module/goals/fetch",
+                "handler": "App\\Modules\\Goals\\Handlers\\GoalsFetch"
             }
         ]
     },
@@ -94,7 +98,7 @@
                 "authTypeProviderOptions": {
                     "secret": "[)1231&^^*&^%00()(]",
                     "alg": "HS256",
-                    "accessLifeTime": 15,
+                    "accessLifeTime": 200,
                     "refreshLifetime": 400,
                     "tokenStorage": "ZXC\\Modules\\Auth\\Storages\\AuthTokenStoragePgSql"
                 },
@@ -141,7 +145,8 @@
                 ],
                 "expose": [
                     "Set-Cookie",
-                    "content-type"
+                    "content-type",
+                    "Authorization"
                 ]
             }
         },
@@ -163,6 +168,11 @@
             "options": {
                 "lvl": 7,
                 "fileName": "tv.log"
+            }
+        },
+        "Goals": {
+            "class": "App\\Modules\\Goals\\Goals",
+            "options": {
             }
         }
     }

@@ -1,6 +1,10 @@
 import { Component, Prop } from 'vue-property-decorator';
 import AppBase from '~/components/AppBase';
 import { GoalAdd } from '~/classes/util/GoalTypes';
+import qs from 'qs';
+import { VuetifyForm } from '~/classes/util/AppTypes';
+import { Action } from 'vuex-class';
+import { GoalsStoreActions } from '~/store/Goals';
 
 @Component
 export default class AddGoal extends AppBase {
@@ -10,9 +14,21 @@ export default class AddGoal extends AppBase {
 
     public dialog: boolean = false;
 
-    public name: string = '';
+    public name: string = 'Some name';
 
-    public description: string = '';
+    public description: string = 'Description';
+
+    $refs!: {
+        form: VuetifyForm
+    }
+
+    @Action( 'addGoal', { namespace: 'Goals' } ) addGoal!: GoalsStoreActions['addGoal']
+
+    get checkGoalName() {
+        return [
+            ( v: string ): boolean | string => !!v.trim() || this.$t( 'msg.requiredField' ) as string
+        ];
+    }
 
     cancel() {
         this.dialog = false;
@@ -20,13 +36,13 @@ export default class AddGoal extends AppBase {
         this.description = '';
     }
 
-    save() {
-        if ( this.name.trim() !== '' && this.name.length > 1 ) {
+    async save() {
+        if ( this.$refs.form.validate() ) {
             const goalData: GoalAdd = {
                 name: this.name,
                 description: this.description
             };
-            console.log( goalData );
+            await this.addGoal( goalData ).catch( this.logError );
         }
     }
 }

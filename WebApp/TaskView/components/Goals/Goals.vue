@@ -1,6 +1,10 @@
 <template>
     <div>
-        <h1>Component Goals</h1>
+        <div
+            v-for="i in goals"
+            :key="i"
+            v-text="i.name"
+        />
         <add-goal />
     </div>
 </template>

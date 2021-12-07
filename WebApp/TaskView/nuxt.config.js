@@ -79,7 +79,8 @@ export default {
     },
     // Axios module configuration: https://go.nuxtjs.dev/config-axios
     axios: {
-        baseURL: 'http://tvapi.localhost'
+        baseURL: 'http://tvapi.localhost',
+        withCredentials:true
     },
 
     // PWA module configuration: https://go.nuxtjs.dev/pwa

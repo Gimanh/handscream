@@ -3,3 +3,4 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-l
 RewriteRule ^(.*)$ index.php?q=$1 [L,QSA]
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]

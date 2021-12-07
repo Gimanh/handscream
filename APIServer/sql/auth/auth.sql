@@ -21,8 +21,8 @@ CREATE TABLE IF NOT EXISTS tv_auth.user_tokens
         constraint fr_user_id_user_tokens
             references tv_auth.users (id)
             on delete cascade,
-    access_token  varchar(500),
-    refresh_token varchar(500),
+    access_token  varchar,
+    refresh_token varchar,
     user_ip       varchar(50),
     time_creation timestamp default now()
 );
@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS tv_auth.sessions
             references tv_auth.users (id)
             on delete cascade,
     session_id    varchar(32),
-    session_data  varchar(500),
+    session_data  varchar,
     user_ip       varchar(50),
     time_creation timestamp default now()
 );
