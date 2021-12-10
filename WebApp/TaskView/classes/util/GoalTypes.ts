@@ -6,6 +6,8 @@ export type Goal = {
 
 export type GoalAdd = Omit<Goal, 'id'>;
 
+export type GoalUpdate = Goal;
+
 export type Goals = Goal[];
 
 export type AddGoalResponse = {
@@ -13,7 +15,15 @@ export type AddGoalResponse = {
     goal?: Goal
 };
 
+export type GoalUpdateResponse = {
+    update: boolean
+    goal?: Goal
+}
+
 export type GoalsStoreStateUrls = {
     addGoalUrl: string
-    fetchGoals:string
+    fetchGoals: string
+    updateGoal: string
 }
+
+export type AddGoalMode = 'inline' | 'form';

@@ -40,6 +40,20 @@ class GoalsStorage
 
     public function fetchGoals($userId)
     {
-        return $this->db->select('SELECT id, name, description FROM tasks.goals WHERE owner = ?;', [$userId]);
+        return $this->db->select('SELECT id, name, description FROM tasks.goals WHERE owner = ? ORDER BY id DESC;', [$userId]);
+    }
+
+    public function updateGoal(int $id, string $name, string $description)
+    {
+        return $this->db->update([
+            'table' => 'tasks.goals',
+            'data' => [
+                'name' => $name,
+                'description' => $description
+            ],
+            'where' => [
+                'id' => $id,
+            ]
+        ]);
     }
 }

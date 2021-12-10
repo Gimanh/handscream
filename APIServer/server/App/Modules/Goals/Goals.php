@@ -34,4 +34,12 @@ class Goals implements IModule
     {
         return $this->storage->fetchGoals($userId);
     }
+
+    public function updateGoal(int $id, string $name, string $description)
+    {
+        if ($this->storage->updateGoal($id, $name, $description)) {
+            return $this->storage->fetchGoalById($id);
+        }
+        return false;
+    }
 }

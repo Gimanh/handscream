@@ -14,5 +14,13 @@
         "method": "GET",
         "route": "/module/goals/fetch",
         "handler": "App\\Modules\\Goals\\Handlers\\GoalsFetch"
+    },
+    {
+        "middlewares": [
+            "isLoggedIn"
+        ],
+        "method": "POST",
+        "route": "/module/goals/update",
+        "handler": "App\\Modules\\Goals\\Handlers\\GoalUpdate"
     }
 ]

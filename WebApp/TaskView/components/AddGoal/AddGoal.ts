@@ -1,6 +1,6 @@
 import { Component, Prop } from 'vue-property-decorator';
 import AppBase from '~/components/AppBase';
-import { GoalAdd } from '~/classes/util/GoalTypes';
+import { AddGoalMode, GoalAdd } from '~/classes/util/GoalTypes';
 import qs from 'qs';
 import { VuetifyForm } from '~/classes/util/AppTypes';
 import { Action } from 'vuex-class';
@@ -9,14 +9,14 @@ import { GoalsStoreActions } from '~/store/Goals';
 @Component
 export default class AddGoal extends AppBase {
 
-    @Prop( { default: true } )
-    public addMode!: boolean;
+    @Prop( { default: 'form' } )
+    public mode!: AddGoalMode;
 
     public dialog: boolean = false;
 
-    public name: string = 'Some name';
+    public name: string = '';
 
-    public description: string = 'Description';
+    public description: string = '';
 
     $refs!: {
         form: VuetifyForm
@@ -30,13 +30,17 @@ export default class AddGoal extends AppBase {
         ];
     }
 
+    get inlineMode(): boolean {
+        return this.mode === 'inline';
+    }
+
     cancel() {
         this.dialog = false;
         this.name = '';
         this.description = '';
     }
 
-    async save() {
+    async add() {
         if ( this.$refs.form.validate() ) {
             const goalData: GoalAdd = {
                 name: this.name,

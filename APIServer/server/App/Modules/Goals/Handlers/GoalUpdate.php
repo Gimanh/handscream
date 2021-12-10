@@ -3,24 +3,25 @@
 namespace App\Modules\Goals\Handlers;
 
 use App\AppResponse;
-use ZXC\Modules\Auth\User;
 use ZXC\Native\RouteParams;
 use ZXC\Native\PSR\ServerRequest;
 use ZXC\Interfaces\Psr\Http\Message\ResponseInterface;
 
-class GoalAdd extends GoalBaseHandler
+class GoalUpdate extends GoalBaseHandler
 {
     public function __invoke(ServerRequest $request, ResponseInterface $response, RouteParams $routeParams): ResponseInterface
     {
         $parsedBody = $request->getParsedBody();
+        $id = $parsedBody['id'] ?? null;
+        if ($id === null) {
+            return AppResponse::create($response, ['update' => false], $request->getAttribute('rid'), 200);
+        }
         $name = $parsedBody['name'] ?? '';
         $description = $parsedBody['description'] ?? null;
-        /** @var $user User */
-        $user = $request->getAttribute('user');
         $goal = false;
         if ($name) {
-            $goal = $this->goals->addGoal($name, $description, $user->getId());
+            $goal = $this->goals->updateGoal((int)$id, (string)$name, (string)$description);
         }
-        return AppResponse::create($response, ['add' => !!$goal, 'goal' => $goal], $request->getAttribute('rid'), 200);
+        return AppResponse::create($response, ['update' => !!$goal, 'goal' => $goal], $request->getAttribute('rid'), 200);
     }
 }

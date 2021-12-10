@@ -1,12 +1,20 @@
 <template>
-    <div>
-        <div
-            v-for="i in goals"
-            :key="i"
-            v-text="i.name"
+    <v-list
+        nav
+    >
+        <add-goal
+            :mode="goalAddMode"
         />
-        <add-goal />
-    </div>
+        <v-list-item-group
+            v-model="selected"
+        >
+            <goal
+                v-for="goal in goals"
+                :key="goal.id"
+                :goal="goal"
+            />
+        </v-list-item-group>
+    </v-list>
 </template>
 
 <script src=./Goals.ts />
