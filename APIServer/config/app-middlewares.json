@@ -5,6 +5,7 @@
     },
     "middlewares": {
         "cors": "ZXC\\Modules\\Cors\\Middlewares\\Cors",
-        "injectUser": "ZXC\\Modules\\Auth\\Middlewares\\AuthInjectUser"
+        "injectUser": "ZXC\\Modules\\Auth\\Middlewares\\AuthInjectUser",
+        "isLoggedIn": "ZXC\\Modules\\Auth\\Middlewares\\AuthIsLoggedIn"
     }
 }

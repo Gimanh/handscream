@@ -1,12 +1,16 @@
 [
     {
-        "middlewares": [],
+        "middlewares": [
+            "isLoggedIn"
+        ],
         "method": "POST",
         "route": "/module/goals/add",
         "handler": "App\\Modules\\Goals\\Handlers\\GoalAdd"
     },
     {
-        "middlewares": [],
+        "middlewares": [
+            "isLoggedIn"
+        ],
         "method": "GET",
         "route": "/module/goals/fetch",
         "handler": "App\\Modules\\Goals\\Handlers\\GoalsFetch"
