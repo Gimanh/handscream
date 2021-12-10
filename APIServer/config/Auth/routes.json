@@ -1,0 +1,20 @@
+[
+    {
+        "middlewares": [],
+        "method": "POST",
+        "route": "/module/auth/login",
+        "handler": "ZXC\\Modules\\Auth\\Handlers\\AuthenticationLogin"
+    },
+    {
+        "middlewares": [],
+        "method": "POST",
+        "route": "/module/auth/refresh/token",
+        "handler": "ZXC\\Modules\\Auth\\Handlers\\AuthenticationRefreshToken"
+    },
+    {
+        "middlewares": [],
+        "method": "POST",
+        "route": "/module/auth/registration",
+        "handler": "ZXC\\Modules\\Auth\\Handlers\\AuthenticationRegistration"
+    }
+]

@@ -1,0 +1,10 @@
+{
+    "class": "App\\Modules\\AppConfig\\AppConfig",
+    "options": {
+        "public": {
+            "namespace": "task_view"
+        },
+        "private": {
+        }
+    }
+}

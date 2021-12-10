@@ -2,8 +2,8 @@
 
 use ZXC\ZXCFactory;
 
-require __DIR__ . '/../vendor/autoload.php';
+require dirname(__FILE__) . '/../vendor/autoload.php';
 
-$appConfig = __DIR__ . '/../config/config.json';
+$appConfig = require dirname(__FILE__) . '/../config/index.php';
 
 ZXCFactory::create($appConfig);

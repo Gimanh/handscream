@@ -1,0 +1,10 @@
+{
+    "useAppMiddlewares": {
+        "cors": true,
+        "injectUser": true
+    },
+    "middlewares": {
+        "cors": "ZXC\\Modules\\Cors\\Middlewares\\Cors",
+        "injectUser": "ZXC\\Modules\\Auth\\Middlewares\\AuthInjectUser"
+    }
+}

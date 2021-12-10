@@ -1,0 +1,12 @@
+{
+    "class": "ZXC\\Modules\\SessionsStorage\\SessionManager",
+    "defer": false,
+    "options": {
+        "provider": "db",
+        "sessionParams": {
+            "name": "TV",
+            "use_cookies": 1,
+            "cookie_path": "/"
+        }
+    }
+}

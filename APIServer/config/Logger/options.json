@@ -1,0 +1,8 @@
+{
+    "class": "ZXC\\Modules\\Logger\\Logger",
+    "defer": false,
+    "options": {
+        "lvl": 7,
+        "fileName": "tv.log"
+    }
+}

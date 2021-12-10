@@ -1,0 +1,14 @@
+[
+    {
+        "middlewares": [],
+        "method": "POST",
+        "route": "/module/goals/add",
+        "handler": "App\\Modules\\Goals\\Handlers\\GoalAdd"
+    },
+    {
+        "middlewares": [],
+        "method": "GET",
+        "route": "/module/goals/fetch",
+        "handler": "App\\Modules\\Goals\\Handlers\\GoalsFetch"
+    }
+]

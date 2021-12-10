@@ -1,0 +1,20 @@
+{
+    "class": "ZXC\\Modules\\Auth\\Auth",
+    "defer": false,
+    "options": {
+        "storageProvider": "ZXC\\Modules\\Auth\\Storages\\AuthPgSqlStorage",
+        "authTypeProvider": "ZXC\\Modules\\Auth\\Providers\\AuthJwtTokenProvider",
+        "authTypeProviderOptions": {
+            "secret": "[)1231&^^*&^%00()(]",
+            "alg": "HS256",
+            "accessLifeTime": 200,
+            "refreshLifetime": 400,
+            "tokenStorage": "ZXC\\Modules\\Auth\\Storages\\AuthTokenStoragePgSql"
+        },
+        "email": {
+            "confirm": true,
+            "codeProvider": "App\\Auth\\RegistrationCodeProvider"
+        },
+        "credentialStorage": ""
+    }
+}

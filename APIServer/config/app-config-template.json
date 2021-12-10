@@ -1,0 +1,8 @@
+{
+    "router": {
+        "enableCors": true,
+        "notFoundHandler": "App\\AppNotFound:notFound",
+        "routes": []
+    },
+    "modules": {}
+}
