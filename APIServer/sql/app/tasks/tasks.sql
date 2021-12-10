@@ -16,5 +16,9 @@ create table tasks.tasks
     history_section int
         constraint fr_tasks_history_list
             references tasks.history_list (code)
+            ON DELETE SET NULL,
+    responsible_id  int
+        constraint fr_task_responsible_id
+            references tv_auth.users (id)
             ON DELETE SET NULL
 );
