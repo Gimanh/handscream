@@ -1,0 +1,18 @@
+[
+    {
+        "middlewares": [
+            "isLoggedIn"
+        ],
+        "method": "POST",
+        "route": "/module/goalcomponents/add",
+        "handler": "App\\Modules\\GoalComponents\\Handlers\\AddGoalComponent"
+    },
+    {
+        "middlewares": [
+            "isLoggedIn"
+        ],
+        "method": "GET",
+        "route": "/module/goalcomponents/:goalId",
+        "handler": "App\\Modules\\GoalComponents\\Handlers\\FetchAllGoalComponents"
+    }
+]

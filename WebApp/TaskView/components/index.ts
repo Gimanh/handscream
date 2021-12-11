@@ -5,3 +5,7 @@ export * from './AddGoal';
 export * from './Goals';
 export * from './Goal';
 export * from './GoalEdit';
+export * from './GoalComponents';
+export * from './GoalAddComponents';
+export * from './GoalUpdateComponents';
+export * from './GoalComponent';

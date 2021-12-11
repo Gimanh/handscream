@@ -27,3 +27,25 @@ export type GoalsStoreStateUrls = {
 }
 
 export type AddGoalMode = 'inline' | 'form';
+
+export type GoalComponentsStoreStateUrls = {
+    addComponentUrl: string
+    fetchComponents: string
+}
+
+export type GoalComponent = {
+    id: number
+    name: string
+}
+
+export type GoalComponents = GoalComponent[];
+
+export type GoalAddComponent = {
+    goalId: number
+    name: string
+}
+
+export type GoalAddComponentResponse = {
+    add: boolean
+    component: GoalComponent
+}
