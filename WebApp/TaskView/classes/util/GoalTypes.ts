@@ -31,6 +31,7 @@ export type AddGoalMode = 'inline' | 'form';
 export type GoalComponentsStoreStateUrls = {
     addComponentUrl: string
     fetchComponents: string
+    updateComponents: string
 }
 
 export type GoalComponent = {
@@ -44,8 +45,17 @@ export type GoalAddComponent = {
     goalId: number
     name: string
 }
+export type GoalUpdateComponent = {
+    id: number
+    name: string
+}
 
 export type GoalAddComponentResponse = {
     add: boolean
-    component: GoalComponent
+    component?: GoalComponent
+}
+
+export type GoalComponentUpdateResponse = {
+    update: boolean
+    component?: GoalComponent
 }

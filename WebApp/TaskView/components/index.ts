@@ -9,3 +9,4 @@ export * from './GoalComponents';
 export * from './GoalAddComponents';
 export * from './GoalUpdateComponents';
 export * from './GoalComponent';
+export * from './GoalComponentEdit';

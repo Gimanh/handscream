@@ -14,7 +14,7 @@ class GoalComponentsStorage
         $this->db = Modules::get('db');
     }
 
-    public function addComponent(string $name, int $goalId)
+    public function addComponent(string $name, int $goalId): bool|array
     {
         $stmt = $this->db->insert(
             'INSERT INTO tasks.goal_lists (name, goal_id) VALUES (?, ?) RETURNING id;',
@@ -28,13 +28,26 @@ class GoalComponentsStorage
         return false;
     }
 
-    public function fetchComponentById(int $id)
+    public function fetchComponentById(int $id): null|array
     {
         return $this->db->selectOne('SELECT id, name FROM tasks.goal_lists WHERE id = ?;', [$id]);
     }
 
-    public function fetchAll(int $goalId)
+    public function fetchAll(int $goalId): null|array
     {
         return $this->db->select('SELECT id, name FROM tasks.goal_lists WHERE goal_id = ?;', [$goalId]);
+    }
+
+    public function updateComponent(int $id, string $name): bool
+    {
+        return $this->db->update([
+            'table' => 'tasks.goal_lists',
+            'data' => [
+                'name' => $name,
+            ],
+            'where' => [
+                'id' => $id,
+            ]
+        ]);
     }
 }

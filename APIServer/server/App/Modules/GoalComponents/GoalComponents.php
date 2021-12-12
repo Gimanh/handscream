@@ -24,8 +24,16 @@ class GoalComponents implements IModule
         return $this->storage->addComponent($name, $goalId);
     }
 
-    public function fetchAll(int $goalId)
+    public function fetchAll(int $goalId): null|array
     {
         return $this->storage->fetchAll($goalId);
+    }
+
+    public function updateComponent(int $id, string $name): bool|array
+    {
+        if ($this->storage->updateComponent($id, $name)) {
+            return $this->storage->fetchComponentById($id);
+        }
+        return false;
     }
 }

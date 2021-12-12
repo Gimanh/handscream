@@ -4,14 +4,15 @@ import qs from 'qs';
 import {
     GoalAddComponent,
     GoalAddComponentResponse, GoalComponent, GoalComponents,
-    GoalComponentsStoreStateUrls
+    GoalComponentsStoreStateUrls, GoalComponentUpdateResponse, GoalUpdateComponent
 } from '~/classes/util/GoalTypes';
 import { AppResponse } from '~/classes/util/AppTypes';
 
 export class GoalComponentsState {
     public urls: GoalComponentsStoreStateUrls = {
         addComponentUrl: '/module/goalcomponents/add',
-        fetchComponents: '/module/goalcomponents/'
+        fetchComponents: '/module/goalcomponents/',
+        updateComponents: '/module/goalcomponents/update'
     };
 
     public components: GoalComponents = [];
@@ -25,6 +26,15 @@ export class GoalComponentsMutations extends Mutations<GoalComponentsState> {
 
     updateComponents( components: GoalComponents ) {
         this.state.components = components;
+    }
+
+    updateComponent( component: GoalComponent ) {
+        for ( const k of this.state.components ) {
+            if ( +k.id === +component.id ) {
+                k.name = component.name;
+                break;
+            }
+        }
     }
 }
 
@@ -56,6 +66,17 @@ export class GoalComponentsStoreActions extends Actions<GoalComponentsState, Goa
         if ( result ) {
             if ( result.response.add && result.response.component ) {
                 this.mutations.addComponent( result.response.component );
+            }
+        }
+        return result;
+    }
+
+    async updateComponent( component: GoalUpdateComponent ): Promise<AppResponse<GoalComponentUpdateResponse> | void> {
+        const result = await this.store.$axios.$post<AppResponse<GoalComponentUpdateResponse>>( this.state.urls.updateComponents, qs.stringify( component ) )
+            .catch( err => console.log( err ) );
+        if ( result ) {
+            if ( result.response.update && result.response.component ) {
+                this.mutations.updateComponent( result.response.component );
             }
         }
         return result;
