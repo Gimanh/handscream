@@ -55,7 +55,10 @@ export default class GoalAddComponents extends AppBase {
                 name: this.name,
                 goalId: +this.$route.params.id
             };
-            await this.addComponent( addComponent );
+            const result = await this.addComponent( addComponent );
+            if ( result && result.response.add ) {
+                this.cancel();
+            }
         }
     }
 }
