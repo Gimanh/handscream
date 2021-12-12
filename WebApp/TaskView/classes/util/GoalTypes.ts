@@ -4,7 +4,7 @@ export type Goal = {
     description: string
 };
 
-export type GoalAdd = Omit<Goal, 'id'>;
+export type GoalAddItem = Omit<Goal, 'id'>;
 
 export type GoalUpdate = Goal;
 

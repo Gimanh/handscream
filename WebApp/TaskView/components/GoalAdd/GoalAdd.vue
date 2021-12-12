@@ -83,4 +83,4 @@
     </div>
 </template>
 
-<script src=./AddGoal.ts />
+<script src=./GoalAdd.ts />

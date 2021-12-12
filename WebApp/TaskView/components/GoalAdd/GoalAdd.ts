@@ -1,13 +1,12 @@
 import { Component, Prop } from 'vue-property-decorator';
-import AppBase from '~/components/AppBase';
-import { AddGoalMode, GoalAdd } from '~/classes/util/GoalTypes';
-import qs from 'qs';
-import { VuetifyForm } from '~/classes/util/AppTypes';
 import { Action } from 'vuex-class';
+import AppBase from '~/components/AppBase';
+import { AddGoalMode, GoalAddItem } from '~/classes/util/GoalTypes';
+import { VuetifyForm } from '~/classes/util/AppTypes';
 import { GoalsStoreActions } from '~/store/Goals';
 
 @Component
-export default class AddGoal extends AppBase {
+export default class GoalAdd extends AppBase {
 
     @Prop( { default: 'form' } )
     public mode!: AddGoalMode;
@@ -42,7 +41,7 @@ export default class AddGoal extends AppBase {
 
     async add() {
         if ( this.$refs.form.validate() ) {
-            const goalData: GoalAdd = {
+            const goalData: GoalAddItem = {
                 name: this.name,
                 description: this.description
             };

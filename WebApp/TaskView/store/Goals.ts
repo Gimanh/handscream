@@ -3,7 +3,7 @@ import { Store } from 'vuex';
 import qs from 'qs';
 import {
     Goal,
-    GoalAdd,
+    GoalAddItem,
     AddGoalResponse,
     Goals,
     GoalsStoreStateUrls,
@@ -52,7 +52,7 @@ export class GoalsStoreActions extends Actions<GoalsState, GoalsStoreGetters, Go
         this.store = store;
     }
 
-    async addGoal( goal: GoalAdd ): Promise<AppResponse<AddGoalResponse> | void> {
+    async addGoal( goal: GoalAddItem ): Promise<AppResponse<AddGoalResponse> | void> {
         const result = await this.store.$axios.$post<AppResponse<AddGoalResponse>>( this.state.urls.addGoalUrl, qs.stringify( goal ) )
             .catch( err => console.log( err ) );
         if ( result ) {

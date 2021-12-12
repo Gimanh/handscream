@@ -2,7 +2,7 @@
     <v-list
         nav
     >
-        <add-goal
+        <goal-add
             :mode="goalAddMode"
         />
         <v-list-item-group
