@@ -16,4 +16,8 @@ export default class GoalComponents extends AppBase {
             await this.fetchAllComponents( id );
         }
     }
+
+    async created() {
+        await this.fetchAllComponents( this.$route.params.id );
+    }
 }
