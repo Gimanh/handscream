@@ -12,7 +12,7 @@
         </v-app-bar>
         <v-main>
             <v-container
-                style="height: 100%"
+                style="height: calc(100vh - 100px);"
             >
                 <Nuxt />
             </v-container>
