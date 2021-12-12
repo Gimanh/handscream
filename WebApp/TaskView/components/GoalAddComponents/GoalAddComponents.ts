@@ -28,6 +28,13 @@ export default class GoalAddComponents extends AppBase {
         return this.invalidName ? this.$t( 'msg.requiredField' ) : '';
     }
 
+    get iconForInput() {
+        if ( this.name ) {
+            return 'mdi-keyboard-return';
+        }
+        return 'mdi-keyboard-variant';
+    }
+
     isValidName() {
         return this.name && !!this.name.trim();
     }

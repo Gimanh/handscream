@@ -10,6 +10,7 @@
                 :error-messages="errorMessage"
                 :label="$t( 'msg.addItem' )"
                 :placeholder="$t( 'msg.addItem' )"
+                :append-icon="iconForInput"
                 @input="inputHandler"
                 @keypress.enter="add"
             />

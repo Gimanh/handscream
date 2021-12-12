@@ -6,9 +6,12 @@
         >
             <v-text-field
                 v-model="name"
-                :rules="checkGoalName"
+                :error="invalidName"
+                :error-messages="errorMessage"
                 :label="$t( 'msg.add' )"
                 :placeholder="$t( 'msg.add' )"
+                :append-icon="iconForInput"
+                @input="inputHandler"
                 @keypress.enter="add"
             />
         </v-form>

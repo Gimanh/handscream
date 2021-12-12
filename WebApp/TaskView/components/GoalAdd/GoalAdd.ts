@@ -17,11 +17,24 @@ export default class GoalAdd extends AppBase {
 
     public description: string = '';
 
+    public invalidName: boolean = false;
+
     $refs!: {
         form: VuetifyForm
     }
 
-    @Action( 'addGoal', { namespace: 'Goals' } ) addGoal!: GoalsStoreActions['addGoal']
+    @Action( 'addGoal', { namespace: 'Goals' } ) addGoal!: GoalsStoreActions['addGoal'];
+
+    get errorMessage() {
+        return this.invalidName ? this.$t( 'msg.requiredField' ) : '';
+    }
+
+    get iconForInput() {
+        if ( this.name ) {
+            return 'mdi-keyboard-return';
+        }
+        return 'mdi-keyboard-variant';
+    }
 
     get checkGoalName() {
         return [
@@ -33,6 +46,23 @@ export default class GoalAdd extends AppBase {
         return this.mode === 'inline';
     }
 
+    isValidName() {
+        return this.name && !!this.name.trim();
+    }
+
+    inputHandler( v: string ) {
+        if ( v.trim() ) {
+            this.invalidName = false;
+        }
+    }
+
+    canAddGoal() {
+        if ( this.isValidName() ) {
+            return true;
+        }
+        this.invalidName = true;
+    }
+
     cancel() {
         this.dialog = false;
         this.name = '';
@@ -40,12 +70,15 @@ export default class GoalAdd extends AppBase {
     }
 
     async add() {
-        if ( this.$refs.form.validate() ) {
+        if ( this.canAddGoal() ) {
             const goalData: GoalAddItem = {
                 name: this.name,
                 description: this.description
             };
-            await this.addGoal( goalData ).catch( this.logError );
+            const result = await this.addGoal( goalData ).catch( this.logError );
+            if ( result && result.response.add ) {
+                this.cancel();
+            }
         }
     }
 }
