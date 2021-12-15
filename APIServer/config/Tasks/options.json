@@ -1,4 +1,8 @@
 {
     "class": "App\\Modules\\Tasks\\Tasks",
-    "options": {}
+    "options": {
+        "fetchFields": [
+            "id", "description", "complete"
+        ]
+    }
 }

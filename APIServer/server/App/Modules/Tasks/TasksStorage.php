@@ -9,9 +9,14 @@ class TasksStorage
 {
     use AppDB;
 
-    public function __construct()
+    protected string $fetchFields = '*';
+
+    public function __construct(array $fetchFields = [])
     {
         $this->initDatabase();
+        if (count($fetchFields) > 0) {
+            $this->fetchFields = implode(',', $fetchFields);
+        }
     }
 
     public function addTask(string $description, int $componentId, int $userId)
@@ -30,12 +35,12 @@ class TasksStorage
 
     public function fetchTaskById(int $taskId)
     {
-        return $this->db->selectOne('SELECT id, description, complete FROM tasks.tasks WHERE id = ?;', [$taskId]);
+        return $this->db->selectOne('SELECT ' . $this->fetchFields . ' FROM tasks.tasks WHERE id = ?;', [$taskId]);
     }
 
     public function fetchTasks(int $componentId)
     {
-        return $this->db->select('SELECT id, description, complete FROM tasks.tasks WHERE goal_list_id = ?;', [$componentId]);
+        return $this->db->select('SELECT ' . $this->fetchFields . ' FROM tasks.tasks WHERE goal_list_id = ?;', [$componentId]);
     }
 
     public function updateTasks()
