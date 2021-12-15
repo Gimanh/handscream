@@ -2,7 +2,7 @@
     <v-row>
         <v-col>
             All Goals list here
-            <goals />
+            <!--            <goals />-->
         </v-col>
         <nuxt-child />
     </v-row>

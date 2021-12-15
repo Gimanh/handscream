@@ -1,6 +1,6 @@
 import { Component } from 'vue-property-decorator';
-import AppBase from '~/components/AppBase';
 import { Action, State } from 'vuex-class';
+import AppBase from '~/components/AppBase';
 import { GoalsState, GoalsStoreActions } from '~/store/Goals';
 import { AddGoalMode } from '~/classes/util/GoalTypes';
 
@@ -13,6 +13,8 @@ export default class Goals extends AppBase {
     public selected: number = 0;
 
     public goalAddMode: AddGoalMode = 'inline';
+
+    public showGroup: boolean = true;
 
     async created() {
         await this.fetchGoals();
