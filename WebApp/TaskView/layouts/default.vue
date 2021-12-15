@@ -36,6 +36,7 @@
         <v-main>
             <v-container
                 style="height: calc(100vh - 100px);"
+                class="ma-0 pa-1"
             >
                 <Nuxt />
             </v-container>

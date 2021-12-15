@@ -205,5 +205,8 @@
         "date_creation": "Дата создания",
         "date_complete": "Дата выполнения",
         "order_key": "Порядок добавления"
+    },
+    "goal": {
+        "components": "Компоненты"
     }
 }

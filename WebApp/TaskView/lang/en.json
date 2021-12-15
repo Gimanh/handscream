@@ -199,5 +199,8 @@
         "exportPlanInfo": "Check and select date if you want export plans! Note, only task with reminder between selected dates will exported!",
         "planing": "Planing",
         "fetchWithDeadLines": "Fetch tasks with deadline"
+    },
+    "goal": {
+        "components": "Components"
     }
 }
