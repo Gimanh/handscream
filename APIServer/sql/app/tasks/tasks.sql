@@ -3,7 +3,7 @@ create table tasks.tasks
 (
     id              serial,
     description     varchar,
-    complete        bool,
+    complete        bool default false,
     goal_list_id    int not null
         constraint fr_goal_list_id
             references tasks.goal_lists (id)
