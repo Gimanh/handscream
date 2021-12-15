@@ -10,3 +10,8 @@ export * from './GoalAddComponents';
 export * from './GoalUpdateComponents';
 export * from './GoalComponent';
 export * from './GoalComponentEdit';
+export * from './Tasks';
+export * from './Task';
+export * from './TaskCheckbox';
+export * from './TaskText';
+export * from './TaskAdd';

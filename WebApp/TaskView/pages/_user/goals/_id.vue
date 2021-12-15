@@ -1,5 +1,8 @@
 <template>
     <v-col>
+        <tasks
+            :component-id="$route.params.id"
+        />
         <div>tasks or OTHER for selected component {{ $route.params.id }}</div>
         {{ $route.params }}
         <!--        <goal-components />-->

@@ -202,5 +202,9 @@
     },
     "goal": {
         "components": "Components"
+    },
+    "task": {
+        "add": "Add task",
+        "tasks": "Tasks"
     }
 }
