@@ -15,4 +15,19 @@ class Tasks implements IModule
     {
         $this->config = $options;
     }
+
+    public function addTask()
+    {
+
+    }
+
+    public function fetchTasks()
+    {
+
+    }
+
+    public function updateTask()
+    {
+
+    }
 }
