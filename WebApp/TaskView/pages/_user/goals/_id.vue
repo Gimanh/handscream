@@ -1,8 +1,8 @@
 <template>
     <v-col>
-        <div>Selected goal list here for {{ $route.params.id }}</div>
+        <div>tasks or OTHER for selected component {{ $route.params.id }}</div>
         {{ $route.params }}
-        <goal-components />
+        <!--        <goal-components />-->
         <div>
             <router-view />
         </div>
