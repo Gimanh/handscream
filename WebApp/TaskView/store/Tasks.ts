@@ -1,9 +1,11 @@
 import { Getters, Mutations, Actions, Module } from 'vuex-smart-module';
 import { Store } from 'vuex';
-import { TasksStoreStateUrls, Tasks } from '~/classes/util/TaskTypes';
+import qs from 'qs';
+import { TasksStoreStateUrls, Tasks, TaskAddArg, Task, TaskAddResponse } from '~/classes/util/TaskTypes';
+import { AppResponse } from '~/classes/util/AppTypes';
 
 export class TasksState {
-    public goals: Tasks = [];
+    public tasks: Tasks = [];
     public urls: TasksStoreStateUrls = {
         addTaskUrl: '/module/tasks/add',
         fetchTasks: '/module/tasks/fetch',
@@ -12,7 +14,9 @@ export class TasksState {
 }
 
 export class TasksMutations extends Mutations<TasksState> {
-
+    addTask( task: Task ) {
+        this.state.tasks.push( task );
+    }
 }
 
 export class TasksStoreGetters extends Getters<TasksState> {
@@ -27,6 +31,16 @@ export class TasksStoreActions extends Actions<TasksState, TasksStoreGetters, Ta
         this.store = store;
     }
 
+    async addTask( task: TaskAddArg ): Promise<AppResponse<TaskAddResponse> | void> {
+        const result = await this.store.$axios.$post<AppResponse<TaskAddResponse>>( this.state.urls.addTaskUrl, qs.stringify( task ) )
+            .catch( err => console.log( err ) );
+        if ( result ) {
+            if ( result.response.add ) {
+                this.mutations.addTask( result.response.task );
+            }
+        }
+        return result;
+    }
 }
 
 const module = new Module( {

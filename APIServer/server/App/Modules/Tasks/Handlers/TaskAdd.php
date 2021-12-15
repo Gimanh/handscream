@@ -8,10 +8,19 @@ use ZXC\Native\RouteParams;
 use ZXC\Native\PSR\ServerRequest;
 use ZXC\Interfaces\Psr\Http\Message\ResponseInterface;
 
-class TaskAdd
+class TaskAdd extends TasksBaseHandler
 {
     public function __invoke(ServerRequest $request, ResponseInterface $response, RouteParams $routeParams): ResponseInterface
     {
-        return AppResponse::create($response, [], $request->getAttribute('rid'));
+        $parsedBody = $request->getParsedBody();
+        $description = $parsedBody['description'] ?? '';
+        $componentId = $parsedBody['componentId'] ?? null;
+        /** @var $user User */
+        $user = $request->getAttribute('user');
+        $task = false;
+        if ($description) {
+            $task = $this->tasks->addTask($description, $componentId, $user->getId());
+        }
+        return AppResponse::create($response, ['add' => !!$task, 'task' => $task], $request->getAttribute('rid'));
     }
 }

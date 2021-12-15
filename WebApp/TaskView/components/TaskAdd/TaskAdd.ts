@@ -1,10 +1,20 @@
-import { Component } from 'vue-property-decorator';
+import { Component, Prop } from 'vue-property-decorator';
+import { Action } from 'vuex-class';
 import AppBase from '~/components/AppBase';
+import { TasksStoreActions } from '~/store/Tasks';
+import { TaskAddArg } from '~/classes/util/TaskTypes';
 
 @Component
 export default class TaskAdd extends AppBase {
+
+    @Prop()
+    public componentId!: number;
+
     public taskName: string = '';
+
     public invalidName: boolean = false;
+
+    @Action( 'addTask', { namespace: 'Tasks' } ) addTask!: TasksStoreActions['addTask'];
 
     get errorMessage() {
         return this.invalidName ? this.$t( 'msg.requiredField' ) : '';
@@ -34,17 +44,22 @@ export default class TaskAdd extends AppBase {
         this.invalidName = true;
     }
 
+    cancel() {
+        this.taskName = '';
+        this.invalidName = false;
+    }
+
     async add() {
         if ( this.canAddGoal() ) {
             console.log( this.taskName );
-            // const goalData: GoalAddItem = {
-            //     name: this.name,
-            //     description: this.description
-            // };
-            // const result = await this.addGoal( goalData ).catch( this.logError );
-            // if ( result && result.response.add ) {
-            //     this.cancel();
-            // }
+            const task: TaskAddArg = {
+                description: this.taskName,
+                componentId: +this.componentId
+            };
+            const result = await this.addTask( task ).catch( this.logError );
+            if ( result && result.response.add ) {
+                this.cancel();
+            }
         }
     }
 }

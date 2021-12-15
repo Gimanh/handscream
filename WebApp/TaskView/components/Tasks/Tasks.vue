@@ -10,7 +10,9 @@
                     {{ $t( 'task.tasks' ) }}
                 </v-list-item-title>
             </template>
-            <task-add />
+            <task-add
+                :component-id="componentId"
+            />
         </v-list-group>
     </v-list>
 </template>
