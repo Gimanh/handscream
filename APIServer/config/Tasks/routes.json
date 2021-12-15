@@ -1,0 +1,26 @@
+[
+    {
+        "middlewares": [
+            "isLoggedIn"
+        ],
+        "method": "POST",
+        "route": "/module/tasks/add",
+        "handler": "App\\Modules\\Tasks\\Handlers\\TaskAdd"
+    },
+    {
+        "middlewares": [
+            "isLoggedIn"
+        ],
+        "method": "GET",
+        "route": "/module/tasks/fetch",
+        "handler": "App\\Modules\\Tasks\\Handlers\\TasksFetch"
+    },
+    {
+        "middlewares": [
+            "isLoggedIn"
+        ],
+        "method": "POST",
+        "route": "/module/tasks/update",
+        "handler": "App\\Modules\\Tasks\\Handlers\\TaskUpdate"
+    }
+]
