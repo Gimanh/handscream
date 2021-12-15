@@ -12,7 +12,7 @@
             "isLoggedIn"
         ],
         "method": "GET",
-        "route": "/module/tasks/fetch",
+        "route": "/module/tasks/:componentId",
         "handler": "App\\Modules\\Tasks\\Handlers\\TasksFetch"
     },
     {

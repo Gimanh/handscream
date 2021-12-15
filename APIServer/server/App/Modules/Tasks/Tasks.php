@@ -24,9 +24,9 @@ class Tasks implements IModule
         return $this->storage->addTask($description, $componentId, $userId);
     }
 
-    public function fetchTasks()
+    public function fetchTasks(int $componentId)
     {
-
+        return $this->storage->fetchTasks($componentId);
     }
 
     public function updateTask()

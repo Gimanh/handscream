@@ -7,10 +7,12 @@ use ZXC\Interfaces\Psr\Http\Message\ResponseInterface;
 use ZXC\Native\PSR\ServerRequest;
 use ZXC\Native\RouteParams;
 
-class TasksFetch
+class TasksFetch extends TasksBaseHandler
 {
     public function __invoke(ServerRequest $request, ResponseInterface $response, RouteParams $routeParams): ResponseInterface
     {
-        return AppResponse::create($response, [], $request->getAttribute('rid'));
+        $params = $routeParams->getParams();
+        $tasks = $this->tasks->fetchTasks((int)$params['componentId']) ?? [];
+        return AppResponse::create($response, $tasks, $request->getAttribute('rid'));
     }
 }

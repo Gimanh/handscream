@@ -18,7 +18,7 @@ class TaskAdd extends TasksBaseHandler
         /** @var $user User */
         $user = $request->getAttribute('user');
         $task = false;
-        if ($description) {
+        if ($description && $componentId !== null) {
             $task = $this->tasks->addTask($description, $componentId, $user->getId());
         }
         return AppResponse::create($response, ['add' => !!$task, 'task' => $task], $request->getAttribute('rid'));

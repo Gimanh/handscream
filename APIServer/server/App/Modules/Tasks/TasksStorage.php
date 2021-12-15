@@ -33,9 +33,9 @@ class TasksStorage
         return $this->db->selectOne('SELECT id, description, complete FROM tasks.tasks WHERE id = ?;', [$taskId]);
     }
 
-    public function fetchTasks()
+    public function fetchTasks(int $componentId)
     {
-
+        return $this->db->select('SELECT id, description, complete FROM tasks.tasks WHERE goal_list_id = ?;', [$componentId]);
     }
 
     public function updateTasks()

@@ -8,7 +8,7 @@ export class TasksState {
     public tasks: Tasks = [];
     public urls: TasksStoreStateUrls = {
         addTaskUrl: '/module/tasks/add',
-        fetchTasks: '/module/tasks/fetch',
+        fetchTasks: '/module/tasks/',
         updateTask: '/module/tasks/update'
     };
 }
@@ -16,6 +16,10 @@ export class TasksState {
 export class TasksMutations extends Mutations<TasksState> {
     addTask( task: Task ) {
         this.state.tasks.push( task );
+    }
+
+    setTasks( tasks: Tasks ) {
+        this.state.tasks = tasks;
     }
 }
 
@@ -37,6 +41,17 @@ export class TasksStoreActions extends Actions<TasksState, TasksStoreGetters, Ta
         if ( result ) {
             if ( result.response.add ) {
                 this.mutations.addTask( result.response.task );
+            }
+        }
+        return result;
+    }
+
+    async fetchTasks( componentId: number ): Promise<AppResponse<Tasks> | void> {
+        const result = await this.store.$axios.$get<AppResponse<Tasks>>( `${ this.state.urls.fetchTasks }${ componentId }` )
+            .catch( err => console.log( err ) );
+        if ( result ) {
+            if ( result.response.length ) {
+                this.mutations.setTasks( result.response );
             }
         }
         return result;
