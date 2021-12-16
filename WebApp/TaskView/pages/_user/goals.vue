@@ -1,6 +1,9 @@
 <template>
     <v-row>
-        <v-col>
+        <v-col
+            cols="5"
+            class="pr-1"
+        >
             <goal-components />
         </v-col>
         <nuxt-child />

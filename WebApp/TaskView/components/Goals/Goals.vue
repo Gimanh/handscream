@@ -1,6 +1,7 @@
 <template>
     <v-list
         nav
+        dense
     >
         <v-list-group
             :value="showGroup"

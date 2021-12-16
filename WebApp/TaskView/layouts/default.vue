@@ -28,13 +28,14 @@
                         >
                             <v-icon>mdi-application</v-icon>
                         </v-btn>-->
-            <v-toolbar-title>
-                <img v-if="$vuetify.theme.dark" src="@/assets/logo_dark.svg" alt="Logo" width="140">
-                <img v-else src="@/assets/logo.svg" alt="Logo" width="140">
-            </v-toolbar-title>
+            <!--            <v-toolbar-title>-->
+            <!--                <img v-if="$vuetify.theme.dark" src="@/assets/logo_dark.svg" alt="Logo" width="140">-->
+            <!--                <img v-else src="@/assets/logo.svg" alt="Logo" width="140">-->
+            <!--            </v-toolbar-title>-->
         </v-app-bar>
         <v-main>
             <v-container
+                fluid
                 style="height: calc(100vh - 100px);"
                 class="ma-0 pa-1"
             >
