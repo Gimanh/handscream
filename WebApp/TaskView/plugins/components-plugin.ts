@@ -1,4 +1,4 @@
-import '@mdi/font/css/materialdesignicons.css'
+import '@mdi/font/css/materialdesignicons.css';
 import Vue from 'vue';
 import { Plugin } from '@nuxt/types';
 import * as components from '~/components/index';
@@ -10,6 +10,6 @@ const ComponentsPlugin: Plugin = ( context, inject ) => {
         const component = components[ k ];
         Vue.component( k, component);
     }
-}
+};
 
 export default ComponentsPlugin;
