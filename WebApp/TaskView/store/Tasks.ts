@@ -47,6 +47,7 @@ export class TasksStoreActions extends Actions<TasksState, TasksStoreGetters, Ta
     }
 
     async fetchTasks( componentId: number ): Promise<AppResponse<Tasks> | void> {
+        this.mutations.setTasks( [] );
         const result = await this.store.$axios.$get<AppResponse<Tasks>>( `${ this.state.urls.fetchTasks }${ componentId }` )
             .catch( err => console.log( err ) );
         if ( result ) {

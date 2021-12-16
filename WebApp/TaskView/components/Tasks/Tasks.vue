@@ -13,6 +13,11 @@
             <task-add
                 :component-id="componentId"
             />
+            <task
+                v-for="task in tasks"
+                :key="task.id"
+                :task="task"
+            />
         </v-list-group>
     </v-list>
 </template>

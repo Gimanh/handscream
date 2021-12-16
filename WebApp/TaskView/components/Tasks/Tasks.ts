@@ -1,13 +1,15 @@
 import { Component, Prop, Watch } from 'vue-property-decorator';
+import { Action, State } from 'vuex-class';
 import AppBase from '~/components/AppBase';
-import { Action } from 'vuex-class';
-import { TasksStoreActions } from '~/store/Tasks';
+import { TasksState, TasksStoreActions } from '~/store/Tasks';
 
 @Component
 export default class Tasks extends AppBase {
 
     @Prop( {} )
     public componentId!: number;
+
+    @State( state => state.Tasks.tasks ) tasks!: TasksState['tasks'];
 
     @Action( 'fetchTasks', { namespace: 'Tasks' } ) fetchTasks!: TasksStoreActions['fetchTasks'];
 
