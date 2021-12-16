@@ -45,6 +45,23 @@ class TasksStorage
 
     public function updateTasks()
     {
+        //todo
+    }
 
+    public function updateTaskComplete(int $taskId, bool $complete): array|false
+    {
+        $result = $this->db->update([
+            'table' => 'tasks.tasks',
+            'data' => [
+                'complete' => (int)$complete
+            ],
+            'where' => [
+                'id' => $taskId,
+            ]
+        ]);
+        if ($result) {
+            return $this->fetchTaskById($taskId);
+        }
+        return false;
     }
 }

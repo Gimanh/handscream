@@ -20,4 +20,14 @@ export type TasksStoreStateUrls = {
     addTaskUrl: string
     fetchTasks: string
     updateTask: string
+    updateStatus: string
 }
+
+export type TaskCompleteChanged = {
+    complete: boolean
+    taskId: number
+};
+
+export type TaskCompleteChangedResponse = {
+    task?: Task
+};

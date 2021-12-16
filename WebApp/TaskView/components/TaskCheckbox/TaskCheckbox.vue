@@ -1,7 +1,7 @@
 <template>
     <v-checkbox
         dense
-        :value="complete"
+        :input-value="complete"
         @change="emitChange"
     />
 </template>

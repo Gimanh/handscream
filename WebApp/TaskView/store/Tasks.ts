@@ -1,7 +1,14 @@
 import { Getters, Mutations, Actions, Module } from 'vuex-smart-module';
 import { Store } from 'vuex';
 import qs from 'qs';
-import { TasksStoreStateUrls, Tasks, TaskAddArg, Task, TaskAddResponse } from '~/classes/util/TaskTypes';
+import {
+    TasksStoreStateUrls,
+    Tasks,
+    TaskAddArg,
+    Task,
+    TaskAddResponse,
+    TaskCompleteChanged, TaskCompleteChangedResponse
+} from '~/classes/util/TaskTypes';
 import { AppResponse } from '~/classes/util/AppTypes';
 
 export class TasksState {
@@ -9,7 +16,8 @@ export class TasksState {
     public urls: TasksStoreStateUrls = {
         addTaskUrl: '/module/tasks/add',
         fetchTasks: '/module/tasks/',
-        updateTask: '/module/tasks/update'
+        updateTask: '/module/tasks/update',
+        updateStatus: '/module/tasks/update/status'
     };
 }
 
@@ -20,6 +28,15 @@ export class TasksMutations extends Mutations<TasksState> {
 
     setTasks( tasks: Tasks ) {
         this.state.tasks = tasks;
+    }
+
+    updateTaskStatus( task: Task ) {
+        for ( const t of this.state.tasks ) {
+            if ( t.id === task.id ) {
+                t.complete = task.complete;
+                break;
+            }
+        }
     }
 }
 
@@ -53,6 +70,17 @@ export class TasksStoreActions extends Actions<TasksState, TasksStoreGetters, Ta
         if ( result ) {
             if ( result.response.length ) {
                 this.mutations.setTasks( result.response );
+            }
+        }
+        return result;
+    }
+
+    async updateCompleteStatus( data: TaskCompleteChanged ): Promise<AppResponse<TaskCompleteChangedResponse> | void> {
+        const result = await this.store.$axios.$post<AppResponse<TaskCompleteChangedResponse>>( this.state.urls.updateStatus, qs.stringify( data ) )
+            .catch( err => console.log( err ) );
+        if ( result ) {
+            if ( result.response.task ) {
+                this.mutations.updateTaskStatus( result.response.task );
             }
         }
         return result;

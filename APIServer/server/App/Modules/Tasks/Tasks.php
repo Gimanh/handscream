@@ -31,6 +31,11 @@ class Tasks implements IModule
 
     public function updateTask()
     {
+        //todo
+    }
 
+    public function updateTaskComplete(int $taskId, bool $complete): array|false
+    {
+        return $this->storage->updateTaskComplete($taskId, $complete);
     }
 }
