@@ -17,6 +17,14 @@
             <v-list-item-group
                 v-model="selected"
             >
+                <v-progress-linear
+                    v-if="loading"
+                    color="green"
+                    indeterminate
+                    absolute
+                    rounded
+                    height="4"
+                />
                 <task
                     v-for="task in tasks"
                     :key="task.id"

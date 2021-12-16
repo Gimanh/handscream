@@ -11,6 +11,8 @@ export default class Tasks extends AppBase {
 
     public selected: number = 0;
 
+    public loading: boolean = false;
+
     @State( state => state.Tasks.tasks ) tasks!: TasksState['tasks'];
 
     @Action( 'fetchTasks', { namespace: 'Tasks' } ) fetchTasks!: TasksStoreActions['fetchTasks'];
@@ -18,11 +20,25 @@ export default class Tasks extends AppBase {
     @Watch( '$route.params.list' )
     async routeHandler( id: string ) {
         if ( id ) {
+            this.startLoading();
             await this.fetchTasks( +this.componentId );
+            this.endLoading();
         }
     }
 
+    startLoading() {
+        this.loading = true;
+    }
+
+    endLoading() {
+        setTimeout( () => {
+            this.loading = false;
+        }, 500 );
+    }
+
     async created() {
+        this.startLoading();
         await this.fetchTasks( +this.componentId );
+        this.endLoading();
     }
 }
