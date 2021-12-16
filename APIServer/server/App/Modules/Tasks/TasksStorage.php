@@ -40,7 +40,7 @@ class TasksStorage
 
     public function fetchTasks(int $componentId)
     {
-        return $this->db->select('SELECT ' . $this->fetchFields . ' FROM tasks.tasks WHERE goal_list_id = ?;', [$componentId]);
+        return $this->db->select('SELECT ' . $this->fetchFields . ' FROM tasks.tasks WHERE goal_list_id = ? ORDER BY id DESC;', [$componentId]);
     }
 
     public function updateTaskDescription(int $taskId, string $description): array|false

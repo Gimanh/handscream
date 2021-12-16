@@ -35,7 +35,7 @@ class GoalComponentsStorage
 
     public function fetchAll(int $goalId): null|array
     {
-        return $this->db->select('SELECT id, name FROM tasks.goal_lists WHERE goal_id = ?;', [$goalId]);
+        return $this->db->select('SELECT id, name FROM tasks.goal_lists WHERE goal_id = ? ORDER BY id DESC;', [$goalId]);
     }
 
     public function updateComponent(int $id, string $name): bool
