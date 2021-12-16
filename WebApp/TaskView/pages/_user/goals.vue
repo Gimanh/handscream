@@ -1,11 +1,14 @@
 <template>
-    <v-row>
-        <v-col
-            cols="5"
-            class="pr-1"
-        >
-            <goal-components />
-        </v-col>
+    <div>
         <nuxt-child />
-    </v-row>
+    </div>
+    <!--    <v-row>
+            <v-col
+                cols="5"
+                class="pr-1"
+            >
+                <goal-components />
+            </v-col>
+            <nuxt-child />
+        </v-row>-->
 </template>
