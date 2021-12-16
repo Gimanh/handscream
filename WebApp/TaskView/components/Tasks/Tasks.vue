@@ -1,6 +1,7 @@
 <template>
     <v-list
         nav
+        dense
     >
         <v-list-group
             :value="true"
@@ -13,11 +14,16 @@
             <task-add
                 :component-id="componentId"
             />
-            <task
-                v-for="task in tasks"
-                :key="task.id"
-                :task="task"
-            />
+            <v-list-item-group
+                v-model="selected"
+            >
+                <task
+                    v-for="task in tasks"
+                    :key="task.id"
+                    :task="task"
+                />
+            </v-list-item-group>
+
         </v-list-group>
     </v-list>
 </template>

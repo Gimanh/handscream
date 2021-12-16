@@ -6,6 +6,8 @@ import { GoalComponentsState, GoalComponentsStoreActions } from '~/store/GoalCom
 @Component
 export default class GoalComponents extends AppBase {
 
+    public selected: number = 0;
+
     @State( state => state.GoalComponents.components ) components!: GoalComponentsState['components'];
 
     @Action( 'fetchAllComponents', { namespace: 'GoalComponents' } ) fetchAllComponents!: GoalComponentsStoreActions['fetchAllComponents'];

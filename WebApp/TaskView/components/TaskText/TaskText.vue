@@ -1,5 +1,8 @@
 <template>
-    <h1>Component TaskText</h1>
+    <v-text-field
+        dense
+        hide-details
+    />
 </template>
 
 <script src=./TaskText.ts />

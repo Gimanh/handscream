@@ -1,6 +1,7 @@
 <template>
     <v-list
         nav
+        dense
     >
         <v-list-group
             :value="true"
@@ -9,7 +10,9 @@
                 <v-list-item-title>{{ $t( 'goal.components' ) }}</v-list-item-title>
             </template>
             <goal-add-components />
-            <v-list-item-group>
+            <v-list-item-group
+                v-model="selected"
+            >
                 <goal-component
                     v-for="component in components"
                     :key="component.id"

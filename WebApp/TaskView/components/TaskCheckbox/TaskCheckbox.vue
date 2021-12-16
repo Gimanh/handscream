@@ -1,5 +1,7 @@
 <template>
-    <h1>Component TaskCheckbox</h1>
+    <v-checkbox
+        dense
+    />
 </template>
 
 <script src=./TaskCheckbox.ts />

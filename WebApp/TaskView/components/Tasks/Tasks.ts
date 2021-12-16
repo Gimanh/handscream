@@ -9,6 +9,8 @@ export default class Tasks extends AppBase {
     @Prop( {} )
     public componentId!: number;
 
+    public selected: number = 0;
+
     @State( state => state.Tasks.tasks ) tasks!: TasksState['tasks'];
 
     @Action( 'fetchTasks', { namespace: 'Tasks' } ) fetchTasks!: TasksStoreActions['fetchTasks'];
