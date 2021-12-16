@@ -1,5 +1,6 @@
 <template>
     <v-textarea
+        :value="description"
         dense
         hide-details
         rows="1"

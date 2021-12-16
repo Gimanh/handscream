@@ -4,14 +4,14 @@
     >
         <v-list-item-action>
             <task-checkbox
-                :task="task.complete"
+                :complete="task.complete"
             />
         </v-list-item-action>
         <v-list-item-content
             class="pb-5"
         >
             <task-text
-                :task="task.description"
+                :description="task.description"
             />
         </v-list-item-content>
     </v-list-item>
