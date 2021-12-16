@@ -1,7 +1,10 @@
 <template>
-    <v-text-field
+    <v-textarea
         dense
         hide-details
+        rows="1"
+        auto-grow
+        @keypress.enter.prevent
     />
 </template>
 

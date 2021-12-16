@@ -7,7 +7,9 @@
                 :task="task.complete"
             />
         </v-list-item-action>
-        <v-list-item-content>
+        <v-list-item-content
+            class="pb-5"
+        >
             <task-text
                 :task="task.description"
             />
