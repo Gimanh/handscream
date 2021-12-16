@@ -10,6 +10,8 @@ export default class GoalComponent extends AppBase {
     } )
     public component!: GoalComponentsState['components'][0];
 
+    public fab: boolean = false;
+
     get routeTo() {
         return {
             name: 'user-goals-id-list',
