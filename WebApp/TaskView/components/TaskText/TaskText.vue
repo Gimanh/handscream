@@ -5,7 +5,8 @@
         hide-details
         rows="1"
         auto-grow
-        @keypress.enter.prevent
+        @keypress.enter.prevent="updateDescription"
+        @change="updateDescription"
     />
 </template>
 

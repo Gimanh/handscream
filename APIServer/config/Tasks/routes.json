@@ -30,5 +30,13 @@
         "method": "POST",
         "route": "/module/tasks/update/status",
         "handler": "App\\Modules\\Tasks\\Handlers\\TaskUpdateStatus"
+    },
+    {
+        "middlewares": [
+            "isLoggedIn"
+        ],
+        "method": "POST",
+        "route": "/module/tasks/update/description",
+        "handler": "App\\Modules\\Tasks\\Handlers\\TaskUpdateDescription"
     }
 ]

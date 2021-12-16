@@ -29,9 +29,9 @@ class Tasks implements IModule
         return $this->storage->fetchTasks($componentId);
     }
 
-    public function updateTask()
+    public function updateTaskDescription(int $taskId, string $description): array|false
     {
-        //todo
+        return $this->storage->updateTaskDescription($taskId, $description);
     }
 
     public function updateTaskComplete(int $taskId, bool $complete): array|false

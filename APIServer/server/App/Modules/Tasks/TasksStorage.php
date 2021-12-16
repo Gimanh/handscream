@@ -43,9 +43,21 @@ class TasksStorage
         return $this->db->select('SELECT ' . $this->fetchFields . ' FROM tasks.tasks WHERE goal_list_id = ?;', [$componentId]);
     }
 
-    public function updateTasks()
+    public function updateTaskDescription(int $taskId, string $description): array|false
     {
-        //todo
+        $result = $this->db->update([
+            'table' => 'tasks.tasks',
+            'data' => [
+                'description' => $description
+            ],
+            'where' => [
+                'id' => $taskId,
+            ]
+        ]);
+        if ($result) {
+            return $this->fetchTaskById($taskId);
+        }
+        return false;
     }
 
     public function updateTaskComplete(int $taskId, bool $complete): array|false

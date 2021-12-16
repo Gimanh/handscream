@@ -21,6 +21,7 @@ export type TasksStoreStateUrls = {
     fetchTasks: string
     updateTask: string
     updateStatus: string
+    updateDescription: string
 }
 
 export type TaskCompleteChanged = {
@@ -29,5 +30,14 @@ export type TaskCompleteChanged = {
 };
 
 export type TaskCompleteChangedResponse = {
+    task?: Task
+};
+
+export type TaskDescriptionChanged = {
+    description: string
+    taskId: number
+};
+
+export type TaskDescriptionChangedResponse = {
     task?: Task
 };

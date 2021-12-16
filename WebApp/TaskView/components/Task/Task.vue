@@ -13,6 +13,7 @@
         >
             <task-text
                 :description="task.description"
+                @change="descriptionChanged"
             />
         </v-list-item-content>
     </v-list-item>

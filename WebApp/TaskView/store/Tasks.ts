@@ -7,7 +7,7 @@ import {
     TaskAddArg,
     Task,
     TaskAddResponse,
-    TaskCompleteChanged, TaskCompleteChangedResponse
+    TaskCompleteChanged, TaskCompleteChangedResponse, TaskDescriptionChanged, TaskDescriptionChangedResponse
 } from '~/classes/util/TaskTypes';
 import { AppResponse } from '~/classes/util/AppTypes';
 
@@ -17,7 +17,8 @@ export class TasksState {
         addTaskUrl: '/module/tasks/add',
         fetchTasks: '/module/tasks/',
         updateTask: '/module/tasks/update',
-        updateStatus: '/module/tasks/update/status'
+        updateStatus: '/module/tasks/update/status',
+        updateDescription: '/module/tasks/update/description'
     };
 }
 
@@ -34,6 +35,15 @@ export class TasksMutations extends Mutations<TasksState> {
         for ( const t of this.state.tasks ) {
             if ( t.id === task.id ) {
                 t.complete = task.complete;
+                break;
+            }
+        }
+    }
+
+    updateTaskDescription( task: Task ) {
+        for ( const t of this.state.tasks ) {
+            if ( t.id === task.id ) {
+                t.description = task.description;
                 break;
             }
         }
@@ -81,6 +91,17 @@ export class TasksStoreActions extends Actions<TasksState, TasksStoreGetters, Ta
         if ( result ) {
             if ( result.response.task ) {
                 this.mutations.updateTaskStatus( result.response.task );
+            }
+        }
+        return result;
+    }
+
+    async updateDescription( data: TaskDescriptionChanged ): Promise<AppResponse<TaskDescriptionChangedResponse> | void> {
+        const result = await this.store.$axios.$post<AppResponse<TaskDescriptionChangedResponse>>( this.state.urls.updateDescription, qs.stringify( data ) )
+            .catch( err => console.log( err ) );
+        if ( result ) {
+            if ( result.response.task ) {
+                this.mutations.updateTaskDescription( result.response.task );
             }
         }
         return result;

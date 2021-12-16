@@ -13,9 +13,18 @@ export default class Task extends AppBase {
 
     @Action( 'updateCompleteStatus', { namespace: 'Tasks' } ) updateCompleteStatus!: TasksStoreActions['updateCompleteStatus'];
 
+    @Action( 'updateDescription', { namespace: 'Tasks' } ) updateDescription!: TasksStoreActions['updateDescription'];
+
     async statusChanged( value: boolean ) {
         await this.updateCompleteStatus( {
             complete: value,
+            taskId: this.task.id
+        } );
+    }
+
+    async descriptionChanged( value: string ) {
+        await this.updateDescription( {
+            description: value,
             taskId: this.task.id
         } );
     }
