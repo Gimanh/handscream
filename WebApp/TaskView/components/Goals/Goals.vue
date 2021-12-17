@@ -12,6 +12,9 @@
             <goal-add
                 :mode="goalAddMode"
             />
+            <app-progress
+                :loading="loading"
+            />
             <v-list-item-group
                 v-model="selected"
             >

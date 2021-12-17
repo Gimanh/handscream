@@ -17,6 +17,8 @@ export default class Goals extends AppBase {
     public showGroup: boolean = true;
 
     async created() {
+        this.startLoading();
         await this.fetchGoals();
+        this.endLoading();
     }
 }

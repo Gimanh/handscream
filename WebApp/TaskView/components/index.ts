@@ -15,3 +15,4 @@ export * from './Task';
 export * from './TaskCheckbox';
 export * from './TaskText';
 export * from './TaskAdd';
+export * from './AppProgress';

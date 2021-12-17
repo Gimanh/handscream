@@ -10,6 +10,9 @@
                 <v-list-item-title>{{ $t( 'goal.components' ) }}</v-list-item-title>
             </template>
             <goal-add-components />
+            <app-progress
+                :loading="loading"
+            />
             <v-list-item-group
                 v-model="selected"
             >

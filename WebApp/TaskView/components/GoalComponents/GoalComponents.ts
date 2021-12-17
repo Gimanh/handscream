@@ -15,11 +15,15 @@ export default class GoalComponents extends AppBase {
     @Watch( '$route.params.id' )
     async routeHandler( id: string ) {
         if ( id ) {
+            this.startLoading();
             await this.fetchAllComponents( id );
+            this.endLoading();
         }
     }
 
     async created() {
+        this.startLoading();
         await this.fetchAllComponents( this.$route.params.id );
+        this.endLoading();
     }
 }
