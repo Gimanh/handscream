@@ -13,7 +13,7 @@ export default class GoalListEdit extends AppBase {
     } )
     public component!: GoalComponentsState['components'][0];
 
-    public dialog: boolean = false;
+    public dialog: boolean = true;
 
     public name: string = this.component.name;
 
@@ -36,9 +36,14 @@ export default class GoalListEdit extends AppBase {
         ];
     }
 
+    emitCloseEdit() {
+        this.$emit( 'close' );
+    }
+
     cancel() {
         this.dialog = false;
         this.name = '';
+        this.emitCloseEdit();
     }
 
     async update() {

@@ -7,21 +7,21 @@
             width="400"
             persistent
         >
-            <template #activator="{ on }">
-                <div
-                    style="transition-delay: 0.15s;"
-                >
-                    <v-btn
-                        fab
-                        dark
-                        small
-                        color="green"
-                        v-on="on"
-                    >
-                        <v-icon>mdi-pencil-outline</v-icon>
-                    </v-btn>
-                </div>
-            </template>
+            <!--            <template #activator="{ on }">
+                            <div
+                                style="transition-delay: 0.15s;"
+                            >
+                                <v-btn
+                                    fab
+                                    dark
+                                    small
+                                    color="green"
+                                    v-on="on"
+                                >
+                                    <v-icon>mdi-pencil-outline</v-icon>
+                                </v-btn>
+                            </div>
+                        </template>-->
             <v-card>
                 <v-card-title>
                     {{ $t( 'msg.editing' ) }}
