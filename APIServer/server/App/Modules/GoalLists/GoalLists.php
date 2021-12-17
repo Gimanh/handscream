@@ -1,22 +1,22 @@
 <?php
 
-namespace App\Modules\GoalComponents;
+namespace App\Modules\GoalLists;
 
 use ZXC\Interfaces\IModule;
 use ZXC\Traits\Module;
 
-class GoalComponents implements IModule
+class GoalLists implements IModule
 {
     use Module;
 
-    protected null|GoalComponentsStorage $storage = null;
+    protected null|GoalListsStorage $storage = null;
 
     protected array $config = [];
 
     public function init(array $options = [])
     {
         $this->config = $options;
-        $this->storage = new GoalComponentsStorage();
+        $this->storage = new GoalListsStorage();
     }
 
     public function addComponent(string $name, int $goalId)
@@ -37,7 +37,7 @@ class GoalComponents implements IModule
         return false;
     }
 
-    public function deleteList(int $listId):bool
+    public function deleteList(int $listId): bool
     {
         return $this->storage->deleteList($listId);
     }

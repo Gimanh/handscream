@@ -5,7 +5,7 @@
         ],
         "method": "POST",
         "route": "/module/goal_lists/add",
-        "handler": "App\\Modules\\GoalComponents\\Handlers\\AddGoalComponent"
+        "handler": "App\\Modules\\GoalLists\\Handlers\\AddGoalComponent"
     },
     {
         "middlewares": [
@@ -13,7 +13,7 @@
         ],
         "method": "GET",
         "route": "/module/goal_lists/:goalId",
-        "handler": "App\\Modules\\GoalComponents\\Handlers\\FetchAllGoalComponents"
+        "handler": "App\\Modules\\GoalLists\\Handlers\\FetchAllGoalComponents"
     },
     {
         "middlewares": [
@@ -21,7 +21,7 @@
         ],
         "method": "POST",
         "route": "/module/goal_lists/update",
-        "handler": "App\\Modules\\GoalComponents\\Handlers\\UpdateGoalComponents"
+        "handler": "App\\Modules\\GoalLists\\Handlers\\UpdateGoalComponents"
     },
     {
         "middlewares": [
@@ -29,6 +29,6 @@
         ],
         "method": "POST",
         "route": "/module/goal_lists/delete",
-        "handler": "App\\Modules\\GoalComponents\\Handlers\\DeleteGoalList"
+        "handler": "App\\Modules\\GoalLists\\Handlers\\DeleteGoalList"
     }
 ]

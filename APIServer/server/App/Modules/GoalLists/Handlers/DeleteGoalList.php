@@ -1,29 +1,22 @@
 <?php
 
-namespace App\Modules\GoalComponents\Handlers;
+namespace App\Modules\GoalLists\Handlers;
 
 use App\AppResponse;
 use ZXC\Native\Modules;
 use ZXC\Native\RouteParams;
 use ZXC\Native\PSR\ServerRequest;
-use App\Modules\GoalComponents\GoalComponents;
+use App\Modules\GoalLists\GoalLists;
 use ZXC\Interfaces\Psr\Http\Message\ResponseInterface;
 
-class DeleteGoalList
+class DeleteGoalList extends ListsBaseHandler
 {
-    protected GoalComponents|null $goalComponents = null;
-
-    public function __construct()
-    {
-        $this->goalComponents = Modules::get('GoalComponents');
-    }
-
     public function __invoke(ServerRequest $request, ResponseInterface $response, RouteParams $routeParams): ResponseInterface
     {
         $params = $request->getParsedBody();
         $listId = $params['listId'] ?? null;
         if ($listId !== null) {
-            $delete = $this->goalComponents->deleteList((int)$listId);
+            $delete = $this->goalLists->deleteList((int)$listId);
             return AppResponse::create($response, ['delete' => $delete], $request->getAttribute('rid'));
         }
         return AppResponse::create($response, [], $request->getAttribute('rid'));
