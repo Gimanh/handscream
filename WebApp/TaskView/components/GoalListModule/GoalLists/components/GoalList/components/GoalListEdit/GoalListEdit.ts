@@ -11,11 +11,11 @@ export default class GoalListEdit extends AppBase {
         default: () => {
         }
     } )
-    public component!: GoalComponentsState['components'][0];
+    public list!: GoalComponentsState['components'][0];
 
     public dialog: boolean = true;
 
-    public name: string = this.component.name;
+    public name: string = this.list.name;
 
     $refs!: {
         form: VuetifyForm
@@ -26,7 +26,7 @@ export default class GoalListEdit extends AppBase {
     @Watch( 'dialog' )
     dialogWatcher( val: boolean ) {
         if ( val ) {
-            this.name = this.component.name;
+            this.name = this.list.name;
         }
     }
 
@@ -49,7 +49,7 @@ export default class GoalListEdit extends AppBase {
     async update() {
         if ( this.$refs.form.validate() ) {
             const goalData: TGoalUpdateList = {
-                id: this.component.id,
+                id: this.list.id,
                 name: this.name
             };
             await this.updateComponent( goalData ).catch( this.logError );

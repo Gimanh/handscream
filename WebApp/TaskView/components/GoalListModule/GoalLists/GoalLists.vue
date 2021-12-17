@@ -17,9 +17,9 @@
                 v-model="selected"
             >
                 <goal-list
-                    v-for="component in components"
-                    :key="component.id"
-                    :component="component"
+                    v-for="list in lists"
+                    :key="list.id"
+                    :list="list"
                 />
             </v-list-item-group>
         </v-list-group>

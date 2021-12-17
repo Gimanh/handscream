@@ -4,11 +4,11 @@
         dense
     >
         <v-list-item-content>
-            {{ component.name }}
+            {{ list.name }}
         </v-list-item-content>
         <v-list-item-action>
             <goal-list-speed-dial
-                :list="component"
+                :list="list"
             />
         </v-list-item-action>
     </v-list-item>

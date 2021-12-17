@@ -8,7 +8,7 @@ export default class GoalList extends AppBase {
         default: () => {
         }
     } )
-    public component!: GoalComponentsState['components'][0];
+    public list!: GoalComponentsState['components'][0];
 
     public fab: boolean = false;
 
@@ -16,7 +16,7 @@ export default class GoalList extends AppBase {
         return {
             name: 'user-goals-id-list',
             params: {
-                list: this.component.id.toString()
+                list: this.list.id.toString()
             }
         };
     }

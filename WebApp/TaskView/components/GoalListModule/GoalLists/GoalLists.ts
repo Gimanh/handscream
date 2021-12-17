@@ -8,7 +8,7 @@ export default class GoalLists extends AppBase {
 
     public selected: number = 0;
 
-    @State( state => state.GoalComponents.components ) components!: GoalComponentsState['components'];
+    @State( state => state.GoalComponents.components ) lists!: GoalComponentsState['components'];
 
     @Action( 'fetchAllComponents', { namespace: 'GoalComponents' } ) fetchAllComponents!: GoalComponentsStoreActions['fetchAllComponents'];
 
