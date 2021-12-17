@@ -2,7 +2,7 @@ import { Component, Prop, Watch } from 'vue-property-decorator';
 import { Action } from 'vuex-class';
 import AppBase from '~/components/AppBase';
 import { VuetifyForm } from '~/classes/util/AppTypes';
-import { GoalComponentsState, GoalComponentsStoreActions } from '~/store/GoalComponents';
+import { GoalListsState, GoalListsStoreActions } from '~/store/GoalLists';
 import { TGoalUpdateList } from '~/classes/util/GoalTypes';
 
 @Component
@@ -11,7 +11,7 @@ export default class GoalListEdit extends AppBase {
         default: () => {
         }
     } )
-    public list!: GoalComponentsState['components'][0];
+    public list!: GoalListsState['lists'][0];
 
     public dialog: boolean = true;
 
@@ -21,7 +21,7 @@ export default class GoalListEdit extends AppBase {
         form: VuetifyForm
     }
 
-    @Action( 'updateComponent', { namespace: 'GoalComponents' } ) updateComponent!: GoalComponentsStoreActions['updateComponent']
+    @Action( 'updateComponent', { namespace: 'GoalComponents' } ) updateComponent!: GoalListsStoreActions['updateComponent']
 
     @Watch( 'dialog' )
     dialogWatcher( val: boolean ) {

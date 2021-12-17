@@ -1,16 +1,16 @@
 import { Component, Watch } from 'vue-property-decorator';
 import { Action, State } from 'vuex-class';
 import AppBase from '~/components/AppBase';
-import { GoalComponentsState, GoalComponentsStoreActions } from '~/store/GoalComponents';
+import { GoalListsState, GoalListsStoreActions } from '~/store/GoalLists';
 
 @Component
 export default class GoalLists extends AppBase {
 
     public selected: number = 0;
 
-    @State( state => state.GoalComponents.components ) lists!: GoalComponentsState['components'];
+    @State( state => state.GoalComponents.components ) lists!: GoalListsState['lists'];
 
-    @Action( 'fetchAllComponents', { namespace: 'GoalComponents' } ) fetchAllComponents!: GoalComponentsStoreActions['fetchAllComponents'];
+    @Action( 'fetchAllComponents', { namespace: 'GoalComponents' } ) fetchAllComponents!: GoalListsStoreActions['fetchAllComponents'];
 
     @Watch( '$route.params.id' )
     async routeHandler( id: string ) {

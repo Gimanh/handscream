@@ -1,6 +1,6 @@
 import { Component, Prop } from 'vue-property-decorator';
 import AppBase from '~/components/AppBase';
-import { GoalComponentsState } from '~/store/GoalComponents';
+import { GoalListsState } from '~/store/GoalLists';
 
 @Component
 export default class GoalList extends AppBase {
@@ -8,7 +8,7 @@ export default class GoalList extends AppBase {
         default: () => {
         }
     } )
-    public list!: GoalComponentsState['components'][0];
+    public list!: GoalListsState['lists'][0];
 
     public fab: boolean = false;
 

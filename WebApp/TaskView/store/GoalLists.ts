@@ -8,28 +8,28 @@ import {
 } from '~/classes/util/GoalTypes';
 import { AppResponse } from '~/classes/util/AppTypes';
 
-export class GoalComponentsState {
+export class GoalListsState {
     public urls: TGoalListStoreStateUrls = {
         addComponentUrl: '/module/goalcomponents/add',
         fetchComponents: '/module/goalcomponents/',
         updateComponents: '/module/goalcomponents/update'
     };
 
-    public components: TGoalLists = [];
+    public lists: TGoalLists = [];
 }
 
-export class GoalComponentsMutations extends Mutations<GoalComponentsState> {
+export class GoalListsMutations extends Mutations<GoalListsState> {
 
     addComponent( component: TGoalList ) {
-        this.state.components.push( component );
+        this.state.lists.push( component );
     }
 
     updateComponents( components: TGoalLists ) {
-        this.state.components = components;
+        this.state.lists = components;
     }
 
     updateComponent( component: TGoalList ) {
-        for ( const k of this.state.components ) {
+        for ( const k of this.state.lists ) {
             if ( +k.id === +component.id ) {
                 k.name = component.name;
                 break;
@@ -38,11 +38,11 @@ export class GoalComponentsMutations extends Mutations<GoalComponentsState> {
     }
 }
 
-export class GoalComponentsStoreGetters extends Getters<GoalComponentsState> {
+export class GoalListsStoreGetters extends Getters<GoalListsState> {
 
 }
 
-export class GoalComponentsStoreActions extends Actions<GoalComponentsState, GoalComponentsStoreGetters, GoalComponentsMutations, GoalComponentsStoreActions> {
+export class GoalListsStoreActions extends Actions<GoalListsState, GoalListsStoreGetters, GoalListsMutations, GoalListsStoreActions> {
 
     private store!: Store<any>
 
@@ -85,10 +85,10 @@ export class GoalComponentsStoreActions extends Actions<GoalComponentsState, Goa
 }
 
 const module = new Module( {
-    state: GoalComponentsState,
-    getters: GoalComponentsStoreGetters,
-    mutations: GoalComponentsMutations,
-    actions: GoalComponentsStoreActions
+    state: GoalListsState,
+    getters: GoalListsStoreGetters,
+    mutations: GoalListsMutations,
+    actions: GoalListsStoreActions
 } );
 export { module as GoalComponents };
 export default module;

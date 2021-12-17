@@ -3,7 +3,7 @@ import { Action } from 'vuex-class';
 import AppBase from '~/components/AppBase';
 import { AddGoalMode, TGoalAddList } from '~/classes/util/GoalTypes';
 import { VuetifyForm } from '~/classes/util/AppTypes';
-import { GoalComponentsStoreActions } from '~/store/GoalComponents';
+import { GoalListsStoreActions } from '~/store/GoalLists';
 
 @Component
 export default class GoalAddList extends AppBase {
@@ -18,7 +18,7 @@ export default class GoalAddList extends AppBase {
         form: VuetifyForm
     }
 
-    @Action( 'addComponent', { namespace: 'GoalComponents' } ) addComponent!: GoalComponentsStoreActions['addComponent'];
+    @Action( 'addComponent', { namespace: 'GoalComponents' } ) addComponent!: GoalListsStoreActions['addComponent'];
 
     get inlineMode(): boolean {
         return this.mode === 'inline';
