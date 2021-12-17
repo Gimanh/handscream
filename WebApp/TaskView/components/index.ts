@@ -17,3 +17,4 @@ export * from './TaskText';
 export * from './TaskAdd';
 export * from './AppProgress';
 export * from './GoalDelete';
+export * from './GoalSpeedDial';

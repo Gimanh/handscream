@@ -10,8 +10,6 @@ export default class Goal extends AppBase {
     } )
     public goal!: GoalsState['goals'][0];
 
-    public fab: boolean = false;
-
     get routeTo() {
         return {
             name: 'user-goals-id',
