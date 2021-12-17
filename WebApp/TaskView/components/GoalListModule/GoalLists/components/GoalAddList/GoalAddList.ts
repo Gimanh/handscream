@@ -18,7 +18,7 @@ export default class GoalAddList extends AppBase {
         form: VuetifyForm
     }
 
-    @Action( 'addComponent', { namespace: 'GoalComponents' } ) addComponent!: GoalListsStoreActions['addComponent'];
+    @Action( 'addComponent', { namespace: 'GoalLists' } ) addComponent!: GoalListsStoreActions['addComponent'];
 
     get inlineMode(): boolean {
         return this.mode === 'inline';

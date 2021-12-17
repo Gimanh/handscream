@@ -21,7 +21,7 @@ export default class GoalListEdit extends AppBase {
         form: VuetifyForm
     }
 
-    @Action( 'updateComponent', { namespace: 'GoalComponents' } ) updateComponent!: GoalListsStoreActions['updateComponent']
+    @Action( 'updateComponent', { namespace: 'GoalLists' } ) updateComponent!: GoalListsStoreActions['updateComponent']
 
     @Watch( 'dialog' )
     dialogWatcher( val: boolean ) {

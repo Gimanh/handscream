@@ -90,5 +90,5 @@ const module = new Module( {
     mutations: GoalListsMutations,
     actions: GoalListsStoreActions
 } );
-export { module as GoalComponents };
+export { module as GoalLists };
 export default module;

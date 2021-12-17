@@ -8,9 +8,9 @@ export default class GoalLists extends AppBase {
 
     public selected: number = 0;
 
-    @State( state => state.GoalComponents.components ) lists!: GoalListsState['lists'];
+    @State( state => state.GoalLists.lists ) lists!: GoalListsState['lists'];
 
-    @Action( 'fetchAllComponents', { namespace: 'GoalComponents' } ) fetchAllComponents!: GoalListsStoreActions['fetchAllComponents'];
+    @Action( 'fetchAllComponents', { namespace: 'GoalLists' } ) fetchAllComponents!: GoalListsStoreActions['fetchAllComponents'];
 
     @Watch( '$route.params.id' )
     async routeHandler( id: string ) {
