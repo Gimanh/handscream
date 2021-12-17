@@ -56,4 +56,9 @@ class GoalsStorage
             ]
         ]);
     }
+
+    public function deleteGoal(int $id)
+    {
+        return $this->db->delete('DELETE FROM tasks.tasks WHERE id = ?;', [$id]);
+    }
 }

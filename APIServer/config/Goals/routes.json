@@ -22,5 +22,13 @@
         "method": "POST",
         "route": "/module/goals/update",
         "handler": "App\\Modules\\Goals\\Handlers\\GoalUpdate"
+    },
+    {
+        "middlewares": [
+            "isLoggedIn"
+        ],
+        "method": "POST",
+        "route": "/module/goals/delete",
+        "handler": "App\\Modules\\Goals\\Handlers\\GoalDelete"
     }
 ]

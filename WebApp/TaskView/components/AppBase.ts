@@ -25,4 +25,7 @@ export default class AppBase extends Vue {
         }, 500 );
     }
 
+    goToGoals() {
+        this.$router.push( { name: 'user-goals' } );
+    }
 }

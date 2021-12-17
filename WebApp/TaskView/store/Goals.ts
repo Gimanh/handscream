@@ -7,7 +7,7 @@ import {
     AddGoalResponse,
     Goals,
     GoalsStoreStateUrls,
-    GoalUpdateResponse, GoalUpdate
+    GoalUpdateResponse, GoalUpdate, DeleteGoalResponse, DeleteGoalArg
 } from '~/classes/util/GoalTypes';
 import { AppResponse } from '~/classes/util/AppTypes';
 
@@ -16,7 +16,8 @@ export class GoalsState {
     public urls: GoalsStoreStateUrls = {
         addGoalUrl: '/module/goals/add',
         fetchGoals: '/module/goals/fetch',
-        updateGoal: '/module/goals/update'
+        updateGoal: '/module/goals/update',
+        deleteGoal: '/module/goals/delete'
     };
 }
 
@@ -34,6 +35,15 @@ export class GoalsMutations extends Mutations<GoalsState> {
             if ( +k.id === +goal.id ) {
                 k.name = goal.name;
                 k.description = goal.description;
+                break;
+            }
+        }
+    }
+
+    deleteGoal( goalId: DeleteGoalArg ) {
+        for ( let i = 0; i < this.state.goals.length; i++ ) {
+            if ( +goalId === this.state.goals[ i ].id ) {
+                this.state.goals.splice( i, 1 );
                 break;
             }
         }
@@ -80,6 +90,17 @@ export class GoalsStoreActions extends Actions<GoalsState, GoalsStoreGetters, Go
         if ( result ) {
             if ( result.response.update && result.response.goal ) {
                 this.mutations.updateGoal( result.response.goal );
+            }
+        }
+        return result;
+    }
+
+    async deleteGoal( goalId: DeleteGoalArg ): Promise<AppResponse<DeleteGoalResponse> | void> {
+        const result = await this.store.$axios.$post<AppResponse<DeleteGoalResponse>>( this.state.urls.deleteGoal, qs.stringify( { goalId } ) )
+            .catch( err => console.log( err ) );
+        if ( result ) {
+            if ( result.response.delete ) {
+                this.mutations.deleteGoal( goalId );
             }
         }
         return result;

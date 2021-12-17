@@ -24,6 +24,7 @@ export type GoalsStoreStateUrls = {
     addGoalUrl: string
     fetchGoals: string
     updateGoal: string
+    deleteGoal: string
 }
 
 export type AddGoalMode = 'inline' | 'form';
@@ -59,3 +60,9 @@ export type GoalComponentUpdateResponse = {
     update: boolean
     component?: GoalComponent
 }
+
+export type DeleteGoalResponse = {
+    delete: boolean
+};
+
+export type DeleteGoalArg = number;

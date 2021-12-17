@@ -42,4 +42,9 @@ class Goals implements IModule
         }
         return false;
     }
+
+    public function deleteGoal(int $id): bool
+    {
+        return $this->storage->deleteGoal($id);
+    }
 }
