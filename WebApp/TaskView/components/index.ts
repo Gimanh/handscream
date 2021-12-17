@@ -1,20 +1,23 @@
-export * from './AppCredentialsForm';
-export * from './LoginForm';
-export * from './RegistrationForm';
-export * from './GoalAdd';
-export * from './Goals';
-export * from './Goal';
-export * from './GoalEdit';
-export * from './GoalComponents';
-export * from './GoalAddComponents';
-export * from './GoalUpdateComponents';
-export * from './GoalComponent';
-export * from './GoalComponentEdit';
-export * from './Tasks';
-export * from './Task';
-export * from './TaskCheckbox';
-export * from './TaskText';
-export * from './TaskAdd';
-export * from './AppProgress';
-export * from './GoalDelete';
-export * from './GoalSpeedDial';
+export * from './Authentication/LoginForm';
+export * from './Authentication/RegistrationForm';
+export * from './Authentication/AppCredentialsForm';
+
+export * from './GoalModule/Goals';
+export * from './GoalModule/Goals/components/Goal';
+export * from './GoalModule/Goals/components/GoalAdd';
+export * from './GoalModule/Goals/components/Goal/components/GoalEdit';
+export * from './GoalModule/Goals/components/Goal/components/GoalDelete';
+export * from './GoalModule/Goals/components/Goal/components/GoalSpeedDial';
+
+export * from './GoalComponentModule/GoalComponents';
+export * from './GoalComponentModule/GoalComponents/components/GoalAddComponents';
+export * from './GoalComponentModule/GoalComponents/components/GoalComponent';
+export * from './GoalComponentModule/GoalComponents/components/GoalComponent/components/GoalComponentEdit';
+
+export * from './TaskModule/Tasks';
+export * from './TaskModule/Tasks/components/Task';
+export * from './TaskModule/Tasks/components/Task/components/TaskCheckbox';
+export * from './TaskModule/Tasks/components/Task/components/TaskText';
+export * from './TaskModule/Tasks/components/TaskAdd';
+
+export * from './AppHelpers/AppProgress';
