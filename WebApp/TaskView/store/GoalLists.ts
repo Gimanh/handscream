@@ -10,10 +10,9 @@ import { AppResponse } from '~/classes/util/AppTypes';
 
 export class GoalListsState {
     public urls: TGoalListStoreStateUrls = {
-        // todo rename urls
-        addComponentUrl: '/module/goal_lists/add',
-        fetchComponents: '/module/goal_lists/',
-        updateComponents: '/module/goal_lists/update',
+        addListUrl: '/module/goal_lists/add',
+        fetchLists: '/module/goal_lists/',
+        updateList: '/module/goal_lists/update',
         deleteList: '/module/goal_lists/delete'
     };
 
@@ -63,7 +62,7 @@ export class GoalListsStoreActions extends Actions<GoalListsState, GoalListsStor
 
     async fetchAllComponents( goalId: string ): Promise<AppResponse<TGoalLists> | void> {
         this.mutations.updateComponents( [] );
-        const result = await this.store.$axios.$get<AppResponse<TGoalLists>>( `${ this.state.urls.fetchComponents }${ goalId }` )
+        const result = await this.store.$axios.$get<AppResponse<TGoalLists>>( `${ this.state.urls.fetchLists }${ goalId }` )
             .catch( err => console.log( err ) );
         if ( result ) {
             this.mutations.updateComponents( result.response ?? [] );
@@ -72,7 +71,7 @@ export class GoalListsStoreActions extends Actions<GoalListsState, GoalListsStor
     }
 
     async addComponent( component: TGoalAddList ): Promise<AppResponse<TGoalAddListResponse> | void> {
-        const result = await this.store.$axios.$post<AppResponse<TGoalAddListResponse>>( this.state.urls.addComponentUrl, qs.stringify( component ) )
+        const result = await this.store.$axios.$post<AppResponse<TGoalAddListResponse>>( this.state.urls.addListUrl, qs.stringify( component ) )
             .catch( err => console.log( err ) );
         if ( result ) {
             if ( result.response.add && result.response.component ) {
@@ -83,7 +82,7 @@ export class GoalListsStoreActions extends Actions<GoalListsState, GoalListsStor
     }
 
     async updateComponent( component: TGoalUpdateList ): Promise<AppResponse<TGoalListUpdateResponse> | void> {
-        const result = await this.store.$axios.$post<AppResponse<TGoalListUpdateResponse>>( this.state.urls.updateComponents, qs.stringify( component ) )
+        const result = await this.store.$axios.$post<AppResponse<TGoalListUpdateResponse>>( this.state.urls.updateList, qs.stringify( component ) )
             .catch( err => console.log( err ) );
         if ( result ) {
             if ( result.response.update && result.response.component ) {

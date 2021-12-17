@@ -30,9 +30,9 @@ export type GoalsStoreStateUrls = {
 export type AddGoalMode = 'inline' | 'form';
 
 export type TGoalListStoreStateUrls = {
-    addComponentUrl: string
-    fetchComponents: string
-    updateComponents: string
+    addListUrl: string
+    fetchLists: string
+    updateList: string
     deleteList: string;
 }
 
