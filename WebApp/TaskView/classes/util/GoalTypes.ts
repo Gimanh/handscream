@@ -29,36 +29,36 @@ export type GoalsStoreStateUrls = {
 
 export type AddGoalMode = 'inline' | 'form';
 
-export type GoalComponentsStoreStateUrls = {
+export type TGoalListStoreStateUrls = {
     addComponentUrl: string
     fetchComponents: string
     updateComponents: string
 }
 
-export type GoalComponent = {
+export type TGoalList = {
     id: number
     name: string
 }
 
-export type GoalComponents = GoalComponent[];
+export type TGoalLists = TGoalList[];
 
-export type GoalAddComponent = {
+export type TGoalAddList = {
     goalId: number
     name: string
 }
-export type GoalUpdateComponent = {
+export type TGoalUpdateList = {
     id: number
     name: string
 }
 
-export type GoalAddComponentResponse = {
+export type TGoalAddListResponse = {
     add: boolean
-    component?: GoalComponent
+    component?: TGoalList
 }
 
-export type GoalComponentUpdateResponse = {
+export type TGoalListUpdateResponse = {
     update: boolean
-    component?: GoalComponent
+    component?: TGoalList
 }
 
 export type DeleteGoalResponse = {

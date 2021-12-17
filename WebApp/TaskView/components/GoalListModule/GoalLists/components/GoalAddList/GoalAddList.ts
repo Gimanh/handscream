@@ -1,7 +1,7 @@
 import { Component, Prop } from 'vue-property-decorator';
 import { Action } from 'vuex-class';
 import AppBase from '~/components/AppBase';
-import { AddGoalMode, GoalAddComponent } from '~/classes/util/GoalTypes';
+import { AddGoalMode, TGoalAddList } from '~/classes/util/GoalTypes';
 import { VuetifyForm } from '~/classes/util/AppTypes';
 import { GoalComponentsStoreActions } from '~/store/GoalComponents';
 
@@ -58,7 +58,7 @@ export default class GoalAddList extends AppBase {
 
     async add() {
         if ( this.canAddComponent() ) {
-            const addComponent: GoalAddComponent = {
+            const addComponent: TGoalAddList = {
                 name: this.name,
                 goalId: +this.$route.params.id
             };

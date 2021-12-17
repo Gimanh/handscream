@@ -1,6 +1,6 @@
 import { Component, Prop } from 'vue-property-decorator';
 import AppBase from '~/components/AppBase';
-import { GoalComponent } from '~/classes/util/GoalTypes';
+import { TGoalList } from '~/classes/util/GoalTypes';
 
 @Component
 export default class GoalListSpeedDial extends AppBase {
@@ -9,7 +9,7 @@ export default class GoalListSpeedDial extends AppBase {
         default: () => {
         }
     } )
-    public list!: GoalComponent;
+    public list!: TGoalList;
 
     public activeEdit: boolean = false;
 

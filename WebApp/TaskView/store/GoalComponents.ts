@@ -2,33 +2,33 @@ import { Getters, Mutations, Actions, Module } from 'vuex-smart-module';
 import { Store } from 'vuex';
 import qs from 'qs';
 import {
-    GoalAddComponent,
-    GoalAddComponentResponse, GoalComponent, GoalComponents,
-    GoalComponentsStoreStateUrls, GoalComponentUpdateResponse, GoalUpdateComponent
+    TGoalAddList,
+    TGoalAddListResponse, TGoalList, TGoalLists,
+    TGoalListStoreStateUrls, TGoalListUpdateResponse, TGoalUpdateList
 } from '~/classes/util/GoalTypes';
 import { AppResponse } from '~/classes/util/AppTypes';
 
 export class GoalComponentsState {
-    public urls: GoalComponentsStoreStateUrls = {
+    public urls: TGoalListStoreStateUrls = {
         addComponentUrl: '/module/goalcomponents/add',
         fetchComponents: '/module/goalcomponents/',
         updateComponents: '/module/goalcomponents/update'
     };
 
-    public components: GoalComponents = [];
+    public components: TGoalLists = [];
 }
 
 export class GoalComponentsMutations extends Mutations<GoalComponentsState> {
 
-    addComponent( component: GoalComponent ) {
+    addComponent( component: TGoalList ) {
         this.state.components.push( component );
     }
 
-    updateComponents( components: GoalComponents ) {
+    updateComponents( components: TGoalLists ) {
         this.state.components = components;
     }
 
-    updateComponent( component: GoalComponent ) {
+    updateComponent( component: TGoalList ) {
         for ( const k of this.state.components ) {
             if ( +k.id === +component.id ) {
                 k.name = component.name;
@@ -50,9 +50,9 @@ export class GoalComponentsStoreActions extends Actions<GoalComponentsState, Goa
         this.store = store;
     }
 
-    async fetchAllComponents( goalId: string ): Promise<AppResponse<GoalComponents> | void> {
+    async fetchAllComponents( goalId: string ): Promise<AppResponse<TGoalLists> | void> {
         this.mutations.updateComponents( [] );
-        const result = await this.store.$axios.$get<AppResponse<GoalComponents>>( `${ this.state.urls.fetchComponents }${ goalId }` )
+        const result = await this.store.$axios.$get<AppResponse<TGoalLists>>( `${ this.state.urls.fetchComponents }${ goalId }` )
             .catch( err => console.log( err ) );
         if ( result ) {
             this.mutations.updateComponents( result.response ?? [] );
@@ -60,8 +60,8 @@ export class GoalComponentsStoreActions extends Actions<GoalComponentsState, Goa
         return result;
     }
 
-    async addComponent( component: GoalAddComponent ): Promise<AppResponse<GoalAddComponentResponse> | void> {
-        const result = await this.store.$axios.$post<AppResponse<GoalAddComponentResponse>>( this.state.urls.addComponentUrl, qs.stringify( component ) )
+    async addComponent( component: TGoalAddList ): Promise<AppResponse<TGoalAddListResponse> | void> {
+        const result = await this.store.$axios.$post<AppResponse<TGoalAddListResponse>>( this.state.urls.addComponentUrl, qs.stringify( component ) )
             .catch( err => console.log( err ) );
         if ( result ) {
             if ( result.response.add && result.response.component ) {
@@ -71,8 +71,8 @@ export class GoalComponentsStoreActions extends Actions<GoalComponentsState, Goa
         return result;
     }
 
-    async updateComponent( component: GoalUpdateComponent ): Promise<AppResponse<GoalComponentUpdateResponse> | void> {
-        const result = await this.store.$axios.$post<AppResponse<GoalComponentUpdateResponse>>( this.state.urls.updateComponents, qs.stringify( component ) )
+    async updateComponent( component: TGoalUpdateList ): Promise<AppResponse<TGoalListUpdateResponse> | void> {
+        const result = await this.store.$axios.$post<AppResponse<TGoalListUpdateResponse>>( this.state.urls.updateComponents, qs.stringify( component ) )
             .catch( err => console.log( err ) );
         if ( result ) {
             if ( result.response.update && result.response.component ) {

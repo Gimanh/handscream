@@ -3,7 +3,7 @@ import { Action } from 'vuex-class';
 import AppBase from '~/components/AppBase';
 import { VuetifyForm } from '~/classes/util/AppTypes';
 import { GoalComponentsState, GoalComponentsStoreActions } from '~/store/GoalComponents';
-import { GoalUpdateComponent } from '~/classes/util/GoalTypes';
+import { TGoalUpdateList } from '~/classes/util/GoalTypes';
 
 @Component
 export default class GoalListEdit extends AppBase {
@@ -48,7 +48,7 @@ export default class GoalListEdit extends AppBase {
 
     async update() {
         if ( this.$refs.form.validate() ) {
-            const goalData: GoalUpdateComponent = {
+            const goalData: TGoalUpdateList = {
                 id: this.component.id,
                 name: this.name
             };
