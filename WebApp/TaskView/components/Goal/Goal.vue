@@ -6,8 +6,9 @@
         <v-list-item-content>
             {{ goal.name }}
         </v-list-item-content>
-        <v-list-item-action>
-
+        <v-list-item-action
+            @click.prevent
+        >
             <v-speed-dial
                 v-model="fab"
                 :left="false"
