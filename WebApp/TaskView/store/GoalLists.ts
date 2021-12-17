@@ -11,10 +11,10 @@ import { AppResponse } from '~/classes/util/AppTypes';
 export class GoalListsState {
     public urls: TGoalListStoreStateUrls = {
         // todo rename urls
-        addComponentUrl: '/module/goallists/add',
-        fetchComponents: '/module/goallists/',
-        updateComponents: '/module/goallists/update',
-        deleteList: '/module/goallists/delete'
+        addComponentUrl: '/module/goal_lists/add',
+        fetchComponents: '/module/goal_lists/',
+        updateComponents: '/module/goal_lists/update',
+        deleteList: '/module/goal_lists/delete'
     };
 
     public lists: TGoalLists = [];

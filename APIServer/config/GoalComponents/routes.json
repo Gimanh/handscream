@@ -4,7 +4,7 @@
             "isLoggedIn"
         ],
         "method": "POST",
-        "route": "/module/goallists/add",
+        "route": "/module/goal_lists/add",
         "handler": "App\\Modules\\GoalComponents\\Handlers\\AddGoalComponent"
     },
     {
@@ -12,7 +12,7 @@
             "isLoggedIn"
         ],
         "method": "GET",
-        "route": "/module/goallists/:goalId",
+        "route": "/module/goal_lists/:goalId",
         "handler": "App\\Modules\\GoalComponents\\Handlers\\FetchAllGoalComponents"
     },
     {
@@ -20,7 +20,7 @@
             "isLoggedIn"
         ],
         "method": "POST",
-        "route": "/module/goallists/update",
+        "route": "/module/goal_lists/update",
         "handler": "App\\Modules\\GoalComponents\\Handlers\\UpdateGoalComponents"
     },
     {
@@ -28,7 +28,7 @@
             "isLoggedIn"
         ],
         "method": "POST",
-        "route": "/module/goallists/delete",
+        "route": "/module/goal_lists/delete",
         "handler": "App\\Modules\\GoalComponents\\Handlers\\DeleteGoalList"
     }
 ]
