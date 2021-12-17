@@ -11,7 +11,7 @@
             </template>
             <goal-add-components />
             <app-progress
-                :loading="loading"
+                :loading-active="loading"
             />
             <v-list-item-group
                 v-model="selected"

@@ -18,7 +18,7 @@
                 v-model="selected"
             >
                 <app-progress
-                    :loading="loading"
+                    :loading-active="loading"
                 />
                 <task
                     v-for="task in tasks"

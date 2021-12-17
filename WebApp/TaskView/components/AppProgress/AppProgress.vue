@@ -4,7 +4,7 @@
         class="pl-5 pr-5"
     >
         <v-progress-linear
-            v-if="loading"
+            v-if="loadingActive"
             color="green"
             indeterminate
             absolute
