@@ -6,7 +6,7 @@ import { VuetifyForm } from '~/classes/util/AppTypes';
 import { GoalComponentsStoreActions } from '~/store/GoalComponents';
 
 @Component
-export default class GoalAddComponents extends AppBase {
+export default class GoalAddList extends AppBase {
     @Prop( { default: 'inline' } )
     public mode!: AddGoalMode;
 

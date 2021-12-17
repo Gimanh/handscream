@@ -18,4 +18,4 @@
     </div>
 </template>
 
-<script src=./GoalAddComponents.ts />
+<script src=./GoalAddList.ts />

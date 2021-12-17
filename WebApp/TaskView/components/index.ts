@@ -9,10 +9,10 @@ export * from './GoalModule/Goals/components/Goal/components/GoalEdit';
 export * from './GoalModule/Goals/components/Goal/components/GoalDelete';
 export * from './GoalModule/Goals/components/Goal/components/GoalSpeedDial';
 
-export * from './GoalComponentModule/GoalComponents';
-export * from './GoalComponentModule/GoalComponents/components/GoalAddComponents';
-export * from './GoalComponentModule/GoalComponents/components/GoalComponent';
-export * from './GoalComponentModule/GoalComponents/components/GoalComponent/components/GoalComponentEdit';
+export * from './GoalListModule/GoalLists';
+export * from './GoalListModule/GoalLists/components/GoalAddList';
+export * from './GoalListModule/GoalLists/components/GoalList';
+export * from './GoalListModule/GoalLists/components/GoalList/components/GoalListEdit';
 
 export * from './TaskModule/Tasks';
 export * from './TaskModule/Tasks/components/Task';

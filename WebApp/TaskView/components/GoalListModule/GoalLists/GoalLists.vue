@@ -9,14 +9,14 @@
             <template #activator>
                 <v-list-item-title>{{ $t( 'goal.components' ) }}</v-list-item-title>
             </template>
-            <goal-add-components />
+            <goal-add-list />
             <app-progress
                 :loading-active="loading"
             />
             <v-list-item-group
                 v-model="selected"
             >
-                <goal-component
+                <goal-list
                     v-for="component in components"
                     :key="component.id"
                     :component="component"
@@ -26,4 +26,4 @@
     </v-list>
 </template>
 
-<script src=./GoalComponents.ts />
+<script src=./GoalLists.ts />

@@ -2,7 +2,7 @@ import { Component } from 'vue-property-decorator';
 import axios from 'axios';
 import qs from 'qs';
 import AppBase from '~/components/AppBase';
-import { RegistrationResult } from '~/components/RegistrationForm/Types';
+import { RegistrationResult } from '~/components/Authentication/RegistrationForm/Types';
 
 @Component
 export default class RegistrationForm extends AppBase {
@@ -104,6 +104,6 @@ export default class RegistrationForm extends AppBase {
     }
 
     cancel() {
-        this.$emit( 'cancel' )
+        this.$emit( 'cancel' );
     }
 }

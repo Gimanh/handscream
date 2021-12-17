@@ -1,7 +1,7 @@
 import { Component } from 'vue-property-decorator';
 import qs from 'qs';
 import AppBase from '~/components/AppBase';
-import { LoginResponse } from '~/components/LoginForm/Types';
+import { LoginResponse } from '~/components/Authentication/LoginForm/Types';
 
 @Component
 export default class LoginForm extends AppBase {

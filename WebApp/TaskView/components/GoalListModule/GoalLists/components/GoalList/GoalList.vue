@@ -38,7 +38,7 @@
                 >
                     <v-icon>mdi-delete</v-icon>
                 </v-btn>
-                <goal-component-edit
+                <goal-list-edit
                     :component="component"
                 />
             </v-speed-dial>
@@ -46,4 +46,4 @@
     </v-list-item>
 </template>
 
-<script src=./GoalComponent.ts />
+<script src=./GoalList.ts />

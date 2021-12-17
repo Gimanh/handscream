@@ -4,7 +4,7 @@ import AppBase from '~/components/AppBase';
 import { GoalComponentsState, GoalComponentsStoreActions } from '~/store/GoalComponents';
 
 @Component
-export default class GoalComponents extends AppBase {
+export default class GoalLists extends AppBase {
 
     public selected: number = 0;
 

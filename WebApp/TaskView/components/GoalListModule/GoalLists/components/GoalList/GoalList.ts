@@ -3,7 +3,7 @@ import AppBase from '~/components/AppBase';
 import { GoalComponentsState } from '~/store/GoalComponents';
 
 @Component
-export default class GoalComponent extends AppBase {
+export default class GoalList extends AppBase {
     @Prop( {
         default: () => {
         }
