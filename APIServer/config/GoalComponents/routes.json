@@ -22,5 +22,13 @@
         "method": "POST",
         "route": "/module/goalcomponents/update",
         "handler": "App\\Modules\\GoalComponents\\Handlers\\UpdateGoalComponents"
+    },
+    {
+        "middlewares": [
+            "isLoggedIn"
+        ],
+        "method": "POST",
+        "route": "/module/goalcomponents/delete",
+        "handler": "App\\Modules\\GoalComponents\\Handlers\\DeleteGoalList"
     }
 ]

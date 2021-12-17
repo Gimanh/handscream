@@ -50,4 +50,9 @@ class GoalComponentsStorage
             ]
         ]);
     }
+
+    public function deleteList(int $listId):bool
+    {
+        return $this->db->delete('DELETE FROM tasks.goal_lists WHERE id = ?;', [$listId]);
+    }
 }

@@ -2,7 +2,7 @@
     <div>
         <goal-list-edit
             v-if="activeEdit"
-            :component="list"
+            :list="list"
             @close="closeEdit"
         />
         <v-speed-dial
@@ -28,14 +28,9 @@
                     </v-icon>
                 </v-btn>
             </template>
-            <v-btn
-                fab
-                dark
-                small
-                color="red"
-            >
-                <v-icon>mdi-delete</v-icon>
-            </v-btn>
+            <goal-list-delete
+                :list="list"
+            />
             <v-btn
                 fab
                 dark

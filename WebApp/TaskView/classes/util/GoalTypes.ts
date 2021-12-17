@@ -33,6 +33,7 @@ export type TGoalListStoreStateUrls = {
     addComponentUrl: string
     fetchComponents: string
     updateComponents: string
+    deleteList: string;
 }
 
 export type TGoalList = {
@@ -54,6 +55,10 @@ export type TGoalUpdateList = {
 export type TGoalAddListResponse = {
     add: boolean
     component?: TGoalList
+}
+
+export type TGoalDeleteListResponse = {
+    delete: boolean
 }
 
 export type TGoalListUpdateResponse = {

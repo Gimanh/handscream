@@ -6,7 +6,9 @@
         <v-list-item-content>
             {{ list.name }}
         </v-list-item-content>
-        <v-list-item-action>
+        <v-list-item-action
+            @click.prevent
+        >
             <goal-list-speed-dial
                 :list="list"
             />

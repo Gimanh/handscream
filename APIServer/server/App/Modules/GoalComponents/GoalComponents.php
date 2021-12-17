@@ -36,4 +36,9 @@ class GoalComponents implements IModule
         }
         return false;
     }
+
+    public function deleteList(int $listId):bool
+    {
+        return $this->storage->deleteList($listId);
+    }
 }

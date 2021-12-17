@@ -14,7 +14,7 @@ export * from './GoalListModule/GoalLists/components/GoalAddList';
 export * from './GoalListModule/GoalLists/components/GoalList';
 export * from './GoalListModule/GoalLists/components/GoalList/components/GoalListEdit';
 export * from './GoalListModule/GoalLists/components/GoalList/components/GoalListSpeedDial';
-
+export * from './GoalListModule/GoalLists/components/GoalList/components/GoalListDelete';
 
 export * from './TaskModule/Tasks';
 export * from './TaskModule/Tasks/components/Task';

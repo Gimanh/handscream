@@ -3,16 +3,18 @@ import { Store } from 'vuex';
 import qs from 'qs';
 import {
     TGoalAddList,
-    TGoalAddListResponse, TGoalList, TGoalLists,
+    TGoalAddListResponse, TGoalDeleteListResponse, TGoalList, TGoalLists,
     TGoalListStoreStateUrls, TGoalListUpdateResponse, TGoalUpdateList
 } from '~/classes/util/GoalTypes';
 import { AppResponse } from '~/classes/util/AppTypes';
 
 export class GoalListsState {
     public urls: TGoalListStoreStateUrls = {
+        // todo rename urls
         addComponentUrl: '/module/goalcomponents/add',
         fetchComponents: '/module/goalcomponents/',
-        updateComponents: '/module/goalcomponents/update'
+        updateComponents: '/module/goalcomponents/update',
+        deleteList: '/module/goalcomponents/delete'
     };
 
     public lists: TGoalLists = [];
@@ -32,6 +34,15 @@ export class GoalListsMutations extends Mutations<GoalListsState> {
         for ( const k of this.state.lists ) {
             if ( +k.id === +component.id ) {
                 k.name = component.name;
+                break;
+            }
+        }
+    }
+
+    deleteList( listId: number ) {
+        for ( let i = 0; i < this.state.lists.length; i++ ) {
+            if ( +this.state.lists[ i ].id === listId ) {
+                this.state.lists.splice( i, 1 );
                 break;
             }
         }
@@ -82,6 +93,16 @@ export class GoalListsStoreActions extends Actions<GoalListsState, GoalListsStor
         return result;
     }
 
+    async deleteList( listId: number ): Promise<AppResponse<TGoalDeleteListResponse> | void> {
+        const result = await this.store.$axios.$post<AppResponse<TGoalDeleteListResponse>>( this.state.urls.deleteList, qs.stringify( { listId } ) )
+            .catch( err => console.log( err ) );
+        if ( result ) {
+            if ( result.response.delete ) {
+                this.mutations.deleteList( listId );
+            }
+        }
+        return result;
+    }
 }
 
 const module = new Module( {
