@@ -13,4 +13,13 @@ export default class GoalSpeedDial extends AppBase {
 
     public fab: boolean = false;
 
+    public activeEdit: boolean = false;
+
+    openEdit() {
+        this.activeEdit = true;
+    }
+
+    closeEdit() {
+        this.activeEdit = false;
+    }
 }

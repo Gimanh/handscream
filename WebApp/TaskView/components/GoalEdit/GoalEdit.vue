@@ -7,28 +7,29 @@
             width="400"
             persistent
         >
-            <template #activator="{ on }">
-                <div
-                    style="transition-delay: 0.15s;"
-                >
-                    <v-btn
-                        fab
-                        small
-                        color="green"
-                        v-on="on"
-                    >
-                        <v-icon>
-                            mdi-pencil-outline
-                        </v-icon>
-                    </v-btn>
-                </div>
-            </template>
+            <!--            <template #activator="{ on }">
+                            <div
+                                style="transition-delay: 0.15s;"
+                            >
+                                <v-btn
+                                    fab
+                                    small
+                                    color="green"
+                                    v-on="on"
+                                >
+                                    <v-icon>
+                                        mdi-pencil-outline
+                                    </v-icon>
+                                </v-btn>
+                            </div>
+                        </template>-->
             <v-card>
                 <v-card-title>
                     {{ $t( 'msg.editing' ) }}
                 </v-card-title>
                 <v-card-text>
                     <v-form
+                        v-model="valid"
                         ref="form"
                     >
                         <v-row>
@@ -63,6 +64,7 @@
                         {{ $t( 'msg.cancel' ) }}
                     </v-btn>
                     <v-btn
+                        :disabled="!valid"
                         color="blue darken-1"
                         text
                         @click="update"

@@ -13,7 +13,9 @@ export default class GoalEdit extends AppBase {
     } )
     public goal!: GoalsState['goals'][0];
 
-    public dialog: boolean = false;
+    public dialog: boolean = true;
+
+    public valid: boolean = true;
 
     public name: string = this.goal.name;
 
@@ -43,6 +45,11 @@ export default class GoalEdit extends AppBase {
         this.dialog = false;
         this.name = '';
         this.description = '';
+        this.emitCloseEdit();
+    }
+
+    emitCloseEdit() {
+        this.$emit( 'close' );
     }
 
     async update() {
