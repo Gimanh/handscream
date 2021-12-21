@@ -38,4 +38,9 @@ class Tasks implements IModule
     {
         return $this->storage->updateTaskComplete($taskId, $complete);
     }
+
+    public function deleteTask(int $taskId): bool
+    {
+        return $this->storage->deleteTask($taskId);
+    }
 }

@@ -22,6 +22,7 @@ export type TasksStoreStateUrls = {
     updateTask: string
     updateStatus: string
     updateDescription: string
+    deleteTask: string
 }
 
 export type TaskCompleteChanged = {
@@ -41,3 +42,9 @@ export type TaskDescriptionChanged = {
 export type TaskDescriptionChangedResponse = {
     task?: Task
 };
+
+export type TaskDeleteResponse = {
+    delete: boolean
+};
+
+export type TaskDeleteArg = number;

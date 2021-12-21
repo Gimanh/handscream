@@ -2,6 +2,7 @@ import { Component, Prop } from 'vue-property-decorator';
 import { Action } from 'vuex-class';
 import AppBase from '~/components/AppBase';
 import { TasksState, TasksStoreActions } from '~/store/Tasks';
+import { TaskDeleteArg } from '~/classes/util/TaskTypes';
 
 @Component
 export default class Task extends AppBase {
@@ -15,6 +16,8 @@ export default class Task extends AppBase {
 
     @Action( 'updateDescription', { namespace: 'Tasks' } ) updateDescription!: TasksStoreActions['updateDescription'];
 
+    @Action( 'deleteTask', { namespace: 'Tasks' } ) deleteTask!: TasksStoreActions['deleteTask'];
+
     async statusChanged( value: boolean ) {
         await this.updateCompleteStatus( {
             complete: value,
@@ -27,5 +30,9 @@ export default class Task extends AppBase {
             description: value,
             taskId: this.task.id
         } );
+    }
+
+    async deleteThisTask() {
+        await this.deleteTask( +this.task.id );
     }
 }

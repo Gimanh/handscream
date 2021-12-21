@@ -172,6 +172,8 @@
     },
     "task": {
         "add": "Add task",
-        "tasks": "Tasks"
+        "tasks": "Tasks",
+        "deleteTitle": "Delete task",
+        "deleteQuestion": "Are you sure you want to delete the task?"
     }
 }

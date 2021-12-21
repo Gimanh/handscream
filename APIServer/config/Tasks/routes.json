@@ -38,5 +38,13 @@
         "method": "POST",
         "route": "/module/tasks/update/description",
         "handler": "App\\Modules\\Tasks\\Handlers\\TaskUpdateDescription"
+    },
+    {
+        "middlewares": [
+            "isLoggedIn"
+        ],
+        "method": "POST",
+        "route": "/module/tasks/delete",
+        "handler": "App\\Modules\\Tasks\\Handlers\\TaskDelete"
     }
 ]

@@ -18,8 +18,9 @@ export * from './GoalListModule/GoalLists/components/GoalList/components/GoalLis
 
 export * from './TaskModule/Tasks';
 export * from './TaskModule/Tasks/components/Task';
+export * from './TaskModule/Tasks/components/TaskAdd';
 export * from './TaskModule/Tasks/components/Task/components/TaskCheckbox';
 export * from './TaskModule/Tasks/components/Task/components/TaskText';
-export * from './TaskModule/Tasks/components/TaskAdd';
+export * from './TaskModule/Tasks/components/Task/components/TaskDeleteDialog';
 
 export * from './AppHelpers/AppProgress';

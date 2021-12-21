@@ -6,7 +6,28 @@ export default class TaskText extends AppBase {
     @Prop( { default: '' } )
     public description!: string;
 
-    updateDescription( value: string ) {
-        this.$emit( 'change', value );
+    public deleteActive: boolean = false;
+
+    public descriptionValue: string = this.description;
+
+    updateDescription() {
+        if ( this.descriptionValue.trim() === '' ) {
+            this.activateDelete();
+        } else {
+            this.$emit( 'change', this.descriptionValue );
+        }
+    }
+
+    activateDelete() {
+        this.deleteActive = true;
+    }
+
+    deleteTask() {
+        this.$emit( 'deleteTask' );
+    }
+
+    cancelDelete() {
+        this.deleteActive = false;
+        this.descriptionValue = this.description;
     }
 }

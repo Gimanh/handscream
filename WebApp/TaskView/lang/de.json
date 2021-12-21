@@ -173,6 +173,8 @@
     },
     "task": {
         "add": "Add task",
-        "tasks": "Aufgaben"
+        "tasks": "Aufgaben",
+        "deleteTitle": "Delete task",
+        "deleteQuestion": "Are you sure you want to delete the task?"
     }
 }

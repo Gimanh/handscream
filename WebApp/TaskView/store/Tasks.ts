@@ -7,7 +7,11 @@ import {
     TaskAddArg,
     Task,
     TaskAddResponse,
-    TaskCompleteChanged, TaskCompleteChangedResponse, TaskDescriptionChanged, TaskDescriptionChangedResponse
+    TaskCompleteChanged,
+    TaskCompleteChangedResponse,
+    TaskDescriptionChanged,
+    TaskDescriptionChangedResponse,
+    TaskDeleteResponse, TaskDeleteArg
 } from '~/classes/util/TaskTypes';
 import { AppResponse } from '~/classes/util/AppTypes';
 
@@ -18,7 +22,8 @@ export class TasksState {
         fetchTasks: '/module/tasks/',
         updateTask: '/module/tasks/update',
         updateStatus: '/module/tasks/update/status',
-        updateDescription: '/module/tasks/update/description'
+        updateDescription: '/module/tasks/update/description',
+        deleteTask: '/module/tasks/delete'
     };
 }
 
@@ -44,6 +49,15 @@ export class TasksMutations extends Mutations<TasksState> {
         for ( const t of this.state.tasks ) {
             if ( t.id === task.id ) {
                 t.description = task.description;
+                break;
+            }
+        }
+    }
+
+    deleteTask( taskId: TaskDeleteArg ) {
+        for ( let i = 0; i < this.state.tasks.length; i++ ) {
+            if ( +taskId === this.state.tasks[ i ].id ) {
+                this.state.tasks.splice( i, 1 );
                 break;
             }
         }
@@ -102,6 +116,17 @@ export class TasksStoreActions extends Actions<TasksState, TasksStoreGetters, Ta
         if ( result ) {
             if ( result.response.task ) {
                 this.mutations.updateTaskDescription( result.response.task );
+            }
+        }
+        return result;
+    }
+
+    async deleteTask( taskId: TaskDeleteArg ): Promise<AppResponse<TaskDeleteResponse> | void> {
+        const result = await this.store.$axios.$post<AppResponse<TaskDeleteResponse>>( this.state.urls.deleteTask, qs.stringify( { taskId } ) )
+            .catch( err => console.log( err ) );
+        if ( result ) {
+            if ( result.response.delete ) {
+                this.mutations.deleteTask( taskId );
             }
         }
         return result;

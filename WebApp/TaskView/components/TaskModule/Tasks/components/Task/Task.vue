@@ -14,6 +14,7 @@
             <task-text
                 :description="task.description"
                 @change="descriptionChanged"
+                @deleteTask="deleteThisTask"
             />
         </v-list-item-content>
     </v-list-item>

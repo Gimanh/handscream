@@ -76,4 +76,9 @@ class TasksStorage
         }
         return false;
     }
+
+    public function deleteTask(int $taskId): bool
+    {
+        return $this->db->delete('DELETE FROM tasks.tasks WHERE id = ?;', [$taskId]);
+    }
 }
