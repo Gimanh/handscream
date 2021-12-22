@@ -171,6 +171,7 @@
         "components": "Components"
     },
     "task": {
+        "task": "Task",
         "add": "Add task",
         "tasks": "Tasks",
         "deleteTitle": "Delete task",

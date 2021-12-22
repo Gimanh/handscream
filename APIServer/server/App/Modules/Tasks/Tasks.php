@@ -2,6 +2,8 @@
 
 namespace App\Modules\Tasks;
 
+use ZXC\Modules\Auth\Auth;
+use ZXC\Native\Modules;
 use ZXC\Traits\Module;
 use ZXC\Interfaces\IModule;
 
@@ -42,5 +44,27 @@ class Tasks implements IModule
     public function deleteTask(int $taskId): bool
     {
         return $this->storage->deleteTask($taskId);
+    }
+
+    public function fetchUserInfo(int $userId)
+    {
+        /** @var Auth $auth */
+        $auth = Modules::get('auth');
+        $userData = $auth->getStorageProvider()->fetchUserById($userId);
+        return [
+            'id' => $userData['id'],
+            'login' => $userData['login'],
+            'email' => $userData['email'],
+        ];
+    }
+
+    public function getDetailedTask(int $taskId)
+    {
+        $task = $this->storage->fetchTaskById($taskId);
+        if ($task['responsibleId']) {
+            $task['responsibleUser'] = $this->fetchUserInfo($task['responsibleId']);
+            unset($task['responsibleId']);
+        }
+        return $task;
     }
 }

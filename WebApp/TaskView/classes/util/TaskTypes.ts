@@ -1,7 +1,8 @@
-export type Task = {
+export interface Task {
     id: number
     description: string
     complete: boolean
+    deadline: string | null
 }
 
 export type Tasks = Task[];
@@ -23,6 +24,7 @@ export type TasksStoreStateUrls = {
     updateStatus: string
     updateDescription: string
     deleteTask: string
+    fetchTaskDetails: string
 }
 
 export type TaskCompleteChanged = {
@@ -47,4 +49,16 @@ export type TaskDeleteResponse = {
     delete: boolean
 };
 
-export type TaskDeleteArg = number;
+export type TaskIdArg = number;
+
+export interface ResponsibleUser {
+    id: number
+    login: string
+    email: string
+}
+
+export interface DetailedTask extends Task {
+    dateComplete: string | null
+    dateCreation: string
+    responsibleUser: ResponsibleUser | null
+}

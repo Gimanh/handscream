@@ -11,7 +11,7 @@ import {
     TaskCompleteChangedResponse,
     TaskDescriptionChanged,
     TaskDescriptionChangedResponse,
-    TaskDeleteResponse, TaskDeleteArg
+    TaskDeleteResponse, TaskIdArg, DetailedTask
 } from '~/classes/util/TaskTypes';
 import { AppResponse } from '~/classes/util/AppTypes';
 
@@ -24,10 +24,19 @@ export class TasksState {
         updateTask: '/module/tasks/update',
         updateStatus: '/module/tasks/update/status',
         updateDescription: '/module/tasks/update/description',
-        deleteTask: '/module/tasks/delete'
+        deleteTask: '/module/tasks/delete',
+        fetchTaskDetails: '/module/tasks/details'
     };
 
-    public activeDetailForTask: Task['id'] = -1;
+    public detailedTask: DetailedTask = {
+        id: -1,
+        description: '',
+        complete: false,
+        dateComplete: null,
+        dateCreation: '',
+        deadline: null,
+        responsibleUser: null
+    };
 }
 
 export class TasksMutations extends Mutations<TasksState> {
@@ -57,7 +66,7 @@ export class TasksMutations extends Mutations<TasksState> {
         }
     }
 
-    deleteTask( taskId: TaskDeleteArg ) {
+    deleteTask( taskId: TaskIdArg ) {
         for ( let i = 0; i < this.state.tasks.length; i++ ) {
             if ( +taskId === this.state.tasks[ i ].id ) {
                 this.state.tasks.splice( i, 1 );
@@ -66,12 +75,8 @@ export class TasksMutations extends Mutations<TasksState> {
         }
     }
 
-    setActiveDetail( taskId: Task['id'] ) {
-        this.state.activeDetailForTask = taskId;
-    }
-
-    resetActiveDetail() {
-        this.state.activeDetailForTask = -1;
+    setDetailedTask( detailedTask: DetailedTask ) {
+        this.state.detailedTask = detailedTask;
     }
 }
 
@@ -132,12 +137,24 @@ export class TasksStoreActions extends Actions<TasksState, TasksStoreGetters, Ta
         return result;
     }
 
-    async deleteTask( taskId: TaskDeleteArg ): Promise<AppResponse<TaskDeleteResponse> | void> {
+    async deleteTask( taskId: TaskIdArg ): Promise<AppResponse<TaskDeleteResponse> | void> {
         const result = await this.store.$axios.$post<AppResponse<TaskDeleteResponse>>( this.state.urls.deleteTask, qs.stringify( { taskId } ) )
             .catch( err => console.log( err ) );
         if ( result ) {
             if ( result.response.delete ) {
                 this.mutations.deleteTask( taskId );
+            }
+        }
+        return result;
+    }
+
+    async fetchTaskDetails( taskId: TaskIdArg ): Promise<AppResponse<DetailedTask> | void> {
+        const result = await this.store.$axios.$post<AppResponse<DetailedTask>>( this.state.urls.fetchTaskDetails,
+            qs.stringify( { taskId } ) )
+            .catch( err => console.log( err ) );
+        if ( result ) {
+            if ( result.response ) {
+                this.mutations.setDetailedTask( result.response );
             }
         }
         return result;
