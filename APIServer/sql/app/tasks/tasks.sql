@@ -1,9 +1,8 @@
-
 create table tasks.tasks
 (
     id              serial,
     description     varchar,
-    complete        bool default false,
+    complete        bool      default false,
     goal_list_id    int not null
         constraint fr_goal_list_id
             references tasks.goal_lists (id)
@@ -20,5 +19,7 @@ create table tasks.tasks
     responsible_id  int
         constraint fr_task_responsible_id
             references tv_auth.users (id)
-            ON DELETE SET NULL
+            ON DELETE SET NULL,
+    deadline        timestamp,
+    date_complete   timestamp
 );
