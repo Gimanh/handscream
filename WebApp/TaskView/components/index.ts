@@ -22,5 +22,6 @@ export * from './TaskModule/Tasks/components/TaskAdd';
 export * from './TaskModule/Tasks/components/Task/components/TaskCheckbox';
 export * from './TaskModule/Tasks/components/Task/components/TaskText';
 export * from './TaskModule/Tasks/components/Task/components/TaskDeleteDialog';
+export * from './TaskModule/Tasks/components/Task/components/TaskDetails';
 
 export * from './AppHelpers/AppProgress';

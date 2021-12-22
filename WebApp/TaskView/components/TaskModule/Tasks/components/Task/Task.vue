@@ -1,6 +1,7 @@
 <template>
     <v-list-item
         dense
+        :to="routeTo"
     >
         <v-list-item-action>
             <task-checkbox

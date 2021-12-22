@@ -10,5 +10,6 @@
         <tasks
             :component-id="$route.params.list"
         />
+        <router-view />
     </v-col>
 </template>

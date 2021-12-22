@@ -17,6 +17,7 @@ import { AppResponse } from '~/classes/util/AppTypes';
 
 export class TasksState {
     public tasks: Tasks = [];
+
     public urls: TasksStoreStateUrls = {
         addTaskUrl: '/module/tasks/add',
         fetchTasks: '/module/tasks/',
@@ -25,6 +26,8 @@ export class TasksState {
         updateDescription: '/module/tasks/update/description',
         deleteTask: '/module/tasks/delete'
     };
+
+    public activeDetailForTask: Task['id'] = -1;
 }
 
 export class TasksMutations extends Mutations<TasksState> {
@@ -61,6 +64,14 @@ export class TasksMutations extends Mutations<TasksState> {
                 break;
             }
         }
+    }
+
+    setActiveDetail( taskId: Task['id'] ) {
+        this.state.activeDetailForTask = taskId;
+    }
+
+    resetActiveDetail() {
+        this.state.activeDetailForTask = -1;
     }
 }
 
