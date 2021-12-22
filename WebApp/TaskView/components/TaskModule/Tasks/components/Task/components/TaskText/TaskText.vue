@@ -6,8 +6,10 @@
             hide-details
             rows="1"
             auto-grow
+            append-icon="mdi-dots-horizontal"
             @keypress.enter.prevent="updateDescription"
             @change="updateDescription"
+            @click:append="showDetails"
         />
         <task-delete-dialog
             v-if="deleteActive"

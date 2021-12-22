@@ -3,5 +3,7 @@ import AppBase from '~/components/AppBase';
 
 @Component
 export default class TaskDetails extends AppBase {
+    created() {
 
+    }
 }

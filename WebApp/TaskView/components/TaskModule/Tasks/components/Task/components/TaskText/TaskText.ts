@@ -30,4 +30,8 @@ export default class TaskText extends AppBase {
         this.deleteActive = false;
         this.descriptionValue = this.description;
     }
+
+    showDetails() {
+        this.$emit( 'showDetails' );
+    }
 }

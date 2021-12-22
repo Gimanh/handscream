@@ -26,6 +26,15 @@ export default class Task extends AppBase {
         };
     }
 
+    goToDetails() {
+        this.$router.push( {
+            name: 'user-goals-id-list-task-details',
+            params: {
+                task: this.task.id.toString()
+            }
+        } );
+    }
+
     async statusChanged( value: boolean ) {
         await this.updateCompleteStatus( {
             complete: value,
