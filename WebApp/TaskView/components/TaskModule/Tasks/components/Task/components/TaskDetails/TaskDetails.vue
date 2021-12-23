@@ -17,9 +17,20 @@
                     </v-icon>
                 </v-btn>
             </v-toolbar>
+            <app-progress
+                :loading-active="loading"
+            />
             <v-card-text
+                v-if="!loading"
                 style="height: 100%;"
+                class="pt-4"
             >
+                <task-text
+                    :description="detailedTask.description"
+                    :show-btn-more="false"
+                />
+
+                <task-note />
                 <h1>
                     {{ detailedTask }}
                     Component TaskDetails {{ $route.params.task }}

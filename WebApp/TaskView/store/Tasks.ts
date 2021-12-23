@@ -15,6 +15,17 @@ import {
 } from '~/classes/util/TaskTypes';
 import { AppResponse } from '~/classes/util/AppTypes';
 
+const DETAILED_TASK: DetailedTask = {
+    id: -1,
+    description: '',
+    complete: false,
+    note: null,
+    dateComplete: null,
+    dateCreation: '',
+    deadline: null,
+    responsibleUser: null
+};
+
 export class TasksState {
     public tasks: Tasks = [];
 
@@ -28,16 +39,7 @@ export class TasksState {
         fetchTaskDetails: '/module/tasks/details'
     };
 
-    public detailedTask: DetailedTask = {
-        id: -1,
-        description: '',
-        complete: false,
-        note: null,
-        dateComplete: null,
-        dateCreation: '',
-        deadline: null,
-        responsibleUser: null
-    };
+    public detailedTask: DetailedTask = DETAILED_TASK;
 }
 
 export class TasksMutations extends Mutations<TasksState> {
@@ -74,6 +76,10 @@ export class TasksMutations extends Mutations<TasksState> {
                 break;
             }
         }
+    }
+
+    resetDetailedTask() {
+        this.state.detailedTask = DETAILED_TASK;
     }
 
     setDetailedTask( detailedTask: DetailedTask ) {

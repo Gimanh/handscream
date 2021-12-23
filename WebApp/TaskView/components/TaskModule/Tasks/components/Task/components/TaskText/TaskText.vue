@@ -6,7 +6,8 @@
             hide-details
             rows="1"
             auto-grow
-            append-icon="mdi-dots-horizontal"
+            :label="label"
+            :append-icon="appendIcon"
             @keypress.enter.prevent="updateDescription"
             @change="updateDescription"
             @click:append="showDetails"

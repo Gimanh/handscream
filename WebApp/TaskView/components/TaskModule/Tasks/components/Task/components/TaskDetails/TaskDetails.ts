@@ -1,7 +1,7 @@
 import { Component } from 'vue-property-decorator';
-import { Action, State } from 'vuex-class';
+import { Action, Mutation, State } from 'vuex-class';
 import AppBase from '~/components/AppBase';
-import { TasksState, TasksStoreActions } from '~/store/Tasks';
+import { TasksMutations, TasksState, TasksStoreActions } from '~/store/Tasks';
 
 @Component
 export default class TaskDetails extends AppBase {
@@ -9,6 +9,8 @@ export default class TaskDetails extends AppBase {
     @State( state => state.Tasks.detailedTask ) detailedTask!: TasksState['detailedTask'];
 
     @Action( 'fetchTaskDetails', { namespace: 'Tasks' } ) fetchTaskDetails!: TasksStoreActions['fetchTaskDetails'];
+
+    @Mutation( 'resetDetailedTask', { namespace: 'Tasks' } ) resetDetailedTask!: TasksMutations['resetDetailedTask'];
 
     public dialog: boolean = true;
 
@@ -25,6 +27,12 @@ export default class TaskDetails extends AppBase {
     }
 
     async created() {
+        this.startLoading();
         await this.fetchTaskDetails( +this.$route.params.task );
+        this.endLoading();
+    }
+
+    beforeDestroy() {
+        this.resetDetailedTask();
     }
 }
