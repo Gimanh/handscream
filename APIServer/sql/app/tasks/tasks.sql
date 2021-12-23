@@ -21,5 +21,6 @@ create table tasks.tasks
             references tv_auth.users (id)
             ON DELETE SET NULL,
     deadline        timestamp,
-    date_complete   timestamp
+    date_complete   timestamp,
+    note            varchar
 );
