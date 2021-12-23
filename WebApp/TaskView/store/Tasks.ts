@@ -32,6 +32,7 @@ export class TasksState {
         id: -1,
         description: '',
         complete: false,
+        note: null,
         dateComplete: null,
         dateCreation: '',
         deadline: null,

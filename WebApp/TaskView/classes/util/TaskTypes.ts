@@ -2,7 +2,8 @@ export interface Task {
     id: number
     description: string
     complete: boolean
-    deadline: string | null
+    deadline: string | null,
+    note: string | null
 }
 
 export type Tasks = Task[];
