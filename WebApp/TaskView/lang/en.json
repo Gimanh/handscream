@@ -175,6 +175,7 @@
         "add": "Add task",
         "tasks": "Tasks",
         "deleteTitle": "Delete task",
-        "deleteQuestion": "Are you sure you want to delete the task?"
+        "deleteQuestion": "Are you sure you want to delete the task?",
+        "errorUpdateNote": "Can not update note."
     }
 }

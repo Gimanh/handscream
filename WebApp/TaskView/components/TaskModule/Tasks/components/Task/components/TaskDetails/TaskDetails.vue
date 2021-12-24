@@ -25,12 +25,26 @@
                 style="height: 100%;"
                 class="pt-4"
             >
-                <task-text
-                    :description="detailedTask.description"
-                    :show-btn-more="false"
-                />
+                <v-row>
+                    <v-col
+                        cols="12"
+                    >
+                        <task-text
+                            :description="detailedTask.description"
+                            :show-btn-more="false"
+                        />
+                    </v-col>
+                    <v-col
+                        cols="12"
+                    >
+                        <task-note
+                            :note="detailedTask.note"
+                            :task-id="detailedTask.id"
+                        />
+                    </v-col>
+                </v-row>
 
-                <task-note />
+
                 <h1>
                     {{ detailedTask }}
                     Component TaskDetails {{ $route.params.task }}

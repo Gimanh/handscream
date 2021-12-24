@@ -8,7 +8,8 @@
             "deadline",
             "date_complete as \"dateComplete\"",
             "date_creation as \"dateCreation\"",
-            "responsible_id as \"responsibleId\""
+            "responsible_id as \"responsibleId\"",
+            "note"
         ]
     }
 }

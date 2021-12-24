@@ -54,5 +54,13 @@
         "method": "POST",
         "route": "/module/tasks/details",
         "handler": "App\\Modules\\Tasks\\Handlers\\TaskDetails"
+    },
+    {
+        "middlewares": [
+            "isLoggedIn"
+        ],
+        "method": "POST",
+        "route": "/module/tasks/update/note",
+        "handler": "App\\Modules\\Tasks\\Handlers\\TaskUpdateNote"
     }
 ]

@@ -26,6 +26,7 @@ export type TasksStoreStateUrls = {
     updateDescription: string
     deleteTask: string
     fetchTaskDetails: string
+    updateTaskNote: string
 }
 
 export type TaskCompleteChanged = {
@@ -63,3 +64,12 @@ export interface DetailedTask extends Task {
     dateCreation: string
     responsibleUser: ResponsibleUser | null
 }
+
+export type TaskNoteValue = Task['note'];
+
+export type TaskNoteUpdateResponse = { update: boolean };
+
+export type TaskNoteUpdateArg = {
+    taskId: Task['id']
+    note: Task['note']
+};

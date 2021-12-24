@@ -11,7 +11,7 @@ import {
     TaskCompleteChangedResponse,
     TaskDescriptionChanged,
     TaskDescriptionChangedResponse,
-    TaskDeleteResponse, TaskIdArg, DetailedTask
+    TaskDeleteResponse, TaskIdArg, DetailedTask, TaskNoteUpdateResponse, TaskNoteUpdateArg
 } from '~/classes/util/TaskTypes';
 import { AppResponse } from '~/classes/util/AppTypes';
 
@@ -36,7 +36,8 @@ export class TasksState {
         updateStatus: '/module/tasks/update/status',
         updateDescription: '/module/tasks/update/description',
         deleteTask: '/module/tasks/delete',
-        fetchTaskDetails: '/module/tasks/details'
+        fetchTaskDetails: '/module/tasks/details',
+        updateTaskNote: '/module/tasks/update/note'
     };
 
     public detailedTask: DetailedTask = DETAILED_TASK;
@@ -84,6 +85,18 @@ export class TasksMutations extends Mutations<TasksState> {
 
     setDetailedTask( detailedTask: DetailedTask ) {
         this.state.detailedTask = detailedTask;
+    }
+
+    updateTaskNote( updateData: TaskNoteUpdateArg ) {
+        for ( const task of this.state.tasks ) {
+            if ( task.id === updateData.taskId ) {
+                task.note = updateData.note;
+                break;
+            }
+        }
+        if ( this.state.detailedTask.id === updateData.taskId ) {
+            this.state.detailedTask.note = updateData.note;
+        }
     }
 }
 
@@ -162,6 +175,18 @@ export class TasksStoreActions extends Actions<TasksState, TasksStoreGetters, Ta
         if ( result ) {
             if ( result.response ) {
                 this.mutations.setDetailedTask( result.response );
+            }
+        }
+        return result;
+    }
+
+    async updateTaskNote( updateData: TaskNoteUpdateArg ): Promise<AppResponse<TaskNoteUpdateResponse> | void> {
+        const result = await this.store.$axios.$post<AppResponse<TaskNoteUpdateResponse>>( this.state.urls.updateTaskNote,
+            qs.stringify( updateData ) )
+            .catch( err => console.log( err ) );
+        if ( result ) {
+            if ( result.response ) {
+                this.mutations.updateTaskNote( updateData );
             }
         }
         return result;

@@ -67,4 +67,9 @@ class Tasks implements IModule
         }
         return $task;
     }
+
+    public function updateTaskNote(int $taskId, string $note): bool
+    {
+        return $this->storage->updateTaskNote($taskId, $note);
+    }
 }
