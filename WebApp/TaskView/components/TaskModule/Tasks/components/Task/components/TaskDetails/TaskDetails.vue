@@ -42,6 +42,11 @@
                             :task-id="detailedTask.id"
                         />
                     </v-col>
+                    <v-col
+                        cols="12"
+                    >
+                        <task-deadline />
+                    </v-col>
                 </v-row>
 
 

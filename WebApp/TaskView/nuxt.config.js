@@ -75,8 +75,7 @@ export default {
             defaultLocale: 'en',
             messages: {
                 en: require( './lang/en.json' ),
-                ru: require( './lang/ru.json' ),
-                de: require( './lang/de.json' )
+                ru: require( './lang/ru.json' )
             }
         }
     },
