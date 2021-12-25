@@ -179,6 +179,7 @@
         "errorUpdateNote": "Can not update note.",
         "deadline": "Deadline",
         "date": "Date",
-        "time": "Time"
+        "time": "Time",
+        "updateDeadlineFailed": "Can not update task deadline."
     }
 }

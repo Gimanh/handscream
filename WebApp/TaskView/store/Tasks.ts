@@ -11,7 +11,13 @@ import {
     TaskCompleteChangedResponse,
     TaskDescriptionChanged,
     TaskDescriptionChangedResponse,
-    TaskDeleteResponse, TaskIdArg, DetailedTask, TaskNoteUpdateResponse, TaskNoteUpdateArg
+    TaskDeleteResponse,
+    TaskIdArg,
+    DetailedTask,
+    TaskNoteUpdateResponse,
+    TaskNoteUpdateArg,
+    TaskDeadlineUpdateArg,
+    TaskDeadlineUpdateResponse
 } from '~/classes/util/TaskTypes';
 import { AppResponse } from '~/classes/util/AppTypes';
 
@@ -37,7 +43,8 @@ export class TasksState {
         updateDescription: '/module/tasks/update/description',
         deleteTask: '/module/tasks/delete',
         fetchTaskDetails: '/module/tasks/details',
-        updateTaskNote: '/module/tasks/update/note'
+        updateTaskNote: '/module/tasks/update/note',
+        updateTaskDeadline: '/module/tasks/update/deadline'
     };
 
     public detailedTask: DetailedTask = DETAILED_TASK;
@@ -96,6 +103,18 @@ export class TasksMutations extends Mutations<TasksState> {
         }
         if ( this.state.detailedTask.id === updateData.taskId ) {
             this.state.detailedTask.note = updateData.note;
+        }
+    }
+
+    updateTaskDeadline( updateData: TaskDeadlineUpdateArg ) {
+        for ( const task of this.state.tasks ) {
+            if ( task.id === updateData.taskId ) {
+                task.deadline = updateData.deadline;
+                break;
+            }
+        }
+        if ( this.state.detailedTask.id === updateData.taskId ) {
+            this.state.detailedTask.deadline = updateData.deadline;
         }
     }
 }
@@ -191,6 +210,19 @@ export class TasksStoreActions extends Actions<TasksState, TasksStoreGetters, Ta
         }
         return result;
     }
+
+    async updateTaskDeadline( updateData: TaskDeadlineUpdateArg ): Promise<AppResponse<TaskDeadlineUpdateResponse> | void> {
+        const result = await this.store.$axios.$post<AppResponse<TaskDeadlineUpdateResponse>>( this.state.urls.updateTaskDeadline,
+            qs.stringify( updateData ) )
+            .catch( err => console.log( err ) );
+        if ( result ) {
+            if ( result.response ) {
+                this.mutations.updateTaskDeadline( updateData );
+            }
+        }
+        return result;
+    }
+
 }
 
 const module = new Module( {

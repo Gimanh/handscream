@@ -45,7 +45,10 @@
                     <v-col
                         cols="12"
                     >
-                        <task-deadline />
+                        <task-deadline
+                            :deadline="detailedTask.deadline"
+                            :task-id="detailedTask.id"
+                        />
                     </v-col>
                 </v-row>
 

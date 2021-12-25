@@ -82,13 +82,25 @@ class TasksStorage
         return $this->db->delete('DELETE FROM tasks.tasks WHERE id = ?;', [$taskId]);
     }
 
-
     public function updateTaskNote(int $taskId, string $note): bool
     {
         return $this->db->update([
             'table' => 'tasks.tasks',
             'data' => [
                 'note' => $note
+            ],
+            'where' => [
+                'id' => $taskId,
+            ]
+        ]);
+    }
+
+    public function updateTaskDeadline(int $taskId, string $deadline): bool
+    {
+        return $this->db->update([
+            'table' => 'tasks.tasks',
+            'data' => [
+                'deadline' => $deadline
             ],
             'where' => [
                 'id' => $taskId,

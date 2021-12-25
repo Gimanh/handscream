@@ -27,6 +27,7 @@ export type TasksStoreStateUrls = {
     deleteTask: string
     fetchTaskDetails: string
     updateTaskNote: string
+    updateTaskDeadline: string
 }
 
 export type TaskCompleteChanged = {
@@ -73,3 +74,10 @@ export type TaskNoteUpdateArg = {
     taskId: Task['id']
     note: Task['note']
 };
+
+export type TaskDeadlineUpdateArg = {
+    taskId: Task['id']
+    deadline: Task['deadline']
+};
+
+export type TaskDeadlineUpdateResponse = { update: boolean };

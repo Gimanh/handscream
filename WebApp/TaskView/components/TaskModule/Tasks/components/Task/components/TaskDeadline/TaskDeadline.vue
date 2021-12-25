@@ -21,23 +21,33 @@
                             {{ $t( 'task.deadline' ) }} {{ fullDeadline }}
                         </v-card-title>
                         <v-card-text class="pa-5">
+                            <v-alert
+                                v-if="showWarning"
+                                type="warning"
+                            >
+                                {{ $t( 'task.updateDeadlineFailed' ) }}
+                            </v-alert>
                             <v-row justify="space-around">
                                 <v-date-picker
                                     v-model="date"
                                     type="date"
                                     scrollable
                                     show-current
+                                    @change="dateChanged"
                                 />
                                 <v-time-picker
                                     v-model="time"
+                                    :disabled="isTimeDisabled"
                                     scrollable
                                     format="24hr"
+                                    @change="dateChanged"
                                 />
                             </v-row>
                         </v-card-text>
                         <v-card-actions>
                             <v-spacer />
                             <v-btn
+                                :disabled="saveDisabled"
                                 @click="save"
                             >
                                 {{ $t( 'msg.save' ) }}

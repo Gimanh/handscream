@@ -72,4 +72,9 @@ class Tasks implements IModule
     {
         return $this->storage->updateTaskNote($taskId, $note);
     }
+
+    public function updateTaskDeadline(int $taskId, string $deadline): bool
+    {
+        return $this->storage->updateTaskDeadline($taskId, $deadline);
+    }
 }
