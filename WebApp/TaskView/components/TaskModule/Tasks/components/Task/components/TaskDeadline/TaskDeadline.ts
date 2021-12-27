@@ -41,10 +41,6 @@ export default class TaskDeadline extends AppBase {
         }
     }
 
-    created() {
-        debugger
-    }
-
     get saveDisabled() {
         return this.isTimeDisabled;
     }
