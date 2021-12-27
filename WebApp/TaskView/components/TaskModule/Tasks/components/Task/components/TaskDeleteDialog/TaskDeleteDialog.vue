@@ -1,6 +1,7 @@
 <template>
     <v-dialog
         v-model="dialog"
+        width="350"
     >
         <v-card>
             <v-card-title>
