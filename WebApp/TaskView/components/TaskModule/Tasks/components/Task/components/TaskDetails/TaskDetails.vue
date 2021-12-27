@@ -11,7 +11,10 @@
                     {{ $t( 'task.task' ) }}
                 </v-toolbar-title>
                 <v-spacer />
-                <v-btn v-bind="closeBtnParams">
+                <v-btn
+                    v-bind="closeBtnParams"
+                    @click="goBack"
+                >
                     <v-icon>
                         mdi-close
                     </v-icon>
@@ -51,14 +54,7 @@
                         />
                     </v-col>
                 </v-row>
-                <!--                <h1>
-                                    {{ detailedTask }}
-                                    Component TaskDetails {{ $route.params.task }}
-                                </h1>-->
             </v-card-text>
-            <v-card-actions>
-
-            </v-card-actions>
         </v-card>
     </v-dialog>
 </template>

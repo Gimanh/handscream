@@ -22,10 +22,6 @@ export default class TaskDetails extends AppBase {
         };
     }
 
-    get hasDetailedTask() {
-        return this.detailedTask.id !== -1;
-    }
-
     async created() {
         this.startLoading();
         await this.fetchTaskDetails( +this.$route.params.task );
@@ -34,5 +30,14 @@ export default class TaskDetails extends AppBase {
 
     beforeDestroy() {
         this.resetDetailedTask();
+    }
+
+    async goBack() {
+        await this.$router.push( {
+            name: 'user-goals-id-list-task',
+            params: {
+                task: this.detailedTask.id.toString()
+            }
+        } );
     }
 }
