@@ -14,6 +14,7 @@
         >
             <task-text
                 :description="task.description"
+                :show-btn-more="!restrictedMode"
                 @change="descriptionChanged"
                 @deleteTask="deleteThisTask"
                 @showDetails="goToDetails"

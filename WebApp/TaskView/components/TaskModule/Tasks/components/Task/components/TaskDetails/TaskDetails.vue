@@ -29,9 +29,9 @@
                     <v-col
                         cols="12"
                     >
-                        <task-text
-                            :description="detailedTask.description"
-                            :show-btn-more="false"
+                        <task
+                            :task="detailedTask"
+                            :restricted-mode="true"
                         />
                     </v-col>
                     <v-col
@@ -51,12 +51,10 @@
                         />
                     </v-col>
                 </v-row>
-
-
-                <h1>
-                    {{ detailedTask }}
-                    Component TaskDetails {{ $route.params.task }}
-                </h1>
+                <!--                <h1>
+                                    {{ detailedTask }}
+                                    Component TaskDetails {{ $route.params.task }}
+                                </h1>-->
             </v-card-text>
             <v-card-actions>
 

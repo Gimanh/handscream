@@ -66,6 +66,9 @@ export class TasksMutations extends Mutations<TasksState> {
                 break;
             }
         }
+        if ( this.state.detailedTask.id === task.id ) {
+            this.state.detailedTask.complete = task.complete;
+        }
     }
 
     updateTaskDescription( task: Task ) {

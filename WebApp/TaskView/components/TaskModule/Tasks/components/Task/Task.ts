@@ -11,6 +11,9 @@ export default class Task extends AppBase {
     } )
     public task!: TasksState['tasks'][0];
 
+    @Prop( { default: false } )
+    public restrictedMode!: boolean;
+
     @Action( 'updateCompleteStatus', { namespace: 'Tasks' } ) updateCompleteStatus!: TasksStoreActions['updateCompleteStatus'];
 
     @Action( 'updateDescription', { namespace: 'Tasks' } ) updateDescription!: TasksStoreActions['updateDescription'];
@@ -18,12 +21,15 @@ export default class Task extends AppBase {
     @Action( 'deleteTask', { namespace: 'Tasks' } ) deleteTask!: TasksStoreActions['deleteTask'];
 
     get routeTo() {
-        return {
-            name: 'user-goals-id-list-task',
-            params: {
-                task: this.task.id.toString()
-            }
-        };
+        if ( !this.restrictedMode ) {
+            return {
+                name: 'user-goals-id-list-task',
+                params: {
+                    task: this.task.id.toString()
+                }
+            };
+        }
+        return undefined;
     }
 
     goToDetails() {
