@@ -2,8 +2,8 @@
 
 namespace App\Modules\GoalLists;
 
-use ZXC\Interfaces\IModule;
 use ZXC\Traits\Module;
+use ZXC\Interfaces\IModule;
 
 class GoalLists implements IModule
 {
