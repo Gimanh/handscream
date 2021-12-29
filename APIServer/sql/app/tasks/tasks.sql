@@ -1,6 +1,10 @@
 create table tasks.tasks
 (
-    id              serial,
+    id              serial UNIQUE,
+    parent_id       int       default null
+        constraint fr_task_parent_id
+            references tasks.tasks (id)
+            ON DELETE CASCADE,
     description     varchar,
     complete        bool      default false,
     goal_list_id    int not null

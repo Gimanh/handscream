@@ -14,6 +14,9 @@ export default class Task extends AppBase {
     @Prop( { default: false } )
     public restrictedMode!: boolean;
 
+    @Prop( { default: true } )
+    public navigation!: boolean;
+
     @Action( 'updateCompleteStatus', { namespace: 'Tasks' } ) updateCompleteStatus!: TasksStoreActions['updateCompleteStatus'];
 
     @Action( 'updateDescription', { namespace: 'Tasks' } ) updateDescription!: TasksStoreActions['updateDescription'];
@@ -21,7 +24,7 @@ export default class Task extends AppBase {
     @Action( 'deleteTask', { namespace: 'Tasks' } ) deleteTask!: TasksStoreActions['deleteTask'];
 
     get routeTo() {
-        if ( !this.restrictedMode ) {
+        if ( !this.restrictedMode && this.navigation ) {
             return {
                 name: 'user-goals-id-list-task',
                 params: {
@@ -30,6 +33,10 @@ export default class Task extends AppBase {
             };
         }
         return undefined;
+    }
+
+    get showSubTasks() {
+        return +this.$route.params.task === +this.task.id;
     }
 
     goToDetails() {

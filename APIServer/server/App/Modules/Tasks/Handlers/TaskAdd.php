@@ -15,11 +15,15 @@ class TaskAdd extends TasksBaseHandler
         $parsedBody = $request->getParsedBody();
         $description = $parsedBody['description'] ?? '';
         $componentId = $parsedBody['componentId'] ?? null;
+        $parentId = $parsedBody['parentId'] ?? null;
+        if ($parentId !== null) {
+            $parentId = (int)$parentId;
+        }
         /** @var $user User */
         $user = $request->getAttribute('user');
         $task = false;
         if ($description && $componentId !== null) {
-            $task = $this->tasks->addTask($description, $componentId, $user->getId());
+            $task = $this->tasks->addTask($description, $componentId, $user->getId(), $parentId);
         }
         return AppResponse::create($response, ['add' => !!$task, 'task' => $task], $request->getAttribute('rid'));
     }

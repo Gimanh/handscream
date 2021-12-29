@@ -19,11 +19,10 @@ class TasksStorage
         }
     }
 
-    public function addTask(string $description, int $componentId, int $userId)
+    public function addTask(string $description, int $componentId, int $userId, int $parentId = null)
     {
-        $query = 'INSERT INTO tasks.tasks (description,  goal_list_id, owner) VALUES (?,?,?) RETURNING id;';
-        $args = [$description, $componentId, $userId];
-        $stmt = $this->db->insert($query, $args, true);
+        $query = 'INSERT INTO tasks.tasks (description,  goal_list_id, owner, parent_id) VALUES (?,?,?,?) RETURNING id;';
+        $stmt = $this->db->insert($query, [$description, $componentId, $userId, $parentId], true);
         if ($stmt) {
             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
             if ($result) {
@@ -35,12 +34,18 @@ class TasksStorage
 
     public function fetchTaskById(int $taskId)
     {
-        return $this->db->selectOne('SELECT ' . $this->fetchFields . ' FROM tasks.tasks WHERE id = ?;', [$taskId]);
+        $task = $this->db->selectOne('SELECT ' . $this->fetchFields . ' FROM tasks.tasks WHERE id = ?;', [$taskId]);
+        $task['subtasks'] = [];
+        return $task;
     }
 
     public function fetchTasks(int $componentId)
     {
-        return $this->db->select('SELECT ' . $this->fetchFields . ' FROM tasks.tasks WHERE goal_list_id = ? ORDER BY id DESC;', [$componentId]);
+        $tasks = $this->db->select('SELECT ' . $this->fetchFields . ' FROM tasks.tasks WHERE goal_list_id = ? AND parent_id IS NULL ORDER BY id DESC;', [$componentId]);
+        foreach ($tasks as &$task) {
+            $task['subtasks'] = [];
+        }
+        return $tasks;
     }
 
     public function updateTaskDescription(int $taskId, string $description): array|false

@@ -2,8 +2,10 @@ export interface Task {
     id: number
     description: string
     complete: boolean
-    deadline: string | null,
+    deadline: string | null
+    parentId: number | null
     note: string | null
+    subtasks: Task[]
 }
 
 export type Tasks = Task[];
@@ -11,6 +13,7 @@ export type Tasks = Task[];
 export type TaskAddArg = {
     description: string
     componentId: number
+    parentId?: number
 }
 
 export type TaskAddResponse = {

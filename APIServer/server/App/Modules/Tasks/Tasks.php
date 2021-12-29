@@ -21,9 +21,9 @@ class Tasks implements IModule
         $this->storage = new TasksStorage($this->config['fetchFields'] ?? []);
     }
 
-    public function addTask(string $description, int $componentId, int $userId)
+    public function addTask(string $description, int $componentId, int $userId, int $parentId = null)
     {
-        return $this->storage->addTask($description, $componentId, $userId);
+        return $this->storage->addTask($description, $componentId, $userId, $parentId);
     }
 
     public function fetchTasks(int $componentId)

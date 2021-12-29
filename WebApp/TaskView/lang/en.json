@@ -180,6 +180,7 @@
         "deadline": "Deadline",
         "date": "Date",
         "time": "Time",
-        "updateDeadlineFailed": "Can not update task deadline."
+        "updateDeadlineFailed": "Can not update task deadline.",
+        "addSubtask": "Add subtask"
     }
 }

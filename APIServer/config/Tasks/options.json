@@ -9,7 +9,8 @@
             "date_complete as \"dateComplete\"",
             "date_creation as \"dateCreation\"",
             "responsible_id as \"responsibleId\"",
-            "note"
+            "note",
+            "parent_id as \"parentId\""
         ]
     }
 }

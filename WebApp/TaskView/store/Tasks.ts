@@ -29,7 +29,9 @@ const DETAILED_TASK: DetailedTask = {
     dateComplete: null,
     dateCreation: '',
     deadline: null,
-    responsibleUser: null
+    responsibleUser: null,
+    parentId: null,
+    subtasks: []
 };
 
 export class TasksState {
@@ -52,7 +54,15 @@ export class TasksState {
 
 export class TasksMutations extends Mutations<TasksState> {
     addTask( task: Task ) {
-        this.state.tasks.push( task );
+        if ( task.parentId !== null ) {
+            for ( const t of this.state.tasks ) {
+                if ( +t.id === +task.parentId ) {
+                    t.subtasks.push( task );
+                }
+            }
+        } else {
+            this.state.tasks.push( task );
+        }
     }
 
     setTasks( tasks: Tasks ) {
