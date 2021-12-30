@@ -42,7 +42,7 @@
                 <v-col class="pa-0">
                     <task
                         :task="subtask"
-                        :navigation="false"
+                        :subtask="true"
                     />
                 </v-col>
             </v-row>

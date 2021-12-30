@@ -1,10 +1,13 @@
-import { Component } from 'vue-property-decorator';
+import { Component, Prop } from 'vue-property-decorator';
 import { Action, Mutation, State } from 'vuex-class';
 import AppBase from '~/components/AppBase';
 import { TasksMutations, TasksState, TasksStoreActions } from '~/store/Tasks';
 
 @Component
 export default class TaskDetails extends AppBase {
+
+    @Prop( { default: false } )
+    public subtask!: boolean;
 
     @State( state => state.Tasks.detailedTask ) detailedTask!: TasksState['detailedTask'];
 
@@ -22,9 +25,16 @@ export default class TaskDetails extends AppBase {
         };
     }
 
+    get taskId() {
+        if ( this.subtask ) {
+            return +this.$route.params.subtask;
+        }
+        return +this.$route.params.task;
+    }
+
     async created() {
         this.startLoading();
-        await this.fetchTaskDetails( +this.$route.params.task );
+        await this.fetchTaskDetails( +this.taskId );
         this.endLoading();
     }
 
@@ -33,11 +43,20 @@ export default class TaskDetails extends AppBase {
     }
 
     async goBack() {
-        await this.$router.push( {
-            name: 'user-goals-id-list-task',
-            params: {
-                task: this.detailedTask.id.toString()
-            }
-        } );
+        if ( this.subtask ) {
+            await this.$router.push( {
+                name: 'user-goals-id-list-task-subtask',
+                params: {
+                    subtask: this.detailedTask.id.toString()
+                }
+            } );
+        } else {
+            await this.$router.push( {
+                name: 'user-goals-id-list-task',
+                params: {
+                    task: this.detailedTask.id.toString()
+                }
+            } );
+        }
     }
 }

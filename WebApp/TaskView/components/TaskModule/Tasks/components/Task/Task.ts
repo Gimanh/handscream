@@ -14,8 +14,8 @@ export default class Task extends AppBase {
     @Prop( { default: false } )
     public restrictedMode!: boolean;
 
-    @Prop( { default: true } )
-    public navigation!: boolean;
+    @Prop( { default: false } )
+    public subtask!: boolean;
 
     @Action( 'updateCompleteStatus', { namespace: 'Tasks' } ) updateCompleteStatus!: TasksStoreActions['updateCompleteStatus'];
 
@@ -24,13 +24,22 @@ export default class Task extends AppBase {
     @Action( 'deleteTask', { namespace: 'Tasks' } ) deleteTask!: TasksStoreActions['deleteTask'];
 
     get routeTo() {
-        if ( !this.restrictedMode && this.navigation ) {
-            return {
-                name: 'user-goals-id-list-task',
-                params: {
-                    task: this.task.id.toString()
-                }
-            };
+        if ( !this.restrictedMode ) {
+            if ( this.subtask ) {
+                return {
+                    name: 'user-goals-id-list-task-subtask',
+                    params: {
+                        subtask: this.task.id.toString()
+                    }
+                };
+            } else {
+                return {
+                    name: 'user-goals-id-list-task',
+                    params: {
+                        task: this.task.id.toString()
+                    }
+                };
+            }
         }
         return undefined;
     }
@@ -40,12 +49,22 @@ export default class Task extends AppBase {
     }
 
     goToDetails() {
-        this.$router.push( {
-            name: 'user-goals-id-list-task-details',
-            params: {
-                task: this.task.id.toString()
-            }
-        } );
+        if ( !this.subtask ) {
+            this.$router.push( {
+                name: 'user-goals-id-list-task-details',
+                params: {
+                    task: this.task.id.toString()
+                }
+            } );
+        } else {
+            this.$router.push( {
+                name: 'user-goals-id-list-task-subtask-details',
+                params: {
+                    subtask: this.task.id.toString()
+                }
+            } );
+        }
+
     }
 
     async statusChanged( value: boolean ) {
