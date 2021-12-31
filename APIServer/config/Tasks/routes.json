@@ -70,5 +70,13 @@
         "method": "POST",
         "route": "/module/tasks/update/deadline",
         "handler": "App\\Modules\\Tasks\\Handlers\\TaskUpdateDeadline"
+    },
+    {
+        "middlewares": [
+            "isLoggedIn"
+        ],
+        "method": "GET",
+        "route": "/module/tasks/fetch/subtasks/for/:taskId",
+        "handler": "App\\Modules\\Tasks\\Handlers\\TaskFetchSubtasks"
     }
 ]

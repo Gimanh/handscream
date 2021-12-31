@@ -17,7 +17,7 @@ import {
     TaskNoteUpdateResponse,
     TaskNoteUpdateArg,
     TaskDeadlineUpdateArg,
-    TaskDeadlineUpdateResponse
+    TaskDeadlineUpdateResponse, SubtasksAddMutationArg
 } from '~/classes/util/TaskTypes';
 import { AppResponse } from '~/classes/util/AppTypes';
 
@@ -46,7 +46,8 @@ export class TasksState {
         deleteTask: '/module/tasks/delete',
         fetchTaskDetails: '/module/tasks/details',
         updateTaskNote: '/module/tasks/update/note',
-        updateTaskDeadline: '/module/tasks/update/deadline'
+        updateTaskDeadline: '/module/tasks/update/deadline',
+        fetchSubtasks: '/module/tasks/fetch/subtasks/for/'
     };
 
     public detailedTask: DetailedTask = DETAILED_TASK;
@@ -128,6 +129,18 @@ export class TasksMutations extends Mutations<TasksState> {
         }
         if ( this.state.detailedTask.id === updateData.taskId ) {
             this.state.detailedTask.deadline = updateData.deadline;
+        }
+    }
+
+    addSubtasks( data: SubtasksAddMutationArg ) {
+        for ( const task of this.state.tasks ) {
+            if ( task.id === data.taskId ) {
+                task.subtasks = data.subtasks;
+                break;
+            }
+        }
+        if ( this.state.detailedTask.id === data.taskId ) {
+            this.state.detailedTask.subtasks = data.subtasks;
         }
     }
 }
@@ -236,6 +249,16 @@ export class TasksStoreActions extends Actions<TasksState, TasksStoreGetters, Ta
         return result;
     }
 
+    async fetchSubtasksForTask( taskId: Task['id'] ): Promise<AppResponse<Task['subtasks']> | void> {
+        const result = await this.store.$axios.$get<AppResponse<Task['subtasks']>>( `${ this.state.urls.fetchSubtasks }${ taskId }` )
+            .catch( err => console.log( err ) );
+        if ( result ) {
+            if ( result.response ) {
+                this.mutations.addSubtasks( { taskId, subtasks: result.response } );
+            }
+        }
+        return result;
+    }
 }
 
 const module = new Module( {

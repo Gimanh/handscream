@@ -31,6 +31,7 @@ export type TasksStoreStateUrls = {
     fetchTaskDetails: string
     updateTaskNote: string
     updateTaskDeadline: string
+    fetchSubtasks: string
 }
 
 export type TaskCompleteChanged = {
@@ -84,3 +85,8 @@ export type TaskDeadlineUpdateArg = {
 };
 
 export type TaskDeadlineUpdateResponse = { update: boolean };
+
+export type SubtasksAddMutationArg = {
+    taskId: Task['id']
+    subtasks: Task['subtasks']
+}

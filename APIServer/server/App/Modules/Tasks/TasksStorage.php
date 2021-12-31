@@ -112,4 +112,13 @@ class TasksStorage
             ]
         ]);
     }
+
+    public function fetchSubtasks(int $taskId): array
+    {
+        $subtasks = $this->db->select("SELECT $this->fetchFields FROM tasks.tasks WHERE parent_id = ?;", [$taskId]);
+        if (!$subtasks) {
+            return [];
+        }
+        return $subtasks;
+    }
 }

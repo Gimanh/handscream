@@ -1,4 +1,4 @@
-import { Component, Prop } from 'vue-property-decorator';
+import { Component, Prop, Watch } from 'vue-property-decorator';
 import { Action } from 'vuex-class';
 import AppBase from '~/components/AppBase';
 import { TasksState, TasksStoreActions } from '~/store/Tasks';
@@ -22,6 +22,16 @@ export default class Task extends AppBase {
     @Action( 'updateDescription', { namespace: 'Tasks' } ) updateDescription!: TasksStoreActions['updateDescription'];
 
     @Action( 'deleteTask', { namespace: 'Tasks' } ) deleteTask!: TasksStoreActions['deleteTask'];
+
+    @Action( 'fetchSubtasksForTask', { namespace: 'Tasks' } ) fetchSubtasksForTask!: TasksStoreActions['fetchSubtasksForTask'];
+
+    @Watch( '$route.params.task', { deep: true } )
+    async taskRouteWatcher( value: string ) {
+        if ( +value === +this.task.id ) {
+            await this.fetchSubtasksForTask( +value );
+            console.log( 'fetch subtask for ' + this.task.id );
+        }
+    }
 
     get routeTo() {
         if ( !this.restrictedMode ) {

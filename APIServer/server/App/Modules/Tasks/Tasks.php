@@ -77,4 +77,9 @@ class Tasks implements IModule
     {
         return $this->storage->updateTaskDeadline($taskId, $deadline);
     }
+
+    public function fetchSubtasks(int $taskId): array
+    {
+        return $this->storage->fetchSubtasks($taskId);
+    }
 }
