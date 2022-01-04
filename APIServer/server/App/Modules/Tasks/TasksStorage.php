@@ -115,7 +115,7 @@ class TasksStorage
 
     public function fetchSubtasks(int $taskId): array
     {
-        $subtasks = $this->db->select("SELECT $this->fetchFields FROM tasks.tasks WHERE parent_id = ?;", [$taskId]);
+        $subtasks = $this->db->select("SELECT $this->fetchFields FROM tasks.tasks WHERE parent_id = ? ORDER BY id;", [$taskId]);
         if (!$subtasks) {
             return [];
         }

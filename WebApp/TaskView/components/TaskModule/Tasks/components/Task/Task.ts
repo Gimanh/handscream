@@ -25,11 +25,12 @@ export default class Task extends AppBase {
 
     @Action( 'fetchSubtasksForTask', { namespace: 'Tasks' } ) fetchSubtasksForTask!: TasksStoreActions['fetchSubtasksForTask'];
 
-    @Watch( '$route.params.task', { deep: true } )
-    async taskRouteWatcher( value: string ) {
+    @Watch( '$route.params.task', { deep: true, immediate: true } )
+    async taskRouteWatcher( value: string, oldValue: string ) {
         if ( +value === +this.task.id ) {
-            await this.fetchSubtasksForTask( +value );
-            console.log( 'fetch subtask for ' + this.task.id );
+            if ( value !== oldValue ) {
+                await this.fetchSubtasksForTask( +value );
+            }
         }
     }
 

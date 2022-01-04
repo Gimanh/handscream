@@ -51,6 +51,7 @@ export class TasksState {
     };
 
     public detailedTask: DetailedTask = DETAILED_TASK;
+
 }
 
 export class TasksMutations extends Mutations<TasksState> {
