@@ -10,6 +10,8 @@ export interface AppTask {
 
 export type AppTasks = AppTask[];
 
+export type AppTasksMap = Map<number, AppTask>;
+
 export type TaskAddArg = {
     description: string
     componentId: number

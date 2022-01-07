@@ -17,7 +17,7 @@ import {
     TaskNoteUpdateResponse,
     TaskNoteUpdateArg,
     TaskDeadlineUpdateArg,
-    TaskDeadlineUpdateResponse, SubtasksAddMutationArg
+    TaskDeadlineUpdateResponse, SubtasksAddMutationArg, AppTasksMap
 } from '~/classes/util/TaskTypes';
 import { AppResponse } from '~/classes/util/AppTypes';
 
@@ -52,31 +52,32 @@ export class TasksState {
 
     public detailedTask: DetailedTask = DETAILED_TASK;
 
+    public tasksMap: AppTasksMap = new Map<number, AppTask>();
 }
 
 export class TasksMutations extends Mutations<TasksState> {
     addTask( task: AppTask ) {
         if ( task.parentId !== null ) {
-            for ( const t of this.state.tasks ) {
-                if ( +t.id === +task.parentId ) {
-                    t.subtasks.push( task );
-                }
-            }
+            const tsk = this.state.tasksMap.get( +task.parentId );
+            tsk?.subtasks.push( task );
         } else {
             this.state.tasks.push( task );
         }
+        this.state.tasksMap.set( +task.id, task );
     }
 
     setTasks( tasks: AppTasks ) {
+        this.state.tasksMap.clear();
         this.state.tasks = tasks;
+        for ( const k of this.state.tasks ) {
+            this.state.tasksMap.set( +k.id, k );
+        }
     }
 
     updateTaskStatus( task: AppTask ) {
-        for ( const t of this.state.tasks ) {
-            if ( t.id === task.id ) {
-                t.complete = task.complete;
-                break;
-            }
+        const tsk = this.state.tasksMap.get( +task.id );
+        if ( tsk ) {
+            tsk.complete = task.complete;
         }
         if ( this.state.detailedTask.id === task.id ) {
             this.state.detailedTask.complete = task.complete;
@@ -84,15 +85,17 @@ export class TasksMutations extends Mutations<TasksState> {
     }
 
     updateTaskDescription( task: AppTask ) {
-        for ( const t of this.state.tasks ) {
-            if ( t.id === task.id ) {
-                t.description = task.description;
-                break;
-            }
+        const tsk = this.state.tasksMap.get( +task.id );
+        if ( tsk ) {
+            tsk.description = task.description;
+        }
+        if ( this.state.detailedTask.id === task.id ) {
+            this.state.detailedTask.description = task.description;
         }
     }
 
     deleteTask( taskId: TaskIdArg ) {
+        this.state.tasksMap.delete( +taskId );
         for ( let i = 0; i < this.state.tasks.length; i++ ) {
             if ( +taskId === this.state.tasks[ i ].id ) {
                 this.state.tasks.splice( i, 1 );
@@ -110,11 +113,9 @@ export class TasksMutations extends Mutations<TasksState> {
     }
 
     updateTaskNote( updateData: TaskNoteUpdateArg ) {
-        for ( const task of this.state.tasks ) {
-            if ( task.id === updateData.taskId ) {
-                task.note = updateData.note;
-                break;
-            }
+        const tsk = this.state.tasksMap.get( +updateData.taskId );
+        if ( tsk ) {
+            tsk.note = updateData.note;
         }
         if ( this.state.detailedTask.id === updateData.taskId ) {
             this.state.detailedTask.note = updateData.note;
@@ -122,11 +123,9 @@ export class TasksMutations extends Mutations<TasksState> {
     }
 
     updateTaskDeadline( updateData: TaskDeadlineUpdateArg ) {
-        for ( const task of this.state.tasks ) {
-            if ( task.id === updateData.taskId ) {
-                task.deadline = updateData.deadline;
-                break;
-            }
+        const tsk = this.state.tasksMap.get( +updateData.taskId );
+        if ( tsk ) {
+            tsk.deadline = updateData.deadline;
         }
         if ( this.state.detailedTask.id === updateData.taskId ) {
             this.state.detailedTask.deadline = updateData.deadline;
@@ -134,11 +133,9 @@ export class TasksMutations extends Mutations<TasksState> {
     }
 
     addSubtasks( data: SubtasksAddMutationArg ) {
-        for ( const task of this.state.tasks ) {
-            if ( task.id === data.taskId ) {
-                task.subtasks = data.subtasks;
-                break;
-            }
+        const tsk = this.state.tasksMap.get( +data.taskId );
+        if ( tsk ) {
+            tsk.subtasks = data.subtasks;
         }
         if ( this.state.detailedTask.id === data.taskId ) {
             this.state.detailedTask.subtasks = data.subtasks;
