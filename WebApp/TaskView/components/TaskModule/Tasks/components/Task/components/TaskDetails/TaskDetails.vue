@@ -21,6 +21,7 @@
                 </v-btn>
             </v-toolbar>
             <app-progress
+                :class="loading ? 'ma-5' : ''"
                 :loading-active="loading"
             />
             <v-card-text
