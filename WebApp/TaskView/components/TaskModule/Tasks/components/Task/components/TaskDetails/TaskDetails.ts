@@ -1,7 +1,8 @@
 import { Component, Prop } from 'vue-property-decorator';
 import { Action, Mutation, State } from 'vuex-class';
 import AppBase from '~/components/AppBase';
-import { TasksMutations, TasksState, TasksStoreActions } from '~/store/Tasks';
+import { TasksMutations, TasksStoreActions } from '~/store/Tasks';
+import { DetailedTask } from '~/classes/util/TaskTypes';
 
 @Component
 export default class TaskDetails extends AppBase {
@@ -9,7 +10,7 @@ export default class TaskDetails extends AppBase {
     @Prop( { default: false } )
     public subtask!: boolean;
 
-    @State( state => state.Tasks.detailedTask ) detailedTask!: TasksState['detailedTask'];
+    @State( state => state.Tasks.detailedTask ) detailedTask!: DetailedTask;
 
     @Action( 'fetchTaskDetails', { namespace: 'Tasks' } ) fetchTaskDetails!: TasksStoreActions['fetchTaskDetails'];
 

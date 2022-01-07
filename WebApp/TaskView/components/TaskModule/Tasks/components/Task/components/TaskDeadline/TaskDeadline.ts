@@ -1,16 +1,17 @@
 import { Component, Prop, Watch } from 'vue-property-decorator';
-import AppBase from '~/components/AppBase';
 import { Action } from 'vuex-class';
-import { TasksState, TasksStoreActions } from '~/store/Tasks';
+import AppBase from '~/components/AppBase';
+import { TasksStoreActions } from '~/store/Tasks';
+import { AppTask } from '~/classes/util/TaskTypes';
 
 @Component
 export default class TaskDeadline extends AppBase {
 
     @Prop()
-    public taskId!: TasksState['tasks'][0]['id'];
+    public taskId!: AppTask['id'];
 
     @Prop()
-    public deadline!: TasksState['tasks'][0]['deadline'];
+    public deadline!: AppTask['deadline'];
 
     public dialog: boolean = false;
 

@@ -1,8 +1,8 @@
 import { Component, Prop, Watch } from 'vue-property-decorator';
-import AppBase from '~/components/AppBase';
-import { TaskNoteValue } from '~/classes/util/TaskTypes';
 import { Action } from 'vuex-class';
-import { TasksState, TasksStoreActions } from '~/store/Tasks';
+import AppBase from '~/components/AppBase';
+import { AppTask, TaskNoteValue } from '~/classes/util/TaskTypes';
+import { TasksStoreActions } from '~/store/Tasks';
 
 @Component
 export default class TaskNote extends AppBase {
@@ -10,7 +10,7 @@ export default class TaskNote extends AppBase {
     public note!: TaskNoteValue;
 
     @Prop()
-    public taskId!: TasksState['tasks'][0]['id'];
+    public taskId!: AppTask['id'];
 
     public noteModel: TaskNoteValue = this.note;
 

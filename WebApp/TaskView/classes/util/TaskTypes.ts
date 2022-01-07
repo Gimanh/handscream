@@ -1,14 +1,14 @@
-export interface Task {
+export interface AppTask {
     id: number
     description: string
     complete: boolean
     deadline: string | null
     parentId: number | null
     note: string | null
-    subtasks: Task[]
+    subtasks: AppTask[]
 }
 
-export type Tasks = Task[];
+export type AppTasks = AppTask[];
 
 export type TaskAddArg = {
     description: string
@@ -18,7 +18,7 @@ export type TaskAddArg = {
 
 export type TaskAddResponse = {
     add: boolean
-    task: Task
+    task: AppTask
 }
 
 export type TasksStoreStateUrls = {
@@ -40,7 +40,7 @@ export type TaskCompleteChanged = {
 };
 
 export type TaskCompleteChangedResponse = {
-    task?: Task
+    task?: AppTask
 };
 
 export type TaskDescriptionChanged = {
@@ -49,7 +49,7 @@ export type TaskDescriptionChanged = {
 };
 
 export type TaskDescriptionChangedResponse = {
-    task?: Task
+    task?: AppTask
 };
 
 export type TaskDeleteResponse = {
@@ -64,29 +64,29 @@ export interface ResponsibleUser {
     email: string
 }
 
-export interface DetailedTask extends Task {
+export interface DetailedTask extends AppTask {
     dateComplete: string | null
     dateCreation: string
     responsibleUser: ResponsibleUser | null
 }
 
-export type TaskNoteValue = Task['note'];
+export type TaskNoteValue = AppTask['note'];
 
 export type TaskNoteUpdateResponse = { update: boolean };
 
 export type TaskNoteUpdateArg = {
-    taskId: Task['id']
-    note: Task['note']
+    taskId: AppTask['id']
+    note: AppTask['note']
 };
 
 export type TaskDeadlineUpdateArg = {
-    taskId: Task['id']
-    deadline: Task['deadline']
+    taskId: AppTask['id']
+    deadline: AppTask['deadline']
 };
 
 export type TaskDeadlineUpdateResponse = { update: boolean };
 
 export type SubtasksAddMutationArg = {
-    taskId: Task['id']
-    subtasks: Task['subtasks']
+    taskId: AppTask['id']
+    subtasks: AppTask['subtasks']
 }

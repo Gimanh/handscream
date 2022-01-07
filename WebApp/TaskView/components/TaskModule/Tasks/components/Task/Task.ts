@@ -1,7 +1,8 @@
 import { Component, Prop, Watch } from 'vue-property-decorator';
 import { Action } from 'vuex-class';
 import AppBase from '~/components/AppBase';
-import { TasksState, TasksStoreActions } from '~/store/Tasks';
+import { TasksStoreActions } from '~/store/Tasks';
+import { AppTask } from '~/classes/util/TaskTypes';
 
 @Component
 export default class Task extends AppBase {
@@ -9,7 +10,7 @@ export default class Task extends AppBase {
         default: () => {
         }
     } )
-    public task!: TasksState['tasks'][0];
+    public task!: AppTask;
 
     @Prop( { default: false } )
     public restrictedMode!: boolean;

@@ -3,9 +3,9 @@ import { Store } from 'vuex';
 import qs from 'qs';
 import {
     TasksStoreStateUrls,
-    Tasks,
+    AppTasks,
     TaskAddArg,
-    Task,
+    AppTask,
     TaskAddResponse,
     TaskCompleteChanged,
     TaskCompleteChangedResponse,
@@ -35,7 +35,7 @@ const DETAILED_TASK: DetailedTask = {
 };
 
 export class TasksState {
-    public tasks: Tasks = [];
+    public tasks: AppTasks = [];
 
     public urls: TasksStoreStateUrls = {
         addTaskUrl: '/module/tasks/add',
@@ -55,7 +55,7 @@ export class TasksState {
 }
 
 export class TasksMutations extends Mutations<TasksState> {
-    addTask( task: Task ) {
+    addTask( task: AppTask ) {
         if ( task.parentId !== null ) {
             for ( const t of this.state.tasks ) {
                 if ( +t.id === +task.parentId ) {
@@ -67,11 +67,11 @@ export class TasksMutations extends Mutations<TasksState> {
         }
     }
 
-    setTasks( tasks: Tasks ) {
+    setTasks( tasks: AppTasks ) {
         this.state.tasks = tasks;
     }
 
-    updateTaskStatus( task: Task ) {
+    updateTaskStatus( task: AppTask ) {
         for ( const t of this.state.tasks ) {
             if ( t.id === task.id ) {
                 t.complete = task.complete;
@@ -83,7 +83,7 @@ export class TasksMutations extends Mutations<TasksState> {
         }
     }
 
-    updateTaskDescription( task: Task ) {
+    updateTaskDescription( task: AppTask ) {
         for ( const t of this.state.tasks ) {
             if ( t.id === task.id ) {
                 t.description = task.description;
@@ -169,9 +169,9 @@ export class TasksStoreActions extends Actions<TasksState, TasksStoreGetters, Ta
         return result;
     }
 
-    async fetchTasks( componentId: number ): Promise<AppResponse<Tasks> | void> {
+    async fetchTasks( componentId: number ): Promise<AppResponse<AppTasks> | void> {
         this.mutations.setTasks( [] );
-        const result = await this.store.$axios.$get<AppResponse<Tasks>>( `${ this.state.urls.fetchTasks }${ componentId }` )
+        const result = await this.store.$axios.$get<AppResponse<AppTasks>>( `${ this.state.urls.fetchTasks }${ componentId }` )
             .catch( err => console.log( err ) );
         if ( result ) {
             if ( result.response.length ) {
@@ -250,8 +250,8 @@ export class TasksStoreActions extends Actions<TasksState, TasksStoreGetters, Ta
         return result;
     }
 
-    async fetchSubtasksForTask( taskId: Task['id'] ): Promise<AppResponse<Task['subtasks']> | void> {
-        const result = await this.store.$axios.$get<AppResponse<Task['subtasks']>>( `${ this.state.urls.fetchSubtasks }${ taskId }` )
+    async fetchSubtasksForTask( taskId: AppTask['id'] ): Promise<AppResponse<AppTask['subtasks']> | void> {
+        const result = await this.store.$axios.$get<AppResponse<AppTask['subtasks']>>( `${ this.state.urls.fetchSubtasks }${ taskId }` )
             .catch( err => console.log( err ) );
         if ( result ) {
             if ( result.response ) {
