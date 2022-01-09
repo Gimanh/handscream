@@ -5,6 +5,10 @@ export default class AppBase extends Vue {
 
     public loading: boolean = false;
 
+    get smallScreen() {
+        return this.$vuetify.breakpoint.sm || this.$vuetify.breakpoint.xs;
+    }
+
     logError( error: any ) {
         console.log( error );
     }

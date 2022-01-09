@@ -1,7 +1,8 @@
 <template>
     <v-row>
         <v-col
-            cols="5"
+            v-if="canShowLeftColumn"
+            :cols="cols"
             class="pr-1"
         >
             <goal-lists />
@@ -17,3 +18,4 @@
             />
         </v-col>-->
 </template>
+<script src="../../../classes/pages/Id.ts" />
