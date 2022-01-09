@@ -3,32 +3,32 @@
         nav
         dense
     >
-        <v-list-group
-            :value="true"
+        <!--        <v-list-group
+                    :value="true"
+                >
+                    <template #activator>
+                        <v-list-item-title>
+                            {{ $t( 'task.tasks' ) }}
+                        </v-list-item-title>
+                    </template>-->
+        <task-add
+            :component-id="componentId"
+        />
+        <v-list-item-group
+            v-model="selected"
+            class="app-scrolled-list"
         >
-            <template #activator>
-                <v-list-item-title>
-                    {{ $t( 'task.tasks' ) }}
-                </v-list-item-title>
-            </template>
-            <task-add
-                :component-id="componentId"
+            <app-progress
+                :loading-active="loading"
             />
-            <v-list-item-group
-                v-model="selected"
-                class="app-scrolled-list"
-            >
-                <app-progress
-                    :loading-active="loading"
-                />
-                <task
-                    v-for="task in tasks"
-                    :key="task.id"
-                    :task="task"
-                />
-            </v-list-item-group>
+            <task
+                v-for="task in tasks"
+                :key="task.id"
+                :task="task"
+            />
+        </v-list-item-group>
 
-        </v-list-group>
+        <!--        </v-list-group>-->
     </v-list>
 </template>
 
