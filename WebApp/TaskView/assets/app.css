@@ -2,6 +2,11 @@
     width: 100%;
 }
 
+.app-main-container {
+    height: calc(100vh - 100px);
+    overflow: hidden;
+}
+
 .app-scrolled-list {
     height: calc(100vh - 190px);
     overflow: auto;

@@ -36,8 +36,7 @@
         <v-main>
             <v-container
                 fluid
-                style="height: calc(100vh - 100px);"
-                class="ma-0 pa-1"
+                class="ma-0 pa-1 app-main-container"
             >
                 <Nuxt />
             </v-container>
