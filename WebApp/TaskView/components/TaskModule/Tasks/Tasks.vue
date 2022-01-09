@@ -16,6 +16,7 @@
             />
             <v-list-item-group
                 v-model="selected"
+                class="app-scrolled-list"
             >
                 <app-progress
                     :loading-active="loading"

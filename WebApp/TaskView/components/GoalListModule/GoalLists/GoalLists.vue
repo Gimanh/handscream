@@ -15,6 +15,7 @@
             />
             <v-list-item-group
                 v-model="selected"
+                class="app-scrolled-list"
             >
                 <goal-list
                     v-for="list in lists"

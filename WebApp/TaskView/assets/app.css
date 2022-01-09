@@ -1,3 +1,8 @@
 .tv-app-container {
     width: 100%;
 }
+
+.app-scrolled-list {
+    height: calc(100vh - 230px);
+    overflow: auto;
+}
