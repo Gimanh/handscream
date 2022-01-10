@@ -30,6 +30,7 @@ export default {
     plugins: [
         '@/plugins/fetch-app-config.ts',
         '@/plugins/components-plugin.ts',
+        '@/plugins/token-refresh.ts',
         '@/plugins/mitt.ts'
     ],
 

@@ -1,9 +1,9 @@
-import { Plugin } from '@nuxt/types';
+import { Plugin, Context } from '@nuxt/types';
 import qs from 'qs';
 import { RefreshTokenResponse } from '~/classes/util/AppTypes';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const axiosTokenRefresh: Plugin = ( context, inject ) => {
+const axiosTokenRefresh: Plugin = ( context: Context ) => {
     console.log( context.$axios );
     const $ls = context.$ls;
     const $axios = context.$axios;
@@ -50,6 +50,8 @@ const axiosTokenRefresh: Plugin = ( context, inject ) => {
                         } )
                         .catch( ( err ) => {
                             processQueue( err, null );
+                            $ls.invalidateTokens();
+                            context.redirect('/');
                             reject( err );
                         } )
                         .finally( () => {
