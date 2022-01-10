@@ -1,3 +1,4 @@
+import Vue from 'vue';
 import { Plugin } from '@nuxt/types';
 import LocalStorage from '~/classes/util/LocalStorage';
 import { AppConfigResponse } from '~/classes/util/AppTypes';
@@ -9,7 +10,7 @@ const fetchConfig: Plugin = async ( context, inject ) => {
         namespace: result.response.namespace || 'task_view',
         axios: context.$axios
     } );
-    context.$ls = ls;
+    context.$ls = Vue.observable( ls );
     inject( 'ls', ls );
     context.$ls.checkTokenAndSetForAxios();
     context.$ls.updateUserStoreByToken( context.store );

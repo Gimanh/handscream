@@ -12,9 +12,12 @@ export default class LocalStorage {
 
     protected axios!: AxiosInstance;
 
+    public isLoggedIn: boolean = false;
+
     constructor( options: { namespace: string, axios: AxiosInstance } ) {
         this.namespace = options.namespace;
         this.axios = options.axios;
+        this.isLoggedIn = !!this.getToken();
     }
 
     private key( key: string ): string {
@@ -35,6 +38,7 @@ export default class LocalStorage {
     setToken( token: string ): void {
         this.setValue( ACCESS_TOKEN_KEY, token );
         this.checkTokenAndSetForAxios();
+        this.isLoggedIn = true;
     }
 
     setRefreshToken( refreshToken: string ): void {
@@ -59,6 +63,8 @@ export default class LocalStorage {
     invalidateTokens() {
         localStorage.removeItem( this.key( REFRESH_TOKEN_KEY ) );
         localStorage.removeItem( this.key( ACCESS_TOKEN_KEY ) );
+        delete this.axios.defaults.headers.common[ 'Authorization' ];
+        this.isLoggedIn = false;
     }
 
     updateUserStoreByToken( $store: Store<any> ) {

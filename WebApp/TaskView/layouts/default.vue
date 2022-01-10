@@ -7,7 +7,9 @@
             fixed
             app
         >
-            <goals />
+            <goals
+                v-if="isLoggedIn"
+            />
         </v-navigation-drawer>
 
         <v-app-bar

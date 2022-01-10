@@ -5,8 +5,12 @@ export default class AppBase extends Vue {
 
     public loading: boolean = false;
 
-    get smallScreen() {
+    get smallScreen(): boolean {
         return this.$vuetify.breakpoint.sm || this.$vuetify.breakpoint.xs;
+    }
+
+    get isLoggedIn(): boolean {
+        return this.$ls.isLoggedIn;
     }
 
     logError( error: any ) {
