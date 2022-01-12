@@ -42,7 +42,8 @@
     },
     {
         "middlewares": [
-            "isLoggedIn"
+            "isLoggedIn",
+            "canDeleteTask"
         ],
         "method": "POST",
         "route": "/module/tasks/delete",

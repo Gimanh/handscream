@@ -1,3 +1,4 @@
 {
-    "canAddTask": "App\\Modules\\Tasks\\Middlewares\\CanAddTask"
+    "canAddTask": "App\\Modules\\Tasks\\Middlewares\\CanAddTask",
+    "canDeleteTask": "App\\Modules\\Tasks\\Middlewares\\CanDeleteTask"
 }
