@@ -19,9 +19,9 @@ class GoalLists implements IModule
         $this->storage = new GoalListsStorage();
     }
 
-    public function addComponent(string $name, int $goalId)
+    public function addComponent(string $name, int $goalId, int $userId)
     {
-        return $this->storage->addComponent($name, $goalId);
+        return $this->storage->addComponent($name, $goalId, $userId);
     }
 
     public function fetchAll(int $goalId): null|array

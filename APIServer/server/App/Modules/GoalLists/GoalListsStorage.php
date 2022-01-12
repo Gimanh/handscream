@@ -14,11 +14,11 @@ class GoalListsStorage
         $this->db = Modules::get('db');
     }
 
-    public function addComponent(string $name, int $goalId): bool|array
+    public function addComponent(string $name, int $goalId, int $userId): bool|array
     {
         $stmt = $this->db->insert(
-            'INSERT INTO tasks.goal_lists (name, goal_id) VALUES (?, ?) RETURNING id;',
-            [$name, $goalId],
+            'INSERT INTO tasks.goal_lists (name, goal_id, owner) VALUES (?, ?, ?) RETURNING id;',
+            [$name, $goalId, $userId],
             true
         );
         $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
@@ -51,7 +51,7 @@ class GoalListsStorage
         ]);
     }
 
-    public function deleteList(int $listId):bool
+    public function deleteList(int $listId): bool
     {
         return $this->db->delete('DELETE FROM tasks.goal_lists WHERE id = ?;', [$listId]);
     }
