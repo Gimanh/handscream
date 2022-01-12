@@ -3,13 +3,11 @@
 namespace App\Modules\GoalLists\Handlers;
 
 use App\AppResponse;
-use ZXC\Native\Modules;
 use ZXC\Native\RouteParams;
 use ZXC\Native\PSR\ServerRequest;
-use App\Modules\GoalLists\GoalLists;
 use ZXC\Interfaces\Psr\Http\Message\ResponseInterface;
 
-class DeleteGoalList extends ListsBaseHandler
+class DeleteGoalComponent extends ListsBaseHandler
 {
     public function __invoke(ServerRequest $request, ResponseInterface $response, RouteParams $routeParams): ResponseInterface
     {
