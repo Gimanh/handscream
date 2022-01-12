@@ -10,10 +10,11 @@
     },
     {
         "middlewares": [
-            "isLoggedIn"
+            "isLoggedIn",
+            "canFetchTasks"
         ],
         "method": "GET",
-        "route": "/module/tasks/:componentId",
+        "route": "/module/tasks/fetch/tasks",
         "handler": "App\\Modules\\Tasks\\Handlers\\TasksFetch"
     },
     {
