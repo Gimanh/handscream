@@ -1,0 +1,3 @@
+{
+    "canAddTask": "App\\Modules\\Tasks\\Middlewares\\CanAddTask"
+}

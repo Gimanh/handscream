@@ -29,6 +29,6 @@
         ],
         "method": "POST",
         "route": "/module/goal_lists/delete",
-        "handler": "App\\Modules\\GoalLists\\Handlers\\DeleteGoalList"
+        "handler": "App\\Modules\\GoalLists\\Handlers\\DeleteGoalComponent"
     }
 ]

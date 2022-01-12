@@ -1,7 +1,8 @@
 [
     {
         "middlewares": [
-            "isLoggedIn"
+            "isLoggedIn",
+            "canAddTask"
         ],
         "method": "POST",
         "route": "/module/tasks/add",
