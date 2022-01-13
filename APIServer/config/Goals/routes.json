@@ -1,7 +1,8 @@
 [
     {
         "middlewares": [
-            "isLoggedIn"
+            "isLoggedIn",
+            "canAddGoal"
         ],
         "method": "POST",
         "route": "/module/goals/add",
@@ -9,7 +10,8 @@
     },
     {
         "middlewares": [
-            "isLoggedIn"
+            "isLoggedIn",
+            "canFetchGoals"
         ],
         "method": "GET",
         "route": "/module/goals/fetch",
@@ -17,7 +19,8 @@
     },
     {
         "middlewares": [
-            "isLoggedIn"
+            "isLoggedIn",
+            "canUpdateGoal"
         ],
         "method": "POST",
         "route": "/module/goals/update",
@@ -25,7 +28,8 @@
     },
     {
         "middlewares": [
-            "isLoggedIn"
+            "isLoggedIn",
+            "canDeleteGoal"
         ],
         "method": "POST",
         "route": "/module/goals/delete",

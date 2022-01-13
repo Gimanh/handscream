@@ -174,7 +174,8 @@
         "order_key": "Порядок добавления"
     },
     "goal": {
-        "components": "Компоненты"
+        "components": "Компоненты",
+        "canNotUpdate": "Не удалось обновить информацию"
     },
     "goalComponent": {
         "canNotUpdate": "Не удалось обновить информацию"

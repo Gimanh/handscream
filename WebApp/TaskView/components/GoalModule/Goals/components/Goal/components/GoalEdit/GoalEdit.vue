@@ -29,9 +29,15 @@
                 </v-card-title>
                 <v-card-text>
                     <v-form
-                        v-model="valid"
                         ref="form"
+                        v-model="valid"
                     >
+                        <v-alert
+                            v-if="showWarning"
+                            type="warning"
+                        >
+                            {{ $t( 'goal.canNotUpdate' ) }}
+                        </v-alert>
                         <v-row>
                             <v-col
                                 cols="12"

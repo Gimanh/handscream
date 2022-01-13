@@ -168,7 +168,8 @@
         "fetchWithDeadLines": "Fetch tasks with deadline"
     },
     "goal": {
-        "components": "Components"
+        "components": "Components",
+        "canNotUpdate": "Can not update information"
     },
     "goalComponent": {
         "canNotUpdate": "Can not update information"

@@ -21,6 +21,8 @@ export default class GoalEdit extends AppBase {
 
     public description: string = this.goal.description;
 
+    public showWarning: boolean = false;
+
     $refs!: {
         form: VuetifyForm
     }
@@ -53,14 +55,19 @@ export default class GoalEdit extends AppBase {
     }
 
     async update() {
+        this.showWarning = false;
         if ( this.$refs.form.validate() ) {
             const goalData: GoalUpdate = {
                 id: this.goal.id,
                 name: this.name,
                 description: this.description
             };
-            await this.updateGoal( goalData ).catch( this.logError );
+            const result = await this.updateGoal( goalData ).catch( this.logError );
+            if ( result ) {
+                this.cancel();
+            } else {
+                this.showWarning = true;
+            }
         }
-        this.cancel();
     }
 }
