@@ -19,7 +19,8 @@
     },
     {
         "middlewares": [
-            "isLoggedIn"
+            "isLoggedIn",
+            "canUpdateTaskStatus"
         ],
         "method": "POST",
         "route": "/module/tasks/update/status",

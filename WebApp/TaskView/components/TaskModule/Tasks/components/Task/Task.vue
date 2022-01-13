@@ -6,6 +6,7 @@
         >
             <v-list-item-action>
                 <task-checkbox
+                    :key="checkboxKey"
                     :complete="task.complete"
                     @change="statusChanged"
                 />
