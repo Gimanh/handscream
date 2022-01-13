@@ -22,14 +22,6 @@
             "isLoggedIn"
         ],
         "method": "POST",
-        "route": "/module/tasks/update",
-        "handler": "App\\Modules\\Tasks\\Handlers\\TaskUpdate"
-    },
-    {
-        "middlewares": [
-            "isLoggedIn"
-        ],
-        "method": "POST",
         "route": "/module/tasks/update/status",
         "handler": "App\\Modules\\Tasks\\Handlers\\TaskUpdateStatus"
     },

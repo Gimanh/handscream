@@ -40,7 +40,6 @@ export class TasksState {
     public urls: TasksStoreStateUrls = {
         addTaskUrl: '/module/tasks/add',
         fetchTasks: '/module/tasks/fetch/tasks',
-        updateTask: '/module/tasks/update',
         updateStatus: '/module/tasks/update/status',
         updateDescription: '/module/tasks/update/description',
         deleteTask: '/module/tasks/delete',

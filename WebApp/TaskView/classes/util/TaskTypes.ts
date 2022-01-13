@@ -26,7 +26,6 @@ export type TaskAddResponse = {
 export type TasksStoreStateUrls = {
     addTaskUrl: string
     fetchTasks: string
-    updateTask: string
     updateStatus: string
     updateDescription: string
     deleteTask: string
