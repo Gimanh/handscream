@@ -11,7 +11,7 @@ import { AppResponse } from '~/classes/util/AppTypes';
 export class GoalListsState {
     public urls: TGoalListStoreStateUrls = {
         addListUrl: '/module/goal_lists/add',
-        fetchLists: '/module/goal_lists/',
+        fetchLists: '/module/goal_lists',
         updateList: '/module/goal_lists/update',
         deleteList: '/module/goal_lists/delete'
     };
@@ -62,7 +62,7 @@ export class GoalListsStoreActions extends Actions<GoalListsState, GoalListsStor
 
     async fetchAllComponents( goalId: string ): Promise<AppResponse<TGoalLists> | void> {
         this.mutations.updateComponents( [] );
-        const result = await this.store.$axios.$get<AppResponse<TGoalLists>>( `${ this.state.urls.fetchLists }${ goalId }` )
+        const result = await this.store.$axios.$get<AppResponse<TGoalLists>>( `${ this.state.urls.fetchLists }?goalId=${ goalId }` )
             .catch( err => console.log( err ) );
         if ( result ) {
             this.mutations.updateComponents( result.response ?? [] );

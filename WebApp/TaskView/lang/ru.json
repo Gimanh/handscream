@@ -176,6 +176,9 @@
     "goal": {
         "components": "Компоненты"
     },
+    "goalComponent": {
+        "canNotUpdate": "Не удалось обновить информацию"
+    },
     "task": {
         "task": "Задача",
         "add": "Добавить задачу",

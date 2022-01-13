@@ -13,9 +13,8 @@ class FetchAllGoalComponents extends ListsBaseHandler
 {
     public function __invoke(ServerRequest $request, ResponseInterface $response, RouteParams $routeParams): ResponseInterface
     {
-        $params = $routeParams->getParams();
-        if (isset($params['goalId'])) {
-            $components = $this->goalLists->fetchAll((int)$params['goalId']);
+        if (isset($request->getQueryParams()['goalId'])) {
+            $components = $this->goalLists->fetchAll((int)$request->getQueryParams()['goalId']);
             return AppResponse::create($response, $components ?? [], $request->getAttribute('rid'));
         }
         return AppResponse::create($response, [], $request->getAttribute('rid'));

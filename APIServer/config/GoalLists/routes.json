@@ -1,7 +1,8 @@
 [
     {
         "middlewares": [
-            "isLoggedIn"
+            "isLoggedIn",
+            "canAddComponent"
         ],
         "method": "POST",
         "route": "/module/goal_lists/add",
@@ -9,15 +10,17 @@
     },
     {
         "middlewares": [
-            "isLoggedIn"
+            "isLoggedIn",
+            "canFetchGoalComponents"
         ],
         "method": "GET",
-        "route": "/module/goal_lists/:goalId",
+        "route": "/module/goal_lists",
         "handler": "App\\Modules\\GoalLists\\Handlers\\FetchAllGoalComponents"
     },
     {
         "middlewares": [
-            "isLoggedIn"
+            "isLoggedIn",
+            "canUpdateGoalComponent"
         ],
         "method": "POST",
         "route": "/module/goal_lists/update",
@@ -25,7 +28,8 @@
     },
     {
         "middlewares": [
-            "isLoggedIn"
+            "isLoggedIn",
+            "canDeleteGoalList"
         ],
         "method": "POST",
         "route": "/module/goal_lists/delete",

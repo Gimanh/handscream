@@ -170,6 +170,9 @@
     "goal": {
         "components": "Components"
     },
+    "goalComponent": {
+        "canNotUpdate": "Can not update information"
+    },
     "task": {
         "task": "Task",
         "add": "Add task",

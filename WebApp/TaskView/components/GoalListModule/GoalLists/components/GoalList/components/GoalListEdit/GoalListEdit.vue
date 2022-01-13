@@ -38,6 +38,8 @@
                                     v-model="name"
                                     :label="$t('msg.goalName')+'*'"
                                     :rules="componentName"
+                                    :error="canNotUpdate"
+                                    :error-messages="canNotUpdateMessage"
                                     required
                                 />
                             </v-col>

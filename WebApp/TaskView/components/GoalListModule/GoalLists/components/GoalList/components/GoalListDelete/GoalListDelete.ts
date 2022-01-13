@@ -14,12 +14,15 @@ export default class GoalListDelete extends AppBase {
     @Action( 'deleteList', { namespace: 'GoalLists' } ) deleteList!: GoalListsStoreActions['deleteList'];
 
     async deleteHandler() {
-        debugger
-        await this.deleteList( this.list.id );
+        const result = await this.deleteList( this.list.id );
+        if ( !result ) {
+            console.log( 'Can not delete list.', this.list.id );
+        }
         this.redirect();
     }
 
     redirect() {
+        //TODO
         // this.$router.go( -1 );
         // if ( +this.$route.params.id === +this.goalId ) {
         //     this.goToGoals();

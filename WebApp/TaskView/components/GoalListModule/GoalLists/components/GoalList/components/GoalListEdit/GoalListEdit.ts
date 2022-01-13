@@ -17,6 +17,8 @@ export default class GoalListEdit extends AppBase {
 
     public name: string = this.list.name;
 
+    public canNotUpdate: boolean = false;
+
     $refs!: {
         form: VuetifyForm
     }
@@ -28,6 +30,10 @@ export default class GoalListEdit extends AppBase {
         if ( val ) {
             this.name = this.list.name;
         }
+    }
+
+    get canNotUpdateMessage() {
+        return this.canNotUpdate ? this.$t( 'goalComponent.canNotUpdate' ) : '';
     }
 
     get componentName() {
@@ -47,13 +53,18 @@ export default class GoalListEdit extends AppBase {
     }
 
     async update() {
+        this.canNotUpdate = false;
         if ( this.$refs.form.validate() ) {
             const goalData: TGoalUpdateList = {
                 id: this.list.id,
                 name: this.name
             };
-            await this.updateComponent( goalData ).catch( this.logError );
+            const result = await this.updateComponent( goalData ).catch( this.logError );
+            if ( result ) {
+                this.cancel();
+            } else {
+                this.canNotUpdate = true;
+            }
         }
-        this.cancel();
     }
 }
