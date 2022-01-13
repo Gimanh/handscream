@@ -3,5 +3,6 @@
     "canDeleteTask": "App\\Modules\\Tasks\\Middlewares\\CanDeleteTask",
     "canFetchTasks": "App\\Modules\\Tasks\\Middlewares\\CanFetchTasks",
     "canUpdateTaskStatus": "App\\Modules\\Tasks\\Middlewares\\CanUpdateTaskStatus",
-    "canUpdateTaskDescription": "App\\Modules\\Tasks\\Middlewares\\CanUpdateTaskDescription"
+    "canUpdateTaskDescription": "App\\Modules\\Tasks\\Middlewares\\CanUpdateTaskDescription",
+    "canAccessDetails": "App\\Modules\\Tasks\\Middlewares\\CanAccessDetails"
 }

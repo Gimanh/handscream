@@ -46,7 +46,8 @@
     },
     {
         "middlewares": [
-            "isLoggedIn"
+            "isLoggedIn",
+            "canAccessDetails"
         ],
         "method": "POST",
         "route": "/module/tasks/details",

@@ -21,7 +21,7 @@ import {
 } from '~/classes/util/TaskTypes';
 import { AppResponse } from '~/classes/util/AppTypes';
 
-const DETAILED_TASK: DetailedTask = {
+export const DETAILED_TASK: DetailedTask = {
     id: -1,
     description: '',
     complete: false,
