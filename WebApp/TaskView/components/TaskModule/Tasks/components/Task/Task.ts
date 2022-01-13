@@ -18,8 +18,12 @@ export default class Task extends AppBase {
     @Prop( { default: false } )
     public subtask!: boolean;
 
-    public keyIndexes: { checkbox: number } = {
-        checkbox: 1
+    public keyIndexes: {
+        checkbox: number
+        description: number
+    } = {
+        checkbox: 1,
+        description: 1
     };
 
     @Action( 'updateCompleteStatus', { namespace: 'Tasks' } ) updateCompleteStatus!: TasksStoreActions['updateCompleteStatus'];
@@ -68,6 +72,10 @@ export default class Task extends AppBase {
         return 'checkbox_' + this.keyIndexes.checkbox;
     }
 
+    get descriptionKey() {
+        return 'description_' + this.keyIndexes.description;
+    }
+
     goToDetails() {
         if ( !this.subtask ) {
             this.$router.push( {
@@ -98,10 +106,13 @@ export default class Task extends AppBase {
     }
 
     async descriptionChanged( value: string ) {
-        await this.updateDescription( {
+        const result = await this.updateDescription( {
             description: value,
             taskId: this.task.id
         } );
+        if ( !result ) {
+            this.keyIndexes.description++;
+        }
     }
 
     async deleteThisTask() {

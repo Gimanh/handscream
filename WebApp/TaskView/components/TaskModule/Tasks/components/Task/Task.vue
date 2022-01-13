@@ -15,6 +15,7 @@
                 class="pb-5"
             >
                 <task-text
+                    :key="descriptionKey"
                     :description="task.description"
                     :show-btn-more="!restrictedMode"
                     @change="descriptionChanged"
