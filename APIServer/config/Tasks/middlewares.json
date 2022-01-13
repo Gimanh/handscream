@@ -4,5 +4,6 @@
     "canFetchTasks": "App\\Modules\\Tasks\\Middlewares\\CanFetchTasks",
     "canUpdateTaskStatus": "App\\Modules\\Tasks\\Middlewares\\CanUpdateTaskStatus",
     "canUpdateTaskDescription": "App\\Modules\\Tasks\\Middlewares\\CanUpdateTaskDescription",
-    "canAccessDetails": "App\\Modules\\Tasks\\Middlewares\\CanAccessDetails"
+    "canAccessDetails": "App\\Modules\\Tasks\\Middlewares\\CanAccessDetails",
+    "canEditNote": "App\\Modules\\Tasks\\Middlewares\\CanEditNote"
 }

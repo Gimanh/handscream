@@ -55,7 +55,8 @@
     },
     {
         "middlewares": [
-            "isLoggedIn"
+            "isLoggedIn",
+            "canEditNote"
         ],
         "method": "POST",
         "route": "/module/tasks/update/note",
