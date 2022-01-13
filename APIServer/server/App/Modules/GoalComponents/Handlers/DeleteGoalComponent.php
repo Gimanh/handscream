@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\GoalLists\Handlers;
+namespace App\Modules\GoalComponents\Handlers;
 
 use App\AppResponse;
 use ZXC\Native\RouteParams;

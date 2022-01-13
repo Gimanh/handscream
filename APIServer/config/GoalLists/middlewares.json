@@ -1,6 +1,0 @@
-{
-    "canAddComponent": "App\\Modules\\GoalLists\\Middlewares\\CanAddGoalComponent",
-    "canFetchGoalComponents": "App\\Modules\\GoalLists\\Middlewares\\CanFetchGoalComponents",
-    "canUpdateGoalComponent": "App\\Modules\\GoalLists\\Middlewares\\CanUpdateGoalComponents",
-    "canDeleteGoalComponent": "App\\Modules\\GoalLists\\Middlewares\\CanDeleteGoalComponents"
-}

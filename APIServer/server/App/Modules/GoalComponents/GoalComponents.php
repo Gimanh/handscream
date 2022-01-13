@@ -1,22 +1,22 @@
 <?php
 
-namespace App\Modules\GoalLists;
+namespace App\Modules\GoalComponents;
 
 use ZXC\Traits\Module;
 use ZXC\Interfaces\IModule;
 
-class GoalLists implements IModule
+class GoalComponents implements IModule
 {
     use Module;
 
-    protected null|GoalListsStorage $storage = null;
+    protected null|GoalComponentsStorage $storage = null;
 
     protected array $config = [];
 
     public function init(array $options = [])
     {
         $this->config = $options;
-        $this->storage = new GoalListsStorage();
+        $this->storage = new GoalComponentsStorage();
     }
 
     public function addComponent(string $name, int $goalId, int $userId)

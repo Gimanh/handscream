@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Modules\GoalLists;
+namespace App\Modules\GoalComponents;
 
 use ZXC\Modules\DB\DB;
 use ZXC\Native\Modules;
 
-class GoalListsStorage
+class GoalComponentsStorage
 {
     protected DB|null $db = null;
 
