@@ -11,8 +11,7 @@ class TaskFetchSubtasks extends TasksBaseHandler
 {
     public function __invoke(ServerRequest $request, ResponseInterface $response, RouteParams $routeParams): ResponseInterface
     {
-        $params = $routeParams->getParams();
-        $taskId = $params['taskId'] ?? null;
+        $taskId = $request->getQueryParams()['taskId'] ?? null;
         if ($taskId !== null) {
             $taskId = (int)$taskId;
             $subtasks = $this->tasks->fetchSubtasks($taskId);

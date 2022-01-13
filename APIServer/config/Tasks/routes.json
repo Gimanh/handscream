@@ -73,10 +73,11 @@
     },
     {
         "middlewares": [
-            "isLoggedIn"
+            "isLoggedIn",
+            "canFetchSubtasks"
         ],
         "method": "GET",
-        "route": "/module/tasks/fetch/subtasks/for/:taskId",
+        "route": "/module/tasks/fetch/subtasks",
         "handler": "App\\Modules\\Tasks\\Handlers\\TaskFetchSubtasks"
     }
 ]

@@ -6,5 +6,6 @@
     "canUpdateTaskDescription": "App\\Modules\\Tasks\\Middlewares\\CanUpdateTaskDescription",
     "canAccessDetails": "App\\Modules\\Tasks\\Middlewares\\CanAccessDetails",
     "canEditNote": "App\\Modules\\Tasks\\Middlewares\\CanEditNote",
-    "canEditDeadline": "App\\Modules\\Tasks\\Middlewares\\CanEditDeadline"
+    "canEditDeadline": "App\\Modules\\Tasks\\Middlewares\\CanEditDeadline",
+    "canFetchSubtasks": "App\\Modules\\Tasks\\Middlewares\\CanFetchSubtasks"
 }

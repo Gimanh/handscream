@@ -46,7 +46,7 @@ export class TasksState {
         fetchTaskDetails: '/module/tasks/details',
         updateTaskNote: '/module/tasks/update/note',
         updateTaskDeadline: '/module/tasks/update/deadline',
-        fetchSubtasks: '/module/tasks/fetch/subtasks/for/'
+        fetchSubtasks: '/module/tasks/fetch/subtasks'
     };
 
     public detailedTask: DetailedTask = DETAILED_TASK;
@@ -247,7 +247,7 @@ export class TasksStoreActions extends Actions<TasksState, TasksStoreGetters, Ta
     }
 
     async fetchSubtasksForTask( taskId: AppTask['id'] ): Promise<AppResponse<AppTask['subtasks']> | void> {
-        const result = await this.store.$axios.$get<AppResponse<AppTask['subtasks']>>( `${ this.state.urls.fetchSubtasks }${ taskId }` )
+        const result = await this.store.$axios.$get<AppResponse<AppTask['subtasks']>>( `${ this.state.urls.fetchSubtasks }?taskId=${ taskId }` )
             .catch( err => console.log( err ) );
         if ( result ) {
             if ( result.response ) {
