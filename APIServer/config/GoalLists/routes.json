@@ -29,7 +29,7 @@
     {
         "middlewares": [
             "isLoggedIn",
-            "canDeleteGoalList"
+            "canDeleteGoalComponent"
         ],
         "method": "POST",
         "route": "/module/goal_lists/delete",
