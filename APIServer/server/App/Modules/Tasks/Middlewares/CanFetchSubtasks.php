@@ -13,11 +13,11 @@ class CanFetchSubtasks extends BaseTaskMiddleware
     {
         $this->initUser($request);
         if ($this->user) {
-            $goalComponent = $this->db->selectOne(
+            $task = $this->db->selectOne(
                 'SELECT owner FROM tasks.tasks WHERE id = ? AND owner = ?;',
                 [$request->getQueryParams()['taskId'], $this->user->getId()]
             );
-            if ($goalComponent) {
+            if ($task) {
                 return $handler->handle($request);
             }
         }
