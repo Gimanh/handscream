@@ -64,7 +64,8 @@
     },
     {
         "middlewares": [
-            "isLoggedIn"
+            "isLoggedIn",
+            "canEditDeadline"
         ],
         "method": "POST",
         "route": "/module/tasks/update/deadline",
