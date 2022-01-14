@@ -2,9 +2,9 @@
 
 namespace App\Modules\Tasks;
 
-use ZXC\Modules\Auth\Auth;
 use ZXC\Native\Modules;
 use ZXC\Traits\Module;
+use ZXC\Modules\Auth\Auth;
 use ZXC\Interfaces\IModule;
 
 class Tasks implements IModule
