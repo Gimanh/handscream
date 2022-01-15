@@ -28,3 +28,28 @@ create table tasks.tasks
     date_complete   timestamp,
     note            varchar
 );
+
+create or replace function tasks.update_date_complete()
+    returns trigger as
+$date_complete$
+begin
+    if new.complete != old.complete
+    then
+        if new.complete = true
+        then
+            update tasks.tasks set date_complete = now() where id = old.id;
+        else
+            update tasks.tasks set date_complete = null where id = old.id;
+        end if;
+    end if;
+    return new;
+end;
+$date_complete$
+    language plpgsql;
+
+drop trigger if exists tr_update_date_complete on tasks.tasks;
+create trigger tr_update_date_complete
+    after update
+    on tasks.tasks
+    for each row
+execute procedure tasks.update_date_complete();
