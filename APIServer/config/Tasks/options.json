@@ -1,16 +1,4 @@
 {
     "class": "App\\Modules\\Tasks\\Tasks",
-    "options": {
-        "fetchFields": [
-            "id",
-            "description",
-            "complete",
-            "deadline",
-            "date_complete as \"dateComplete\"",
-            "date_creation as \"dateCreation\"",
-            "responsible_id as \"responsibleId\"",
-            "note",
-            "parent_id as \"parentId\""
-        ]
-    }
+    "options": {}
 }

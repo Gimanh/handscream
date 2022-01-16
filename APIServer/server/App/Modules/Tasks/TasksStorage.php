@@ -14,9 +14,6 @@ class TasksStorage
     public function __construct(array $fetchFields = [])
     {
         $this->initDatabase();
-        if (count($fetchFields) > 0) {
-            $this->fetchFields = implode(',', $fetchFields);
-        }
     }
 
     public function addTask(string $description, int $componentId, int $userId, int $parentId = null)
@@ -39,13 +36,17 @@ class TasksStorage
         return $task;
     }
 
-    public function fetchTasks(int $componentId)
+    /**
+     * @return array<int, TaskItem>
+     */
+    public function fetchTasks(int $componentId): array
     {
+        $result = [];
         $tasks = $this->db->select('SELECT ' . $this->fetchFields . ' FROM tasks.tasks WHERE goal_list_id = ? AND parent_id IS NULL ORDER BY id DESC;', [$componentId]);
-        foreach ($tasks as &$task) {
-            $task['subtasks'] = [];
+        foreach ($tasks as $task) {
+            $result[] = new TaskItem($task);
         }
-        return $tasks;
+        return $result;
     }
 
     public function updateTaskDescription(int $taskId, string $description): array|false
