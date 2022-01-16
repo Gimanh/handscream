@@ -28,7 +28,7 @@
                     </v-icon>
                 </v-btn>
             </template>
-            <goal-list-delete
+            <goal-component-delete
                 :list="list"
             />
             <v-btn
@@ -44,4 +44,4 @@
     </div>
 </template>
 
-<script src=./GoalListSpeedDial.ts />
+<script src=./GoalComponentSpeedDial.ts />

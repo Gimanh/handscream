@@ -1,4 +1,4 @@
-import GoalAddList from './GoalAddList.vue';
+import GoalAddList from './GoalAddComponent.vue';
 
 export { GoalAddList };
 export default GoalAddList;

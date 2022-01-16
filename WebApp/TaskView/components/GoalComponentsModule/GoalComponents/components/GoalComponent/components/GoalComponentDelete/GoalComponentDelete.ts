@@ -4,7 +4,7 @@ import AppBase from '~/components/AppBase';
 import { GoalListsState, GoalListsStoreActions } from '~/store/GoalLists';
 
 @Component
-export default class GoalListDelete extends AppBase {
+export default class GoalComponentDelete extends AppBase {
     @Prop( {
         default: () => {
         }

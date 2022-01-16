@@ -3,7 +3,7 @@ import AppBase from '~/components/AppBase';
 import { TGoalList } from '~/classes/util/GoalTypes';
 
 @Component
-export default class GoalListSpeedDial extends AppBase {
+export default class GoalComponentSpeedDial extends AppBase {
 
     @Prop( {
         default: () => {

@@ -68,4 +68,4 @@
     </div>
 </template>
 
-<script src=./GoalListEdit.ts />
+<script src=./GoalComponentEdit.ts />

@@ -10,4 +10,4 @@
     </v-btn>
 </template>
 
-<script src=./GoalListDelete.ts />
+<script src=./GoalComponentDelete.ts />

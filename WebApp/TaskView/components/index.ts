@@ -9,12 +9,12 @@ export * from './GoalModule/Goals/components/Goal/components/GoalEdit';
 export * from './GoalModule/Goals/components/Goal/components/GoalDelete';
 export * from './GoalModule/Goals/components/Goal/components/GoalSpeedDial';
 
-export * from './GoalListModule/GoalLists';
-export * from './GoalListModule/GoalLists/components/GoalAddList';
-export * from './GoalListModule/GoalLists/components/GoalList';
-export * from './GoalListModule/GoalLists/components/GoalList/components/GoalListEdit';
-export * from './GoalListModule/GoalLists/components/GoalList/components/GoalListSpeedDial';
-export * from './GoalListModule/GoalLists/components/GoalList/components/GoalListDelete';
+export * from './GoalComponentsModule/GoalComponents';
+export * from './GoalComponentsModule/GoalComponents/components/GoalAddComponent';
+export * from './GoalComponentsModule/GoalComponents/components/GoalComponent';
+export * from './GoalComponentsModule/GoalComponents/components/GoalComponent/components/GoalComponentEdit';
+export * from './GoalComponentsModule/GoalComponents/components/GoalComponent/components/GoalComponentSpeedDial';
+export * from './GoalComponentsModule/GoalComponents/components/GoalComponent/components/GoalComponentDelete';
 
 export * from './TaskModule/Tasks';
 export * from './TaskModule/Tasks/components/Task';

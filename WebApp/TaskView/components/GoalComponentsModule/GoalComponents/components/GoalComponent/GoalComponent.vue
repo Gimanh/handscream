@@ -9,11 +9,11 @@
         <v-list-item-action
             @click.prevent
         >
-            <goal-list-speed-dial
+            <goal-component-speed-dial
                 :list="list"
             />
         </v-list-item-action>
     </v-list-item>
 </template>
 
-<script src=./GoalList.ts />
+<script src=./GoalComponent.ts />

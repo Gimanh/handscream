@@ -7,7 +7,7 @@
                 cols="5"
                 class="pr-1"
             >
-                <goal-lists />
+                <goal-components />
             </v-col>
             <nuxt-child />
         </v-row>-->

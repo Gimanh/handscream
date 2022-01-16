@@ -17,7 +17,7 @@
             v-model="selected"
             class="app-scrolled-list"
         >
-            <goal-list
+            <goal-component
                 v-for="list in lists"
                 :key="list.id"
                 :list="list"
@@ -27,4 +27,4 @@
     </v-list>
 </template>
 
-<script src=./GoalLists.ts />
+<script src=./GoalComponents.ts />

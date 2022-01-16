@@ -6,7 +6,7 @@ import { GoalListsState, GoalListsStoreActions } from '~/store/GoalLists';
 import { TGoalUpdateList } from '~/classes/util/GoalTypes';
 
 @Component
-export default class GoalListEdit extends AppBase {
+export default class GoalComponentEdit extends AppBase {
     @Prop( {
         default: () => {
         }
