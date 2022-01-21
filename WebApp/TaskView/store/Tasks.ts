@@ -31,7 +31,17 @@ export const DETAILED_TASK: DetailedTask = {
     deadline: null,
     responsibleUser: null,
     parentId: null,
-    subtasks: []
+    subtasks: [],
+    permissions: {
+        editDescription: false,
+        editDeadline: false,
+        editNode: false,
+        editStatus: false,
+        watchDetails: false,
+        delete: false,
+        watchSubtasks: false,
+        addSubtasks: false,
+    }
 };
 
 export class TasksState {
