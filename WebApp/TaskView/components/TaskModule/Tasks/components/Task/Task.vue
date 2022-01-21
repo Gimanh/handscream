@@ -8,6 +8,7 @@
                 <task-checkbox
                     :key="checkboxKey"
                     :complete="task.complete"
+                    :allowed="task.permissions.editStatus"
                     @change="statusChanged"
                 />
             </v-list-item-action>
@@ -18,6 +19,7 @@
                     :key="descriptionKey"
                     :description="task.description"
                     :show-btn-more="!restrictedMode"
+                    :allowed="task.permissions.editDescription"
                     @change="descriptionChanged"
                     @deleteTask="deleteThisTask"
                     @showDetails="goToDetails"
@@ -25,7 +27,10 @@
             </v-list-item-content>
         </v-list-item>
         <div v-if="showSubTasks">
-            <v-row class="ma-0">
+            <v-row
+                v-if="task.permissions.addSubtasks"
+                class="ma-0"
+            >
                 <v-col cols="1" class="pa-0" />
                 <v-col class="pa-0">
                     <task-add

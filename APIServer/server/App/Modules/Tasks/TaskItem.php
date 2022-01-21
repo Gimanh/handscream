@@ -3,6 +3,7 @@
 namespace App\Modules\Tasks;
 
 use RuntimeException;
+use ZXC\Modules\Auth\User;
 
 class TaskItem
 {
@@ -22,7 +23,7 @@ class TaskItem
     public array $subtasks = [];
     public TaskPermissions $permissions;
 
-    public function __construct(array $task)
+    public function __construct(array $task, ?User $user = null)
     {
         $this->id = $task['id'] ?? null;
         $this->parentId = $task['parent_id'] ?? null;
@@ -39,6 +40,6 @@ class TaskItem
         $this->deadline = $task['deadline'] ?? null;
         $this->dateComplete = $task['date_complete'] ?? null;
         $this->note = $task['note'] ?? null;
-        $this->permissions = new TaskPermissions();
+        $this->permissions = new TaskPermissions($this->owner, $user);
     }
 }

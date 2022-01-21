@@ -2,6 +2,7 @@
 
 namespace App\Modules\Tasks;
 
+use ZXC\Modules\Auth\User;
 use ZXC\Native\Modules;
 use ZXC\Traits\Module;
 use ZXC\Modules\Auth\Auth;
@@ -13,12 +14,18 @@ class Tasks implements IModule
 
     protected array $config = [];
 
-    protected TasksStorage|null $storage = null;
+    protected ?Auth $auth = null;
+
+    protected ?TasksStorage $storage = null;
+
+    protected ?User $user = null;
 
     public function init(array $options = [])
     {
         $this->config = $options;
-        $this->storage = new TasksStorage($this->config['fetchFields'] ?? []);
+        $this->auth = Modules::get('auth');
+        $this->user = $this->auth->getUser();
+        $this->storage = new TasksStorage($this->user);
     }
 
     public function addTask(string $description, int $componentId, int $userId, int $parentId = null)

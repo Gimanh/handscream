@@ -4,6 +4,7 @@ namespace App\Modules\Tasks;
 
 use PDO;
 use App\Traits\AppDB;
+use ZXC\Modules\Auth\User;
 
 class TasksStorage
 {
@@ -11,8 +12,11 @@ class TasksStorage
 
     protected string $fetchFields = '*';
 
-    public function __construct(array $fetchFields = [])
+    protected ?User $user = null;
+
+    public function __construct(?User $user = null)
     {
+        $this->user = $user;
         $this->initDatabase();
     }
 
@@ -44,7 +48,7 @@ class TasksStorage
         $result = [];
         $tasks = $this->db->select('SELECT ' . $this->fetchFields . ' FROM tasks.tasks WHERE goal_list_id = ? AND parent_id IS NULL ORDER BY id DESC;', [$componentId]);
         foreach ($tasks as $task) {
-            $result[] = new TaskItem($task);
+            $result[] = new TaskItem($task, $this->user);
         }
         return $result;
     }

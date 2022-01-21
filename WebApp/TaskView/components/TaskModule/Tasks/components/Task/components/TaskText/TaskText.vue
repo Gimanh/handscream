@@ -2,12 +2,13 @@
     <div>
         <v-textarea
             v-model="descriptionValue"
+            :label="label"
+            :disabled="!allowed"
+            :append-icon="appendIcon"
             dense
-            hide-details
             rows="1"
             auto-grow
-            :label="label"
-            :append-icon="appendIcon"
+            hide-details
             @keypress.enter.prevent="updateDescription"
             @change="updateDescription"
             @click:append="showDetails"

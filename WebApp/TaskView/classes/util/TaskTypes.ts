@@ -1,3 +1,14 @@
+export type AppTaskPermissions = {
+    editDescription: boolean
+    editDeadline: boolean
+    editNode: boolean
+    editStatus: boolean
+    watchDetails: boolean
+    delete: boolean
+    watchSubtasks: boolean
+    addSubtasks: boolean
+};
+
 export interface AppTask {
     id: number
     description: string
@@ -6,6 +17,7 @@ export interface AppTask {
     parentId: number | null
     note: string | null
     subtasks: AppTask[]
+    permissions: AppTaskPermissions
 }
 
 export type AppTasks = AppTask[];

@@ -1,7 +1,10 @@
-import { Vue, Component } from 'vue-property-decorator';
+import { Vue, Component, Prop } from 'vue-property-decorator';
 
 @Component
 export default class AppBase extends Vue {
+
+    @Prop( { default: true } )
+    public allowed!: boolean;
 
     public loading: boolean = false;
 

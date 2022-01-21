@@ -65,7 +65,7 @@ export default class Task extends AppBase {
     }
 
     get showSubTasks() {
-        return +this.$route.params.task === +this.task.id;
+        return +this.$route.params.task === +this.task.id && this.task.permissions.watchSubtasks;
     }
 
     get checkboxKey() {
