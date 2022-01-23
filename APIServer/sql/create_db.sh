@@ -9,6 +9,7 @@ password="123456"
 
 sqlFiles=(
     "./auth/auth.sql"
+    "./auth/app_permissions.sql"
     "./app/tasks/schema_tasks.sql"
     "./app/tasks/history_list.sql"
     "./app/tasks/goals.sql"
