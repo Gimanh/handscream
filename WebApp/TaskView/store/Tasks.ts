@@ -17,7 +17,7 @@ import {
     TaskNoteUpdateResponse,
     TaskNoteUpdateArg,
     TaskDeadlineUpdateArg,
-    TaskDeadlineUpdateResponse, SubtasksAddMutationArg, AppTasksMap
+    TaskDeadlineUpdateResponse, SubtasksAddMutationArg, AppTasksMap, DetailedTaskResponse
 } from '~/classes/util/TaskTypes';
 import { AppResponse } from '~/classes/util/AppTypes';
 
@@ -220,13 +220,13 @@ export class TasksStoreActions extends Actions<TasksState, TasksStoreGetters, Ta
         return result;
     }
 
-    async fetchTaskDetails( taskId: TaskIdArg ): Promise<AppResponse<DetailedTask> | void> {
-        const result = await this.store.$axios.$post<AppResponse<DetailedTask>>( this.state.urls.fetchTaskDetails,
+    async fetchTaskDetails( taskId: TaskIdArg ): Promise<AppResponse<DetailedTaskResponse> | void> {
+        const result = await this.store.$axios.$post<AppResponse<DetailedTaskResponse>>( this.state.urls.fetchTaskDetails,
             qs.stringify( { taskId } ) )
             .catch( err => console.log( err ) );
         if ( result ) {
             if ( result.response ) {
-                this.mutations.setDetailedTask( result.response );
+                this.mutations.setDetailedTask( result.response[ 0 ] );
             }
         }
         return result;

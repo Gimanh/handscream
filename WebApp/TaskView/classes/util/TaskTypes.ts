@@ -83,6 +83,8 @@ export interface DetailedTask extends AppTask {
     responsibleUser: ResponsibleUser | null
 }
 
+export type DetailedTaskResponse = [DetailedTask];
+
 export type TaskNoteValue = AppTask['note'];
 
 export type TaskNoteUpdateResponse = { update: boolean };

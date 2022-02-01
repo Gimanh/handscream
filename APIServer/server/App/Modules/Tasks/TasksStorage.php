@@ -37,7 +37,7 @@ class TasksStorage
     {
         $task = $this->db->selectOne('SELECT ' . $this->fetchFields . ' FROM tasks.tasks WHERE id = ?;', [$taskId]);
         $task['subtasks'] = [];
-        return $task;
+        return new TaskItem($task, $this->user);
     }
 
     /**
@@ -53,7 +53,7 @@ class TasksStorage
         return $result;
     }
 
-    public function updateTaskDescription(int $taskId, string $description): array|false
+    public function updateTaskDescription(int $taskId, string $description): TaskItem|false
     {
         $result = $this->db->update([
             'table' => 'tasks.tasks',
@@ -70,7 +70,7 @@ class TasksStorage
         return false;
     }
 
-    public function updateTaskComplete(int $taskId, bool $complete): array|false
+    public function updateTaskComplete(int $taskId, bool $complete): TaskItem|false
     {
         $result = $this->db->update([
             'table' => 'tasks.tasks',

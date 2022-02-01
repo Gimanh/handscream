@@ -15,7 +15,7 @@ class TaskDetails extends TasksBaseHandler
         $taskId = $params['taskId'] ?? null;
         if ($taskId) {
             $task = $this->tasks->getDetailedTask((int)$taskId);
-            return AppResponse::create($response, $task, $request->getAttribute('rid'));
+            return AppResponse::create($response, [$task], $request->getAttribute('rid'));
         }
         return AppResponse::create($response, [], $request->getAttribute('rid'), 400);
     }

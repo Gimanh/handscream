@@ -42,12 +42,12 @@ class Tasks implements IModule
         return $this->storage->fetchTasks($componentId);
     }
 
-    public function updateTaskDescription(int $taskId, string $description): array|false
+    public function updateTaskDescription(int $taskId, string $description): TaskItem|false
     {
         return $this->storage->updateTaskDescription($taskId, $description);
     }
 
-    public function updateTaskComplete(int $taskId, bool $complete): array|false
+    public function updateTaskComplete(int $taskId, bool $complete): TaskItem|false
     {
         return $this->storage->updateTaskComplete($taskId, $complete);
     }
@@ -57,7 +57,7 @@ class Tasks implements IModule
         return $this->storage->deleteTask($taskId);
     }
 
-    public function fetchUserInfo(int $userId)
+    public function fetchUserInfo(int $userId): array
     {
         /** @var Auth $auth */
         $auth = Modules::get('auth');
@@ -69,12 +69,11 @@ class Tasks implements IModule
         ];
     }
 
-    public function getDetailedTask(int $taskId)
+    public function getDetailedTask(int $taskId): TaskItem
     {
         $task = $this->storage->fetchTaskById($taskId);
-        if ($task['responsibleId']) {
-            $task['responsibleUser'] = $this->fetchUserInfo($task['responsibleId']);
-            unset($task['responsibleId']);
+        if ($task->responsibleId) {
+            $task->setResponsibleUser($this->fetchUserInfo($task->responsibleId));
         }
         return $task;
     }

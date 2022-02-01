@@ -22,6 +22,7 @@ class TaskItem
     /** @var array<int, TaskItem> */
     public array $subtasks = [];
     public TaskPermissions $permissions;
+    public array $responsibleUser;
 
     public function __construct(array $task, ?User $user = null)
     {
@@ -42,4 +43,10 @@ class TaskItem
         $this->note = $task['note'] ?? null;
         $this->permissions = new TaskPermissions($this->owner, $user);
     }
+
+    public function setResponsibleUser(array $responsibleUser): void
+    {
+        $this->responsibleUser = $responsibleUser;
+    }
+
 }
