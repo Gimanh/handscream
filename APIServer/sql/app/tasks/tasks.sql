@@ -24,9 +24,14 @@ create table tasks.tasks
         constraint fr_task_responsible_id
             references tv_auth.users (id)
             ON DELETE SET NULL,
+    creator_id      int
+        constraint fr_task_creator_id
+            references tv_auth.users (id)
+            ON DELETE SET NULL,
     deadline        timestamp,
     date_complete   timestamp,
-    note            varchar
+    note            varchar,
+    edit_date       timestamp
 );
 
 create or replace function tasks.update_date_complete()
