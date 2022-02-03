@@ -10,7 +10,7 @@ password="123456"
 sqlFiles=(
     "./clean.sql"
     "./auth/auth.sql"
-    "./app/auth/default_user_group.sql"
+    "./app/auth/trigger_default_user_group.sql"
     "./app/auth/app_permissions.sql"
     "./app/auth/create_tasks_auth.sql"
     "./app/tasks/schema_tasks.sql"
