@@ -2,6 +2,7 @@
 
 namespace App\Modules\Tasks\Middlewares;
 
+use App\Modules\Tasks\Tasks;
 use RuntimeException;
 use ZXC\Modules\DB\DB;
 use ZXC\Native\Modules;
@@ -17,9 +18,12 @@ class   BaseTaskMiddleware implements MiddlewareInterface
 
     protected ?User $user = null;
 
+    protected ?Tasks $tasks = null;
+
     public function __construct()
     {
         $this->db = Modules::get('db');
+        $this->tasks = Modules::get('tasks');
     }
 
     protected function initUser(ServerRequestInterface $request)
