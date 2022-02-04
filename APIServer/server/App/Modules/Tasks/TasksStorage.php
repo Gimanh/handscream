@@ -22,8 +22,8 @@ class TasksStorage
 
     public function addTask(string $description, int $componentId, int $userId, int $parentId = null)
     {
-        $query = 'INSERT INTO tasks.tasks (description,  goal_list_id, owner, parent_id) VALUES (?,?,?,?) RETURNING id;';
-        $stmt = $this->db->insert($query, [$description, $componentId, $userId, $parentId], true);
+        $query = 'INSERT INTO tasks.tasks (description,  goal_list_id, owner, parent_id, creator_id) VALUES (?,?,?,?,?) RETURNING id;';
+        $stmt = $this->db->insert($query, [$description, $componentId, $userId, $parentId, $userId], true);
         if ($stmt) {
             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
             if ($result) {
@@ -33,11 +33,46 @@ class TasksStorage
         return false;
     }
 
-    public function fetchTaskById(int $taskId)
+    /**
+     * @return array<int, TaskItem>
+     */
+    public function fetchTaskById(int $taskId): array
     {
-        $task = $this->db->selectOne('SELECT ' . $this->fetchFields . ' FROM tasks.tasks WHERE id = ?;', [$taskId]);
-        $task['subtasks'] = [];
-        return new TaskItem($task, $this->user);
+        if ($this->user) {
+            $tasks = $this->db->select('select t.*, p.name as "permissionName", p.id as "permissionId"
+                                            from tasks.tasks t
+                                                     left join tasks_auth.user_task_permissions utp on t.id = utp.task_id
+                                                     left join tv_auth.permissions p on utp.permission_id = p.id
+                                            where t.id = ?
+                                              and utp.user_id = ? ORDER BY t.id DESC;', [$taskId, $this->user->getId()]);
+            return $this->convertTasksToTaskItem($tasks);
+        }
+        return [];
+    }
+
+    /**
+     * @return array<int, TaskItem>
+     */
+    protected function convertTasksToTaskItem(array $tasks = []): array
+    {
+        $result = [];
+        $map = [];
+        foreach ($tasks as $task) {
+            if (!isset($map[$task['id']])) {
+                $map[$task['id']] = $task;
+                $map[$task['id']]['permissions'] = [];
+                $map[$task['id']]['permissions'][$task['permissionName']] = true;
+                unset($map[$task['id']]['permissionName']);
+                unset($map[$task['id']]['permissionId']);
+            } else {
+                $map[$task['id']]['permissions'][$task['permissionName']] = true;
+            }
+        }
+
+        foreach ($map as $task) {
+            $result[] = new TaskItem($task);
+        }
+        return $result;
     }
 
     /**
@@ -45,12 +80,16 @@ class TasksStorage
      */
     public function fetchTasks(int $componentId): array
     {
-        $result = [];
-        $tasks = $this->db->select('SELECT ' . $this->fetchFields . ' FROM tasks.tasks WHERE goal_list_id = ? AND parent_id IS NULL ORDER BY id DESC;', [$componentId]);
-        foreach ($tasks as $task) {
-            $result[] = new TaskItem($task, $this->user);
+        if ($this->user) {
+            $tasks = $this->db->select('select t.*, p.name as "permissionName", p.id as "permissionId"
+                                            from tasks.tasks t
+                                                     left join tasks_auth.user_task_permissions utp on t.id = utp.task_id
+                                                     left join tv_auth.permissions p on utp.permission_id = p.id
+                                            where t.goal_list_id = ?
+                                              and utp.user_id = ? ORDER BY t.id DESC;', [$componentId, $this->user->getId()]);
+            return $this->convertTasksToTaskItem($tasks);
         }
-        return $result;
+        return [];
     }
 
     public function updateTaskDescription(int $taskId, string $description): TaskItem|false

@@ -1,12 +1,20 @@
 export type AppTaskPermissions = {
-    editDescription: boolean
-    editDeadline: boolean
-    editNode: boolean
-    editStatus: boolean
-    watchDetails: boolean
-    delete: boolean
-    watchSubtasks: boolean
-    addSubtasks: boolean
+    // eslint-disable-next-line
+    task_can_add_subtasks?: true
+    // eslint-disable-next-line
+    task_can_delete?: true
+    // eslint-disable-next-line
+    task_can_edit_deadline?: true
+    // eslint-disable-next-line
+    task_can_edit_description?: true
+    // eslint-disable-next-line
+    task_can_edit_note?: true
+    // eslint-disable-next-line
+    task_can_edit_status?: true
+    // eslint-disable-next-line
+    task_can_watch_details?: true
+    // eslint-disable-next-line
+    task_can_watch_subtasks?: true
 };
 
 export interface AppTask {
@@ -83,7 +91,7 @@ export interface DetailedTask extends AppTask {
     responsibleUser: ResponsibleUser | null
 }
 
-export type DetailedTaskResponse = [DetailedTask];
+export type DetailedTaskResponse = [ DetailedTask ];
 
 export type TaskNoteValue = AppTask['note'];
 

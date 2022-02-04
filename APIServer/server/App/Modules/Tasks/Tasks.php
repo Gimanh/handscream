@@ -71,7 +71,8 @@ class Tasks implements IModule
 
     public function getDetailedTask(int $taskId): TaskItem
     {
-        $task = $this->storage->fetchTaskById($taskId);
+        $tasks = $this->storage->fetchTaskById($taskId);
+        $task = $tasks[0];
         if ($task->responsibleId) {
             $task->setResponsibleUser($this->fetchUserInfo($task->responsibleId));
         }

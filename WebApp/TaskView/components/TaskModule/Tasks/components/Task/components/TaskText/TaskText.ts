@@ -9,6 +9,9 @@ export default class TaskText extends AppBase {
     @Prop( { default: true } )
     public showBtnMore!: boolean;
 
+    @Prop( { default: false } )
+    public canWatchDetails!: boolean;
+
     public deleteActive: boolean = false;
 
     public descriptionValue: string = this.description;
@@ -19,7 +22,7 @@ export default class TaskText extends AppBase {
     }
 
     get appendIcon() {
-        return this.showBtnMore ? 'mdi-dots-horizontal' : undefined;
+        return this.showBtnMore && this.canWatchDetails ? 'mdi-dots-horizontal' : undefined;
     }
 
     get label() {
@@ -48,6 +51,8 @@ export default class TaskText extends AppBase {
     }
 
     showDetails() {
-        this.$emit( 'showDetails' );
+        if ( this.canWatchDetails ) {
+            this.$emit( 'showDetails' );
+        }
     }
 }

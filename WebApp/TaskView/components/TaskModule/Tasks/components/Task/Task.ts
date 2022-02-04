@@ -64,8 +64,24 @@ export default class Task extends AppBase {
         return undefined;
     }
 
+    get canEditStatus(): true | undefined {
+        return this.task.permissions.task_can_edit_status;
+    }
+
+    get canEditDescription(): true | undefined {
+        return this.task.permissions.task_can_edit_description;
+    }
+
+    get canAddSubtasks(): true | undefined {
+        return this.task.permissions.task_can_add_subtasks;
+    }
+
+    get canWatchDetails(): true | undefined {
+        return this.task.permissions.task_can_watch_details;
+    }
+
     get showSubTasks() {
-        return +this.$route.params.task === +this.task.id && this.task.permissions.watchSubtasks;
+        return +this.$route.params.task === +this.task.id && this.task.permissions.task_can_watch_subtasks;
     }
 
     get checkboxKey() {
@@ -77,22 +93,23 @@ export default class Task extends AppBase {
     }
 
     goToDetails() {
-        if ( !this.subtask ) {
-            this.$router.push( {
-                name: 'user-goals-id-list-task-details',
-                params: {
-                    task: this.task.id.toString()
-                }
-            } );
-        } else {
-            this.$router.push( {
-                name: 'user-goals-id-list-task-subtask-details',
-                params: {
-                    subtask: this.task.id.toString()
-                }
-            } );
+        if ( this.canWatchDetails ) {
+            if ( !this.subtask ) {
+                this.$router.push( {
+                    name: 'user-goals-id-list-task-details',
+                    params: {
+                        task: this.task.id.toString()
+                    }
+                } );
+            } else {
+                this.$router.push( {
+                    name: 'user-goals-id-list-task-subtask-details',
+                    params: {
+                        subtask: this.task.id.toString()
+                    }
+                } );
+            }
         }
-
     }
 
     async statusChanged( value: boolean ) {
