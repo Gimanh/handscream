@@ -104,7 +104,8 @@ class TasksStorage
             ]
         ]);
         if ($result) {
-            return $this->fetchTaskById($taskId);
+            $task = $this->fetchTaskById($taskId);
+            return $task ? $task[0] : false;
         }
         return false;
     }
