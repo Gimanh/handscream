@@ -13,6 +13,9 @@ export default class TaskDeadline extends AppBase {
     @Prop()
     public deadline!: AppTask['deadline'];
 
+    @Prop( { default: false } )
+    public canEdit!: boolean;
+
     public dialog: boolean = false;
 
     public date: string = '';
@@ -24,6 +27,15 @@ export default class TaskDeadline extends AppBase {
     public dateChangedManually: boolean = false;
 
     @Action( 'updateTaskDeadline', { namespace: 'Tasks' } ) updateTaskDeadline!: TasksStoreActions['updateTaskDeadline'];
+
+    @Watch( 'dialog' )
+    handler() {
+        if ( !this.canEdit ) {
+            this.$nextTick( () => {
+                this.dialog = false;
+            } );
+        }
+    }
 
     @Watch( 'deadline', { immediate: true } )
     deadlineWatcher( val: string ) {

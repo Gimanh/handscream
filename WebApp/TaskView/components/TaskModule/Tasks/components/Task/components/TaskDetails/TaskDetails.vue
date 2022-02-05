@@ -52,6 +52,7 @@
                         <task-deadline
                             :deadline="detailedTask.deadline"
                             :task-id="detailedTask.id"
+                            :can-edit="canEditDeadline"
                         />
                     </v-col>
                 </v-row>

@@ -7,6 +7,7 @@
                     persistent
                     width="600px"
                 >
+                    {{ canEdit }}
                     <template #activator="{ on, attrs }">
                         <v-text-field
                             :value="fullDeadline"
