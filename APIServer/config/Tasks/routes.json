@@ -29,7 +29,7 @@
     {
         "middlewares": [
             "isLoggedIn",
-            "canUpdateTaskDescription"
+            "canEditDescription"
         ],
         "method": "POST",
         "route": "/module/tasks/update/description",
