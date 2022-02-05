@@ -21,6 +21,7 @@
                     :show-btn-more="!restrictedMode"
                     :allowed="canEditDescription"
                     :can-watch-details="canWatchDetails"
+                    :can-delete-task="canDeleteTask"
                     @change="descriptionChanged"
                     @deleteTask="deleteThisTask"
                     @showDetails="goToDetails"

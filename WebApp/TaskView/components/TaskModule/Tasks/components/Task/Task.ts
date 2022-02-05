@@ -84,6 +84,10 @@ export default class Task extends AppBase {
         return +this.$route.params.task === +this.task.id && this.task.permissions.task_can_watch_subtasks;
     }
 
+    get canDeleteTask(): true | undefined {
+        return this.task.permissions.task_can_delete;
+    }
+
     get checkboxKey() {
         return 'checkbox_' + this.keyIndexes.checkbox;
     }
@@ -133,6 +137,8 @@ export default class Task extends AppBase {
     }
 
     async deleteThisTask() {
-        await this.deleteTask( +this.task.id );
+        if ( this.canDeleteTask ) {
+            await this.deleteTask( +this.task.id );
+        }
     }
 }

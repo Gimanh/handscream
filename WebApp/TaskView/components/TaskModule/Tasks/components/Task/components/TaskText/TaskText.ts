@@ -12,6 +12,9 @@ export default class TaskText extends AppBase {
     @Prop( { default: false } )
     public canWatchDetails!: boolean;
 
+    @Prop( { default: false } )
+    public canDeleteTask!: boolean;
+
     public deleteActive: boolean = false;
 
     public descriptionValue: string = this.description;
@@ -31,7 +34,11 @@ export default class TaskText extends AppBase {
 
     updateDescription() {
         if ( this.descriptionValue.trim() === '' ) {
-            this.activateDelete();
+            if ( this.canDeleteTask ) {
+                this.activateDelete();
+            } else {
+                this.cancelDelete();
+            }
         } else {
             this.$emit( 'change', this.descriptionValue );
         }
