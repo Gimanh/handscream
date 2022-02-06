@@ -28,7 +28,7 @@
                 />
             </v-list-item-content>
         </v-list-item>
-        <div v-if="showSubTasks">
+        <div v-if="canWatchSubtasks">
             <v-row
                 v-if="canAddSubtasks"
                 class="ma-0"

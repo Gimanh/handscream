@@ -80,8 +80,8 @@ export default class Task extends AppBase {
         return !!this.task.permissions.task_can_watch_details;
     }
 
-    get showSubTasks() {
-        return +this.$route.params.task === +this.task.id && this.task.permissions.task_can_watch_subtasks;
+    get canWatchSubtasks() {
+        return !!this.task.permissions.task_can_watch_subtasks && +this.$route.params.task === +this.task.id;
     }
 
     get canDeleteTask(): true | undefined {
