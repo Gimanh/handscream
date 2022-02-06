@@ -86,7 +86,7 @@ class TasksStorage
                                                      left join tasks_auth.user_task_permissions utp on t.id = utp.task_id
                                                      left join tv_auth.permissions p on utp.permission_id = p.id
                                             where t.goal_list_id = ?
-                                              and utp.user_id = ? ORDER BY t.id DESC;', [$componentId, $this->user->getId()]);
+                                              and utp.user_id = ? and parent_id is null ORDER BY t.id DESC;', [$componentId, $this->user->getId()]);
             return $this->convertTasksToTaskItem($tasks);
         }
         return [];
@@ -159,12 +159,18 @@ class TasksStorage
         ]);
     }
 
+    /**
+     * @param int $taskId
+     * @return array<int, TaskItem>
+     */
     public function fetchSubtasks(int $taskId): array
     {
-        $subtasks = $this->db->select("SELECT $this->fetchFields FROM tasks.tasks WHERE parent_id = ? ORDER BY id;", [$taskId]);
-        if (!$subtasks) {
-            return [];
-        }
-        return $subtasks;
+        $subtasks = $this->db->select('select t.*, p.name as "permissionName", p.id as "permissionId"
+                                                from tasks.tasks t
+                                                         left join tasks_auth.user_task_permissions utp on t.id = utp.task_id
+                                                         left join tv_auth.permissions p on utp.permission_id = p.id
+                                                where t.parent_id = ?
+                                                ORDER BY t.id DESC;', [$taskId]);
+        return $this->convertTasksToTaskItem($subtasks);
     }
 }
