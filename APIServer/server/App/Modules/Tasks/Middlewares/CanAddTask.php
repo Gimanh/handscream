@@ -2,6 +2,7 @@
 
 namespace App\Modules\Tasks\Middlewares;
 
+use App\Modules\Tasks\TaskPermissions;
 use ZXC\Native\PSR\Response;
 use ZXC\Interfaces\Psr\Server\RequestHandlerInterface;
 use ZXC\Interfaces\Psr\Http\Message\ResponseInterface;
@@ -18,9 +19,21 @@ class CanAddTask extends BaseTaskMiddleware
                 [$request->getParsedBody()['componentId'], $this->user->getId()]
             );
             if ($goalComponent) {
-                return $handler->handle($request);
+                if ($this->addingSubtask($request)) {
+                    $task = $this->tasks->getDetailedTask($request->getParsedBody()['parentId']);
+                    if ($task->hasPermissions(TaskPermissions::CAN_ADD_SUBTASKS)) {
+                        return $handler->handle($request);
+                    }
+                } else {
+                    return $handler->handle($request);
+                }
             }
         }
-        return (new Response())->withStatus(400);
+        return (new Response())->withStatus(403);
+    }
+
+    public function addingSubtask(ServerRequestInterface $request): bool
+    {
+        return isset($request->getParsedBody()['parentId']);
     }
 }
