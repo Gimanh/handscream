@@ -64,20 +64,20 @@ export default class Task extends AppBase {
         return undefined;
     }
 
-    get canEditStatus(): true | undefined {
-        return this.task.permissions.task_can_edit_status;
+    get canEditStatus(): boolean {
+        return !!this.task.permissions.task_can_edit_status;
     }
 
-    get canEditDescription(): true | undefined {
-        return this.task.permissions.task_can_edit_description;
+    get canEditDescription(): boolean {
+        return !!this.task.permissions.task_can_edit_description;
     }
 
-    get canAddSubtasks(): true | undefined {
-        return this.task.permissions.task_can_add_subtasks;
+    get canAddSubtasks(): boolean {
+        return !!this.task.permissions.task_can_add_subtasks;
     }
 
-    get canWatchDetails(): true | undefined {
-        return this.task.permissions.task_can_watch_details;
+    get canWatchDetails(): boolean {
+        return !!this.task.permissions.task_can_watch_details;
     }
 
     get showSubTasks() {

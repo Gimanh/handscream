@@ -3,6 +3,7 @@
 namespace App\Modules\Tasks\Middlewares;
 
 use ZXC\Native\PSR\Response;
+use App\Modules\Tasks\TaskPermissions;
 use ZXC\Interfaces\Psr\Server\RequestHandlerInterface;
 use ZXC\Interfaces\Psr\Http\Message\ResponseInterface;
 use ZXC\Interfaces\Psr\Http\Message\ServerRequestInterface;
@@ -13,14 +14,11 @@ class CanUpdateTaskStatus extends BaseTaskMiddleware
     {
         $this->initUser($request);
         if ($this->user) {
-            $task = $this->db->selectOne(
-                'SELECT owner FROM tasks.tasks WHERE id = ? AND owner = ?;',
-                [$request->getParsedBody()['taskId'], $this->user->getId()]
-            );
-            if ($task) {
+            $task = $this->tasks->getDetailedTask($request->getParsedBody()['taskId']);
+            if ($task->hasPermissions(TaskPermissions::CAN_EDIT_STATUS)) {
                 return $handler->handle($request);
             }
         }
-        return (new Response())->withStatus(400);
+        return (new Response())->withStatus(403);
     }
 }
