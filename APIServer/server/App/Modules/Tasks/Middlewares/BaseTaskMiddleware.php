@@ -2,11 +2,11 @@
 
 namespace App\Modules\Tasks\Middlewares;
 
-use App\Modules\Tasks\Tasks;
 use RuntimeException;
 use ZXC\Modules\DB\DB;
 use ZXC\Native\Modules;
 use ZXC\Modules\Auth\User;
+use App\Modules\Tasks\Tasks;
 use ZXC\Interfaces\Psr\Server\MiddlewareInterface;
 use ZXC\Interfaces\Psr\Server\RequestHandlerInterface;
 use ZXC\Interfaces\Psr\Http\Message\ResponseInterface;
