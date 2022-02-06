@@ -1,6 +1,7 @@
 <template>
     <v-textarea
         v-model="noteModel"
+        :disabled="!canEdit"
         :label="$t('msg.note')"
         :error-messages="errorMessage"
         :hide-details="hideDetails"

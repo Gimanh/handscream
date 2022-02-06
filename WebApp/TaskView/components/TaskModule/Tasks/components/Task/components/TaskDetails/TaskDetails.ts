@@ -33,8 +33,12 @@ export default class TaskDetails extends AppBase {
         return +this.$route.params.task;
     }
 
-    get canEditDeadline(): true | undefined {
-        return this.detailedTask.permissions.task_can_edit_deadline;
+    get canEditDeadline(): boolean {
+        return !!this.detailedTask.permissions.task_can_edit_deadline;
+    }
+
+    get canEditTaskNote(): boolean {
+        return !!this.detailedTask.permissions.task_can_edit_note;
     }
 
     async created() {

@@ -44,6 +44,7 @@
                         <task-note
                             :note="detailedTask.note"
                             :task-id="detailedTask.id"
+                            :can-edit="canEditTaskNote"
                         />
                     </v-col>
                     <v-col

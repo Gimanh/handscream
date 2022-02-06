@@ -12,6 +12,9 @@ export default class TaskNote extends AppBase {
     @Prop()
     public taskId!: AppTask['id'];
 
+    @Prop( { default: false } )
+    public canEdit!: boolean;
+
     public noteModel: TaskNoteValue = this.note;
 
     public errorMessage: string = '';
