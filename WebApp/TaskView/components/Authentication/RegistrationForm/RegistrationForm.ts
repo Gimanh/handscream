@@ -1,5 +1,4 @@
 import { Component } from 'vue-property-decorator';
-import axios from 'axios';
 import qs from 'qs';
 import AppBase from '~/components/AppBase';
 import { RegistrationResult } from '~/components/Authentication/RegistrationForm/Types';
@@ -9,9 +8,9 @@ export default class RegistrationForm extends AppBase {
 
     public url: string = '/module/auth/registration';
 
-    public login: string = 'user';
+    public login: string = 'userq';
 
-    public email: string = 'test@mail.dest'
+    public email: string = 'test1@mail.dest'
 
     public password: string = 'user1!#Q';
 
@@ -95,7 +94,7 @@ export default class RegistrationForm extends AppBase {
         };
         const validation = this.$refs.form.validate();
         if ( validation ) {
-            const result = await axios.post<RegistrationResult>( url, qs.stringify( data ) ).catch( this.logError );
+            const result = await this.$axios.post<RegistrationResult>( url, qs.stringify( data ) ).catch( this.logError );
             if ( result ) {
                 this.registrationResponse = result.data;
                 this.showAlert = true;
