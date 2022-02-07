@@ -13,7 +13,9 @@
         },
         "email": {
             "confirm": true,
-            "codeProvider": "App\\Auth\\RegistrationCodeProvider"
+            "codeProvider": "ZXC\\Modules\\Auth\\Providers\\AuthConfirmCodeProvider",
+            "confirmUrlTemplate": "http://tvapi.localhost/confirm/email/{code}/login/{login}",
+            "body": "<p> Welcome to the TaskView app! {link} </p>"
         },
         "credentialStorage": ""
     }
