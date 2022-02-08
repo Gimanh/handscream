@@ -1,4 +1,3 @@
-
 type ResponseData = {
     refresh: string
     access: string
@@ -12,3 +11,5 @@ type ResponseData = {
     }
 };
 export type LoginResponse = ResponseData;
+
+export type LogoutResponse = { logout: boolean };

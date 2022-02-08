@@ -60,11 +60,17 @@ export default class LocalStorage {
         }
     }
 
-    invalidateTokens() {
+    invalidateTokens( $store?: Store<any> ) {
         localStorage.removeItem( this.key( REFRESH_TOKEN_KEY ) );
         localStorage.removeItem( this.key( ACCESS_TOKEN_KEY ) );
         delete this.axios.defaults.headers.common[ 'Authorization' ];
         this.isLoggedIn = false;
+        if ( $store ) {
+            $store.commit( 'User/setAccessToken', '' );
+            $store.commit( 'User/setRefreshToken', '' );
+            $store.commit( 'User/setLogin', '' );
+            $store.commit( 'User/setEmail', '' );
+        }
     }
 
     updateUserStoreByToken( $store: Store<any> ) {

@@ -22,5 +22,13 @@
         "method": "GET",
         "route": "/confirm/email/:code/login/:login",
         "handler": "ZXC\\Modules\\Auth\\Handlers\\AuthenticationConfirmEmail"
+    },
+    {
+        "middlewares": [
+            "isLoggedIn"
+        ],
+        "method": "POST",
+        "route": "/module/auth/logout",
+        "handler": "ZXC\\Modules\\Auth\\Handlers\\AuthenticationLogout"
     }
 ]

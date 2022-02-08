@@ -1,6 +1,7 @@
 export * from './Authentication/LoginForm';
 export * from './Authentication/RegistrationForm';
 export * from './Authentication/AppCredentialsForm';
+export * from './Authentication/Logout';
 
 export * from './GoalModule/Goals';
 export * from './GoalModule/Goals/components/Goal';
