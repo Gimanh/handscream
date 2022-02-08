@@ -15,8 +15,10 @@
             "confirm": true,
             "codeProvider": "ZXC\\Modules\\Auth\\Providers\\AuthConfirmCodeProvider",
             "confirmUrlTemplate": "http://tvapi.localhost/confirm/email/{code}/login/{login}",
-            "body": "<p> Welcome to the TaskView app! {link} </p>"
+            "body": "<p> Welcome to the TaskView app! {link} </p>",
+            "redirectAfterConfirm": "http://localhost:3000/#/"
         },
+        "blockWithoutEmailConfirm": true,
         "credentialStorage": ""
     }
 }

@@ -16,5 +16,11 @@
         "method": "POST",
         "route": "/module/auth/registration",
         "handler": "ZXC\\Modules\\Auth\\Handlers\\AuthenticationRegistration"
+    },
+    {
+        "middlewares": [],
+        "method": "GET",
+        "route": "/confirm/email/:code/login/:login",
+        "handler": "ZXC\\Modules\\Auth\\Handlers\\AuthenticationConfirmEmail"
     }
 ]
