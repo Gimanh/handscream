@@ -2,15 +2,16 @@
 
 namespace App\Modules\Tasks;
 
-use ZXC\Modules\Auth\User;
-use ZXC\Native\Modules;
 use ZXC\Traits\Module;
+use ZXC\Native\Modules;
+use ZXC\Modules\Auth\User;
 use ZXC\Modules\Auth\Auth;
 use ZXC\Interfaces\IModule;
+use App\Modules\AppLogger\LoggerForClass;
 
 class Tasks implements IModule
 {
-    use Module;
+    use Module, LoggerForClass;
 
     protected array $config = [];
 
@@ -26,6 +27,7 @@ class Tasks implements IModule
         $this->auth = Modules::get('auth');
         $this->user = $this->auth->getUser();
         $this->storage = new TasksStorage($this->user);
+        $this->createLogger();
     }
 
     public function addTask(string $description, int $componentId, int $userId, int $parentId = null)
