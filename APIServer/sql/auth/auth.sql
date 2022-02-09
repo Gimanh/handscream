@@ -8,6 +8,7 @@ CREATE TABLE IF NOT EXISTS tv_auth.users
     block                integer default 0,
     confirm_email_code   varchar(256),
     remind_password_code varchar(256),
+    remind_password_time int,
     remember_token       varchar(256)
 );
 CREATE UNIQUE INDEX IF NOT EXISTS users_id ON tv_auth.users (id);

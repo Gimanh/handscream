@@ -2,6 +2,7 @@ import { Component } from 'vue-property-decorator';
 import qs from 'qs';
 import AppBase from '~/components/AppBase';
 import { RegistrationResult } from '~/components/Authentication/RegistrationForm/Types';
+import { FormFieldRules } from '~/classes/util/AppTypes';
 
 @Component
 export default class RegistrationForm extends AppBase {
@@ -29,7 +30,7 @@ export default class RegistrationForm extends AppBase {
 
     public showAlert: boolean = false;
 
-    get alertType() {
+    get alertType(): 'success' | 'warning' {
         return this.registrationResponse.registration ? 'success' : 'warning';
     }
 
@@ -47,44 +48,44 @@ export default class RegistrationForm extends AppBase {
         return '';
     }
 
-    get credentialsRules() {
+    get credentialsRules(): FormFieldRules {
         return [
-            ( v: string ) => !!v || this.$t( 'msg.requiredField' )
+            ( v: string ) => !!v || this.$t( 'msg.requiredField' ) as string
         ];
     }
 
-    get loginLabel() {
-        return this.$t( 'msg.login' );
+    get loginLabel(): string {
+        return this.$t( 'msg.login' ) as string;
     }
 
-    get passwordLabel() {
-        return this.$t( 'msg.password' );
+    get passwordLabel(): string {
+        return this.$t( 'msg.password' ) as string;
     }
 
-    get emailLabel() {
-        return this.$t( 'msg.email' );
+    get emailLabel(): string {
+        return this.$t( 'msg.email' ) as string;
     }
 
-    get passwordLabelRepeat() {
-        return this.$t( 'msg.passwordRepeat' );
+    get passwordLabelRepeat(): string {
+        return this.$t( 'msg.passwordRepeat' ) as string;
     }
 
-    get passwordRepeatRule() {
+    get passwordRepeatRule(): FormFieldRules {
         return [
-            ( v: string ) => v === this.password || this.$t( 'msg.requiredField' )
+            ( v: string ) => v === this.password || this.$t( 'msg.requiredField' ) as string
         ];
     }
 
-    get emailRule() {
+    get emailRule(): FormFieldRules {
         return [
             ( email: string ) => {
                 const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-                return re.test( String( email ).toLowerCase() ) || this.$t( 'msg.requiredField' );
+                return re.test( String( email ).toLowerCase() ) || this.$t( 'msg.requiredField' ) as string;
             }
         ];
     }
 
-    async submit() {
+    async submit(): Promise<void> {
         const { url, login, password, passwordRepeat, email } = this;
         const data = {
             email: email.toLowerCase(),
@@ -102,7 +103,7 @@ export default class RegistrationForm extends AppBase {
         }
     }
 
-    cancel() {
+    cancel(): void {
         this.$emit( 'cancel' );
     }
 }

@@ -30,5 +30,17 @@
         "method": "POST",
         "route": "/module/auth/logout",
         "handler": "ZXC\\Modules\\Auth\\Handlers\\AuthenticationLogout"
+    },
+    {
+        "middlewares": [],
+        "method": "POST",
+        "route": "/module/auth/email/recovery",
+        "handler": "ZXC\\Modules\\Auth\\Handlers\\AuthenticationRecoveryEmail"
+    },
+    {
+        "middlewares": [],
+        "method": "POST",
+        "route": "/module/auth/password/reset",
+        "handler": "ZXC\\Modules\\Auth\\Handlers\\AuthenticationResetPassword"
     }
 ]

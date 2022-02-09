@@ -4,6 +4,10 @@
     "options": {
         "storageProvider": "ZXC\\Modules\\Auth\\Storages\\AuthPgSqlStorage",
         "authTypeProvider": "ZXC\\Modules\\Auth\\Providers\\AuthJwtTokenProvider",
+        "remindPasswordInterval": 1,
+        "remindPasswordLinkTemplate": "http://localhost:3000/#/?resetCode={code}&login={login}",
+        "remindPasswordEmailBody": "<p> Reset password! {link} </p>",
+        "remindPasswordLinkProvider": "ZXC\\Modules\\Auth\\Providers\\AuthSendReminderLink",
         "authTypeProviderOptions": {
             "secret": "[)1231&^^*&^%00()(]",
             "alg": "HS256",
