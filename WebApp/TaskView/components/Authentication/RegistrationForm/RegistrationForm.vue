@@ -32,7 +32,7 @@
                 <v-text-field
                     v-model="login"
                     :label="loginLabel"
-                    :rules="credentialsRules"
+                    :rules="loginRules"
                     required
                 />
 
@@ -40,16 +40,20 @@
                     v-model="password"
                     :label="passwordLabel"
                     :rules="credentialsRules"
-                    type="password"
+                    :type="passwordType"
+                    :append-icon="passwordIcon"
                     required
+                    @click:append="inversePasswordType"
                 />
 
                 <v-text-field
                     v-model="passwordRepeat"
                     :label="passwordLabelRepeat"
                     :rules="passwordRepeatRule"
-                    type="password"
+                    :type="passwordRepeatType"
+                    :append-icon="passwordRepeatIcon"
                     required
+                    @click:append="inversePasswordRepeatType"
                 />
             </v-form>
         </v-card-text>

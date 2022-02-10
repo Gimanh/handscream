@@ -3,6 +3,7 @@ import qs from 'qs';
 import AppBase from '~/components/AppBase';
 import { RegistrationResult } from '~/components/Authentication/RegistrationForm/Types';
 import { FormFieldRules } from '~/classes/util/AppTypes';
+import { passwordStrength } from 'check-password-strength';
 
 @Component
 export default class RegistrationForm extends AppBase {
@@ -19,6 +20,10 @@ export default class RegistrationForm extends AppBase {
 
     public valid: boolean = true;
 
+    public passwordType: 'password' | 'text' = 'password';
+
+    public passwordRepeatType: 'password' | 'text' = 'password';
+
     public registrationResponse: RegistrationResult = {
         registration: false,
         confirmEmail: false
@@ -29,6 +34,14 @@ export default class RegistrationForm extends AppBase {
     };
 
     public showAlert: boolean = false;
+
+    get passwordIcon() {
+        return this.passwordType === 'password' ? 'mdi-eye' : 'mdi-eye-off';
+    }
+
+    get passwordRepeatIcon() {
+        return this.passwordRepeatType === 'password' ? 'mdi-eye' : 'mdi-eye-off';
+    }
 
     get alertType(): 'success' | 'warning' {
         return this.registrationResponse.registration ? 'success' : 'warning';
@@ -50,7 +63,27 @@ export default class RegistrationForm extends AppBase {
 
     get credentialsRules(): FormFieldRules {
         return [
-            ( v: string ) => !!v || this.$t( 'msg.requiredField' ) as string
+            ( v: string ) => !!v || this.$t( 'msg.requiredField' ) as string,
+            ( v: string ) => {
+                const result = passwordStrength<'Strong' | 'Medium' | 'Weak' | 'Too weak'>( v );
+                return ( result.value === 'Strong' || result.value === 'Medium' ) || this.$t( 'msg.passwordStrength' ) as string;
+            }
+        ];
+    }
+
+    get passwordRepeatRule(): FormFieldRules {
+        return [
+            ( v: string ) => v === this.password || this.$t( 'msg.requiredField' ) as string,
+            ( v: string ) => {
+                const result = passwordStrength<'Strong' | 'Medium' | 'Weak' | 'Too weak'>( v );
+                return ( result.value === 'Strong' || result.value === 'Medium' ) || this.$t( 'msg.passwordStrength' ) as string;
+            }
+        ];
+    }
+
+    get loginRules(): FormFieldRules {
+        return [
+            ( v: string ) => ( !!v && v.length >= 4 && v.length <= 30 ) || this.$t( 'msg.requiredField' ) as string
         ];
     }
 
@@ -68,12 +101,6 @@ export default class RegistrationForm extends AppBase {
 
     get passwordLabelRepeat(): string {
         return this.$t( 'msg.passwordRepeat' ) as string;
-    }
-
-    get passwordRepeatRule(): FormFieldRules {
-        return [
-            ( v: string ) => v === this.password || this.$t( 'msg.requiredField' ) as string
-        ];
     }
 
     get emailRule(): FormFieldRules {
@@ -105,5 +132,13 @@ export default class RegistrationForm extends AppBase {
 
     cancel(): void {
         this.$emit( 'cancel' );
+    }
+
+    inversePasswordType() {
+        this.passwordType = this.passwordType === 'text' ? 'password' : 'text';
+    }
+
+    inversePasswordRepeatType() {
+        this.passwordRepeatType = this.passwordRepeatType === 'text' ? 'password' : 'text';
     }
 }

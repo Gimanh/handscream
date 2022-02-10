@@ -2,6 +2,7 @@ import { Component } from 'vue-property-decorator';
 import qs from 'qs';
 import AppBase from '~/components/AppBase';
 import { FormFieldRules, ResetPasswordResponse } from '~/classes/util/AppTypes';
+import { passwordStrength } from 'check-password-strength';
 
 @Component
 export default class ResetPassword extends AppBase {
@@ -15,6 +16,10 @@ export default class ResetPassword extends AppBase {
 
     public reset: boolean = true;
 
+    public passwordType: 'password' | 'text' = 'password';
+
+    public passwordRepeatType: 'password' | 'text' = 'password';
+
     public $refs!: {
         form: any
     };
@@ -27,15 +32,31 @@ export default class ResetPassword extends AppBase {
         return this.$t( 'msg.passwordRepeat' ) as string;
     }
 
-    get passwordRepeatRule(): FormFieldRules {
-        return [
-            ( v: string ) => v === this.password || this.$t( 'msg.requiredField' ) as string
-        ];
+    get passwordIcon() {
+        return this.passwordType === 'password' ? 'mdi-eye' : 'mdi-eye-off';
+    }
+
+    get passwordRepeatIcon() {
+        return this.passwordRepeatType === 'password' ? 'mdi-eye' : 'mdi-eye-off';
     }
 
     get passwordRules(): FormFieldRules {
         return [
-            ( v: string ) => !!v || this.$t( 'msg.requiredField' ) as string
+            ( v: string ) => !!v || this.$t( 'msg.requiredField' ) as string,
+            ( v: string ) => {
+                const result = passwordStrength<'Strong' | 'Medium' | 'Weak' | 'Too weak'>( v );
+                return ( result.value === 'Strong' || result.value === 'Medium' ) || this.$t( 'msg.passwordStrength' ) as string;
+            }
+        ];
+    }
+
+    get passwordRepeatRule(): FormFieldRules {
+        return [
+            ( v: string ) => v === this.password || this.$t( 'msg.requiredField' ) as string,
+            ( v: string ) => {
+                const result = passwordStrength<'Strong' | 'Medium' | 'Weak' | 'Too weak'>( v );
+                return ( result.value === 'Strong' || result.value === 'Medium' ) || this.$t( 'msg.passwordStrength' ) as string;
+            }
         ];
     }
 
@@ -63,5 +84,13 @@ export default class ResetPassword extends AppBase {
                 }
             }
         }
+    }
+
+    inversePasswordType() {
+        this.passwordType = this.passwordType === 'text' ? 'password' : 'text';
+    }
+
+    inversePasswordRepeatType() {
+        this.passwordRepeatType = this.passwordRepeatType === 'text' ? 'password' : 'text';
     }
 }

@@ -12,15 +12,16 @@ export default class AppCredentialsForm extends AppBase {
     get tabs(): AppCredentialsFormTabs {
         return [
             {
-                title: this.$t( 'msg.login' ) as string,
-                component: 'login-form',
-                recovery: false
-            },
-            {
                 title: this.$t( 'msg.registration' ) as string,
                 component: 'registration-form',
                 recovery: false
             },
+            {
+                title: this.$t( 'msg.login' ) as string,
+                component: 'login-form',
+                recovery: false
+            },
+
             {
                 title: this.$t( 'msg.passwordRecovery' ) as string,
                 component: 'password-recovery',
