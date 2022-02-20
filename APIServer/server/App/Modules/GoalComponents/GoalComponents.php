@@ -43,4 +43,13 @@ class GoalComponents implements IModule
     {
         return $this->storage->deleteList($listId);
     }
+
+    public function getGoalComponent(int $id): ?GoalComponentItem
+    {
+        $component = $this->storage->fetchComponentById($id);
+        if ($component) {
+            return $component[0];
+        }
+        return null;
+    }
 }

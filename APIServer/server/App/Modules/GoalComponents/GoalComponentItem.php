@@ -16,4 +16,9 @@ class GoalComponentItem
         $this->name = $component['name'];
         $this->permissions = new GoalComponentPermissions($component['permissions']);
     }
+
+    public function hasPermissions(string $permissionName): bool
+    {
+        return $this->permissions->hasPermissions($permissionName);
+    }
 }

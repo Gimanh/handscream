@@ -2,7 +2,6 @@
 
 namespace App\Modules\Tasks;
 
-use JetBrains\PhpStorm\Pure;
 use RuntimeException;
 
 class TaskItem
@@ -49,7 +48,6 @@ class TaskItem
         $this->responsibleUser = $responsibleUser;
     }
 
-    #[Pure]
     public function hasPermissions(string $permissionName): bool
     {
         return $this->permissions->hasPermissions($permissionName);
