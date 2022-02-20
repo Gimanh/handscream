@@ -8,7 +8,7 @@ use ZXC\Interfaces\Psr\Server\RequestHandlerInterface;
 use ZXC\Interfaces\Psr\Http\Message\ResponseInterface;
 use ZXC\Interfaces\Psr\Http\Message\ServerRequestInterface;
 
-class CanAddGoalComponent extends BaseTaskMiddleware
+class CanAddGoalComponent extends BaseComponentMiddleware
 {
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
