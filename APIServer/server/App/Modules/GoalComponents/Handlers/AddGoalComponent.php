@@ -14,9 +14,7 @@ class AddGoalComponent extends ListsBaseHandler
     {
         $parsedBody = $request->getParsedBody();
         if (isset($parsedBody['name']) && isset($parsedBody['goalId'])) {
-            /** @var User $user */
-            $user = $request->getAttribute('user');
-            $component = $this->goalLists->addComponent($parsedBody['name'], (int)$parsedBody['goalId'], (int)$user->getId());
+            $component = $this->goalLists->addComponent($parsedBody['name'], (int)$parsedBody['goalId']);
             return AppResponse::create($response, ['add' => !!$component, 'component' => $component], $request->getAttribute('rid'));
         }
         return AppResponse::create($response, ['add' => false], $request->getAttribute('rid'));

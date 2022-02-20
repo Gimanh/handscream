@@ -16,7 +16,7 @@ class UpdateGoalComponents extends ListsBaseHandler
         $params = $request->getParsedBody();
         if (isset($params['id']) && isset($params['name'])) {
             $component = $this->goalLists->updateComponent((int)$params['id'], $params['name']);
-            return AppResponse::create($response, ['update' => !!$component, 'component' => $component], $request->getAttribute('rid'));
+            return AppResponse::create($response, ['update' => !!$component, 'component' => $component[0]], $request->getAttribute('rid'));
         }
         return AppResponse::create($response, [], $request->getAttribute('rid'));
     }

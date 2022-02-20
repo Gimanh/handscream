@@ -4,24 +4,26 @@ namespace App\Modules\GoalComponents;
 
 use ZXC\Traits\Module;
 use ZXC\Interfaces\IModule;
+use App\Traits\GetAuthUser;
 
 class GoalComponents implements IModule
 {
-    use Module;
+    use Module, GetAuthUser;
 
-    protected null|GoalComponentsStorage $storage = null;
+    protected ?GoalComponentsStorage $storage = null;
 
     protected array $config = [];
 
     public function init(array $options = [])
     {
         $this->config = $options;
-        $this->storage = new GoalComponentsStorage();
+        $this->initUser();
+        $this->storage = new GoalComponentsStorage($this->user);
     }
 
-    public function addComponent(string $name, int $goalId, int $userId)
+    public function addComponent(string $name, int $goalId): bool|array
     {
-        return $this->storage->addComponent($name, $goalId, $userId);
+        return $this->storage->addComponent($name, $goalId, $this->user->getId());
     }
 
     public function fetchAll(int $goalId): null|array

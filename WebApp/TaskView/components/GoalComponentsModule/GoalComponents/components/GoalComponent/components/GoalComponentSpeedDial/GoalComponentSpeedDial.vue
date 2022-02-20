@@ -1,6 +1,6 @@
 <template>
     <div>
-        <goal-list-edit
+        <goal-component-edit
             v-if="activeEdit"
             :list="list"
             @close="closeEdit"
