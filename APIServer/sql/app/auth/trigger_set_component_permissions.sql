@@ -6,7 +6,7 @@ begin
     insert into tasks_auth.user_component_permissions (component_id, user_id, permission_id)
     values (new.id, new.owner, (select id from tv_auth.permissions where name = 'component_can_delete')),
            (new.id, new.owner, (select id from tv_auth.permissions where name = 'component_can_edit')),
-           (new.id, new.owner, (select id from tv_auth.permissions where name = 'component_can_watch')),
+           (new.id, new.owner, (select id from tv_auth.permissions where name = 'component_can_watch_content')),
            (new.id, new.owner, (select id from tv_auth.permissions where name = 'component_can_add_tasks')),
            (new.id, new.owner, (select id from tv_auth.permissions where name = 'component_can_edit_all_tasks')),
            (new.id, new.owner, (select id from tv_auth.permissions where name = 'component_can_edit_their_tasks'));

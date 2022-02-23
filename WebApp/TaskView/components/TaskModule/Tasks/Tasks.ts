@@ -28,7 +28,8 @@ export default class Tasks extends AppBase {
         }
     }
 
-    get canAddTasks() {
+    get canAddTasks(): boolean {
+        return true;
         for ( const k of this.lists ) {
             if ( +k.id === +this.componentId ) {
                 if ( k.permissions.component_can_add_tasks ) {
@@ -39,10 +40,10 @@ export default class Tasks extends AppBase {
         return false;
     }
 
-    get canWatchTasks() {
+    get canWatchTasks(): boolean {
         for ( const k of this.lists ) {
             if ( +k.id === +this.componentId ) {
-                if ( k.permissions.component_can_watch ) {
+                if ( k.permissions.component_can_watch_content ) {
                     return true;
                 }
             }
