@@ -12,9 +12,11 @@
                         </v-list-item-title>
                     </template>-->
         <task-add
+            v-if="canAddTasks"
             :component-id="componentId"
         />
         <v-list-item-group
+            v-if="canWatchTasks"
             v-model="selected"
             class="app-scrolled-list"
         >

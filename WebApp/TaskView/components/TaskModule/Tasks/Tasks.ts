@@ -3,6 +3,7 @@ import { Action, State } from 'vuex-class';
 import AppBase from '~/components/AppBase';
 import { TasksStoreActions } from '~/store/Tasks';
 import { AppTasks } from '~/classes/util/TaskTypes';
+import { GoalListsState } from '~/store/GoalLists';
 
 @Component
 export default class Tasks extends AppBase {
@@ -14,6 +15,8 @@ export default class Tasks extends AppBase {
 
     @State( state => state.Tasks.tasks ) tasks!: AppTasks;
 
+    @State( state => state.GoalLists.lists ) lists!: GoalListsState['lists'];
+
     @Action( 'fetchTasks', { namespace: 'Tasks' } ) fetchTasks!: TasksStoreActions['fetchTasks'];
 
     @Watch( '$route.params.list' )
@@ -23,6 +26,28 @@ export default class Tasks extends AppBase {
             await this.fetchTasks( +this.componentId );
             this.endLoading();
         }
+    }
+
+    get canAddTasks() {
+        for ( const k of this.lists ) {
+            if ( +k.id === +this.componentId ) {
+                if ( k.permissions.component_can_add_tasks ) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    get canWatchTasks() {
+        for ( const k of this.lists ) {
+            if ( +k.id === +this.componentId ) {
+                if ( k.permissions.component_can_watch ) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     async created() {

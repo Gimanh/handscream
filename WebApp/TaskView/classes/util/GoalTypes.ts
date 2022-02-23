@@ -33,12 +33,29 @@ export type TGoalListStoreStateUrls = {
     addListUrl: string
     fetchLists: string
     updateList: string
-    deleteList: string;
+    deleteList: string
 }
 
+export type TGoalComponentPermissions = {
+    // eslint-disable-next-line camelcase
+    component_can_add_tasks?: boolean
+    // eslint-disable-next-line camelcase
+    component_can_delete?: boolean
+    // eslint-disable-next-line camelcase
+    component_can_edit?: boolean
+    // eslint-disable-next-line camelcase
+    component_can_edit_all_tasks?: boolean
+    // eslint-disable-next-line camelcase
+    component_can_edit_their_tasks?: boolean
+    // eslint-disable-next-line camelcase
+    component_can_watch?: boolean
+}
+
+// fixme rename to component
 export type TGoalList = {
     id: number
     name: string
+    permissions: TGoalComponentPermissions
 }
 
 export type TGoalLists = TGoalList[];
