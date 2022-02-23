@@ -49,6 +49,8 @@ export type TGoalComponentPermissions = {
     component_can_edit_their_tasks?: boolean
     // eslint-disable-next-line camelcase
     component_can_watch_content?: boolean
+    // eslint-disable-next-line camelcase
+    component_can_add_subtasks?: boolean
 }
 
 // fixme rename to component

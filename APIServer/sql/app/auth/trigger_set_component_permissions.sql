@@ -8,6 +8,7 @@ begin
            (new.id, new.owner, (select id from tv_auth.permissions where name = 'component_can_edit')),
            (new.id, new.owner, (select id from tv_auth.permissions where name = 'component_can_watch_content')),
            (new.id, new.owner, (select id from tv_auth.permissions where name = 'component_can_add_tasks')),
+           (new.id, new.owner, (select id from tv_auth.permissions where name = 'component_can_add_subtasks')),
            (new.id, new.owner, (select id from tv_auth.permissions where name = 'component_can_edit_all_tasks')),
            (new.id, new.owner, (select id from tv_auth.permissions where name = 'component_can_edit_their_tasks'));
     return new;
