@@ -27,6 +27,7 @@
                 v-for="task in tasks"
                 :key="task.id"
                 :task="task"
+                :can-add-subtasks-in-component="canAddSubtasksInComponent(task.goalListId)"
             />
         </v-list-item-group>
 

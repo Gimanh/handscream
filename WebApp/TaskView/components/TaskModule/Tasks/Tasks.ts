@@ -2,7 +2,7 @@ import { Component, Prop, Watch } from 'vue-property-decorator';
 import { Action, State } from 'vuex-class';
 import AppBase from '~/components/AppBase';
 import { TasksStoreActions } from '~/store/Tasks';
-import { AppTasks } from '~/classes/util/TaskTypes';
+import { AppTask, AppTasks } from '~/classes/util/TaskTypes';
 import { GoalListsState } from '~/store/GoalLists';
 
 @Component
@@ -29,7 +29,6 @@ export default class Tasks extends AppBase {
     }
 
     get canAddTasks(): boolean {
-        return true;
         for ( const k of this.lists ) {
             if ( +k.id === +this.componentId ) {
                 if ( k.permissions.component_can_add_tasks ) {
@@ -44,6 +43,17 @@ export default class Tasks extends AppBase {
         for ( const k of this.lists ) {
             if ( +k.id === +this.componentId ) {
                 if ( k.permissions.component_can_watch_content ) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    canAddSubtasksInComponent( id: AppTask['goalListId'] ) {
+        for ( const k of this.lists ) {
+            if ( +k.id === +id ) {
+                if ( k.permissions.component_can_add_subtasks ) {
                     return true;
                 }
             }

@@ -27,10 +27,12 @@ class CanAddTask extends BaseTaskMiddleware
         $this->initUser($request);
         if ($this->user) {
             $component = $this->goalComponents->getGoalComponent($request->getParsedBody()['componentId']);
-            if ($component->hasPermissions(GoalComponentPermissions::CAN_ADD_TASKS)) {
+            if ($component->hasPermissions(GoalComponentPermissions::CAN_ADD_TASKS) ||
+                $component->hasPermissions(GoalComponentPermissions::CAN_ADD_SUBTASKS)) {
                 if ($this->addingSubtask($request)) {
                     $task = $this->tasks->getDetailedTask($request->getParsedBody()['parentId']);
-                    if ($task->hasPermissions(TaskPermissions::CAN_ADD_SUBTASKS)) {
+                    if ($task->hasPermissions(TaskPermissions::CAN_ADD_SUBTASKS) ||
+                        $component->hasPermissions(GoalComponentPermissions::CAN_ADD_SUBTASKS)) {
                         return $handler->handle($request);
                     }
                 } else {

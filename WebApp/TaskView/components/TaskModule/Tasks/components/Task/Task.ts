@@ -18,6 +18,9 @@ export default class Task extends AppBase {
     @Prop( { default: false } )
     public subtask!: boolean;
 
+    @Prop( { default: false } )
+    public canAddSubtasksInComponent!: boolean;
+
     public keyIndexes: {
         checkbox: number
         description: number
@@ -73,7 +76,7 @@ export default class Task extends AppBase {
     }
 
     get canAddSubtasks(): boolean {
-        return !!this.task.permissions.task_can_add_subtasks;
+        return !!this.task.permissions.task_can_add_subtasks || this.canAddSubtasksInComponent;
     }
 
     get canWatchDetails(): boolean {

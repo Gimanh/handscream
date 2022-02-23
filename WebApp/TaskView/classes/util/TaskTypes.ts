@@ -23,6 +23,7 @@ export interface AppTask {
     complete: boolean
     deadline: string | null
     parentId: number | null
+    goalListId: number
     note: string | null
     subtasks: AppTask[]
     permissions: AppTaskPermissions
