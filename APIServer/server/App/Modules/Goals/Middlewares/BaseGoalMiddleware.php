@@ -1,29 +1,29 @@
 <?php
 
-namespace App\Modules\Tasks\Middlewares;
+namespace App\Modules\Goals\Middlewares;
 
 use RuntimeException;
 use ZXC\Modules\DB\DB;
 use ZXC\Native\Modules;
 use ZXC\Modules\Auth\User;
-use App\Modules\Tasks\Tasks;
+use App\Modules\Goals\Goals;
 use ZXC\Interfaces\Psr\Server\MiddlewareInterface;
 use ZXC\Interfaces\Psr\Server\RequestHandlerInterface;
 use ZXC\Interfaces\Psr\Http\Message\ResponseInterface;
 use ZXC\Interfaces\Psr\Http\Message\ServerRequestInterface;
 
-class BaseTaskMiddleware implements MiddlewareInterface
+class BaseGoalMiddleware implements MiddlewareInterface
 {
     protected ?DB $db = null;
 
     protected ?User $user = null;
 
-    protected ?Tasks $tasks = null;
+    protected ?Goals $goals = null;
 
     public function __construct()
     {
         $this->db = Modules::get('db');
-        $this->tasks = Modules::get('tasks');
+        $this->goals = Modules::get('goals');
     }
 
     protected function initUser(ServerRequestInterface $request)

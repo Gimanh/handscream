@@ -16,12 +16,12 @@ class GoalUpdate extends GoalBaseHandler
         if ($id === null) {
             return AppResponse::create($response, ['update' => false], $request->getAttribute('rid'), 200);
         }
-        $name = $parsedBody['name'] ?? '';
+        $name = trim($parsedBody['name']) ?? '';
         $description = $parsedBody['description'] ?? null;
-        $goal = false;
         if ($name) {
             $goal = $this->goals->updateGoal((int)$id, (string)$name, (string)$description);
+            return AppResponse::create($response, ['update' => !!$goal, 'goal' => $goal[0]], $request->getAttribute('rid'), 200);
         }
-        return AppResponse::create($response, ['update' => !!$goal, 'goal' => $goal], $request->getAttribute('rid'), 200);
+        return AppResponse::create($response, ['update' => false], $request->getAttribute('rid'), 200);
     }
 }

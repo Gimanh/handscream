@@ -6,18 +6,18 @@ use RuntimeException;
 
 class TaskItem
 {
-    public int|null $id;
-    public int|null $parentId;
-    public string|null $description;
+    public ?int $id;
+    public ?int $parentId;
+    public ?string $description;
     public bool $complete;
-    public int|null $goalListId;
+    public ?int $goalListId;
     public string $dateCreation;
     public int $owner;
-    public int|null $historySection;
-    public int|null $responsibleId;
-    public string|null $deadline;
-    public string|null $dateComplete;
-    public string|null $note;
+    public ?int $historySection;
+    public ?int $responsibleId;
+    public ?string $deadline;
+    public ?string $dateComplete;
+    public ?string $note;
     /** @var array<int, TaskItem> */
     public array $subtasks = [];
     public TaskPermissions $permissions;

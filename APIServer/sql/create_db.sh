@@ -23,6 +23,8 @@ sqlFiles=(
     "./app/auth/trigger_set_component_permissions.sql"
     "./app/auth/trigger_set_owner_for_component.sql"
     "./app/auth/trigger_set_owner_for_task.sql"
+    "./app/auth/app_goal_permissions.sql"
+    "./app/auth/trigger_set_goal_permissions.sql"
  )
 
 db_connection=" postgresql://$user:$password@$host:$port/$dbName"

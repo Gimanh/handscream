@@ -3,12 +3,11 @@
 namespace App\Modules\Goals\Middlewares;
 
 use ZXC\Native\PSR\Response;
-use App\Modules\Tasks\Middlewares\BaseTaskMiddleware;
 use ZXC\Interfaces\Psr\Http\Message\ResponseInterface;
 use ZXC\Interfaces\Psr\Server\RequestHandlerInterface;
 use ZXC\Interfaces\Psr\Http\Message\ServerRequestInterface;
 
-class CanFetchGoals extends BaseTaskMiddleware
+class CanFetchGoals extends BaseGoalMiddleware
 {
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {

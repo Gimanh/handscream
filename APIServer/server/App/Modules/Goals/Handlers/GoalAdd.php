@@ -13,14 +13,14 @@ class GoalAdd extends GoalBaseHandler
     public function __invoke(ServerRequest $request, ResponseInterface $response, RouteParams $routeParams): ResponseInterface
     {
         $parsedBody = $request->getParsedBody();
-        $name = $parsedBody['name'] ?? '';
+        $name = trim($parsedBody['name']) ?? '';
         $description = $parsedBody['description'] ?? null;
         /** @var $user User */
         $user = $request->getAttribute('user');
-        $goal = false;
         if ($name) {
             $goal = $this->goals->addGoal($name, $description, $user->getId());
+            return AppResponse::create($response, ['add' => !!$goal, 'goal' => $goal[0]], $request->getAttribute('rid'), 200);
         }
-        return AppResponse::create($response, ['add' => !!$goal, 'goal' => $goal], $request->getAttribute('rid'), 200);
+        return AppResponse::create($response, ['add' => false], $request->getAttribute('rid'), 200);
     }
 }
