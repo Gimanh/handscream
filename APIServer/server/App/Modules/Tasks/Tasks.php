@@ -30,9 +30,9 @@ class Tasks implements IModule
         $this->createLogger();
     }
 
-    public function addTask(string $description, int $componentId, int $userId, int $parentId = null)
+    public function addTask(string $description, int $componentId, int $creatorId, int $parentId = null)
     {
-        return $this->storage->addTask($description, $componentId, $userId, $parentId);
+        return $this->storage->addTask($description, $componentId, $creatorId, $parentId);
     }
 
     /**

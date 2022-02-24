@@ -19,6 +19,10 @@ sqlFiles=(
     "./app/tasks/goal_lists.sql"
     "./app/tasks/tasks.sql"
     "./app/auth/user_task_permissions.sql"
+    "./app/auth/app_components_permissions.sql"
+    "./app/auth/trigger_set_component_permissions.sql"
+    "./app/auth/trigger_set_owner_for_component.sql"
+    "./app/auth/trigger_set_owner_for_task.sql"
  )
 
 db_connection=" postgresql://$user:$password@$host:$port/$dbName"

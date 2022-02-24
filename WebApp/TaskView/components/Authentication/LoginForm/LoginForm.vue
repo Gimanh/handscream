@@ -29,17 +29,10 @@
         <v-card-actions>
             <v-spacer />
             <v-btn
-                class="mr-4"
                 elevation="1"
                 @click="submit"
             >
                 {{ $t( 'msg.submit' ) }}
-            </v-btn>
-            <v-btn
-                elevation="1"
-                @click="cancel"
-            >
-                {{ $t( 'msg.cancel' ) }}
             </v-btn>
         </v-card-actions>
     </v-card>

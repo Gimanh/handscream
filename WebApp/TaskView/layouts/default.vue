@@ -1,6 +1,7 @@
 <template>
     <v-app dark>
         <v-navigation-drawer
+            v-if="isLoggedIn"
             v-model="drawer"
             :mini-variant="miniVariant"
             :clipped="clipped"
@@ -17,7 +18,11 @@
             fixed
             app
         >
-            <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
+            <v-app-bar-nav-icon
+                v-if="isLoggedIn"
+                @click.stop="drawer = !drawer"
+            />
+            <app-logo />
             <!--            <v-btn
                             icon
                             @click.stop="miniVariant = !miniVariant"

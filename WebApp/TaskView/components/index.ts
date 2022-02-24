@@ -30,3 +30,4 @@ export * from './TaskModule/Tasks/components/Task/components/TaskNote';
 export * from './TaskModule/Tasks/components/Task/components/TaskDeadline';
 
 export * from './AppHelpers/AppProgress';
+export * from './AppLogo';

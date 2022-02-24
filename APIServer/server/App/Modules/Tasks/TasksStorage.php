@@ -20,10 +20,10 @@ class TasksStorage
         $this->initDatabase();
     }
 
-    public function addTask(string $description, int $componentId, int $userId, int $parentId = null)
+    public function addTask(string $description, int $componentId, int $creatorId, int $parentId = null)
     {
-        $query = 'INSERT INTO tasks.tasks (description,  goal_list_id, owner, parent_id, creator_id) VALUES (?,?,?,?,?) RETURNING id;';
-        $stmt = $this->db->insert($query, [$description, $componentId, $userId, $parentId, $userId], true);
+        $query = 'INSERT INTO tasks.tasks (description,  goal_list_id, parent_id, creator_id) VALUES (?,?,?,?) RETURNING id;';
+        $stmt = $this->db->insert($query, [$description, $componentId, $parentId, $creatorId], true);
         if ($stmt) {
             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
             if ($result) {

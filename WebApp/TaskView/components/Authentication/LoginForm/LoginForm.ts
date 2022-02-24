@@ -46,8 +46,4 @@ export default class LoginForm extends AppBase {
             }
         }
     }
-
-    cancel() {
-        this.$emit( 'cancel' );
-    }
 }

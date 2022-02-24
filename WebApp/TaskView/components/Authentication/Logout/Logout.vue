@@ -5,7 +5,7 @@
         @click="logout"
     >
         <v-icon>
-            mdi-logout
+            mdi-exit-to-app
         </v-icon>
     </v-btn>
 </template>

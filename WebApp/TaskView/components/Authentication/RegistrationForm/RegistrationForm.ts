@@ -130,10 +130,6 @@ export default class RegistrationForm extends AppBase {
         }
     }
 
-    cancel(): void {
-        this.$emit( 'cancel' );
-    }
-
     inversePasswordType() {
         this.passwordType = this.passwordType === 'text' ? 'password' : 'text';
     }
