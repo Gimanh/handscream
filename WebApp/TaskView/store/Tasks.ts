@@ -32,7 +32,8 @@ export const DETAILED_TASK: DetailedTask = {
     responsibleUser: null,
     parentId: null,
     subtasks: [],
-    permissions: {}
+    permissions: {},
+    goalListId: -1
 };
 
 export class TasksState {

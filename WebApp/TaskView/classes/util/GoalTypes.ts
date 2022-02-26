@@ -16,9 +16,9 @@ export type Goal = {
     permissions: GoalPermissions
 }
 
-export type GoalAddItem = Omit<Goal, 'id'>;
+export type GoalAddItem = Omit<Goal, 'id' | 'permissions' | 'color' | 'owner'>;
 
-export type GoalUpdate = Goal;
+export type GoalUpdate = Omit<Goal, 'permissions' | 'color' | 'owner'>;
 
 export type Goals = Goal[];
 
