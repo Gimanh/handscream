@@ -9,6 +9,7 @@
                 ref="form"
                 v-model="valid"
                 class="pa-2"
+                @submit.prevent
             >
                 <v-text-field
                     v-model="login"

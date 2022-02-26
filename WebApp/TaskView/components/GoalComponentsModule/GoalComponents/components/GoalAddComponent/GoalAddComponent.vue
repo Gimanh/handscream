@@ -3,6 +3,7 @@
         <v-form
             v-if="inlineMode"
             ref="form"
+            @submit.prevent
         >
             <v-text-field
                 v-model="name"

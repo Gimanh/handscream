@@ -2,6 +2,7 @@
     <div>
         <v-form
             ref="form"
+            @submit.prevent
         >
             <v-text-field
                 v-model="taskName"

@@ -29,6 +29,7 @@
                 <v-card-text>
                     <v-form
                         ref="form"
+                        @submit.prevent
                     >
                         <v-row>
                             <v-col

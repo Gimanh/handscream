@@ -31,6 +31,7 @@
                     <v-form
                         ref="form"
                         v-model="valid"
+                        @submit.prevent
                     >
                         <v-alert
                             v-if="showWarning"
