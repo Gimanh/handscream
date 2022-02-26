@@ -10,6 +10,7 @@
             @click.prevent
         >
             <goal-speed-dial
+                v-if="displaySpeedDial"
                 :goal="goal"
             />
         </v-list-item-action>

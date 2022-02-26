@@ -25,17 +25,33 @@ class Goals implements IModule
         }
     }
 
-    public function addGoal(string $name, $description, int $userId)
+    /**
+     * @param string $name
+     * @param $description
+     * @param int $userId
+     * @return GoalItem[]|false
+     */
+    public function addGoal(string $name, $description, int $userId): false|array
     {
         return $this->storage->addGoal($name, $userId, $description);
     }
 
-    public function fetchGoals($userId)
+    /**
+     * @param $userId
+     * @return GoalItem[]
+     */
+    public function fetchGoals($userId): array
     {
         return $this->storage->fetchGoals($userId);
     }
 
-    public function updateGoal(int $id, string $name, string $description)
+    /**
+     * @param int $id
+     * @param string $name
+     * @param string $description
+     * @return false|GoalItem[]
+     */
+    public function updateGoal(int $id, string $name, string $description): false|array
     {
         if ($this->storage->updateGoal($id, $name, $description)) {
             return $this->storage->fetchGoalById($id);
@@ -43,11 +59,19 @@ class Goals implements IModule
         return false;
     }
 
+    /**
+     * @param int $id
+     * @return bool
+     */
     public function deleteGoal(int $id): bool
     {
         return $this->storage->deleteGoal($id);
     }
 
+    /**
+     * @param int $goalId
+     * @return GoalItem|null
+     */
     public function getGoal(int $goalId): ?GoalItem
     {
         $goal = $this->storage->fetchGoalById($goalId);

@@ -18,4 +18,16 @@ export default class Goal extends AppBase {
             }
         };
     }
+
+    get canEdit(): boolean {
+        return !!this.goal.permissions.goal_can_edit;
+    }
+
+    get canDelete(): boolean {
+        return !!this.goal.permissions.goal_can_delete;
+    }
+
+    get displaySpeedDial(): boolean {
+        return this.canEdit || this.canDelete;
+    }
 }

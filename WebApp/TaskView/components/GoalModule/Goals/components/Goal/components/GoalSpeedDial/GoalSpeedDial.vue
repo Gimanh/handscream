@@ -29,9 +29,11 @@
                 </v-btn>
             </template>
             <goal-delete
+                v-if="canDelete"
                 :goal-id="goal.id"
             />
             <v-btn
+                v-if="canEdit"
                 fab
                 small
                 color="green"

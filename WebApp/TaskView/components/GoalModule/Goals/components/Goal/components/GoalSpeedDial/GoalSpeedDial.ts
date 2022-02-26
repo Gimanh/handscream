@@ -15,6 +15,14 @@ export default class GoalSpeedDial extends AppBase {
 
     public activeEdit: boolean = false;
 
+    get canEdit(): boolean {
+        return !!this.goal.permissions.goal_can_edit;
+    }
+
+    get canDelete(): boolean {
+        return !!this.goal.permissions.goal_can_delete;
+    }
+
     openEdit() {
         this.activeEdit = true;
     }

@@ -2,9 +2,10 @@
 
 namespace App\Modules\Goals;
 
-use ZXC\Modules\Auth\User;
+use PDO;
 use ZXC\Modules\DB\DB;
 use ZXC\Native\Modules;
+use ZXC\Modules\Auth\User;
 
 class GoalsStorage
 {
@@ -19,7 +20,14 @@ class GoalsStorage
         $this->db = Modules::get('db');
     }
 
-    public function addGoal(string $name, int $userId, $description = null, string $color = '')
+    /**
+     * @param string $name
+     * @param int $userId
+     * @param $description
+     * @param string $color
+     * @return false|GoalItem[]
+     */
+    public function addGoal(string $name, int $userId, $description = null, string $color = ''): false|array
     {
         $query = $description !== null ?
             'INSERT INTO tasks.goals (name,  owner, description) VALUES (?,?,?) RETURNING id;' :
@@ -29,7 +37,7 @@ class GoalsStorage
             [$name, $userId];
         $stmt = $this->db->insert($query, $args, true);
         if ($stmt) {
-            $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
             if ($result) {
                 return $this->fetchGoalById($result[0]['id']);
             }
@@ -37,6 +45,10 @@ class GoalsStorage
         return false;
     }
 
+    /**
+     * @param int $id
+     * @return GoalItem[]
+     */
     public function fetchGoalById(int $id): array
     {
         $goals = $this->db->select('select g.*, p.name as "permissionName", p.id as "permissionId"
@@ -48,7 +60,11 @@ class GoalsStorage
         return $this->convertGoalToGoalItem($goals);
     }
 
-    public function fetchGoals($userId)
+    /**
+     * @param $userId
+     * @return GoalItem[]
+     */
+    public function fetchGoals($userId): array
     {
         $goals = $this->db->select('select g.*, p.name as "permissionName", p.id as "permissionId"
                                             from tasks.goals g
@@ -59,7 +75,7 @@ class GoalsStorage
         return $this->convertGoalToGoalItem($goals);
     }
 
-    public function updateGoal(int $id, string $name, string $description)
+    public function updateGoal(int $id, string $name, string $description): bool
     {
         return $this->db->update([
             'table' => 'tasks.goals',
@@ -73,13 +89,17 @@ class GoalsStorage
         ]);
     }
 
-    public function deleteGoal(int $id)
+    /**
+     * @param int $id
+     * @return bool
+     */
+    public function deleteGoal(int $id): bool
     {
         return $this->db->delete('DELETE FROM tasks.goals WHERE id = ?;', [$id]);
     }
 
     /**
-     * @return array<int, GoalItem>
+     * @return GoalItem[]
      */
     protected function convertGoalToGoalItem(array $goals = []): array
     {

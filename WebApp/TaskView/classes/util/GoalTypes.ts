@@ -1,8 +1,20 @@
+export type GoalPermissions = {
+    // eslint-disable-next-line
+    goal_can_add_users?: true
+    // eslint-disable-next-line
+    goal_can_delete?: true
+    // eslint-disable-next-line
+    goal_can_edit?: true
+}
+
 export type Goal = {
     id: number
     name: string
     description: string
-};
+    owner: number
+    color: string
+    permissions: GoalPermissions
+}
 
 export type GoalAddItem = Omit<Goal, 'id'>;
 
