@@ -13,7 +13,7 @@ class GoalAdd extends GoalBaseHandler
     public function __invoke(ServerRequest $request, ResponseInterface $response, RouteParams $routeParams): ResponseInterface
     {
         $parsedBody = $request->getParsedBody();
-        $name = trim($parsedBody['name']) ?? '';
+        $name = $parsedBody['name'] ?? null;
         $description = $parsedBody['description'] ?? null;
         /** @var $user User */
         $user = $request->getAttribute('user');
