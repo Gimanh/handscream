@@ -39,10 +39,12 @@ export type AppResponse<S> = {
     rid: string
 };
 
-export type FormFieldRules = ( ( v: string ) => true | string )[]
+export type FormFieldRules = ( ( v: string ) => true | string )[];
 
 export type AppCredentialsFormTabs = { title: string, component: string, recovery: boolean }[];
 
-export type RecoveryRequestResponse = { sent: boolean }
-    ;
+export type RecoveryRequestResponse = { sent: boolean };
+
 export type ResetPasswordResponse = { reset: boolean };
+
+export type AppLanguages = { id: string, title: string }[];

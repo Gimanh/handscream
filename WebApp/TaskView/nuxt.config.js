@@ -54,26 +54,26 @@ export default {
         '@nuxtjs/i18n'
     ],
     i18n: {
-        defaultLocale: 'en',
+        defaultLocale: 'ru',
         vueI18n: {
-            fallbackLocale: 'en',
-            locales: [
-                {
-                    code: 'ru',
-                    file: 'ru.json'
-                },
-                {
-                    code: 'de',
-                    file: 'de.json'
-                },
-                {
-                    code: 'en',
-                    file: 'en.json'
-                }
-            ],
-            lazy: true,
-            langDir: 'lang/',
-            defaultLocale: 'en',
+            // fallbackLocale: 'en',
+            // locales: [
+            //     {
+            //         code: 'ru',
+            //         file: 'ru.json'
+            //     },
+            //     {
+            //         code: 'de',
+            //         file: 'de.json'
+            //     },
+            //     {
+            //         code: 'en',
+            //         file: 'en.json'
+            //     }
+            // ],
+            // lazy: false,
+            // langDir: 'lang/',
+            // defaultLocale: 'en',
             messages: {
                 en: require( './lang/en.json' ),
                 ru: require( './lang/ru.json' )

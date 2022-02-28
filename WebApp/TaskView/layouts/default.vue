@@ -40,6 +40,7 @@
             <!--                <img v-else src="@/assets/logo.svg" alt="Logo" width="140">-->
             <!--            </v-toolbar-title>-->
             <v-spacer />
+            <app-lang />
             <logout
                 v-if="isLoggedIn"
             />
