@@ -33,3 +33,4 @@ export * from './AppHelpers/AppProgress';
 export * from './AppLogo';
 export * from './AppLang';
 export * from './AppVersions';
+export * from './AppLicense';

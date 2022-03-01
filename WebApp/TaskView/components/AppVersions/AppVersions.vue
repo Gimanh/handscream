@@ -21,11 +21,10 @@
         <v-card>
             <v-card-title>
                 {{ about }}
+                <app-license />
             </v-card-title>
             <v-divider />
-            <v-card-text
-                style="height: 300px;"
-            >
+            <v-card-text>
                 <v-card
                     v-for="(item, key) in items"
                     :key="key"
@@ -53,8 +52,6 @@
             <v-card-actions>
                 <v-spacer />
                 <v-btn
-                    color="blue darken-1"
-                    text
                     @click="dialog = false"
                 >
                     {{ closeTitle }}
