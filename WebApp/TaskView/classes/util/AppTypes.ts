@@ -48,3 +48,5 @@ export type RecoveryRequestResponse = { sent: boolean };
 export type ResetPasswordResponse = { reset: boolean };
 
 export type AppLanguages = { id: string, title: string }[];
+
+export type AppVersionsData = { [ key: string ]: { date: string, description: string, items: string[] } };

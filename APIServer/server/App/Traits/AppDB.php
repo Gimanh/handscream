@@ -7,7 +7,7 @@ use ZXC\Native\Modules;
 
 trait AppDB
 {
-    protected DB|null $db = null;
+    protected ?DB $db;
 
     public function initDatabase()
     {

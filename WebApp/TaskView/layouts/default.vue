@@ -23,6 +23,7 @@
                 @click.stop="drawer = !drawer"
             />
             <app-logo />
+            <app-versions />
             <!--            <v-btn
                             icon
                             @click.stop="miniVariant = !miniVariant"

@@ -32,3 +32,4 @@ export * from './TaskModule/Tasks/components/Task/components/TaskDeadline';
 export * from './AppHelpers/AppProgress';
 export * from './AppLogo';
 export * from './AppLang';
+export * from './AppVersions';
