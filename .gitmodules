@@ -1,0 +1,3 @@
+[submodule "APIServer/server/ZXC_PHP"]
+	path = APIServer/server/ZXC_PHP
+	url = https://github.com/Gimanh/ZXC_PHP.git
