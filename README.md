@@ -1,4 +1,5 @@
 # TaskView  
+[Telegram](https://t.me/hand_scream)
 
 Service for daily planning, aimed at achieving results. For personal affairs, work tasks and teamwork. www.handscream.com
 
