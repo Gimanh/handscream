@@ -4,6 +4,10 @@ export default {
     // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
     ssr: false,
 
+    mode: 'spa',
+
+    telemetry: false,
+
     // Global page headers: https://go.nuxtjs.dev/config-head
     head: {
         titleTemplate: '%s - TaskView',
@@ -82,7 +86,7 @@ export default {
     },
     // Axios module configuration: https://go.nuxtjs.dev/config-axios
     axios: {
-        baseURL: 'http://tvapi.localhost',
+        baseURL: process.env.NODE_ENV !== 'production' ? 'http://tvapi.localhost' : './',
         withCredentials: true
     },
 
