@@ -1,4 +1,7 @@
 {
+    "config": {
+        "optimize-autoloader": true
+    },
     "require": {
         "giman/zxc_php": "dev-master",
         "ext-pdo": "*",

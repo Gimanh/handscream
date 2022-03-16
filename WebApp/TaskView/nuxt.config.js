@@ -23,7 +23,8 @@ export default {
         ]
     },
     router: {
-        mode: 'hash'
+        mode: 'hash',
+        base: process.env.NODE_ENV === 'production' ? './' : undefined
     },
     // Global CSS: https://go.nuxtjs.dev/config-css
     css: [
