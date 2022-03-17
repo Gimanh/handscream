@@ -2,29 +2,6 @@
     {
         "middlewares": [],
         "method": "GET",
-        "route": "/",
-        "handler": "App\\Application:hello",
-        "children": {
-            "middlewares": [],
-            "route": ":user",
-            "handler": "App\\Application:helloUser",
-            "children": {
-                "middlewares": [],
-                "route": "static/profile",
-                "handler": "App\\Application:profile"
-            }
-        }
-    },
-    {
-        "middlewares": [
-        ],
-        "method": "GET",
-        "route": "/:user/static",
-        "handler": "App\\Application:helloStatic"
-    },
-    {
-        "middlewares": [],
-        "method": "GET",
         "route": "/fetch/app/config",
         "handler": "App\\Modules\\AppConfig\\Handlers\\AppConfig"
     }
