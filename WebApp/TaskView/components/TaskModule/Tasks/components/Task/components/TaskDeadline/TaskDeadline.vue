@@ -12,6 +12,7 @@
                         <v-text-field
                             :value="fullDeadline"
                             :label="$t('task.deadline')"
+                            hide-details
                             readonly
                             v-bind="attrs"
                             v-on="on"

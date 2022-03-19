@@ -1,12 +1,14 @@
 <template>
     <v-dialog
         v-model="dialog"
-        width="500"
+        width="600"
         persistent
         scrollable
     >
         <v-card>
-            <v-toolbar>
+            <v-toolbar
+                elevation="1"
+            >
                 <v-toolbar-title>
                     {{ $t( 'task.task' ) }}
                 </v-toolbar-title>
@@ -41,20 +43,30 @@
                     <v-col
                         cols="12"
                     >
-                        <task-note
-                            :note="detailedTask.note"
-                            :task-id="detailedTask.id"
-                            :can-edit="canEditTaskNote"
-                        />
+                        <v-card
+                            elevation="1"
+                        >
+                            <v-card-text>
+                                <task-note
+                                    :note="detailedTask.note"
+                                    :task-id="detailedTask.id"
+                                    :can-edit="canEditTaskNote"
+                                />
+                            </v-card-text>
+                        </v-card>
                     </v-col>
                     <v-col
                         cols="12"
                     >
-                        <task-deadline
-                            :deadline="detailedTask.deadline"
-                            :task-id="detailedTask.id"
-                            :can-edit="canEditDeadline"
-                        />
+                        <v-card>
+                            <v-card-text>
+                                <task-deadline
+                                    :deadline="detailedTask.deadline"
+                                    :task-id="detailedTask.id"
+                                    :can-edit="canEditDeadline"
+                                />
+                            </v-card-text>
+                        </v-card>
                     </v-col>
                 </v-row>
             </v-card-text>
