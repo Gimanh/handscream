@@ -1,0 +1,5 @@
+{
+    "class": "App\\Modules\\DbMigration\\DbMigration",
+    "defer": true,
+    "options": {}
+}
