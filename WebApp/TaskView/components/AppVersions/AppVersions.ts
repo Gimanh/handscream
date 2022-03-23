@@ -24,11 +24,9 @@ export default class AppVersions extends AppBase {
     }
 
     getDateFormat( date: string ): string {
-        return ( new Date( date ) ).toISOString()
-            .substr( 0, 10 )
-            .split( '-' )
-            .reverse()
-            .join( '-' );
+        const instance = new Date( date );
+        const month = instance.getMonth() + 1;
+        return `${ instance.getDate() }-${ month < 10 ? '0' : '' }${ month }-${ instance.getFullYear() }`;
     }
 
     async fetchData(): Promise<void> {
