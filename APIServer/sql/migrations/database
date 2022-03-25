@@ -1,3 +1,4 @@
+#!/usr/bin/php
 <?php
 
 use ZXC\ZXCConfig;
@@ -12,5 +13,15 @@ ZXCFactory::create($config);
 
 /** @var DbMigration $migration */
 $migration = Modules::get('DbMigration');
-$updateData = json_decode(file_get_contents(dirname(__FILE__) . '/migrate.json'), true);
-echo $migration->update($updateData, dirname(__FILE__).'/sql', $config['modules']['DB']['options']['dsn']);
+
+$migration->setEnvironment(
+    dirname(__FILE__),
+    $config['modules']['DB']['options']['dsn']
+);
+
+if (in_array('--create', $argv)) {
+    $migration->createDatabase();
+}
+if (in_array('--update', $argv)) {
+    $migration->update();
+}

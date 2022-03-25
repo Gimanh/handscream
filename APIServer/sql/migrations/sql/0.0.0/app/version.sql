@@ -11,7 +11,7 @@ select 1, '0.0.0', '0.0.0'
 where not EXISTS(select id from app.version where id = 1);
 
 --Trigger for adding owner for component
-create or replace function version.trigger_set_previous_version()
+create or replace function app.trigger_set_previous_version()
     returns trigger as
 $date_complete$
 begin
@@ -26,4 +26,4 @@ create trigger trigger_set_previous_version
     before insert
     on app.version
     for each row
-execute procedure version.trigger_set_previous_version();
+execute procedure app.trigger_set_previous_version();

@@ -3,8 +3,7 @@
         "version": "1.0.0",
         "name": "Primum",
         "releaseDate": "20220313",
-        "scripts": [
-        ],
+        "scripts": [],
         "description": [
             "Created Goals section",
             "Add goals",

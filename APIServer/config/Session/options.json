@@ -1,6 +1,6 @@
 {
     "class": "ZXC\\Modules\\SessionsStorage\\SessionManager",
-    "defer": false,
+    "defer": true,
     "options": {
         "provider": "db",
         "sessionParams": {

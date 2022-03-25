@@ -31,13 +31,23 @@ class DbMigration implements IModule
 
     protected ?string $baseDir = null;
 
+    protected array $createData = [];
+
+    protected array $migrationData = [];
+
     public function init(array $options = [])
     {
         $this->config = $options;
         $this->db = Modules::get('db');
         $this->pdo = $this->db->getConnection();
+    }
 
-        $this->fetchVersion();
+    public function setEnvironment(string $directory, string $dsn)
+    {
+        $this->baseDir = $directory;
+        $this->dsn = $dsn;
+        $this->createData = json_decode(file_get_contents($this->baseDir . '/install.json'), true);
+        $this->migrationData = json_decode(file_get_contents($this->baseDir . '/migrate.json'), true);
     }
 
     public function fetchVersion()
@@ -88,14 +98,30 @@ class DbMigration implements IModule
         return true;
     }
 
+    /**
+     * @param $i
+     * @param $total
+     * @return void
+     * @link https://stackoverflow.com/a/27147177
+     */
+    public function displayPercent($i, $total)
+    {
+        $perc = floor(($i / $total) * 100);
+        $left = 100 - $perc;
+        $write = sprintf("\033[0G\033[2K[%'={$perc}s%-{$left}s] - $perc%% - $i/$total", "", "");
+        fwrite(STDERR, $write);
+        usleep(8000);
+    }
+
     public function execScripts(array $scripts = [])
     {
-        foreach ($scripts as $script) {
+        foreach ($scripts as $i => $script) {
             try {
-                $file = $this->baseDir . $script;
+                $file = $this->baseDir . '/sql' . $script;
                 if (file_exists($file)) {
                     $sql = file_get_contents($file);
                     $result = $this->pdo->exec($sql);
+                    $this->displayPercent($i + 1, count($scripts));
                 } else {
                     throw new RuntimeException("File does not exists {$file}");
                 }
@@ -131,13 +157,12 @@ class DbMigration implements IModule
         }
     }
 
-    public function update(array $data, string $directory, string $dsn): bool
+    public function update(): bool
     {
-        $this->baseDir = $directory;
-        $this->dsn = $dsn;
+        $this->fetchVersion();
         $this->pdo->beginTransaction();
         $this->pdo->exec($this->getDisconnectOthersFromDbSql());
-        foreach ($data as $item) {
+        foreach ($this->migrationData as $item) {
             if ($this->compareVersions($this->version, $item['version']) === self::CURRENT_VERSION_IS_LESS) {
                 $this->execScripts($item['scripts']);
                 $this->updateDescriptions($item['description'], $item['version'], $item['name'], $item['releaseDate']);
@@ -146,5 +171,12 @@ class DbMigration implements IModule
         }
         $this->pdo->commit();
         return true;
+    }
+
+    public function createDatabase()
+    {
+        $this->pdo->beginTransaction();
+        $this->execScripts($this->createData['scripts']);
+        $this->pdo->commit();
     }
 }
