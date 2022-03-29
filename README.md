@@ -3,6 +3,8 @@
 [Docs](https://gimanh.github.io/task_view_doc/)
 Service for daily planning, aimed at achieving results. For personal affairs, work tasks and teamwork. www.handscream.com
 
+[TaskViewServer](https://github.com/Gimanh/TaskViewServer) work in progress.
+
 <h2 align="center">TaskView</h2>  
 <p align="center">
   <img width="400" height="400" src="./images/logo-circle-1024.png">
