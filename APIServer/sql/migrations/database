@@ -25,3 +25,11 @@ if (in_array('--create', $argv)) {
 if (in_array('--update', $argv)) {
     $migration->update();
 }
+
+if (in_array('--get-password', $argv)) {
+    echo "Enter new admin password. Password must bee strong!" . PHP_EOL;
+    $resource = fopen('php://stdin', 'r');
+    $newPassword = fgets($resource);
+    echo "Copy hash between square brackets below and update in database" . PHP_EOL;
+    echo '[' . password_hash($newPassword, PASSWORD_BCRYPT, ['cost' => 10]) . ']';
+}
