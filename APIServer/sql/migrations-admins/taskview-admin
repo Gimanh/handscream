@@ -1,0 +1,36 @@
+#!/usr/bin/php
+<?php
+
+use ZXC\ZXCConfig;
+use ZXC\ZXCFactory;
+use ZXC\Native\Modules;
+use App\Modules\DbMigration\DbMigration;
+
+require dirname(__FILE__) . '/../../vendor/autoload.php';
+
+$config = ZXCConfig::create(dirname(__FILE__) . '/../../config/');
+ZXCFactory::create($config);
+
+/** @var DbMigration $migration */
+$migration = Modules::get('DbMigration');
+
+$migration->setEnvironment(
+    dirname(__FILE__),
+    $config['modules']['DB']['options']['dsn'],
+    true
+);
+
+if (in_array('--create', $argv)) {
+    $migration->createDatabase();
+}
+if (in_array('--update', $argv)) {
+    $migration->update();
+}
+
+if (in_array('--get-password', $argv)) {
+    echo "Enter new admin password. Password must bee strong!" . PHP_EOL;
+    $resource = fopen('php://stdin', 'r');
+    $newPassword = fgets($resource);
+    echo "Copy hash between square brackets below and update in database" . PHP_EOL;
+    echo '[' . password_hash($newPassword, PASSWORD_BCRYPT, ['cost' => 10]) . ']';
+}

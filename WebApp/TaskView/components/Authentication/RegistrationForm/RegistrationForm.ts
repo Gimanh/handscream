@@ -4,6 +4,7 @@ import AppBase from '~/components/AppBase';
 import { RegistrationResult } from '~/components/Authentication/RegistrationForm/Types';
 import { FormFieldRules } from '~/classes/util/AppTypes';
 import { passwordStrength } from 'check-password-strength';
+import { validLogin } from '~/classes/util/Helper';
 
 @Component
 export default class RegistrationForm extends AppBase {
@@ -83,7 +84,7 @@ export default class RegistrationForm extends AppBase {
 
     get loginRules(): FormFieldRules {
         return [
-            ( v: string ) => ( !!v && v.length >= 4 && v.length <= 30 ) || this.$t( 'msg.requiredField' ) as string
+            ( v: string ) => ( !!v && validLogin( v ) ) || this.$t( 'msg.requiredField' ) as string
         ];
     }
 

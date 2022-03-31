@@ -1,6 +1,6 @@
 <template>
     <div class="tv-app-container">
-        <nuxt-child />
+        <admins />
     </div>
 </template>
 

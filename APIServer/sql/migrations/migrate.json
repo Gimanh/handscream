@@ -14,5 +14,14 @@
             "Add component list",
             "Edit component list"
         ]
+    },
+    "1": {
+        "version": "1.0.1",
+        "name": "----",
+        "releaseDate": "20220313",
+        "scripts": [],
+        "description": [
+            "Added admin tables"
+        ]
     }
 }

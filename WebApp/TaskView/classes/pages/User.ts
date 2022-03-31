@@ -4,7 +4,10 @@ import AppBase from '~/components/AppBase';
 // import { UserStoreActions } from '~/store/User';
 
 @Component( {
-    middleware: 'authenticated'
+    middleware: 'authenticated',
+    layout: ( ctx ) => {
+        return ctx.env.isAdmin ? 'admin' : 'default';
+    }
 } )
 export default class User extends AppBase {
 

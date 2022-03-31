@@ -192,5 +192,19 @@
         "time": "Time",
         "updateDeadlineFailed": "Can not update task deadline.",
         "addSubtask": "Add subtask"
+    },
+    "admin": {
+        "users": "Users",
+        "id": "Id",
+        "login": "Login",
+        "email": "Email",
+        "block": "Block",
+        "editUser": "Editing",
+        "userExists": "User already exists",
+        "correctEmail": "Email must be correct",
+        "correctLogin": "Enter correct login /^[a-z0-9]{4,30}$/",
+        "deleteUser": "Deleting a user",
+        "doDeleting": "Do you want delete selected users?",
+        "search": "Search"
     }
 }

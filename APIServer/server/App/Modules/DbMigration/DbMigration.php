@@ -42,8 +42,12 @@ class DbMigration implements IModule
         $this->pdo = $this->db->getConnection();
     }
 
-    public function setEnvironment(string $directory, string $dsn)
+    public function setEnvironment(string $directory, string $dsn, $isAdmin = false)
     {
+        if($isAdmin){
+            $this->db = Modules::get('dba');
+            $this->pdo = $this->db->getConnection();
+        }
         $this->baseDir = $directory;
         $this->dsn = $dsn;
         $this->createData = json_decode(file_get_contents($this->baseDir . '/install.json'), true);

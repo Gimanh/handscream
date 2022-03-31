@@ -1,0 +1,44 @@
+<template>
+    <v-card>
+        <v-card-title>
+            {{ $t( 'admin.users' ) }}
+        </v-card-title>
+        <v-card-text>
+            <v-app-bar>
+                <admins-users-add
+                    @add="fetchUsers"
+                />
+                <admins-users-edit
+                    :disabled="!rowSelected"
+                    :user-data="userData"
+                    @update="fetchUsers"
+                />
+                <admins-users-delete
+                    :user-data="userData"
+                    :disabled="!rowSelected"
+                    @delete="fetchUsers"
+                />
+                <v-text-field
+                    v-model="search"
+                    append-icon="mdi-magnify"
+                    :label="$t('admin.search')"
+                    single-line
+                    hide-details
+                />
+            </v-app-bar>
+            <v-data-table
+                v-model="selectedRow"
+                :headers="headers"
+                :items="users"
+                :items-per-page="10"
+                :search="search"
+                item-key="id"
+                single-select
+                show-select
+                class="elevation-1"
+            />
+        </v-card-text>
+    </v-card>
+</template>
+
+<script src=./AdminsUsers.ts />

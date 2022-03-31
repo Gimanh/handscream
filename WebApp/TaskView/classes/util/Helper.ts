@@ -6,3 +6,13 @@ export function parseJwt<R>( token: string ): R {
     } ).join( '' ) );
     return JSON.parse( jsonPayload );
 }
+
+export function isEmail( email: string ): boolean {
+    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test( String( email ).toLowerCase() );
+}
+
+export function validLogin( login: string ) {
+    const re = /^[a-z0-9]{4,30}$/;
+    return re.test( String( login ).toLowerCase() );
+}

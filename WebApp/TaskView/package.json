@@ -4,7 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "nuxt",
+    "dev-admin": "cross-env BUILD=admin nuxt",
     "build": "nuxt build",
+    "build-admin": "cross-env BUILD=admin nuxt build",
     "start": "nuxt start",
     "generate": "nuxt generate",
     "lint:js": "eslint --ext \".js,.vue\" --ignore-path .gitignore .",

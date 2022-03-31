@@ -22,7 +22,6 @@
             "body": "<p> Welcome to the TaskView app! {link} </p>",
             "redirectAfterConfirm": "http://localhost:3000/#/"
         },
-        "blockWithoutEmailConfirm": true,
-        "credentialStorage": ""
+        "blockWithoutEmailConfirm": true
     }
 }
