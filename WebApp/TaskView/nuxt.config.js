@@ -114,7 +114,7 @@ export default {
             iconfont: 'mdi' // default - only for display purposes
         },
         theme: {
-            dark: true,
+            dark: false,
             themes: {
                 dark: {
                     primary: colors.blue.darken2,

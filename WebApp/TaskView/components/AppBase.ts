@@ -16,6 +16,10 @@ export default class AppBase extends Vue {
         return this.$ls.isLoggedIn;
     }
 
+    get currentListId(): number | -1 {
+        return +this.$route?.params?.list || -1;
+    }
+
     logError( error: any ) {
         console.log( error );
     }

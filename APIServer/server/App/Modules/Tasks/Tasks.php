@@ -99,4 +99,9 @@ class Tasks implements IModule
     {
         return $this->storage->fetchSubtasks($taskId);
     }
+
+    public function moveTask(int $taskId, int $goalListId): bool
+    {
+        return $this->storage->moveTask($taskId, $goalListId);
+    }
 }

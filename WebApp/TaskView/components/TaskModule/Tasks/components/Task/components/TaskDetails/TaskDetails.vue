@@ -70,6 +70,11 @@
                     </v-col>
                 </v-row>
             </v-card-text>
+            <v-card-actions>
+                <action-move-task
+                    :task-id="detailedTask.id"
+                />
+            </v-card-actions>
         </v-card>
     </v-dialog>
 </template>

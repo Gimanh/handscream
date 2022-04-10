@@ -39,3 +39,5 @@ export * from './Admins/components/AdminsUsers';
 export * from './Admins/components/AdminsUsers/components/AdminsUsersEdit';
 export * from './Admins/components/AdminsUsers/components/AdminsUsersAdd';
 export * from './Admins/components/AdminsUsers/components/AdminsUsersDelete';
+
+export * from './TaskModule/Tasks/components/Task/components/actions/ActionMoveTask';

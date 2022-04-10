@@ -79,5 +79,13 @@
         "method": "GET",
         "route": "/module/tasks/fetch/subtasks",
         "handler": "App\\Modules\\Tasks\\Handlers\\TaskFetchSubtasks"
+    },
+    {
+        "middlewares": [
+            "isLoggedIn"
+        ],
+        "method": "POST",
+        "route": "/module/tasks/move/task",
+        "handler": "App\\Modules\\Tasks\\Handlers\\TasksMove"
     }
 ]

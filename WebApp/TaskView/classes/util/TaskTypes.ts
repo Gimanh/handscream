@@ -1,3 +1,5 @@
+import { AppResponse } from '~/classes/util/AppTypes';
+
 export type AppTaskPermissions = {
     // eslint-disable-next-line
     task_can_add_subtasks?: true
@@ -54,6 +56,7 @@ export type TasksStoreStateUrls = {
     updateTaskNote: string
     updateTaskDeadline: string
     fetchSubtasks: string
+    moveTask: string
 }
 
 export type TaskCompleteChanged = {
@@ -113,4 +116,13 @@ export type TaskDeadlineUpdateResponse = { update: boolean };
 export type SubtasksAddMutationArg = {
     taskId: AppTask['id']
     subtasks: AppTask['subtasks']
+}
+
+export type MoveTaskResponse = AppResponse<{
+    move: boolean
+}>;
+
+export type MoveTaskArg = {
+    listId: number
+    taskId: number
 }

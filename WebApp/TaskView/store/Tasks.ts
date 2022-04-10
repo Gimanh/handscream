@@ -17,7 +17,7 @@ import {
     TaskNoteUpdateResponse,
     TaskNoteUpdateArg,
     TaskDeadlineUpdateArg,
-    TaskDeadlineUpdateResponse, SubtasksAddMutationArg, AppTasksMap, DetailedTaskResponse
+    TaskDeadlineUpdateResponse, SubtasksAddMutationArg, AppTasksMap, DetailedTaskResponse, MoveTaskResponse, MoveTaskArg
 } from '~/classes/util/TaskTypes';
 import { AppResponse } from '~/classes/util/AppTypes';
 
@@ -48,7 +48,8 @@ export class TasksState {
         fetchTaskDetails: '/module/tasks/details',
         updateTaskNote: '/module/tasks/update/note',
         updateTaskDeadline: '/module/tasks/update/deadline',
-        fetchSubtasks: '/module/tasks/fetch/subtasks'
+        fetchSubtasks: '/module/tasks/fetch/subtasks',
+        moveTask: '/module/tasks/move/task'
     };
 
     public detailedTask: DetailedTask = DETAILED_TASK;
@@ -255,6 +256,14 @@ export class TasksStoreActions extends Actions<TasksState, TasksStoreGetters, Ta
             if ( result.response ) {
                 this.mutations.addSubtasks( { taskId, subtasks: result.response } );
             }
+        }
+        return result;
+    }
+
+    async moveTask( data: MoveTaskArg ): Promise<MoveTaskResponse> {
+        const result = await this.store.$axios.$post<MoveTaskResponse>( this.state.urls.moveTask, qs.stringify( data ) );
+        if ( result ) {
+            this.mutations.deleteTask( data.taskId );
         }
         return result;
     }

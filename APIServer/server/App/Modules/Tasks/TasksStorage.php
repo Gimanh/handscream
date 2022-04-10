@@ -173,4 +173,17 @@ class TasksStorage
                                                 ORDER BY t.id DESC;', [$taskId]);
         return $this->convertTasksToTaskItem($subtasks);
     }
+
+    public function moveTask(int $taskId, int $goalListId): bool
+    {
+        return $this->db->update([
+            'table' => 'tasks.tasks',
+            'data' => [
+                'goal_list_id' => $goalListId
+            ],
+            'where' => [
+                'id' => $taskId,
+            ]
+        ]);
+    }
 }
