@@ -1,11 +1,14 @@
 <template>
     <v-dialog
         v-model="dialog"
-        width="600"
+        :width="dialogWidth"
+        :fullscreen="$vuetify.breakpoint.xs"
         persistent
         scrollable
     >
-        <v-card>
+        <v-card
+            width="100%"
+        >
             <v-toolbar
                 elevation="1"
             >

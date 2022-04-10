@@ -41,7 +41,12 @@ export default class TaskDetails extends AppBase {
         return !!this.detailedTask.permissions.task_can_edit_note;
     }
 
+    get dialogWidth() {
+        return this.$vuetify.breakpoint.xs ? '100%' : '600';
+    }
+
     async created() {
+
         this.startLoading();
         const result = await this.fetchTaskDetails( +this.taskId );
         this.endLoading();
