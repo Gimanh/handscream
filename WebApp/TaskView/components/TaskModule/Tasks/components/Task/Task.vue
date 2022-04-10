@@ -52,6 +52,7 @@
                     <task
                         :task="subtask"
                         :subtask="true"
+                        :restricted-mode="restrictedMode"
                     />
                 </v-col>
             </v-row>
