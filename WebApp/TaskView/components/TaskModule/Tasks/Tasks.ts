@@ -1,8 +1,8 @@
-import { Component, Prop, Watch } from 'vue-property-decorator';
+import { Component, Prop, Watch, Vue } from 'vue-property-decorator';
 import { Action, State } from 'vuex-class';
 import AppBase from '~/components/AppBase';
 import { TasksStoreActions } from '~/store/Tasks';
-import { AppTask, AppTasks } from '~/classes/util/TaskTypes';
+import { AppTask, AppTasks, FetchTasksArg } from '~/classes/util/TaskTypes';
 import { GoalListsState } from '~/store/GoalLists';
 
 @Component
@@ -13,6 +13,14 @@ export default class Tasks extends AppBase {
 
     public selected: number = 0;
 
+    public $refs!: {
+        list: Vue
+    }
+
+    public currentPage: number = 0;
+
+    public noMoreTasks: boolean = false;
+
     @State( state => state.Tasks.tasks ) tasks!: AppTasks;
 
     @State( state => state.GoalLists.lists ) lists!: GoalListsState['lists'];
@@ -21,11 +29,20 @@ export default class Tasks extends AppBase {
 
     @Watch( '$route.params.list' )
     async routeHandler( id: string ) {
+        this.currentPage = 0;
+        this.noMoreTasks = false;
         if ( id ) {
             this.startLoading();
-            await this.fetchTasks( +this.componentId );
+            await this.fetchTasks( this.fetchTasksArgs );
             this.endLoading();
         }
+    }
+
+    get fetchTasksArgs(): FetchTasksArg {
+        return {
+            componentId: +this.componentId,
+            page: this.currentPage
+        };
     }
 
     get canAddTasks(): boolean {
@@ -63,7 +80,24 @@ export default class Tasks extends AppBase {
 
     async created() {
         this.startLoading();
-        await this.fetchTasks( +this.componentId );
+        await this.fetchTasks( this.fetchTasksArgs );
         this.endLoading();
+        this.$refs.list.$el.addEventListener( 'scroll', this.onScroll );
+    }
+
+    async onScroll() {
+        if ( !this.loading && !this.noMoreTasks ) {
+            if ( ( ( this.$refs.list.$el.scrollTop + this.$refs.list.$el.clientHeight ) + 100 ) >= this.$refs.list.$el.scrollHeight ) {
+                this.currentPage++;
+                this.startLoading();
+                const result = await this.fetchTasks( this.fetchTasksArgs );
+                if ( result ) {
+                    if ( result.response.length === 0 ) {
+                        this.noMoreTasks = true;
+                    }
+                }
+                this.endLoading();
+            }
+        }
     }
 }

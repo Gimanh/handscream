@@ -126,3 +126,5 @@ export type MoveTaskArg = {
     listId: number
     taskId: number
 }
+
+export type FetchTasksArg = { componentId: number, page: number }

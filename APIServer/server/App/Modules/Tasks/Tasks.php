@@ -26,7 +26,7 @@ class Tasks implements IModule
         $this->config = $options;
         $this->auth = Modules::get('auth');
         $this->user = $this->auth->getUser();
-        $this->storage = new TasksStorage($this->user);
+        $this->storage = new TasksStorage($this->user, $this->config['tasksLimit'] ?? null);
         $this->createLogger();
     }
 
@@ -39,9 +39,9 @@ class Tasks implements IModule
      * @param int $componentId
      * @return array<int, TaskItem>
      */
-    public function fetchTasks(int $componentId): array
+    public function fetchTasks(int $componentId, int $page): array
     {
-        return $this->storage->fetchTasks($componentId);
+        return $this->storage->fetchTasks($componentId, $page);
     }
 
     public function updateTaskDescription(int $taskId, string $description): TaskItem|false

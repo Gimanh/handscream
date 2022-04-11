@@ -17,6 +17,7 @@
         />
         <v-list-item-group
             v-if="canWatchTasks"
+            ref="list"
             v-model="selected"
             class="app-scrolled-list"
         >

@@ -17,7 +17,13 @@ import {
     TaskNoteUpdateResponse,
     TaskNoteUpdateArg,
     TaskDeadlineUpdateArg,
-    TaskDeadlineUpdateResponse, SubtasksAddMutationArg, AppTasksMap, DetailedTaskResponse, MoveTaskResponse, MoveTaskArg
+    TaskDeadlineUpdateResponse,
+    SubtasksAddMutationArg,
+    AppTasksMap,
+    DetailedTaskResponse,
+    MoveTaskResponse,
+    MoveTaskArg,
+    FetchTasksArg
 } from '~/classes/util/TaskTypes';
 import { AppResponse } from '~/classes/util/AppTypes';
 
@@ -69,8 +75,14 @@ export class TasksMutations extends Mutations<TasksState> {
     }
 
     setTasks( tasks: AppTasks ) {
-        this.state.tasksMap.clear();
-        this.state.tasks = tasks;
+        if ( this.state.tasks.length > 0 ) {
+            if ( +this.state.tasks[ 0 ].goalListId !== +tasks[ 0 ].goalListId ) {
+                // clear tasks if new portion is from other list
+                this.state.tasksMap.clear();
+                this.state.tasks = [];
+            }
+        }
+        this.state.tasks = [ ...this.state.tasks, ...tasks ];
         for ( const k of this.state.tasks ) {
             this.state.tasksMap.set( +k.id, k );
         }
@@ -168,9 +180,9 @@ export class TasksStoreActions extends Actions<TasksState, TasksStoreGetters, Ta
         return result;
     }
 
-    async fetchTasks( componentId: number ): Promise<AppResponse<AppTasks> | void> {
-        this.mutations.setTasks( [] );
-        const result = await this.store.$axios.$get<AppResponse<AppTasks>>( `${ this.state.urls.fetchTasks }?componentId=${ componentId }` )
+    async fetchTasks( data: FetchTasksArg ): Promise<AppResponse<AppTasks> | void> {
+        // this.mutations.setTasks( [] );
+        const result = await this.store.$axios.$get<AppResponse<AppTasks>>( `${ this.state.urls.fetchTasks }?componentId=${ data.componentId }&page=${ data.page }` )
             .catch( err => console.log( err ) );
         if ( result ) {
             if ( result.response.length ) {

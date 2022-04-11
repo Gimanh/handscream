@@ -11,7 +11,7 @@ class TasksFetch extends TasksBaseHandler
 {
     public function __invoke(ServerRequest $request, ResponseInterface $response, RouteParams $routeParams): ResponseInterface
     {
-        $tasks = $this->tasks->fetchTasks((int)$request->getQueryParams()['componentId']) ?? [];
+        $tasks = $this->tasks->fetchTasks((int)$request->getQueryParams()['componentId'], (int)$request->getQueryParams()['page']) ?? [];
         return AppResponse::create($response, $tasks, $request->getAttribute('rid'));
     }
 }
