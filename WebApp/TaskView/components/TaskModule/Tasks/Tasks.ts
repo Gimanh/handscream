@@ -21,6 +21,8 @@ export default class Tasks extends AppBase {
 
     public noMoreTasks: boolean = false;
 
+    public showCompleted: boolean = false;
+
     @State( state => state.Tasks.tasks ) tasks!: AppTasks;
 
     @State( state => state.GoalLists.lists ) lists!: GoalListsState['lists'];
@@ -29,7 +31,9 @@ export default class Tasks extends AppBase {
 
     @Mutation( 'setCurrentListId', { namespace: 'Tasks' } ) setCurrentListId!: TasksMutations['setCurrentListId'];
 
-    @Watch( 'componentId' )
+    @Mutation( 'setTasks', { namespace: 'Tasks' } ) setTasks!: TasksMutations['setTasks'];
+
+    @Watch( 'componentId', { immediate: true } )
     async routeHandler( id: string, old: string ) {
         this.currentPage = 0;
         this.noMoreTasks = false;
@@ -43,10 +47,19 @@ export default class Tasks extends AppBase {
         }
     }
 
+    @Watch( 'showCompleted' )
+    async showCompletedHandler() {
+        this.setTasks( [] );
+        this.startLoading();
+        await this.fetchTasks( this.fetchTasksArgs );
+        this.endLoading();
+    }
+
     get fetchTasksArgs(): FetchTasksArg {
         return {
             componentId: +this.componentId,
-            page: this.currentPage
+            page: this.currentPage,
+            showCompleted: this.showCompleted ? 1 : 0
         };
     }
 
@@ -104,5 +117,9 @@ export default class Tasks extends AppBase {
                 this.endLoading();
             }
         }
+    }
+
+    showCompletedTasks( value: boolean ) {
+        this.showCompleted = value;
     }
 }

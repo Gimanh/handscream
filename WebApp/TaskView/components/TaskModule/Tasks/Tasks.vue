@@ -14,6 +14,7 @@
         <task-add
             v-if="canAddTasks"
             :component-id="componentId"
+            @showCompleted="showCompletedTasks"
         />
         <v-list-item-group
             v-if="canWatchTasks"

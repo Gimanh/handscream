@@ -15,7 +15,9 @@
                 @keypress.enter="add"
             >
                 <template #append-outer>
-                    <tasks-filters />
+                    <tasks-filters
+                        @showCompleted="showCompletedTasks"
+                    />
                 </template>
             </v-text-field>
         </v-form>

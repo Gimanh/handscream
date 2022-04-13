@@ -92,7 +92,7 @@ class TasksStorage
     /**
      * @return array<int, TaskItem>
      */
-    public function fetchTasks(int $componentId, int $page): array
+    public function fetchTasks(int $componentId, int $page, int $showCompleted): array
     {
         $offset = 0;
         if ($page > 0) {
@@ -105,8 +105,9 @@ class TasksStorage
                                                 where t.goal_list_id = ?
                                                   and utp.user_id = ?
                                                   and parent_id is null
+                                                  and complete = ?
                                                 order by t.id desc
-                                                offset ? limit ?;', [$componentId, $this->user->getId(), $offset, $this->limit]);
+                                                offset ? limit ?;', [$componentId, $this->user->getId(), $showCompleted, $offset, $this->limit]);
             return $this->convertTasksToTaskItem($tasks);
         }
         return [];

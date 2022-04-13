@@ -78,4 +78,8 @@ export default class TaskAdd extends AppBase {
             }
         }
     }
+
+    showCompletedTasks( show: boolean ) {
+        this.$emit( 'showCompleted', show );
+    }
 }

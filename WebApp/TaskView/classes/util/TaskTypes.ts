@@ -127,4 +127,8 @@ export type MoveTaskArg = {
     taskId: number
 }
 
-export type FetchTasksArg = { componentId: number, page: number }
+export type FetchTasksArg = {
+    componentId: number
+    page: number
+    showCompleted: 1 | 0
+}

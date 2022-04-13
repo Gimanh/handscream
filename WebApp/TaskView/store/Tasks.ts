@@ -67,8 +67,6 @@ export class TasksState {
 
     public currentListId: number = DEFAULT_LIST_ID;
 
-    public oldListId: number = DEFAULT_LIST_ID;
-
     public lastCompletedTask: number = DEFAULT_COMPLETED_TASK_ID;
 }
 
@@ -85,7 +83,7 @@ export class TasksMutations extends Mutations<TasksState> {
 
     setCurrentListId( id: number ) {
         this.state.currentListId = id;
-        this.setTasks([]);
+        this.setTasks( [] );
     }
 
     setTasks( tasks: AppTasks ) {
@@ -196,12 +194,13 @@ export class TasksStoreActions extends Actions<TasksState, TasksStoreGetters, Ta
     }
 
     async fetchTasks( data: FetchTasksArg ): Promise<AppResponse<AppTasks> | void> {
+        console.log( data );
         let addMore: boolean = true;
         if ( this.state.currentListId !== data.componentId ) {
             this.mutations.setTasks( [] );
             addMore = false;
         }
-        const result = await this.store.$axios.$get<AppResponse<AppTasks>>( `${ this.state.urls.fetchTasks }?componentId=${ data.componentId }&page=${ data.page }` )
+        const result = await this.store.$axios.$get<AppResponse<AppTasks>>( `${ this.state.urls.fetchTasks }?componentId=${ data.componentId }&page=${ data.page }&showCompleted=${ data.showCompleted }` )
             .catch( err => console.log( err ) );
         if ( result && result.response ) {
             if ( addMore ) {
