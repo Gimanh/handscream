@@ -33,12 +33,13 @@ export default class Tasks extends AppBase {
 
     @Mutation( 'setTasks', { namespace: 'Tasks' } ) setTasks!: TasksMutations['setTasks'];
 
-    @Watch( 'componentId', { immediate: true } )
+    @Watch( 'componentId' )
     async routeHandler( id: string, old: string ) {
         this.currentPage = 0;
         this.noMoreTasks = false;
         if ( id !== old ) {
             this.setCurrentListId( +id );
+            this.setTasks( [] );
         }
         if ( id ) {
             this.startLoading();

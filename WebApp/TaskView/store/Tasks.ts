@@ -83,7 +83,6 @@ export class TasksMutations extends Mutations<TasksState> {
 
     setCurrentListId( id: number ) {
         this.state.currentListId = id;
-        this.setTasks( [] );
     }
 
     setTasks( tasks: AppTasks ) {
