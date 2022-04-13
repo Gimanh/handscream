@@ -13,7 +13,11 @@
                 :append-icon="iconForInput"
                 @input="inputHandler"
                 @keypress.enter="add"
-            />
+            >
+                <template #append-outer>
+                    <tasks-filters />
+                </template>
+            </v-text-field>
         </v-form>
     </div>
 </template>

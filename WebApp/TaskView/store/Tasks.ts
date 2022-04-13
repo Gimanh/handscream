@@ -42,6 +42,9 @@ export const DETAILED_TASK: DetailedTask = {
     goalListId: -1
 };
 
+export const DEFAULT_LIST_ID = -1;
+export const DEFAULT_COMPLETED_TASK_ID = -1;
+
 export class TasksState {
     public tasks: AppTasks = [];
 
@@ -61,6 +64,12 @@ export class TasksState {
     public detailedTask: DetailedTask = DETAILED_TASK;
 
     public tasksMap: AppTasksMap = new Map<number, AppTask>();
+
+    public currentListId: number = DEFAULT_LIST_ID;
+
+    public oldListId: number = DEFAULT_LIST_ID;
+
+    public lastCompletedTask: number = DEFAULT_COMPLETED_TASK_ID;
 }
 
 export class TasksMutations extends Mutations<TasksState> {
@@ -74,14 +83,20 @@ export class TasksMutations extends Mutations<TasksState> {
         this.state.tasksMap.set( +task.id, task );
     }
 
+    setCurrentListId( id: number ) {
+        this.state.currentListId = id;
+        this.setTasks([]);
+    }
+
     setTasks( tasks: AppTasks ) {
-        if ( this.state.tasks.length > 0 ) {
-            if ( +this.state.tasks[ 0 ].goalListId !== +tasks[ 0 ].goalListId ) {
-                // clear tasks if new portion is from other list
-                this.state.tasksMap.clear();
-                this.state.tasks = [];
-            }
+        this.state.tasksMap.clear();
+        this.state.tasks = tasks;
+        for ( const k of this.state.tasks ) {
+            this.state.tasksMap.set( +k.id, k );
         }
+    }
+
+    addTasks( tasks: AppTasks ) {
         this.state.tasks = [ ...this.state.tasks, ...tasks ];
         for ( const k of this.state.tasks ) {
             this.state.tasksMap.set( +k.id, k );
@@ -181,11 +196,17 @@ export class TasksStoreActions extends Actions<TasksState, TasksStoreGetters, Ta
     }
 
     async fetchTasks( data: FetchTasksArg ): Promise<AppResponse<AppTasks> | void> {
-        // this.mutations.setTasks( [] );
+        let addMore: boolean = true;
+        if ( this.state.currentListId !== data.componentId ) {
+            this.mutations.setTasks( [] );
+            addMore = false;
+        }
         const result = await this.store.$axios.$get<AppResponse<AppTasks>>( `${ this.state.urls.fetchTasks }?componentId=${ data.componentId }&page=${ data.page }` )
             .catch( err => console.log( err ) );
-        if ( result ) {
-            if ( result.response.length ) {
+        if ( result && result.response ) {
+            if ( addMore ) {
+                this.mutations.addTasks( result.response );
+            } else {
                 this.mutations.setTasks( result.response );
             }
         }

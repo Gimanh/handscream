@@ -4,6 +4,7 @@
         :disabled="!allowed"
         :input-value="complete"
         @change="emitChange"
+        @click.prevent
     />
 </template>
 

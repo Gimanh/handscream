@@ -1,7 +1,7 @@
 import { Component, Prop, Watch, Vue } from 'vue-property-decorator';
-import { Action, State } from 'vuex-class';
+import { Action, Mutation, State } from 'vuex-class';
 import AppBase from '~/components/AppBase';
-import { TasksStoreActions } from '~/store/Tasks';
+import { TasksMutations, TasksStoreActions } from '~/store/Tasks';
 import { AppTask, AppTasks, FetchTasksArg } from '~/classes/util/TaskTypes';
 import { GoalListsState } from '~/store/GoalLists';
 
@@ -27,10 +27,15 @@ export default class Tasks extends AppBase {
 
     @Action( 'fetchTasks', { namespace: 'Tasks' } ) fetchTasks!: TasksStoreActions['fetchTasks'];
 
+    @Mutation( 'setCurrentListId', { namespace: 'Tasks' } ) setCurrentListId!: TasksMutations['setCurrentListId'];
+
     @Watch( '$route.params.list' )
-    async routeHandler( id: string ) {
+    async routeHandler( id: string, old: string ) {
         this.currentPage = 0;
         this.noMoreTasks = false;
+        if ( id !== old ) {
+            this.setCurrentListId( +id );
+        }
         if ( id ) {
             this.startLoading();
             await this.fetchTasks( this.fetchTasksArgs );
