@@ -29,7 +29,7 @@ export default class Tasks extends AppBase {
 
     @Mutation( 'setCurrentListId', { namespace: 'Tasks' } ) setCurrentListId!: TasksMutations['setCurrentListId'];
 
-    @Watch( '$route.params.list' )
+    @Watch( 'componentId' )
     async routeHandler( id: string, old: string ) {
         this.currentPage = 0;
         this.noMoreTasks = false;
