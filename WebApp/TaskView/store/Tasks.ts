@@ -74,9 +74,9 @@ export class TasksMutations extends Mutations<TasksState> {
     addTask( task: AppTask ) {
         if ( task.parentId !== null ) {
             const tsk = this.state.tasksMap.get( +task.parentId );
-            tsk?.subtasks.push( task );
+            tsk?.subtasks.unshift( task );
         } else {
-            this.state.tasks.push( task );
+            this.state.tasks.unshift( task );
         }
         this.state.tasksMap.set( +task.id, task );
     }
