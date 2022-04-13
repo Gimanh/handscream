@@ -49,6 +49,8 @@ export default class Tasks extends AppBase {
 
     @Watch( 'showCompleted' )
     async showCompletedHandler() {
+        this.currentPage = 0;
+        this.noMoreTasks = false;
         this.setTasks( [] );
         this.startLoading();
         await this.fetchTasks( this.fetchTasksArgs );
