@@ -109,6 +109,7 @@ export class TasksMutations extends Mutations<TasksState> {
         if ( this.state.detailedTask.id === task.id ) {
             this.state.detailedTask.complete = task.complete;
         }
+        this.deleteTask( task.id );
     }
 
     updateTaskDescription( task: AppTask ) {
