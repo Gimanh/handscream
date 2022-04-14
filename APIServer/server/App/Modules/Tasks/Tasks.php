@@ -104,4 +104,14 @@ class Tasks implements IModule
     {
         return $this->storage->moveTask($taskId, $goalListId);
     }
+
+    public function fetchAppPriorities(): array
+    {
+        return $this->storage->fetchAppPriorities();
+    }
+
+    public function updatePriority(int $taskId, int $priorityId): bool
+    {
+        return $this->storage->updatePriority($taskId, $priorityId);
+    }
 }

@@ -206,4 +206,22 @@ class TasksStorage
             ]
         ]);
     }
+
+    public function fetchAppPriorities(): array
+    {
+        return $this->db->select('select * from tasks.priority order by id', []);
+    }
+
+    public function updatePriority(int $taskId, int $priorityId): bool
+    {
+        return $this->db->update([
+            'table' => 'tasks.tasks',
+            'data' => [
+                'priority_id' => $priorityId
+            ],
+            'where' => [
+                'id' => $taskId,
+            ]
+        ]);
+    }
 }

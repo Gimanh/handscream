@@ -29,6 +29,8 @@ export default class Tasks extends AppBase {
 
     @Action( 'fetchTasks', { namespace: 'Tasks' } ) fetchTasks!: TasksStoreActions['fetchTasks'];
 
+    @Action( 'fetchPriorities', { namespace: 'Tasks' } ) fetchPriorities!: TasksStoreActions['fetchPriorities'];
+
     @Mutation( 'setCurrentListId', { namespace: 'Tasks' } ) setCurrentListId!: TasksMutations['setCurrentListId'];
 
     @Mutation( 'setTasks', { namespace: 'Tasks' } ) setTasks!: TasksMutations['setTasks'];
@@ -101,6 +103,7 @@ export default class Tasks extends AppBase {
 
     async created() {
         this.startLoading();
+        await this.fetchPriorities();
         await this.fetchTasks( this.fetchTasksArgs );
         this.endLoading();
         this.$refs.list.$el.addEventListener( 'scroll', this.onScroll );

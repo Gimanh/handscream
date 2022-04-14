@@ -87,5 +87,21 @@
         "method": "POST",
         "route": "/module/tasks/move/task",
         "handler": "App\\Modules\\Tasks\\Handlers\\TasksMove"
+    },
+    {
+        "middlewares": [
+            "isLoggedIn"
+        ],
+        "method": "GET",
+        "route": "/module/tasks/fetch/all/priorities",
+        "handler": "App\\Modules\\Tasks\\Handlers\\TasksAllPriorities"
+    },
+    {
+        "middlewares": [
+            "isLoggedIn"
+        ],
+        "method": "POST",
+        "route": "/module/tasks/update/priority",
+        "handler": "App\\Modules\\Tasks\\Handlers\\TaskPriorityUpdate"
     }
 ]

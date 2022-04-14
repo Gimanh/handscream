@@ -23,7 +23,7 @@ import {
     DetailedTaskResponse,
     MoveTaskResponse,
     MoveTaskArg,
-    FetchTasksArg
+    FetchTasksArg, TaskPriorities, TaskPrioritiesResponse, TaskPriorityUpdateResponse, UpdateTaskPriorityArg
 } from '~/classes/util/TaskTypes';
 import { AppResponse } from '~/classes/util/AppTypes';
 
@@ -39,7 +39,8 @@ export const DETAILED_TASK: DetailedTask = {
     parentId: null,
     subtasks: [],
     permissions: {},
-    goalListId: -1
+    goalListId: -1,
+    priorityId: -1
 };
 
 export const DEFAULT_LIST_ID = -1;
@@ -58,7 +59,9 @@ export class TasksState {
         updateTaskNote: '/module/tasks/update/note',
         updateTaskDeadline: '/module/tasks/update/deadline',
         fetchSubtasks: '/module/tasks/fetch/subtasks',
-        moveTask: '/module/tasks/move/task'
+        moveTask: '/module/tasks/move/task',
+        allPriorities: '/module/tasks/fetch/all/priorities',
+        updatePriority: '/module/tasks/update/priority'
     };
 
     public detailedTask: DetailedTask = DETAILED_TASK;
@@ -68,6 +71,8 @@ export class TasksState {
     public currentListId: number = DEFAULT_LIST_ID;
 
     public lastCompletedTask: number = DEFAULT_COMPLETED_TASK_ID;
+
+    public priorities: TaskPriorities = [];
 }
 
 export class TasksMutations extends Mutations<TasksState> {
@@ -166,6 +171,21 @@ export class TasksMutations extends Mutations<TasksState> {
         }
         if ( this.state.detailedTask.id === data.taskId ) {
             this.state.detailedTask.subtasks = data.subtasks;
+        }
+    }
+
+    setPriorities( priorities: TaskPriorities ) {
+        this.state.priorities = priorities;
+    }
+
+    setTaskPriority( data: UpdateTaskPriorityArg ) {
+        debugger
+        const tsk = this.state.tasksMap.get( +data.taskId );
+        if ( tsk ) {
+            tsk.priorityId = data.priorityId;
+        }
+        if ( this.state.detailedTask.id === data.taskId ) {
+            this.state.detailedTask.priorityId = data.priorityId;
         }
     }
 }
@@ -296,6 +316,25 @@ export class TasksStoreActions extends Actions<TasksState, TasksStoreGetters, Ta
         const result = await this.store.$axios.$post<MoveTaskResponse>( this.state.urls.moveTask, qs.stringify( data ) );
         if ( result ) {
             this.mutations.deleteTask( data.taskId );
+        }
+        return result;
+    }
+
+    async fetchPriorities(): Promise<TaskPrioritiesResponse> {
+        const result = await this.store.$axios.$get<TaskPrioritiesResponse>( this.state.urls.allPriorities );
+        if ( result ) {
+            this.mutations.setPriorities( result.response );
+        }
+        return result;
+    }
+
+    async updateTaskPriority( data: UpdateTaskPriorityArg ): Promise<TaskPriorityUpdateResponse> {
+        const result = await this.store.$axios.$post<TaskPriorityUpdateResponse>(
+            this.state.urls.updatePriority,
+            qs.stringify( data )
+        );
+        if ( result ) {
+            this.mutations.setTaskPriority( data );
         }
         return result;
     }

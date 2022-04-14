@@ -22,6 +22,7 @@ class TaskItem
     public array $subtasks = [];
     public TaskPermissions $permissions;
     public array $responsibleUser;
+    public ?int $priorityId;
 
     public function __construct(array $task)
     {
@@ -40,6 +41,7 @@ class TaskItem
         $this->deadline = $task['deadline'] ?? null;
         $this->dateComplete = $task['date_complete'] ?? null;
         $this->note = $task['note'] ?? null;
+        $this->priorityId = $task['priority_id'];
         $this->permissions = new TaskPermissions($task['permissions']);
     }
 

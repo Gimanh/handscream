@@ -23,5 +23,20 @@
         "description": [
             "Added admin tables"
         ]
+    },
+    "2": {
+        "version": "1.1.0",
+        "name": "Primus gradus",
+        "releaseDate": "20220313",
+        "scripts": [
+            "/1.1.0/tasks_priority.sql",
+            "/1.1.0/tasks_priority_column.sql"
+        ],
+        "description": [
+            "Dynamic task list loading",
+            "Hide completed tasks",
+            "Toggle completed and incomplete tasks",
+            "Added priority for tasks"
+        ]
     }
 }

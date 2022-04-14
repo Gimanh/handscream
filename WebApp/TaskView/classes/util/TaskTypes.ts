@@ -29,6 +29,7 @@ export interface AppTask {
     note: string | null
     subtasks: AppTask[]
     permissions: AppTaskPermissions
+    priorityId: number
 }
 
 export type AppTasks = AppTask[];
@@ -57,6 +58,8 @@ export type TasksStoreStateUrls = {
     updateTaskDeadline: string
     fetchSubtasks: string
     moveTask: string
+    allPriorities: string
+    updatePriority: string
 }
 
 export type TaskCompleteChanged = {
@@ -132,3 +135,16 @@ export type FetchTasksArg = {
     page: number
     showCompleted: 1 | 0
 }
+
+export type TTaskPriority = {
+    id: number,
+    code: 'low' | 'high' | 'medium'
+};
+
+export type TaskPriorities = TTaskPriority[];
+
+export type TaskPrioritiesResponse = AppResponse<TaskPriorities>;
+
+export type TaskPriorityUpdateResponse = AppResponse<{ update: boolean }>;
+
+export type UpdateTaskPriorityArg = { priorityId: number, taskId: number };

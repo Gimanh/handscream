@@ -206,5 +206,10 @@
         "deleteUser": "Deleting a user",
         "doDeleting": "Do you want delete selected users?",
         "search": "Search"
+    },
+    "priority": {
+        "high": "High",
+        "low": "Low",
+        "medium": "Medium"
     }
 }

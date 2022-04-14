@@ -45,6 +45,15 @@
                     </v-col>
                     <v-col
                         cols="12"
+                        class="pa-0 pl-15"
+                    >
+                        <task-priority
+                            :task-id="detailedTask.id"
+                            :currently-selected="detailedTask.priorityId"
+                        />
+                    </v-col>
+                    <v-col
+                        cols="12"
                     >
                         <v-card
                             elevation="1"
