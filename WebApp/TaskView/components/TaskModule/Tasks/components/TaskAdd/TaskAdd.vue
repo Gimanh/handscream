@@ -14,7 +14,7 @@
                 @input="inputHandler"
                 @keypress.enter="add"
             >
-                <template #append-outer>
+                <template v-if="!modeSubtask" #append-outer>
                     <tasks-filters
                         @showCompleted="showCompletedTasks"
                     />
