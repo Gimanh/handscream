@@ -30,13 +30,15 @@
         "releaseDate": "20220313",
         "scripts": [
             "/1.1.0/tasks_priority.sql",
-            "/1.1.0/tasks_priority_column.sql"
+            "/1.1.0/tasks_priority_column.sql",
+            "/1.1.0/tasks_tags.sql"
         ],
         "description": [
             "Dynamic task list loading",
             "Hide completed tasks",
             "Toggle completed and incomplete tasks",
-            "Added priority for tasks"
+            "Added priority for tasks",
+            "Added tags for tasks"
         ]
     }
 }

@@ -1,4 +1,5 @@
 import { AppResponse } from '~/classes/util/AppTypes';
+import { TagItem } from '~/classes/util/TagsTypes';
 
 export type AppTaskPermissions = {
     // eslint-disable-next-line
@@ -30,6 +31,7 @@ export interface AppTask {
     subtasks: AppTask[]
     permissions: AppTaskPermissions
     priorityId: number
+    tags: number[]
 }
 
 export type AppTasks = AppTask[];
@@ -147,4 +149,8 @@ export type TaskPrioritiesResponse = AppResponse<TaskPriorities>;
 
 export type TaskPriorityUpdateResponse = AppResponse<{ update: boolean }>;
 
-export type UpdateTaskPriorityArg = { priorityId: number, taskId: number };
+export type UpdateTaskPriorityArg = { priorityId: number, taskId: number, taskParentId: AppTask['parentId'] };
+
+export type AddTagToTaskArg = { taskId: TaskIdArg, tagId: TagItem['id'], taskParentId: AppTask['parentId'] };
+
+export type DeleteTagFromTask = { taskId: TaskIdArg, tagId: TagItem['id'], taskParentId: AppTask['parentId'] };

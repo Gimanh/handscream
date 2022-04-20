@@ -48,8 +48,14 @@
                         class="pa-0 pl-15"
                     >
                         <task-priority
-                            :task-id="detailedTask.id"
+                            :task="detailedTask"
+
                             :currently-selected="detailedTask.priorityId"
+                        />
+                    </v-col>
+                    <v-col>
+                        <task-tags
+                            :task="detailedTask"
                         />
                     </v-col>
                     <v-col

@@ -27,6 +27,9 @@
                     @showDetails="goToDetails"
                 />
             </v-list-item-content>
+            <task-visual-info
+                :task="task"
+            />
         </v-list-item>
         <div v-if="canWatchSubtasks">
             <v-row

@@ -4,6 +4,7 @@ import AppBase from '~/components/AppBase';
 import { TasksMutations, TasksStoreActions } from '~/store/Tasks';
 import { AppTask, AppTasks, FetchTasksArg } from '~/classes/util/TaskTypes';
 import { GoalListsState } from '~/store/GoalLists';
+import { TagsStoreActions } from '~/store/Tags';
 
 @Component
 export default class Tasks extends AppBase {
@@ -30,6 +31,8 @@ export default class Tasks extends AppBase {
     @Action( 'fetchTasks', { namespace: 'Tasks' } ) fetchTasks!: TasksStoreActions['fetchTasks'];
 
     @Action( 'fetchPriorities', { namespace: 'Tasks' } ) fetchPriorities!: TasksStoreActions['fetchPriorities'];
+
+    @Action( 'fetchTags', { namespace: 'Tags' } ) fetchTags!: TagsStoreActions['fetchTags'];
 
     @Mutation( 'setCurrentListId', { namespace: 'Tasks' } ) setCurrentListId!: TasksMutations['setCurrentListId'];
 
@@ -103,6 +106,7 @@ export default class Tasks extends AppBase {
 
     async created() {
         this.startLoading();
+        await this.fetchTags();
         await this.fetchPriorities();
         await this.fetchTasks( this.fetchTasksArgs );
         this.endLoading();

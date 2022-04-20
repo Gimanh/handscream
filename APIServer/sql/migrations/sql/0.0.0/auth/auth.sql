@@ -76,7 +76,7 @@ CREATE TABLE IF NOT EXISTS tv_auth.group_to_roles
             on delete cascade,
     role_id  int
         constraint fr_role_id_group_to_roles
-            references tv_auth.roles
+            references tv_auth.roles (id)
             on delete cascade,
     PRIMARY KEY (group_id, role_id)
 );
@@ -89,7 +89,7 @@ CREATE TABLE IF NOT EXISTS tv_auth.role_to_permissions
             on delete cascade,
     permission_id int
         constraint fr_permission_id_role_to_permissions
-            references tv_auth.permissions
+            references tv_auth.permissions (id)
             on delete cascade,
     PRIMARY KEY (permission_id, role_id)
 );

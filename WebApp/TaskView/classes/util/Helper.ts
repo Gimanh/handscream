@@ -1,3 +1,5 @@
+import { TTaskPriority } from '~/classes/util/TaskTypes';
+
 export function parseJwt<R>( token: string ): R {
     const base64Url = token.split( '.' )[ 1 ];
     const base64 = base64Url.replace( /-/g, '+' ).replace( /_/g, '/' );
@@ -15,4 +17,26 @@ export function isEmail( email: string ): boolean {
 export function validLogin( login: string ) {
     const re = /^[a-z0-9]{4,30}$/;
     return re.test( String( login ).toLowerCase() );
+}
+
+export function getRandomColor(): string {
+    const letters = '0123456789ABCDEF';
+    let color = '#';
+    for ( let i = 0; i < 6; i++ ) {
+        color += letters[ Math.floor( Math.random() * 16 ) ];
+    }
+    return color;
+}
+
+export function getColor( priority: TTaskPriority ): string {
+    if ( priority.code === 'high' ) {
+        return 'red';
+    }
+    if ( priority.code === 'low' ) {
+        return 'grey';
+    }
+    if ( priority.code === 'medium' ) {
+        return 'orange';
+    }
+    return 'green';
 }

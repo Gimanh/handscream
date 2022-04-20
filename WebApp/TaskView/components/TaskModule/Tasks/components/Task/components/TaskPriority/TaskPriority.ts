@@ -2,7 +2,8 @@ import { Component, Prop } from 'vue-property-decorator';
 import { Action, State } from 'vuex-class';
 import AppBase from '~/components/AppBase';
 import { TasksState, TasksStoreActions } from '~/store/Tasks';
-import { TTaskPriority } from '~/classes/util/TaskTypes';
+import { AppTask, TTaskPriority } from '~/classes/util/TaskTypes';
+import { getColor } from '~/classes/util/Helper';
 
 @Component
 export default class TaskPriority extends AppBase {
@@ -10,8 +11,11 @@ export default class TaskPriority extends AppBase {
     @Prop( { default: false } )
     public currentlySelected!: number;
 
-    @Prop( { default: false } )
-    public taskId!: number;
+    @Prop( {
+        default: () => {
+        }
+    } )
+    public task!: AppTask;
 
     public selected: number | null = null;
 
@@ -23,11 +27,12 @@ export default class TaskPriority extends AppBase {
         this.selected = this.currentlySelected;
     }
 
-    async priorityChanged(id:number) {
+    async priorityChanged( id: number ) {
         if ( this.selected !== null ) {
             await this.updateTaskPriority( {
-                taskId: this.taskId,
-                priorityId: id
+                taskId: this.task.id,
+                priorityId: id,
+                taskParentId: this.task.parentId
             } );
         }
     }
@@ -45,17 +50,8 @@ export default class TaskPriority extends AppBase {
         return '---';
     }
 
-    getColor( priority: TTaskPriority ): string {
-        if ( priority.code === 'high' ) {
-            return 'red';
-        }
-        if ( priority.code === 'low' ) {
-            return 'grey';
-        }
-        if ( priority.code === 'medium' ) {
-            return 'orange';
-        }
-        return 'green';
+    getRadioColor( priority: TTaskPriority ): string {
+        return getColor( priority );
     }
 
 }

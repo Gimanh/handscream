@@ -23,6 +23,7 @@ class TaskItem
     public TaskPermissions $permissions;
     public array $responsibleUser;
     public ?int $priorityId;
+    public array $tags = [];
 
     public function __construct(array $task)
     {
@@ -43,6 +44,7 @@ class TaskItem
         $this->note = $task['note'] ?? null;
         $this->priorityId = $task['priority_id'];
         $this->permissions = new TaskPermissions($task['permissions']);
+        $this->tags = $task['tags'] ?? [];
     }
 
     public function setResponsibleUser(array $responsibleUser): void

@@ -139,7 +139,8 @@
         "checkEmail": "Check email",
         "sendRecoveryEmailError": "Can not send email with recovery link, please try later.",
         "canNotResetPassword": "Can not reset password.",
-        "passwordStrength": "Password is not strength."
+        "passwordStrength": "Password is not strength.",
+        "tags": "Tags"
     },
     "stn": {
         "showCompletedItems": "Do not hide completed tasks",

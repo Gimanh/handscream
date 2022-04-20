@@ -44,3 +44,6 @@ export * from './TaskModule/Tasks/components/Task/components/actions/ActionMoveT
 export * from './TaskModule/Tasks/components/TasksFilters';
 export * from './TaskModule/Tasks/components/TasksCompleted';
 export * from './TaskModule/Tasks/components/Task/components/TaskPriority';
+export * from './TaskModule/Tasks/components/Task/components/TaskTags';
+export * from './TaskModule/Tasks/components/Task/components/TaskTags/components/TasksTagAdd';
+export * from './TaskModule/Tasks/components/Task/components/TaskVisualInfo';

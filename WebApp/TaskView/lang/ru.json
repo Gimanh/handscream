@@ -139,7 +139,8 @@
         "checkEmail": "Проветрте почту",
         "sendRecoveryEmailError": "Не удалось отправить ссылку для восстановления пароля, попробуйте позже.",
         "canNotResetPassword": "Не удалось сбросить пароль.",
-        "passwordStrength": "Пароль не надежный."
+        "passwordStrength": "Пароль не надежный.",
+        "tags": "Тэги"
     },
     "stn": {
         "showCompletedItems": "Не скрывать выполненые задачи",

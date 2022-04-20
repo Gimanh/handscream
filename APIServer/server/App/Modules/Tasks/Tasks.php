@@ -114,4 +114,12 @@ class Tasks implements IModule
     {
         return $this->storage->updatePriority($taskId, $priorityId);
     }
+
+    /**
+     * @return User|null
+     */
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
 }

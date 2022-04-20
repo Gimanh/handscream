@@ -23,7 +23,12 @@ import {
     DetailedTaskResponse,
     MoveTaskResponse,
     MoveTaskArg,
-    FetchTasksArg, TaskPriorities, TaskPrioritiesResponse, TaskPriorityUpdateResponse, UpdateTaskPriorityArg
+    FetchTasksArg,
+    TaskPriorities,
+    TaskPrioritiesResponse,
+    TaskPriorityUpdateResponse,
+    UpdateTaskPriorityArg,
+    AddTagToTaskArg, DeleteTagFromTask
 } from '~/classes/util/TaskTypes';
 import { AppResponse } from '~/classes/util/AppTypes';
 
@@ -40,7 +45,8 @@ export const DETAILED_TASK: DetailedTask = {
     subtasks: [],
     permissions: {},
     goalListId: -1,
-    priorityId: -1
+    priorityId: -1,
+    tags: []
 };
 
 export const DEFAULT_LIST_ID = -1;
@@ -76,6 +82,7 @@ export class TasksState {
 }
 
 export class TasksMutations extends Mutations<TasksState> {
+
     addTask( task: AppTask ) {
         if ( task.parentId !== null ) {
             const tsk = this.state.tasksMap.get( +task.parentId );
@@ -179,13 +186,67 @@ export class TasksMutations extends Mutations<TasksState> {
     }
 
     setTaskPriority( data: UpdateTaskPriorityArg ) {
-        debugger
-        const tsk = this.state.tasksMap.get( +data.taskId );
+        const mainTaskId = data.taskParentId ? data.taskParentId : data.taskId;
+        let tsk = this.state.tasksMap.get( +mainTaskId );
         if ( tsk ) {
+            if ( data.taskParentId ) {
+                for ( const t of tsk.subtasks ) {
+                    if ( +t.id === +data.taskId ) {
+                        tsk = t;
+                        break;
+                    }
+                }
+            }
+
             tsk.priorityId = data.priorityId;
         }
         if ( this.state.detailedTask.id === data.taskId ) {
             this.state.detailedTask.priorityId = data.priorityId;
+        }
+    }
+
+    addTagToTask( data: AddTagToTaskArg ) {
+        const mainTaskId = data.taskParentId ? data.taskParentId : data.taskId;
+        let tsk = this.state.tasksMap.get( +mainTaskId );
+        if ( tsk ) {
+            if ( data.taskParentId ) {
+                for ( const t of tsk.subtasks ) {
+                    if ( +t.id === +data.taskId ) {
+                        tsk = t;
+                        break;
+                    }
+                }
+            }
+            tsk.tags.push( +data.tagId );
+        }
+        if ( +this.state.detailedTask.id === +data.taskId ) {
+            this.state.detailedTask.tags.push( +data.tagId );
+        }
+    }
+
+    deleteTagFromTask( data: DeleteTagFromTask ) {
+        const mainTaskId = data.taskParentId ? data.taskParentId : data.taskId;
+        let tsk = this.state.tasksMap.get( +mainTaskId );
+        if ( tsk ) {
+            if ( data.taskParentId ) {
+                for ( const t of tsk.subtasks ) {
+                    if ( +t.id === +data.taskId ) {
+                        tsk = t;
+                        break;
+                    }
+                }
+            }
+            const index = tsk.tags.indexOf( +data.tagId );
+            if ( index !== -1 ) {
+                tsk.tags.splice( index, 1 );
+            }
+
+        }
+        if ( +this.state.detailedTask.id === +data.taskId ) {
+            const index = this.state.detailedTask.tags.indexOf( +data.tagId );
+            if ( index !== -1 ) {
+                this.state.detailedTask.tags.splice( index, 1 );
+            }
         }
     }
 }

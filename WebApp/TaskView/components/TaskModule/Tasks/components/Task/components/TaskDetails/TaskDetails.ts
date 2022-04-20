@@ -46,7 +46,6 @@ export default class TaskDetails extends AppBase {
     }
 
     async created() {
-
         this.startLoading();
         const result = await this.fetchTaskDetails( +this.taskId );
         this.endLoading();

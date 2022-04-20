@@ -13,7 +13,7 @@
                 v-for="(priority, index) in priorities"
                 :key="index"
                 :label="getLabel(priority)"
-                :color="getColor(priority)"
+                :color="getRadioColor(priority)"
                 :value="priority.id"
                 @change="priorityChanged(priority.id)"
             />

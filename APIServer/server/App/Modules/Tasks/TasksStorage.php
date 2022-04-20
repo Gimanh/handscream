@@ -17,6 +17,8 @@ class TasksStorage
 
     protected ?PDOStatement $tasksPermissionsStatement = null;
 
+    protected ?PDOStatement $taskFetchTagsStatement = null;
+
     protected int $limit = 20;
 
     public function __construct(?User $user = null, ?int $limit = null)
@@ -63,18 +65,39 @@ class TasksStorage
      */
     protected function convertTasksToTaskItem(array $tasks = []): array
     {
+        $processedTasks = [];
         $result = [];
         foreach ($tasks as &$task) {
-            $taskPermissions = $this->fetchTaskPermissions($task['id']);
-            foreach ($taskPermissions as $permission) {
-                $task['permissions'][$permission['name']] = true;
+            if (!isset($processedTasks[$task['id']])) {
+                $taskPermissions = $this->fetchTaskPermissions($task['id']);
+                foreach ($taskPermissions as $permission) {
+                    $task['permissions'][$permission['name']] = true;
+                }
+                $task['tags'] = $this->fetchTagIdsForTask($task['id']);
+                $result[] = new TaskItem($task);
+                $processedTasks[$task['id']] = true;
             }
-            $result[] = new TaskItem($task);
         }
         return $result;
     }
 
-    public function fetchTaskPermissions($taskId): array
+    public function fetchTagIdsForTask(int $taskId)
+    {
+        $pdo = $this->db->getConnection();
+        if (!$this->taskFetchTagsStatement) {
+            $this->taskFetchTagsStatement = $pdo->prepare('select tag_id from tasks.tasks_to_tags where task_id = ?');
+        }
+        $status = $this->taskFetchTagsStatement->execute([$taskId]);
+        if ($status) {
+            $tags = $this->taskFetchTagsStatement->fetchAll(PDO::FETCH_ASSOC);
+            return array_map(function ($item) {
+                return $item['tag_id'];
+            }, $tags);
+        }
+        return [];
+    }
+
+    public function fetchTaskPermissions(int $taskId): array
     {
         $pdo = $this->db->getConnection();
         if (!$this->tasksPermissionsStatement) {
