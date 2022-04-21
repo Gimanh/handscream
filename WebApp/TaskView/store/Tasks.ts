@@ -31,6 +31,7 @@ import {
     AddTagToTaskArg, DeleteTagFromTask
 } from '~/classes/util/TaskTypes';
 import { AppResponse } from '~/classes/util/AppTypes';
+import { TagItem } from '~/classes/util/TagsTypes';
 
 export const DETAILED_TASK: DetailedTask = {
     id: -1,
@@ -248,6 +249,26 @@ export class TasksMutations extends Mutations<TasksState> {
                 this.state.detailedTask.tags.splice( index, 1 );
             }
         }
+    }
+
+    deleteTagFromAllTasks( tag: TagItem ) {
+        for ( const task of this.state.tasks ) {
+            const index = task.tags.indexOf( +tag.id );
+            if ( index !== -1 ) {
+                task.tags.splice( index, 1 );
+            }
+            for ( const subTask of task.subtasks ) {
+                const index = subTask.tags.indexOf( +tag.id );
+                if ( index !== -1 ) {
+                    subTask.tags.splice( index, 1 );
+                }
+            }
+        }
+        const index = this.state.detailedTask.tags.indexOf( +tag.id );
+        if ( index !== -1 ) {
+            this.state.detailedTask.tags.splice( index, 1 );
+        }
+
     }
 }
 

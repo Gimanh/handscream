@@ -11,6 +11,7 @@
                 <v-text-field
                     v-model="tagName"
                     :label="$t('msg.addNewLabel')"
+                    autofocus
                     @keyup.enter="addNewTag"
                 >
                     <template #append>

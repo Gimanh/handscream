@@ -80,6 +80,7 @@ export class TagsStoreActions extends Actions<TagsState, TagsStoreGetters, TagsM
     async deleteTag( tag: TagItem ): Promise<DeleteTagResponse | void> {
         const result = await this.store.$axios.$post<DeleteTagResponse>( this.state.urls.deleteTag, qs.stringify( { tagId: tag.id } ) )
             .catch( err => console.log( err ) );
+        this.store.commit( 'Tasks/deleteTagFromAllTasks', tag );
         if ( result ) {
             if ( result.response.delete ) {
                 this.mutations.deleteTag( tag );

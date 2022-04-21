@@ -65,7 +65,7 @@ export default class TaskTags extends AppBase {
         return undefined;
     }
 
-    async deleteTagF( tag: TagItem ) {
+    async deleteTagHandler( tag: TagItem ) {
         await this.deleteTag( tag );
     }
 }

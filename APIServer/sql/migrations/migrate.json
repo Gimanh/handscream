@@ -40,7 +40,8 @@
             "Hide completed tasks",
             "Toggle completed and incomplete tasks",
             "Added priority for tasks",
-            "Added tags for tasks"
+            "Added tags for tasks",
+            "Added permissions for tags and priorities"
         ]
     }
 }

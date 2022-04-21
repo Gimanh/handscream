@@ -34,7 +34,7 @@
                     outlined
                     close-icon="mdi-delete"
                     @click="toggleTag(tag)"
-                    @click:close="deleteTagF(tag)"
+                    @click:close="deleteTagHandler(tag)"
                 >
                     <v-icon
                         left
