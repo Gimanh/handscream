@@ -83,6 +83,22 @@ export default class Task extends AppBase {
         return !!this.task.permissions.task_can_watch_details;
     }
 
+    get canWatchPriority(): boolean {
+        return !!this.task.permissions.task_can_watch_priority;
+    }
+
+    get canEditPriority(): boolean {
+        return !!this.task.permissions.task_can_edit_priority;
+    }
+
+    get canWatchTags(): boolean {
+        return !!this.task.permissions.task_can_watch_tags;
+    }
+
+    get canEditTags(): boolean {
+        return !!this.task.permissions.task_can_edit_tags;
+    }
+
     get canWatchSubtasks() {
         return !!this.task.permissions.task_can_watch_subtasks && +this.$route.params.task === +this.task.id;
     }

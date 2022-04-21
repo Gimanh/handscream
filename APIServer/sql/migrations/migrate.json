@@ -31,7 +31,9 @@
         "scripts": [
             "/1.1.0/tasks_priority.sql",
             "/1.1.0/tasks_priority_column.sql",
-            "/1.1.0/tasks_tags.sql"
+            "/1.1.0/tasks_tags.sql",
+            "/1.1.0/update-permissions.sql",
+            "/1.1.0/trigger_set_task_permissions.sql"
         ],
         "description": [
             "Dynamic task list loading",

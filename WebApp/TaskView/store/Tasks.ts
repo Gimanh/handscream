@@ -373,27 +373,29 @@ export class TasksStoreActions extends Actions<TasksState, TasksStoreGetters, Ta
         return result;
     }
 
-    async moveTask( data: MoveTaskArg ): Promise<MoveTaskResponse> {
-        const result = await this.store.$axios.$post<MoveTaskResponse>( this.state.urls.moveTask, qs.stringify( data ) );
+    async moveTask( data: MoveTaskArg ): Promise<MoveTaskResponse | void> {
+        const result = await this.store.$axios.$post<MoveTaskResponse>( this.state.urls.moveTask, qs.stringify( data ) )
+            .catch( err => console.log( err ) );
         if ( result ) {
             this.mutations.deleteTask( data.taskId );
         }
         return result;
     }
 
-    async fetchPriorities(): Promise<TaskPrioritiesResponse> {
-        const result = await this.store.$axios.$get<TaskPrioritiesResponse>( this.state.urls.allPriorities );
+    async fetchPriorities(): Promise<TaskPrioritiesResponse | void> {
+        const result = await this.store.$axios.$get<TaskPrioritiesResponse>( this.state.urls.allPriorities )
+            .catch( err => console.log( err ) );
         if ( result ) {
             this.mutations.setPriorities( result.response );
         }
         return result;
     }
 
-    async updateTaskPriority( data: UpdateTaskPriorityArg ): Promise<TaskPriorityUpdateResponse> {
+    async updateTaskPriority( data: UpdateTaskPriorityArg ): Promise<TaskPriorityUpdateResponse | void> {
         const result = await this.store.$axios.$post<TaskPriorityUpdateResponse>(
             this.state.urls.updatePriority,
             qs.stringify( data )
-        );
+        ).catch( err => console.log( err ) );
         if ( result ) {
             this.mutations.setTaskPriority( data );
         }

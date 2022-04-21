@@ -42,9 +42,17 @@ class TaskItem
         $this->deadline = $task['deadline'] ?? null;
         $this->dateComplete = $task['date_complete'] ?? null;
         $this->note = $task['note'] ?? null;
-        $this->priorityId = $task['priority_id'];
         $this->permissions = new TaskPermissions($task['permissions']);
-        $this->tags = $task['tags'] ?? [];
+
+        if ($this->hasPermissions(TaskPermissions::CAN_WATCH_TAGS)) {
+            $this->tags = $task['tags'] ?? [];
+        } else {
+            $this->tags = [];
+        }
+
+        if ($this->hasPermissions(TaskPermissions::CAN_WATCH_PRIORITY)) {
+            $this->priorityId = $task['priority_id'];
+        }
     }
 
     public function setResponsibleUser(array $responsibleUser): void

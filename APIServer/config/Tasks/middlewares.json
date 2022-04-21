@@ -7,5 +7,6 @@
     "canAccessDetails": "App\\Modules\\Tasks\\Middlewares\\CanAccessDetails",
     "canEditNote": "App\\Modules\\Tasks\\Middlewares\\CanEditNote",
     "canEditDeadline": "App\\Modules\\Tasks\\Middlewares\\CanEditDeadline",
-    "canFetchSubtasks": "App\\Modules\\Tasks\\Middlewares\\CanFetchSubtasks"
+    "canFetchSubtasks": "App\\Modules\\Tasks\\Middlewares\\CanFetchSubtasks",
+    "canUpdateTaskPriority": "App\\Modules\\Tasks\\Middlewares\\CanUpdateTaskPriority"
 }

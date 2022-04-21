@@ -5,6 +5,7 @@ import { TagsState, TagsStoreActions } from '~/store/Tags';
 import { TagItem } from '~/classes/util/TagsTypes';
 import { AppTask, DetailedTask } from '~/classes/util/TaskTypes';
 import { TasksMutations } from '~/store/Tasks';
+import { canEditTags, canWatchTags } from '~/classes/util/Helper';
 
 @Component
 export default class TaskTags extends AppBase {
@@ -28,6 +29,14 @@ export default class TaskTags extends AppBase {
     @Mutation( 'deleteTagFromTask', { namespace: 'Tasks' } ) deleteTagFromTask!: TasksMutations['deleteTagFromTask'];
 
     public showAddForm: boolean = false;
+
+    get canWatchTags(): boolean {
+        return canWatchTags( this.task );
+    }
+
+    get canEditTags(): boolean {
+        return canEditTags( this.task );
+    }
 
     addTag() {
         this.showAddForm = true;

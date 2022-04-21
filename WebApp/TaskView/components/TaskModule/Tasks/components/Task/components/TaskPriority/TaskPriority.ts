@@ -3,7 +3,7 @@ import { Action, State } from 'vuex-class';
 import AppBase from '~/components/AppBase';
 import { TasksState, TasksStoreActions } from '~/store/Tasks';
 import { AppTask, TTaskPriority } from '~/classes/util/TaskTypes';
-import { getColor } from '~/classes/util/Helper';
+import { canEditPriority, canWatchPriority, getColor } from '~/classes/util/Helper';
 
 @Component
 export default class TaskPriority extends AppBase {
@@ -22,6 +22,14 @@ export default class TaskPriority extends AppBase {
     @State( state => state.Tasks.priorities ) priorities!: TasksState['priorities'];
 
     @Action( 'updateTaskPriority', { namespace: 'Tasks' } ) updateTaskPriority!: TasksStoreActions['updateTaskPriority'];
+
+    get canWatchPriority(): boolean {
+        return canWatchPriority( this.task );
+    }
+
+    get canEditPriority(): boolean {
+        return canEditPriority( this.task );
+    }
 
     created() {
         this.selected = this.currentlySelected;

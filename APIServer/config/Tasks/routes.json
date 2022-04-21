@@ -98,7 +98,8 @@
     },
     {
         "middlewares": [
-            "isLoggedIn"
+            "isLoggedIn",
+            "canUpdateTaskPriority"
         ],
         "method": "POST",
         "route": "/module/tasks/update/priority",

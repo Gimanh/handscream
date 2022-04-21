@@ -12,6 +12,11 @@ class TaskPermissions
     const CAN_WATCH_DETAILS = 'task_can_watch_details';
     const CAN_WATCH_SUBTASKS = 'task_can_watch_subtasks';
     const CAN_ADD_SUBTASKS = 'task_can_add_subtasks';
+    const CAN_EDIT_TAGS = 'task_can_edit_tags';
+    const CAN_WATCH_TAGS = 'task_can_watch_tags';
+    const CAN_EDIT_PRIORITY = 'task_can_edit_priority';
+    const CAN_WATCH_PRIORITY = 'task_can_watch_priority';
+
 
     public function __construct(array $permissions = [])
     {

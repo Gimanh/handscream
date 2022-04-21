@@ -18,6 +18,14 @@ export type AppTaskPermissions = {
     task_can_watch_details?: true
     // eslint-disable-next-line
     task_can_watch_subtasks?: true
+    // eslint-disable-next-line
+    task_can_edit_tags?: true
+    // eslint-disable-next-line
+    task_can_watch_tags?: true
+    // eslint-disable-next-line
+    task_can_watch_priority?: true
+    // eslint-disable-next-line
+    task_can_edit_priority?: true
 };
 
 export interface AppTask {

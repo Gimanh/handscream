@@ -1,5 +1,7 @@
 <template>
-    <v-card>
+    <v-card
+        v-if="canWatchTags"
+    >
         <v-card-title>
             {{ $t( 'msg.tags' ) }}
             <v-spacer />
@@ -11,7 +13,7 @@
         </v-card-title>
         <v-card-text>
             <tasks-tag-add
-                v-if="showAddForm"
+                v-if="showAddForm && canEditTags"
                 @close="closeAdd"
             />
             <v-list>
@@ -25,6 +27,7 @@
                 <v-chip
                     v-for="(tag, index) in tags"
                     :key="index"
+                    :disabled="!canEditTags"
                     class="ma-2"
                     close
                     label

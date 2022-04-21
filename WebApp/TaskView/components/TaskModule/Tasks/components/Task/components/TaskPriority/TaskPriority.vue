@@ -3,7 +3,9 @@
         class="pa-0"
     >
         <v-radio-group
+            v-if="canWatchPriority"
             v-model="selected"
+            :disabled="!canEditPriority"
             row
             dense
             class="ma-0"

@@ -1,4 +1,4 @@
-import { TTaskPriority } from '~/classes/util/TaskTypes';
+import { AppTask, TTaskPriority } from '~/classes/util/TaskTypes';
 
 export function parseJwt<R>( token: string ): R {
     const base64Url = token.split( '.' )[ 1 ];
@@ -39,4 +39,20 @@ export function getColor( priority: TTaskPriority ): string {
         return 'orange';
     }
     return 'green';
+}
+
+export function canWatchPriority( task: AppTask ): boolean {
+    return !!task.permissions.task_can_watch_priority;
+}
+
+export function canEditPriority( task: AppTask ): boolean {
+    return !!task.permissions.task_can_edit_priority;
+}
+
+export function canWatchTags( task: AppTask ): boolean {
+    return !!task.permissions.task_can_watch_tags;
+}
+
+export function canEditTags( task: AppTask ): boolean {
+    return !!task.permissions.task_can_edit_tags;
 }

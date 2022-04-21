@@ -49,7 +49,6 @@
                     >
                         <task-priority
                             :task="detailedTask"
-
                             :currently-selected="detailedTask.priorityId"
                         />
                     </v-col>

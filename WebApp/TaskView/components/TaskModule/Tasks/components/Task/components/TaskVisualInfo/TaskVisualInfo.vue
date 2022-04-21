@@ -1,12 +1,18 @@
 <template>
-    <div class="task-visual-info pl-1">
+    <div
+        v-if="canWatchPriority"
+        class="task-visual-info pl-1"
+    >
         <v-icon
             small
             :color="getPriorityColor()"
         >
             mdi-alert-box
         </v-icon>
-        <div class="task-visual-info pl-14">
+        <div
+            v-if="canWatchTags"
+            class="task-visual-info pl-14"
+        >
             <v-icon
                 v-for="tagId in task.tags"
                 :key="tagId"
