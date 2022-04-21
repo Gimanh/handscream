@@ -2,6 +2,11 @@
     <v-card
         v-if="canWatchTags"
     >
+        <tag-delete-dialog
+            v-if="deleteTagActive"
+            @cancel="cancelDeleting"
+            @apply="runDeletion"
+        />
         <v-card-title>
             {{ $t( 'msg.tags' ) }}
             <v-spacer />
@@ -17,13 +22,6 @@
                 @close="closeAdd"
             />
             <v-list>
-                <!--                <v-list-item
-                                    v-for="(tag, index) in tags"
-                                    :key="index"
-                                >
-                                    {{ tag.name }}
-                                </v-list-item>-->
-
                 <v-chip
                     v-for="(tag, index) in tags"
                     :key="index"

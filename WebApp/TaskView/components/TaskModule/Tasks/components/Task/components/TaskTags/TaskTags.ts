@@ -30,6 +30,10 @@ export default class TaskTags extends AppBase {
 
     public showAddForm: boolean = false;
 
+    public deleteTagActive: boolean = false;
+
+    public tagForDeleting: TagItem | null = null;
+
     get canWatchTags(): boolean {
         return canWatchTags( this.task );
     }
@@ -65,7 +69,20 @@ export default class TaskTags extends AppBase {
         return undefined;
     }
 
-    async deleteTagHandler( tag: TagItem ) {
-        await this.deleteTag( tag );
+    deleteTagHandler( tag: TagItem ) {
+        this.deleteTagActive = true;
+        this.tagForDeleting = tag;
+    }
+
+    cancelDeleting() {
+        this.deleteTagActive = false;
+        this.tagForDeleting = null;
+    }
+
+    async runDeletion() {
+        if ( this.tagForDeleting ) {
+            await this.deleteTag( this.tagForDeleting );
+            this.cancelDeleting();
+        }
     }
 }

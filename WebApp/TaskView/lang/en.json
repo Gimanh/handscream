@@ -192,7 +192,9 @@
         "date": "Date",
         "time": "Time",
         "updateDeadlineFailed": "Can not update task deadline.",
-        "addSubtask": "Add subtask"
+        "addSubtask": "Add subtask",
+        "deleteTagTitle": "Tag deleting",
+        "deleteTagQuestion": "Do you want delete tag?"
     },
     "admin": {
         "users": "Users",
