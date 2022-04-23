@@ -114,27 +114,47 @@ export class TasksMutations extends Mutations<TasksState> {
     }
 
     updateTaskStatus( task: AppTask ) {
-        const tsk = this.state.tasksMap.get( +task.id );
+        const mainTaskId = task.parentId ? task.parentId : task.id;
+        const tsk = this.state.tasksMap.get( +mainTaskId );
         if ( tsk ) {
-            tsk.complete = task.complete;
+            if ( task.parentId ) {
+                for ( const t of tsk.subtasks ) {
+                    if ( +t.id === +task.id ) {
+                        t.complete = task.complete;
+                        break;
+                    }
+                }
+            } else {
+                tsk.complete = task.complete;
+            }
         }
         if ( this.state.detailedTask.id === task.id ) {
             this.state.detailedTask.complete = task.complete;
         }
-        this.deleteTask( task.id );
+        this.removeTaskFromArray( task.id );
     }
 
     updateTaskDescription( task: AppTask ) {
-        const tsk = this.state.tasksMap.get( +task.id );
+        const mainTaskId = task.parentId ? task.parentId : task.id;
+        const tsk = this.state.tasksMap.get( +mainTaskId );
         if ( tsk ) {
-            tsk.description = task.description;
+            if ( task.parentId ) {
+                for ( const t of tsk.subtasks ) {
+                    if ( +t.id === +task.id ) {
+                        t.description = task.description;
+                        break;
+                    }
+                }
+            } else {
+                tsk.description = task.description;
+            }
         }
         if ( this.state.detailedTask.id === task.id ) {
             this.state.detailedTask.description = task.description;
         }
     }
 
-    deleteTask( taskId: TaskIdArg ) {
+    removeTaskFromArray( taskId: TaskIdArg ) {
         this.state.tasksMap.delete( +taskId );
         for ( let i = 0; i < this.state.tasks.length; i++ ) {
             if ( +taskId === this.state.tasks[ i ].id ) {
@@ -341,7 +361,7 @@ export class TasksStoreActions extends Actions<TasksState, TasksStoreGetters, Ta
             .catch( err => console.log( err ) );
         if ( result ) {
             if ( result.response.delete ) {
-                this.mutations.deleteTask( taskId );
+                this.mutations.removeTaskFromArray( taskId );
             }
         }
         return result;
@@ -398,7 +418,7 @@ export class TasksStoreActions extends Actions<TasksState, TasksStoreGetters, Ta
         const result = await this.store.$axios.$post<MoveTaskResponse>( this.state.urls.moveTask, qs.stringify( data ) )
             .catch( err => console.log( err ) );
         if ( result ) {
-            this.mutations.deleteTask( data.taskId );
+            this.mutations.removeTaskFromArray( data.taskId );
         }
         return result;
     }
