@@ -30,9 +30,19 @@ export default class TaskTags extends AppBase {
 
     public showAddForm: boolean = false;
 
-    public deleteTagActive: boolean = false;
+    public showDeleteTagForm: boolean = false;
 
-    public tagForDeleting: TagItem | null = null;
+    public selectedTagForAction: TagItem | null = null;
+
+    public showEditeLabelIcon: boolean = false;
+
+    public showEditTagForm: boolean = false;
+
+    public showDeleteIcon: boolean = false;
+
+    get showActionChipIcon() {
+        return this.showDeleteIcon || this.showEditeLabelIcon;
+    }
 
     get canWatchTags(): boolean {
         return canWatchTags( this.task );
@@ -42,8 +52,28 @@ export default class TaskTags extends AppBase {
         return canEditTags( this.task );
     }
 
+    get tagIcon(): string {
+        if ( this.showEditeLabelIcon ) {
+            return 'mdi-pencil-outline';
+        }
+        if ( this.showDeleteIcon ) {
+            return 'mdi-delete';
+        }
+        return '';
+    }
+
     addTag() {
         this.showAddForm = true;
+    }
+
+    editTags() {
+        this.showDeleteIcon = false;
+        this.showEditeLabelIcon = !this.showEditeLabelIcon;
+    }
+
+    enableDelete() {
+        this.showEditeLabelIcon = false;
+        this.showDeleteIcon = !this.showDeleteIcon;
     }
 
     closeAdd() {
@@ -69,20 +99,29 @@ export default class TaskTags extends AppBase {
         return undefined;
     }
 
-    deleteTagHandler( tag: TagItem ) {
-        this.deleteTagActive = true;
-        this.tagForDeleting = tag;
+    iconClickTagHandler( tag: TagItem ) {
+        this.selectedTagForAction = tag;
+        if ( this.showEditeLabelIcon ) {
+            this.showEditTagForm = true;
+        } else {
+            this.showDeleteTagForm = true;
+        }
     }
 
     cancelDeleting() {
-        this.deleteTagActive = false;
-        this.tagForDeleting = null;
+        this.showDeleteTagForm = false;
+        this.selectedTagForAction = null;
     }
 
     async runDeletion() {
-        if ( this.tagForDeleting ) {
-            await this.deleteTag( this.tagForDeleting );
+        if ( this.selectedTagForAction ) {
+            await this.deleteTag( this.selectedTagForAction );
             this.cancelDeleting();
         }
+    }
+
+    closeEdit() {
+        this.showEditTagForm = false;
+        this.selectedTagForAction = null;
     }
 }

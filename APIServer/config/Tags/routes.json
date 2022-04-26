@@ -31,5 +31,13 @@
         "method": "POST",
         "route": "/module/tags/delete",
         "handler": "App\\Modules\\Tags\\Handlers\\TagDelete"
+    },
+    {
+        "middlewares": [
+            "isLoggedIn"
+        ],
+        "method": "POST",
+        "route": "/module/tags/update",
+        "handler": "App\\Modules\\Tags\\Handlers\\TagUpdate"
     }
 ]

@@ -2,7 +2,7 @@ import { Component } from 'vue-property-decorator';
 import { Action } from 'vuex-class';
 import AppBase from '~/components/AppBase';
 import { getRandomColor } from '~/classes/util/Helper';
-import { AddOrEditTag } from '~/classes/util/TagsTypes';
+import { AddTag } from '~/classes/util/TagsTypes';
 import { TagsStoreActions } from '~/store/Tags';
 
 @Component
@@ -24,7 +24,7 @@ export default class TasksTagAdd extends AppBase {
 
     async addNewTag() {
         if ( this.tagName ) {
-            const data: AddOrEditTag = {
+            const data: AddTag = {
                 name: this.tagName,
                 color: this.color
             };

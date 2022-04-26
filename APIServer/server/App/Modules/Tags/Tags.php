@@ -33,6 +33,11 @@ class Tags implements IModule
         return $this->storage->addTag($name, $color);
     }
 
+    public function updateTag(int $id, string $name, string $color): ?TagItem
+    {
+        return $this->storage->updateTag($id, $name, $color);
+    }
+
     public function fetchAll(int $userId): ?array
     {
         return $this->storage->fetchAll($userId);

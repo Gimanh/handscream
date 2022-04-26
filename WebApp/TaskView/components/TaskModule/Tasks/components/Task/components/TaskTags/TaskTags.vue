@@ -4,7 +4,7 @@
         elevation="1"
     >
         <tag-delete-dialog
-            v-if="deleteTagActive"
+            v-if="showDeleteTagForm"
             @cancel="cancelDeleting"
             @apply="runDeletion"
         />
@@ -19,17 +19,22 @@
                 v-if="showAddForm && canEditTags"
                 @close="closeAdd"
             />
+            <tasks-tag-edit
+                v-if="showEditTagForm && canEditTags"
+                :tag="selectedTagForAction"
+                @close="closeEdit"
+            />
             <v-chip
                 v-for="(tag, index) in tags"
                 :key="index"
                 :disabled="!canEditTags"
                 class="mr-1"
-                close
+                :close="showActionChipIcon"
                 label
                 outlined
-                close-icon="mdi-delete"
+                :close-icon="tagIcon"
                 @click="toggleTag(tag)"
-                @click:close="deleteTagHandler(tag)"
+                @click:close="iconClickTagHandler(tag)"
             >
                 <v-icon
                     left
@@ -40,9 +45,20 @@
                 {{ tag.name }}
             </v-chip>
             <v-icon
+                :disabled="showEditeLabelIcon"
                 @click="addTag"
             >
                 mdi-plus
+            </v-icon>
+            <v-icon
+                @click="editTags"
+            >
+                {{ showEditeLabelIcon ? 'mdi-pencil-off-outline' : 'mdi-pencil-outline' }}
+            </v-icon>
+            <v-icon
+                @click="enableDelete"
+            >
+                {{ showDeleteIcon ? 'mdi-delete-off-outline' : 'mdi-delete-outline' }}
             </v-icon>
         </v-card-text>
     </v-card>

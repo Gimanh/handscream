@@ -67,4 +67,22 @@ class TagStorage
     {
         return $this->db->delete('delete from tasks.tags where id = ? and owner = ?;', [$tagId, $this->user->getId()]);
     }
+
+    public function updateTag(int $id, string $name, string $color): ?TagItem
+    {
+        $result = $this->db->update([
+            'table' => 'tasks.tags',
+            'data' => [
+                'name' => trim($name),
+                'color' => trim($color)
+            ],
+            'where' => [
+                'id' => $id,
+            ]
+        ]);
+        if ($result) {
+            return $this->fetchTagById($id);
+        }
+        return null;
+    }
 }

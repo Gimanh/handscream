@@ -2,10 +2,10 @@ import { Getters, Mutations, Actions, Module } from 'vuex-smart-module';
 import { Store } from 'vuex';
 import qs from 'qs';
 import {
-    AddTagResponse, DeleteTagResponse,
+    AddTagResponse, DeleteTagResponse, EditTagResponse,
     TagItem,
     TagItemAdd,
-    TagItems,
+    TagItems, TagItemUpdate,
     TagsResponse,
     TagStoreStateUrls, ToggleTagArg, ToggleTagResponse
 } from '~/classes/util/TagsTypes';
@@ -15,7 +15,8 @@ export class TagsState {
         addTag: '/module/tags/add',
         fetchTags: '/module/tags/fetch',
         toggleTag: '/module/tags/toggle',
-        deleteTag: '/module/tags/delete'
+        deleteTag: '/module/tags/delete',
+        updateTag: '/module/tags/update'
     }
 
     public tags: TagItems = []
@@ -24,6 +25,15 @@ export class TagsState {
 export class TagsMutations extends Mutations<TagsState> {
     addTag( tag: TagItem ) {
         this.state.tags.push( tag );
+    }
+
+    updateTag( tag: TagItem ) {
+        for ( const k of this.state.tags ) {
+            if ( +k.id === +tag.id ) {
+                k.color = tag.color;
+                k.name = tag.name;
+            }
+        }
     }
 
     setTags( tags: TagItems ) {
@@ -84,6 +94,17 @@ export class TagsStoreActions extends Actions<TagsState, TagsStoreGetters, TagsM
         if ( result ) {
             if ( result.response.delete ) {
                 this.mutations.deleteTag( tag );
+            }
+        }
+        return result;
+    }
+
+    async updateTag( tag: TagItemUpdate ): Promise<EditTagResponse | void> {
+        const result = await this.store.$axios.$post<EditTagResponse>( this.state.urls.updateTag, qs.stringify( tag ) )
+            .catch( err => console.log( err ) );
+        if ( result ) {
+            if ( result.response.tag ) {
+                this.mutations.updateTag( result.response.tag );
             }
         }
         return result;

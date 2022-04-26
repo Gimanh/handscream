@@ -6,6 +6,7 @@ export type TagStoreStateUrls = {
     fetchTags: string
     toggleTag: string
     deleteTag: string
+    updateTag: string
 };
 
 export type TagItem = {
@@ -19,9 +20,13 @@ export type TagItems = TagItem[];
 
 export type TagItemAdd = Omit<TagItem, 'id' | 'owner'>;
 
+export type TagItemUpdate = Omit<TagItem, 'owner'>;
+
 export type AddTagResponse = AppResponse<{ tag: TagItem | null }>;
 
-export type AddOrEditTag = {
+export type EditTagResponse = AppResponse<{ tag: TagItem | null }>;
+
+export type AddTag = {
     name: string
     color: string
 };
