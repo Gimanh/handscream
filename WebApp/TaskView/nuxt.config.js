@@ -41,6 +41,7 @@ export default {
 
     // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
     plugins: [
+        '@/plugins/inject-app-storage.ts',
         '@/plugins/fetch-app-config.ts',
         '@/plugins/components-plugin.ts',
         '@/plugins/token-refresh.ts',
