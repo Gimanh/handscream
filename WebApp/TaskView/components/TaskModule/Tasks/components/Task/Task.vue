@@ -6,6 +6,7 @@
         >
             <v-list-item-action>
                 <task-checkbox
+                    :task="task"
                     :key="checkboxKey"
                     :complete="task.complete"
                     :allowed="canEditStatus"

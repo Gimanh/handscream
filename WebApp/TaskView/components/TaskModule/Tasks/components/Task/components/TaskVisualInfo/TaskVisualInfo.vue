@@ -3,12 +3,6 @@
         v-if="canWatchPriority"
         class="task-visual-info pl-1"
     >
-        <v-icon
-            small
-            :color="getPriorityColor()"
-        >
-            mdi-alert-box
-        </v-icon>
         <div
             v-if="canWatchTags"
             class="task-visual-info pl-14"
