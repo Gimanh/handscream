@@ -222,7 +222,8 @@ class TasksStorage
         return $this->db->update([
             'table' => 'tasks.tasks',
             'data' => [
-                'goal_list_id' => $goalListId
+                'goal_list_id' => $goalListId,
+                'parent_id' => null
             ],
             'where' => [
                 'id' => $taskId,

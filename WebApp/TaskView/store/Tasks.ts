@@ -155,11 +155,28 @@ export class TasksMutations extends Mutations<TasksState> {
     }
 
     removeTaskFromArray( taskId: TaskIdArg ) {
-        this.state.tasksMap.delete( +taskId );
-        for ( let i = 0; i < this.state.tasks.length; i++ ) {
-            if ( +taskId === this.state.tasks[ i ].id ) {
-                this.state.tasks.splice( i, 1 );
-                break;
+        const tsk = this.state.tasksMap.get( +taskId );
+        if ( tsk ) {
+            this.state.tasksMap.delete( +taskId );
+            for ( let i = 0; i < this.state.tasks.length; i++ ) {
+                if ( +taskId === this.state.tasks[ i ].id ) {
+                    this.state.tasks.splice( i, 1 );
+                    break;
+                }
+            }
+        } else {
+            let taskHasBeenDeleted = false;
+            for ( const t of this.state.tasks ) {
+                for ( let j = 0; j < t.subtasks.length; j++ ) {
+                    if ( t.subtasks[ j ].id === taskId ) {
+                        t.subtasks.splice( j, 1 );
+                        taskHasBeenDeleted = true;
+                        break;
+                    }
+                }
+                if ( taskHasBeenDeleted ) {
+                    break;
+                }
             }
         }
     }
