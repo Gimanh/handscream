@@ -13,24 +13,17 @@
             <v-card-actions>
                 <v-spacer />
                 <v-btn
+                    color="error"
+                    text
                     @click="apply"
                 >
                     {{ $t( 'msg.accept' ) }}
-                    <v-icon
-                        right
-                    >
-                        mdi-delete
-                    </v-icon>
                 </v-btn>
                 <v-btn
+                    text
                     @click="cancel"
                 >
                     {{ $t( 'msg.cancel' ) }}
-                    <v-icon
-                        right
-                    >
-                        mdi-cancel
-                    </v-icon>
                 </v-btn>
             </v-card-actions>
         </v-card>

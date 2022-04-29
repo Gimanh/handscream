@@ -44,23 +44,51 @@
                 </v-icon>
                 {{ tag.name }}
             </v-chip>
-            <v-icon
-                :disabled="showEditeLabelIcon"
-                @click="addTag"
-            >
-                mdi-plus
-            </v-icon>
-            <v-icon
-                @click="editTags"
-            >
-                {{ showEditeLabelIcon ? 'mdi-pencil-off-outline' : 'mdi-pencil-outline' }}
-            </v-icon>
-            <v-icon
-                @click="enableDelete"
-            >
-                {{ showDeleteIcon ? 'mdi-delete-off-outline' : 'mdi-delete-outline' }}
-            </v-icon>
         </v-card-text>
+        <v-divider />
+        <v-card-actions>
+            <v-spacer />
+            <v-btn
+                fab
+                icon
+                x-small
+                elevation="1"
+                :disabled="showEditeLabelIcon"
+            >
+                <v-icon
+                    @click="addTag"
+                >
+                    mdi-plus
+                </v-icon>
+            </v-btn>
+
+            <v-btn
+                fab
+                icon
+                x-small
+                elevation="1"
+            >
+                <v-icon
+                    @click="editTags"
+                >
+                    {{ showEditeLabelIcon ? 'mdi-pencil-off-outline' : 'mdi-pencil-outline' }}
+                </v-icon>
+            </v-btn>
+
+            <v-btn
+                fab
+                icon
+                x-small
+                elevation="1"
+            >
+                <v-icon
+                    @click="enableDelete"
+                >
+                    {{ showDeleteIcon ? 'mdi-delete-off-outline' : 'mdi-delete-outline' }}
+                </v-icon>
+            </v-btn>
+            <v-spacer />
+        </v-card-actions>
     </v-card>
 </template>
 

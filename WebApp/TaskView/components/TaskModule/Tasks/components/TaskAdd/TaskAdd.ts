@@ -26,6 +26,10 @@ export default class TaskAdd extends AppBase {
         return this.invalidName ? this.$t( 'msg.requiredField' ) : '';
     }
 
+    get showMoreFilters(): boolean {
+        return !this.modeSubtask;
+    }
+
     get iconForInput(): string {
         if ( this.taskName ) {
             return 'mdi-keyboard-return';
