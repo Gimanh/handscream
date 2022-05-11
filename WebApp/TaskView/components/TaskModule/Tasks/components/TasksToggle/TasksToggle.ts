@@ -2,7 +2,7 @@ import { Component } from 'vue-property-decorator';
 import AppBase from '~/components/AppBase';
 
 @Component
-export default class TasksFilters extends AppBase {
+export default class TasksToggle extends AppBase {
 
     public showCompleted: boolean = false;
 

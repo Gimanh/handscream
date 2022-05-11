@@ -34,7 +34,7 @@
                     :style="{...colStyle, ...{display: 'flex', 'align-items': 'center', 'justify-content': 'end'}}"
                     align-self="center"
                 >
-                    <tasks-filters
+                    <tasks-toggle
                         @showCompleted="showCompletedTasks"
                     />
                     <v-btn

@@ -41,7 +41,7 @@ export * from './Admins/components/AdminsUsers/components/AdminsUsersAdd';
 export * from './Admins/components/AdminsUsers/components/AdminsUsersDelete';
 
 export * from './TaskModule/Tasks/components/Task/components/actions/ActionMoveTask';
-export * from './TaskModule/Tasks/components/TasksFilters';
+export * from './TaskModule/Tasks/components/TasksToggle';
 export * from './TaskModule/Tasks/components/TasksCompleted';
 export * from './TaskModule/Tasks/components/Task/components/TaskPriority';
 export * from './TaskModule/Tasks/components/Task/components/TaskTags';

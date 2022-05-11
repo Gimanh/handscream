@@ -11,4 +11,4 @@
     </v-btn>
 </template>
 
-<script src=./TasksFilters.ts />
+<script src=./TasksToggle.ts />
