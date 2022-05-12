@@ -49,3 +49,4 @@ export * from './TaskModule/Tasks/components/Task/components/TaskTags/components
 export * from './TaskModule/Tasks/components/Task/components/TaskTags/components/TasksTagEdit';
 export * from './TaskModule/Tasks/components/Task/components/TaskVisualInfo';
 export * from './TaskModule/Tasks/components/Task/components/TaskTags/components/TagDeleteDialog';
+export * from './TaskModule/Tasks/components/TasksToolbar';

@@ -11,11 +11,12 @@
                             {{ $t( 'task.tasks' ) }}
                         </v-list-item-title>
                     </template>-->
-        <task-add
-            v-if="canAddTasks"
+        <tasks-toolbar
+            :can-add-tasks="canAddTasks"
             :component-id="componentId"
             @showCompleted="showCompletedTasks"
         />
+
         <v-list-item-group
             v-if="canWatchTasks"
             ref="list"
