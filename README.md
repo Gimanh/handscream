@@ -1,9 +1,20 @@
 # TaskView  
-[Telegram](https://t.me/hand_scream)
-[Docs](https://gimanh.github.io/task_view_doc/)
+[Telegram](https://t.me/hand_scream)  
+[Docs](https://gimanh.github.io/task_view_doc/)  
 Service for daily planning, aimed at achieving results. For personal affairs, work tasks and teamwork. www.handscream.com
 
-[TaskViewServer](https://github.com/Gimanh/TaskViewServer) work in progress.
+> This repository contains the TaskView app! At first, TaskView was developed with ElectronJS, but then I started 
+developing TaskView with client-server architecture for browsers. Right now I am focusing on TaskView with 
+client-server architecture. 
+
+### ElectronJS  
+> In the **App** folder you can find TaskView with ElectronJS.
+
+### TaskView - web  
+> **APIServer** - contains the server API for the TaskView spa client.  
+**WebApp** - contains a web application developed with NuxtJS and Vuetify.
+
+[TaskViewWeb](https://github.com/Gimanh/handscream/tree/devel-web/APIServer) work in progress.
 
 <h2 align="center">TaskView</h2>  
 <p align="center">
@@ -26,14 +37,7 @@ The main goal of this project is easy project management and time control.
 Now available only desktop version, server side and mobile version coming soon.  
 
 If you can create beautiful interface or you are interested with you are welcome!  
-Write PM or to email hello@handscream.com.  
-
-# TODO 
-[-] Optimize list  
-[-] Show completed tasks in table  
-[-] Add "Notes" component  
-[-] Add diagram creator
-[-] Create backend
+Write PM or to email hello@handscream.com.
 
 # How to add a new translation
 
