@@ -20,13 +20,7 @@ export default class TaskAdd extends AppBase {
 
     public invalidName: boolean = false;
 
-    public showMoreFiltersPanel: boolean = false;
-
     @Action( 'addTask', { namespace: 'Tasks' } ) addTask!: TasksStoreActions['addTask'];
-
-    get colStyle() {
-        return { height: '70px' };
-    }
 
     get errorMessage() {
         return this.invalidName ? this.$t( 'msg.requiredField' ) : '';
