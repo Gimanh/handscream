@@ -38,7 +38,7 @@ export default class Tasks extends AppBase {
 
     @Mutation( 'setTasks', { namespace: 'Tasks' } ) setTasks!: TasksMutations['setTasks'];
 
-    @Watch( 'componentId' )
+    @Watch( 'componentId', { immediate: true } )
     async routeHandler( id: string, old: string ) {
         this.currentPage = 0;
         this.noMoreTasks = false;
