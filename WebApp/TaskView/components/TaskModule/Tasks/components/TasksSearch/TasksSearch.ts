@@ -27,6 +27,6 @@ export default class TasksSearch extends AppBase {
     }
 
     search() {
-        console.log( this.taskName );
+        this.$emit( 'searchTask', this.taskName );
     }
 }

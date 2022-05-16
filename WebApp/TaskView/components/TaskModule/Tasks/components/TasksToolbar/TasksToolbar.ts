@@ -32,4 +32,8 @@ export default class TasksToolbar extends AppBase {
     showCompletedTasks( show: boolean ) {
         this.$emit( 'showCompleted', show );
     }
+
+    searchTask( text: string ) {
+        this.$emit( 'searchTask', text );
+    }
 }

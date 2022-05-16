@@ -339,7 +339,9 @@ export class TasksStoreActions extends Actions<TasksState, TasksStoreGetters, Ta
             this.mutations.setTasks( [] );
             addMore = false;
         }
-        const result = await this.store.$axios.$get<AppResponse<AppTasks>>( `${ this.state.urls.fetchTasks }?componentId=${ data.componentId }&page=${ data.page }&showCompleted=${ data.showCompleted }` )
+        const result = await this.store.$axios.$get<AppResponse<AppTasks>>(
+            `${ this.state.urls.fetchTasks }?componentId=${ data.componentId }&page=${ data.page }&showCompleted=${ data.showCompleted }&searchText=${ data.searchText }`
+        )
             .catch( err => console.log( err ) );
         if ( result && result.response ) {
             if ( addMore ) {

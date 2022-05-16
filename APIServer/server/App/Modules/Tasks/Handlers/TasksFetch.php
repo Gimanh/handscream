@@ -11,10 +11,12 @@ class TasksFetch extends TasksBaseHandler
 {
     public function __invoke(ServerRequest $request, ResponseInterface $response, RouteParams $routeParams): ResponseInterface
     {
+        $searchText = trim($request->getQueryParams()['searchText'] ?? '');
         $tasks = $this->tasks->fetchTasks(
                 (int)$request->getQueryParams()['componentId'],
                 (int)$request->getQueryParams()['page'],
-                (int)$request->getQueryParams()['showCompleted']
+                (int)$request->getQueryParams()['showCompleted'],
+                $searchText
             ) ?? [];
         return AppResponse::create($response, $tasks, $request->getAttribute('rid'));
     }

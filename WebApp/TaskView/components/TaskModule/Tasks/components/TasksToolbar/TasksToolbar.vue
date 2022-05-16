@@ -10,6 +10,7 @@
             />
             <tasks-search
                 v-show="showMoreFilters"
+                @searchTask="searchTask"
             />
         </v-col>
         <v-col

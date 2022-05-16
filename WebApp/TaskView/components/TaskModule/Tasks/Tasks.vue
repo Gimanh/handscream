@@ -15,6 +15,7 @@
             :can-add-tasks="canAddTasks"
             :component-id="componentId"
             @showCompleted="showCompletedTasks"
+            @searchTask="searchTask"
         />
 
         <v-list-item-group

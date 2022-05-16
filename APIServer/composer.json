@@ -6,7 +6,8 @@
         "giman/zxc_php": "dev-master",
         "ext-pdo": "*",
         "ext-json": "*",
-        "ext-openssl": "*"
+        "ext-openssl": "*",
+        "ext-mbstring": "*"
     },
     "autoload": {
         "psr-4": {

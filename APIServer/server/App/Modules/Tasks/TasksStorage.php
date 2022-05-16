@@ -112,17 +112,15 @@ class TasksStorage
         return [];
     }
 
-    /**
-     * @return array<int, TaskItem>
-     */
-    public function fetchTasks(int $componentId, int $page, int $showCompleted): array
+    private function getFetchTasksQuery(int $componentId, int $page, int $showCompleted, string $searchText)
     {
         $offset = 0;
         if ($page > 0) {
             $offset = $page * $this->limit;
         }
-        if ($this->user) {
-            $tasks = $this->db->select('select distinct on (t.id) t.*
+
+        $args = [$componentId, $this->user->getId(), $showCompleted, $offset, $this->limit];
+        $query = 'select distinct on (t.id) t.*
                                                 from tasks.tasks t
                                                          left join tasks_auth.user_task_permissions utp on t.id = utp.task_id
                                                 where t.goal_list_id = ?
@@ -130,7 +128,34 @@ class TasksStorage
                                                   and parent_id is null
                                                   and complete = ?
                                                 order by t.id desc
-                                                offset ? limit ?;', [$componentId, $this->user->getId(), $showCompleted, $offset, $this->limit]);
+                                                offset ? limit ?;';
+        if ($searchText) {
+            $query = 'select distinct on (t.id) t.*
+                                                from tasks.tasks t
+                                                         left join tasks_auth.user_task_permissions utp on t.id = utp.task_id
+                                                where t.goal_list_id = ?
+                                                  and utp.user_id = ?
+                                                  and parent_id is null
+                                                  and complete = ?
+                                                  and lower(t.description) like lower(\'%\'||?||\'%\')
+                                                order by t.id desc
+                                                offset ? limit ?;';
+            $args = [$componentId, $this->user->getId(), $showCompleted, mb_strtolower($searchText, 'UTF-8'), $offset, $this->limit];
+        }
+        return ['query' => $query, 'args' => $args];
+    }
+
+    /**
+     * @return array<int, TaskItem>
+     */
+    public function fetchTasks(int $componentId, int $page, int $showCompleted, string $searchText): array
+    {
+        if ($this->user) {
+            $queryData = $this->getFetchTasksQuery($componentId, $page, $showCompleted, $searchText);
+            $tasks = $this->db->select(
+                $queryData['query'],
+                $queryData['args']
+            );
             return $this->convertTasksToTaskItem($tasks);
         }
         return [];

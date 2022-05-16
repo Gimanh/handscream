@@ -144,6 +144,7 @@ export type FetchTasksArg = {
     componentId: number
     page: number
     showCompleted: 1 | 0
+    searchText: string
 }
 
 export type TTaskPriority = {

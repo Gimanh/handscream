@@ -24,6 +24,8 @@ export default class Tasks extends AppBase {
 
     public showCompleted: boolean = false;
 
+    public searchText: string = '';
+
     @State( state => state.Tasks.tasks ) tasks!: AppTasks;
 
     @State( state => state.GoalLists.lists ) lists!: GoalListsState['lists'];
@@ -63,11 +65,22 @@ export default class Tasks extends AppBase {
         this.endLoading();
     }
 
+    @Watch( 'searchText' )
+    async searchTextHandler() {
+        this.currentPage = 0;
+        this.noMoreTasks = false;
+        this.setTasks( [] );
+        this.startLoading();
+        await this.fetchTasks( this.fetchTasksArgs );
+        this.endLoading();
+    }
+
     get fetchTasksArgs(): FetchTasksArg {
         return {
             componentId: +this.componentId,
             page: this.currentPage,
-            showCompleted: this.showCompleted ? 1 : 0
+            showCompleted: this.showCompleted ? 1 : 0,
+            searchText: this.searchText
         };
     }
 
@@ -131,5 +144,9 @@ export default class Tasks extends AppBase {
 
     showCompletedTasks( value: boolean ) {
         this.showCompleted = value;
+    }
+
+    searchTask( text: string ) {
+        this.searchText = text;
     }
 }
