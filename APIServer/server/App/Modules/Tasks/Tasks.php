@@ -2,6 +2,7 @@
 
 namespace App\Modules\Tasks;
 
+use App\Modules\Tasks\Args\FetchTasksArg;
 use ZXC\Traits\Module;
 use ZXC\Native\Modules;
 use ZXC\Modules\Auth\User;
@@ -21,12 +22,15 @@ class Tasks implements IModule
 
     protected ?User $user = null;
 
+    protected int $tasksLimit = 50;
+
     public function init(array $options = [])
     {
         $this->config = $options;
         $this->auth = Modules::get('auth');
         $this->user = $this->auth->getUser();
-        $this->storage = new TasksStorage($this->user, $this->config['tasksLimit'] ?? null);
+        $this->tasksLimit = $this->config['tasksLimit'] ?? 50;
+        $this->storage = new TasksStorage($this->user, $this->tasksLimit ?? null);
         $this->createLogger();
     }
 
@@ -39,9 +43,9 @@ class Tasks implements IModule
      * @param int $componentId
      * @return array<int, TaskItem>
      */
-    public function fetchTasks(int $componentId, int $page, int $showCompleted, string $searchText): array
+    public function fetchTasks(FetchTasksArg $fetchTasksArg): array
     {
-        return $this->storage->fetchTasks($componentId, $page, $showCompleted, $searchText);
+        return $this->storage->fetchTasks($fetchTasksArg);
     }
 
     public function updateTaskDescription(int $taskId, string $description): TaskItem|false
@@ -121,5 +125,10 @@ class Tasks implements IModule
     public function getUser(): ?User
     {
         return $this->user;
+    }
+
+    public function getTasksLimit()
+    {
+        return $this->tasksLimit;
     }
 }
