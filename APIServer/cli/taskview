@@ -23,7 +23,15 @@ if (in_array('--create', $argv)) {
     $migration->createDatabase();
 }
 if (in_array('--update', $argv)) {
-    $migration->update();
+    echo 'Have you made a backup?(Y/n)';
+    $resource = fopen('php://stdin', 'r');
+    $answer = strtolower(trim(fgets($resource)));
+    if ($answer === 'y') {
+        echo 'Running update';
+        $migration->update();
+    } else {
+        echo 'Create database backup and execute migration';
+    }
 }
 
 if (in_array('--get-password', $argv)) {
