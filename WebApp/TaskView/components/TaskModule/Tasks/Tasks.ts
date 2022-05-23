@@ -121,7 +121,6 @@ export default class Tasks extends AppBase {
         this.startLoading();
         await this.fetchTags();
         await this.fetchPriorities();
-        await this.fetchTasks( this.fetchTasksArgs );
         this.endLoading();
         this.$refs.list.$el.addEventListener( 'scroll', this.onScroll );
     }
