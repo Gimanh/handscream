@@ -1,0 +1,32 @@
+{
+    "class": "ZXC\\Modules\\Cors\\Cors",
+    "defer": false,
+    "options": {
+        "origin": "http://192.168.0.114:3000",
+        "methods": [
+            "GET",
+            "POST",
+            "PUT",
+            "PATCH",
+            "DELETE",
+            "HEAD",
+            "OPTIONS"
+        ],
+        "credentials": true,
+        "maxAge": 86400,
+        "headers": [
+            "content-type",
+            "set-cookie",
+            "X-XSRF-TOKEN",
+            "INIT-XSRF",
+            "XSRF-TOKEN",
+            "Accept",
+            "Authorization"
+        ],
+        "expose": [
+            "Set-Cookie",
+            "content-type",
+            "Authorization"
+        ]
+    }
+}

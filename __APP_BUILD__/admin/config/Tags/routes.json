@@ -1,0 +1,43 @@
+[
+    {
+        "middlewares": [
+            "isLoggedIn"
+        ],
+        "method": "POST",
+        "route": "/module/tags/add",
+        "handler": "App\\Modules\\Tags\\Handlers\\TagAdd"
+    },
+    {
+        "middlewares": [
+            "isLoggedIn"
+        ],
+        "method": "GET",
+        "route": "/module/tags/fetch",
+        "handler": "App\\Modules\\Tags\\Handlers\\TagsFetch"
+    },
+    {
+        "middlewares": [
+            "isLoggedIn",
+            "canToggleTag"
+        ],
+        "method": "POST",
+        "route": "/module/tags/toggle",
+        "handler": "App\\Modules\\Tags\\Handlers\\TagToggle"
+    },
+    {
+        "middlewares": [
+            "isLoggedIn"
+        ],
+        "method": "POST",
+        "route": "/module/tags/delete",
+        "handler": "App\\Modules\\Tags\\Handlers\\TagDelete"
+    },
+    {
+        "middlewares": [
+            "isLoggedIn"
+        ],
+        "method": "POST",
+        "route": "/module/tags/update",
+        "handler": "App\\Modules\\Tags\\Handlers\\TagUpdate"
+    }
+]

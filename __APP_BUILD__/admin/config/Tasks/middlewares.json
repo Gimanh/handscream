@@ -1,0 +1,12 @@
+{
+    "canAddTask": "App\\Modules\\Tasks\\Middlewares\\CanAddTask",
+    "canDeleteTask": "App\\Modules\\Tasks\\Middlewares\\CanDeleteTask",
+    "canFetchTasks": "App\\Modules\\Tasks\\Middlewares\\CanFetchTasks",
+    "canUpdateTaskStatus": "App\\Modules\\Tasks\\Middlewares\\CanUpdateTaskStatus",
+    "canEditDescription": "App\\Modules\\Tasks\\Middlewares\\CanEditDescription",
+    "canAccessDetails": "App\\Modules\\Tasks\\Middlewares\\CanAccessDetails",
+    "canEditNote": "App\\Modules\\Tasks\\Middlewares\\CanEditNote",
+    "canEditDeadline": "App\\Modules\\Tasks\\Middlewares\\CanEditDeadline",
+    "canFetchSubtasks": "App\\Modules\\Tasks\\Middlewares\\CanFetchSubtasks",
+    "canUpdateTaskPriority": "App\\Modules\\Tasks\\Middlewares\\CanUpdateTaskPriority"
+}

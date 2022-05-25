@@ -1,0 +1,27 @@
+{
+    "class": "ZXC\\Modules\\Auth\\Auth",
+    "defer": false,
+    "options": {
+        "storageProvider": "ZXC\\Modules\\Auth\\Storages\\AuthPgSqlStorage",
+        "authTypeProvider": "ZXC\\Modules\\Auth\\Providers\\AuthJwtTokenProvider",
+        "remindPasswordInterval": 1,
+        "remindPasswordLinkTemplate": "http://localhost:3000/#/?resetCode={code}&login={login}",
+        "remindPasswordEmailBody": "<p> Reset password! {link} </p>",
+        "remindPasswordLinkProvider": "ZXC\\Modules\\Auth\\Providers\\AuthSendReminderLink",
+        "authTypeProviderOptions": {
+            "secret": "[)1231&^^*&^%00()(]",
+            "alg": "HS256",
+            "accessLifeTime": 200,
+            "refreshLifetime": 400,
+            "tokenStorage": "ZXC\\Modules\\Auth\\Storages\\AuthTokenStoragePgSql"
+        },
+        "email": {
+            "confirm": true,
+            "codeProvider": "ZXC\\Modules\\Auth\\Providers\\AuthConfirmCodeProvider",
+            "confirmUrlTemplate": "http://tvapi.localhost/confirm/email/{code}/login/{login}",
+            "body": "<p> Welcome to the TaskView app! {link} </p>",
+            "redirectAfterConfirm": "http://localhost:3000/#/"
+        },
+        "blockWithoutEmailConfirm": true
+    }
+}

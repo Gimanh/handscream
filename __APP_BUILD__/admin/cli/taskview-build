@@ -1,0 +1,158 @@
+#!/usr/bin/php
+<?php
+
+/**
+ * Build TaskView and TaskViewAdmin from source
+ * $ php taskview-build
+ */
+class BuildCli
+{
+    protected string|false $apiServerFolder = '';
+
+    protected string|false $webAppFolder = '';
+
+    protected string $buildAppRoot = '';
+
+    protected string $appFolder = '';
+
+    protected string $adminFolder = '';
+
+    protected string $webAppDist = '';
+
+    public function __construct()
+    {
+        $this->apiServerFolder = realpath(dirname(__FILE__) . '/../');
+        $this->webAppFolder = realpath(dirname(__FILE__) . '/../../WebApp/TaskView/');
+        $this->buildAppRoot = dirname(__FILE__) . '/../../__APP_BUILD__/';
+        $this->appFolder = $this->buildAppRoot . 'app';
+        $this->adminFolder = $this->buildAppRoot . 'admin';
+        $this->webAppDist = $this->webAppFolder . '/dist';
+    }
+
+    public function runBuild(): void
+    {
+        $this->buildApp();
+        $this->buildAdmin();
+    }
+
+    public function buildApp(): void
+    {
+        $this->createBuildRootFolderIfNotExists();
+        $this->prepareServerSide();
+        $this->prepareClientSide();
+        $this->createBuildAppFolderIfNotExists();
+        $this->copySourcesApp();
+    }
+
+    public function buildAdmin(): void
+    {
+        $this->createBuildRootFolderIfNotExists();
+        $this->prepareServerSide();
+        $this->prepareClientSideForAdmin();
+        $this->createBuildAdminFolderIfNotExists();
+        $this->copySourcesAdmin();
+    }
+
+    protected function createBuildRootFolderIfNotExists(): void
+    {
+        if (!file_exists($this->buildAppRoot)) {
+            mkdir($this->buildAppRoot);
+        }
+    }
+
+    protected function createBuildAppFolderIfNotExists(): void
+    {
+        if (!file_exists($this->appFolder)) {
+            mkdir($this->appFolder);
+        }
+    }
+
+    protected function createBuildAdminFolderIfNotExists(): void
+    {
+        if (!file_exists($this->adminFolder)) {
+            mkdir($this->adminFolder);
+        }
+    }
+
+    protected function prepareServerSide(): void
+    {
+        chdir($this->apiServerFolder);
+        exec('composer dump-autoload', $output, $codeStatus);
+        if ($codeStatus !== 0) {
+            throw new RuntimeException('Error: composer dump-autoload. Code is:' . $codeStatus);
+        }
+    }
+
+    protected function prepareClientSide(): void
+    {
+        exec("npm --prefix {$this->webAppFolder} run build", $output, $codeStatus);
+        if ($codeStatus !== 0) {
+            throw new RuntimeException("npm --prefix {$this->webAppFolder} run build. Code is:" . $codeStatus);
+        }
+    }
+
+    protected function prepareClientSideForAdmin(): void
+    {
+        exec("npm --prefix {$this->webAppFolder} run build-admin", $output, $codeStatus);
+        if ($codeStatus !== 0) {
+            throw new RuntimeException("npm --prefix {$this->webAppFolder} run build. Code is:" . $codeStatus);
+        }
+    }
+
+    protected function copySourcesApp(): void
+    {
+        $this->copyServerSources($this->appFolder);
+        $this->copyClientSources($this->appFolder . '/web');
+    }
+
+    protected function copySourcesAdmin(): void
+    {
+        $this->copyServerSources($this->adminFolder);
+        $this->copyClientSources($this->adminFolder . '/web');
+    }
+
+    protected function copyRecursive(string $from, string $to): void
+    {
+        /** @var RecursiveDirectoryIterator $iterator */
+        $iterator = new RecursiveIteratorIterator(
+            new RecursiveDirectoryIterator($from, RecursiveDirectoryIterator::SKIP_DOTS),
+            RecursiveIteratorIterator::SELF_FIRST
+        );
+        foreach ($iterator as $item) {
+            if ($item->isDir()) {
+                mkdir($to . DIRECTORY_SEPARATOR . $iterator->getSubPathname());
+            } else {
+                copy($item, $to . DIRECTORY_SEPARATOR . $iterator->getSubPathname());
+            }
+        }
+    }
+
+    protected function copyServerSources(string $serverDirectory): void
+    {
+        $this->copyRecursive($this->apiServerFolder, $serverDirectory);
+    }
+
+    protected function copyClientSources(string $directoryWeb): void
+    {
+        $this->copyRecursive($this->webAppDist, $directoryWeb);
+    }
+
+    protected function deleteDirectory(string $directory): void
+    {
+        if (file_exists($directory)) {
+            $it = new RecursiveDirectoryIterator($directory, RecursiveDirectoryIterator::SKIP_DOTS);
+            $files = new RecursiveIteratorIterator($it,
+                RecursiveIteratorIterator::CHILD_FIRST);
+            foreach ($files as $file) {
+                if ($file->isDir()) {
+                    rmdir($file->getRealPath());
+                } else {
+                    unlink($file->getRealPath());
+                }
+            }
+            rmdir($directory);
+        }
+    }
+}
+
+(new BuildCli)->runBuild();

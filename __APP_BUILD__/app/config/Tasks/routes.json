@@ -1,0 +1,108 @@
+[
+    {
+        "middlewares": [
+            "isLoggedIn",
+            "canAddTask"
+        ],
+        "method": "POST",
+        "route": "/module/tasks/add",
+        "handler": "App\\Modules\\Tasks\\Handlers\\TaskAdd"
+    },
+    {
+        "middlewares": [
+            "isLoggedIn",
+            "canFetchTasks"
+        ],
+        "method": "GET",
+        "route": "/module/tasks/fetch/tasks",
+        "handler": "App\\Modules\\Tasks\\Handlers\\TasksFetch"
+    },
+    {
+        "middlewares": [
+            "isLoggedIn",
+            "canUpdateTaskStatus"
+        ],
+        "method": "POST",
+        "route": "/module/tasks/update/status",
+        "handler": "App\\Modules\\Tasks\\Handlers\\TaskUpdateStatus"
+    },
+    {
+        "middlewares": [
+            "isLoggedIn",
+            "canEditDescription"
+        ],
+        "method": "POST",
+        "route": "/module/tasks/update/description",
+        "handler": "App\\Modules\\Tasks\\Handlers\\TaskUpdateDescription"
+    },
+    {
+        "middlewares": [
+            "isLoggedIn",
+            "canDeleteTask"
+        ],
+        "method": "POST",
+        "route": "/module/tasks/delete",
+        "handler": "App\\Modules\\Tasks\\Handlers\\TaskDelete"
+    },
+    {
+        "middlewares": [
+            "isLoggedIn",
+            "canAccessDetails"
+        ],
+        "method": "POST",
+        "route": "/module/tasks/details",
+        "handler": "App\\Modules\\Tasks\\Handlers\\TaskDetails"
+    },
+    {
+        "middlewares": [
+            "isLoggedIn",
+            "canEditNote"
+        ],
+        "method": "POST",
+        "route": "/module/tasks/update/note",
+        "handler": "App\\Modules\\Tasks\\Handlers\\TaskUpdateNote"
+    },
+    {
+        "middlewares": [
+            "isLoggedIn",
+            "canEditDeadline"
+        ],
+        "method": "POST",
+        "route": "/module/tasks/update/deadline",
+        "handler": "App\\Modules\\Tasks\\Handlers\\TaskUpdateDeadline"
+    },
+    {
+        "middlewares": [
+            "isLoggedIn",
+            "canFetchSubtasks"
+        ],
+        "method": "GET",
+        "route": "/module/tasks/fetch/subtasks",
+        "handler": "App\\Modules\\Tasks\\Handlers\\TaskFetchSubtasks"
+    },
+    {
+        "middlewares": [
+            "isLoggedIn"
+        ],
+        "method": "POST",
+        "route": "/module/tasks/move/task",
+        "handler": "App\\Modules\\Tasks\\Handlers\\TasksMove"
+    },
+    {
+        "middlewares": [
+            "isLoggedIn"
+        ],
+        "method": "GET",
+        "route": "/module/tasks/fetch/all/priorities",
+        "handler": "App\\Modules\\Tasks\\Handlers\\TasksAllPriorities"
+    },
+    {
+        "middlewares": [
+            "isLoggedIn",
+            "canUpdateTaskPriority"
+        ],
+        "method": "POST",
+        "route": "/module/tasks/update/priority",
+        "handler": "App\\Modules\\Tasks\\Handlers\\TaskPriorityUpdate"
+    }
+]

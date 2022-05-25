@@ -1,0 +1,10 @@
+{
+    "class": "ZXC\\Modules\\Logger\\Logger",
+    "defer": true,
+    "options": {
+        "lvl": "debug",
+        "folder": "/var/log/task_view/",
+        "fileName": "tv",
+        "mode": "day"
+    }
+}

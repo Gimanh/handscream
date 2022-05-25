@@ -1,0 +1,38 @@
+[
+    {
+        "middlewares": [
+            "isLoggedIn",
+            "canAddGoal"
+        ],
+        "method": "POST",
+        "route": "/module/goals/add",
+        "handler": "App\\Modules\\Goals\\Handlers\\GoalAdd"
+    },
+    {
+        "middlewares": [
+            "isLoggedIn",
+            "canFetchGoals"
+        ],
+        "method": "GET",
+        "route": "/module/goals/fetch",
+        "handler": "App\\Modules\\Goals\\Handlers\\GoalsFetch"
+    },
+    {
+        "middlewares": [
+            "isLoggedIn",
+            "canUpdateGoal"
+        ],
+        "method": "POST",
+        "route": "/module/goals/update",
+        "handler": "App\\Modules\\Goals\\Handlers\\GoalUpdate"
+    },
+    {
+        "middlewares": [
+            "isLoggedIn",
+            "canDeleteGoal"
+        ],
+        "method": "POST",
+        "route": "/module/goals/delete",
+        "handler": "App\\Modules\\Goals\\Handlers\\GoalDelete"
+    }
+]

@@ -1,0 +1,18 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+User -> AuthenticationLogin: Send login credentials \n{login, password}
+AuthenticationLogin -> Auth: Passing \nAuth::login( login, password )
+Auth -> AuthStorage: AuthStorage::fetchUserByEmail( email )
+AuthStorage --> Auth: User data from SQL storage
+Auth -> Auth: Init User \n$this->user = new User()
+Auth --> AuthenticationLogin: Return login status
+AuthenticationLogin -> Auth: Call getAuthTypeProvider()
+Auth --> AuthenticationLogin: Instance AuthJwtTokenProvider
+AuthenticationLogin -> AuthJwtTokenProvider: provide(userInfo, response)
+AuthJwtTokenProvider --> AuthenticationLogin: Response with tokens
+AuthenticationLogin --> User: Login data (tokens|cookie|other)
+
+@enduml

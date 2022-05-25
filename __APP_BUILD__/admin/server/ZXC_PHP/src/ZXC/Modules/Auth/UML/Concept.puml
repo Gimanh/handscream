@@ -1,0 +1,13 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+Request -> LoginHandler: Login request
+LoginHandler -> AuthModule: Handler cals login method from module
+AuthModule -> Provider: Module cals specified provider
+Provider -> Provider: Do some logic
+Provider --> AuthModule: Return login result
+AuthModule --> LoginHandler: Return login result
+LoginHandler --> Request: Add result into response and send
+@enduml

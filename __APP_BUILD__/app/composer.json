@@ -1,0 +1,18 @@
+{
+    "config": {
+        "optimize-autoloader": true
+    },
+    "require": {
+        "giman/zxc_php": "dev-master",
+        "ext-pdo": "*",
+        "ext-json": "*",
+        "ext-openssl": "*",
+        "ext-mbstring": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "server/App",
+            "ZXC\\": "server/ZXC_PHP/src/ZXC"
+        }
+    }
+}

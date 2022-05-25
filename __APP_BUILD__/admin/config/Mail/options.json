@@ -1,0 +1,13 @@
+{
+    "class": "ZXC\\Modules\\Mailer\\Mail",
+    "defer": false,
+    "options": {
+        "host": "",
+        "port": 2525,
+        "username": "",
+        "password": "",
+        "encryption": "tls",
+        "fromName": "TaskView",
+        "fromEmail": ""
+    }
+}

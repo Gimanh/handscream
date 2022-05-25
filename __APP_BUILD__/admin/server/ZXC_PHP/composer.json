@@ -1,0 +1,26 @@
+{
+    "name": "giman/zxc_php",
+    "description": "PHP micro framework",
+    "type": "library",
+    "license": "MIT",
+    "keywords": ["zxc_php","framework","micro","api","router"],
+    "authors": [
+        {
+            "name": "Giman Nikolay",
+            "email": "gimanhead@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "autoload": {
+        "psr-4": {
+            "ZXC\\": "src/ZXC"
+        }
+    },
+    "require": {
+        "php": ">=8.0",
+        "ext-json": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "9.5.4"
+    }
+}

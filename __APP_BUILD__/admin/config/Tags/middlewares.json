@@ -1,0 +1,3 @@
+{
+    "canToggleTag": "App\\Modules\\Tags\\Middlewares\\CanToggleTag"
+}

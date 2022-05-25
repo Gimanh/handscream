@@ -1,0 +1,11 @@
+{
+    "class": "App\\Modules\\Admins\\Admins",
+    "defer": false,
+    "options": {
+        "usersDbConnection": {
+            "dsn": "pgsql:host=localhost;dbname=task_view_server;options='--client_encoding=UTF8'",
+            "username": "test_user",
+            "password": "123456"
+        }
+    }
+}

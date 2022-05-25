@@ -1,0 +1,46 @@
+[
+    {
+        "middlewares": [],
+        "method": "POST",
+        "route": "/module/auth/login",
+        "handler": "ZXC\\Modules\\Auth\\Handlers\\AuthenticationLogin"
+    },
+    {
+        "middlewares": [],
+        "method": "POST",
+        "route": "/module/auth/refresh/token",
+        "handler": "ZXC\\Modules\\Auth\\Handlers\\AuthenticationRefreshToken"
+    },
+    {
+        "middlewares": [],
+        "method": "POST",
+        "route": "/module/auth/registration",
+        "handler": "ZXC\\Modules\\Auth\\Handlers\\AuthenticationRegistration"
+    },
+    {
+        "middlewares": [],
+        "method": "GET",
+        "route": "/confirm/email/:code/login/:login",
+        "handler": "ZXC\\Modules\\Auth\\Handlers\\AuthenticationConfirmEmail"
+    },
+    {
+        "middlewares": [
+            "isLoggedIn"
+        ],
+        "method": "POST",
+        "route": "/module/auth/logout",
+        "handler": "ZXC\\Modules\\Auth\\Handlers\\AuthenticationLogout"
+    },
+    {
+        "middlewares": [],
+        "method": "POST",
+        "route": "/module/auth/email/recovery",
+        "handler": "ZXC\\Modules\\Auth\\Handlers\\AuthenticationRecoveryEmail"
+    },
+    {
+        "middlewares": [],
+        "method": "POST",
+        "route": "/module/auth/password/reset",
+        "handler": "ZXC\\Modules\\Auth\\Handlers\\AuthenticationResetPassword"
+    }
+]

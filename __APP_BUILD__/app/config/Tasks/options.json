@@ -1,0 +1,6 @@
+{
+    "class": "App\\Modules\\Tasks\\Tasks",
+    "options": {
+        "tasksLimit": 10
+    }
+}

@@ -1,0 +1,8 @@
+[
+    {
+        "middlewares": [],
+        "method": "GET",
+        "route": "/fetch/app/config",
+        "handler": "App\\Modules\\AppConfig\\Handlers\\AppConfig"
+    }
+]
