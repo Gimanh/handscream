@@ -32,9 +32,8 @@ class AboutStorage
                     'date' => $datum['date'],
                     'items' => [],
                 ];
-            } else {
-                $result[$datum['version']]['items'][] = $datum['item'];
             }
+            $result[$datum['version']]['items'][] = $datum['item'];
         }
         return $result;
     }
