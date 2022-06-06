@@ -28,6 +28,12 @@ export type AppTaskPermissions = {
     task_can_edit_priority?: true
 };
 
+export interface ResponsibleUser {
+    id: number
+    login: string
+    email: string
+}
+
 export interface AppTask {
     id: number
     description: string
@@ -40,6 +46,9 @@ export interface AppTask {
     permissions: AppTaskPermissions
     priorityId: number
     tags: number[]
+    dateComplete: string | null
+    dateCreation: string
+    responsibleUser?: ResponsibleUser | null
 }
 
 export type AppTasks = AppTask[];
@@ -70,6 +79,8 @@ export type TasksStoreStateUrls = {
     moveTask: string
     allPriorities: string
     updatePriority: string
+    taskHistory: string
+    taskHistoryRecovery: string
 }
 
 export type TaskCompleteChanged = {
@@ -96,16 +107,8 @@ export type TaskDeleteResponse = {
 
 export type TaskIdArg = number;
 
-export interface ResponsibleUser {
-    id: number
-    login: string
-    email: string
-}
-
 export interface DetailedTask extends AppTask {
-    dateComplete: string | null
-    dateCreation: string
-    responsibleUser: ResponsibleUser | null
+
 }
 
 export type DetailedTaskResponse = [ DetailedTask ];
@@ -152,6 +155,13 @@ export type TTaskPriority = {
     code: 'low' | 'high' | 'medium'
 };
 
+export type TaskHistoryId = number;
+
+export interface AppTaskHistoryItem extends AppTask {
+    // eslint-disable-next-line camelcase
+    history_id: TaskHistoryId
+}
+
 export type TaskPriorities = TTaskPriority[];
 
 export type TaskPrioritiesResponse = AppResponse<TaskPriorities>;
@@ -163,3 +173,9 @@ export type UpdateTaskPriorityArg = { priorityId: number, taskId: number, taskPa
 export type AddTagToTaskArg = { taskId: TaskIdArg, tagId: TagItem['id'], taskParentId: AppTask['parentId'] };
 
 export type DeleteTagFromTask = { taskId: TaskIdArg, tagId: TagItem['id'], taskParentId: AppTask['parentId'] };
+
+export type TaskHistoryResponse = AppResponse<{ history: AppTaskHistoryItem[] }>;
+
+export type TaskHistoryState = { taskId: AppTask['id'], items: AppTaskHistoryItem[] };
+
+export type TaskHistoryRecoveryResponse = AppResponse<{ recovery: boolean }>;

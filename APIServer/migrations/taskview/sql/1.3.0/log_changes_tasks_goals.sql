@@ -29,6 +29,7 @@ begin
     elseif tg_op = 'UPDATE' then
         insert into history.tasks_goals (goal_id, edit_date, task, deleted)
         VALUES (old.id, new.date_creation, to_jsonb(old), 0);
+        new.edit_date = now();
         return new;
     end if;
 end

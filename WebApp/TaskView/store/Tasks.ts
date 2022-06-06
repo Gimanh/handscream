@@ -28,7 +28,12 @@ import {
     TaskPrioritiesResponse,
     TaskPriorityUpdateResponse,
     UpdateTaskPriorityArg,
-    AddTagToTaskArg, DeleteTagFromTask
+    AddTagToTaskArg,
+    DeleteTagFromTask,
+    TaskHistoryResponse,
+    TaskHistoryState,
+    TaskHistoryId,
+    TaskHistoryRecoveryResponse
 } from '~/classes/util/TaskTypes';
 import { AppResponse } from '~/classes/util/AppTypes';
 import { TagItem } from '~/classes/util/TagsTypes';
@@ -68,7 +73,9 @@ export class TasksState {
         fetchSubtasks: '/module/tasks/fetch/subtasks',
         moveTask: '/module/tasks/move/task',
         allPriorities: '/module/tasks/fetch/all/priorities',
-        updatePriority: '/module/tasks/update/priority'
+        updatePriority: '/module/tasks/update/priority',
+        taskHistory: '/module/tasks/fetch/history',
+        taskHistoryRecovery: '/module/tasks/recovery/history/state'
     };
 
     public detailedTask: DetailedTask = DETAILED_TASK;
@@ -80,6 +87,8 @@ export class TasksState {
     public lastCompletedTask: number = DEFAULT_COMPLETED_TASK_ID;
 
     public priorities: TaskPriorities = [];
+
+    public taskHistory: TaskHistoryState = { taskId: -1, items: [] };
 }
 
 export class TasksMutations extends Mutations<TasksState> {
@@ -307,6 +316,10 @@ export class TasksMutations extends Mutations<TasksState> {
         }
 
     }
+
+    setTaskHistory( historyData: TaskHistoryState ) {
+        this.state.taskHistory = historyData;
+    }
 }
 
 export class TasksStoreGetters extends Getters<TasksState> {
@@ -460,6 +473,21 @@ export class TasksStoreActions extends Actions<TasksState, TasksStoreGetters, Ta
             this.mutations.setTaskPriority( data );
         }
         return result;
+    }
+
+    async fetchTaskHistory( taskId: AppTask['id'] ): Promise<TaskHistoryResponse | void> {
+        this.mutations.setTaskHistory( { taskId: -1, items: [] } );
+        const result = await this.store.$axios.$post<TaskHistoryResponse>( this.state.urls.taskHistory, qs.stringify( { taskId } ) )
+            .catch( err => console.log( err ) );
+        if ( result ) {
+            this.mutations.setTaskHistory( { taskId, items: result.response.history } );
+        }
+        return result;
+    }
+
+    async recoverTaskState( id: TaskHistoryId ): Promise<TaskHistoryRecoveryResponse | void> {
+        return await this.store.$axios.$post<TaskHistoryRecoveryResponse>( this.state.urls.taskHistoryRecovery, qs.stringify( { id } ) )
+            .catch( err => console.log( err ) );
     }
 }
 

@@ -236,4 +236,40 @@ class TasksStorage
             ]
         ]);
     }
+
+    public function fetchTaskHistory(int $taskId): array
+    {
+        $result = $this->db->select('select id as history_id, task from history.tasks_tasks where task_id = ? ', [$taskId]);
+        $items = [];
+        if ($result) {
+            foreach ($result as $item) {
+                $task = json_decode($item['task'], true);
+                $task['history_id'] = $item['history_id'];
+                $items[] = $task;
+            }
+        }
+        return $items;
+    }
+
+    public function fetchTaskHistoryById(int $id): ?array
+    {
+        return $this->db->selectOne('select * from history.tasks_tasks where id = ? ', [$id]);
+    }
+
+    public function updateTaskState(array $taskData): bool
+    {
+        $taskId = $taskData['id'];
+        unset($taskData['id']);
+        unset($taskData['creator_id']);
+        unset($taskData['date_creation']);
+        unset($taskData['edit_date']);
+        $taskData['complete'] = (int)$taskData['complete'];
+        return $this->db->update([
+            'table' => 'tasks.tasks',
+            'data' => $taskData,
+            'where' => [
+                'id' => $taskId,
+            ]
+        ]);
+    }
 }
