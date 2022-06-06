@@ -9,7 +9,7 @@ use App\Modules\Tasks\Tasks;
 
 class TasksBaseHandler
 {
-    protected Tasks|null $tasks = null;
+    protected ?Tasks $tasks = null;
 
     public function __construct()
     {

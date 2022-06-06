@@ -15,7 +15,7 @@
                 <v-btn
                     color="error"
                     text
-                    @click="apply"
+                    @click="accept"
                 >
                     {{ $t( 'msg.accept' ) }}
                 </v-btn>

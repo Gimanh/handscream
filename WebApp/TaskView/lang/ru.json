@@ -140,7 +140,8 @@
         "sendRecoveryEmailError": "Не удалось отправить ссылку для восстановления пароля, попробуйте позже.",
         "canNotResetPassword": "Не удалось сбросить пароль.",
         "passwordStrength": "Пароль не надежный.",
-        "tags": "Тэги"
+        "tags": "Тэги",
+        "history": "История"
     },
     "stn": {
         "showCompletedItems": "Не скрывать выполненые задачи",
@@ -200,7 +201,9 @@
         "updateDeadlineFailed": "Не удалось обновить дату окончания задания.",
         "addSubtask": "Добавить подзадачу",
         "deleteTagTitle": "Удаление тэга",
-        "deleteTagQuestion": "Вы действительно хотите удалить тэг?"
+        "deleteTagQuestion": "Вы действительно хотите удалить тэг?",
+        "recover": "Восстановление",
+        "recoverState": "Восстановить данное состояние?"
     },
     "admin": {
         "users": "Пользователи",
@@ -220,5 +223,19 @@
         "high": "Высокий",
         "low": "Низкий",
         "medium": "Средний"
+    },
+    "table": {
+        "headers": {
+            "id": "Идентификатор",
+            "parent_id": "Родитель",
+            "description": "Описание",
+            "complete": "Выполнена",
+            "goal_list_id": "Список",
+            "responsible_id": "Ответственный",
+            "deadline": "Срок выполнения",
+            "note": "Заметка",
+            "priority": "Приоритет",
+            "actions": "Действия"
+        }
     }
 }

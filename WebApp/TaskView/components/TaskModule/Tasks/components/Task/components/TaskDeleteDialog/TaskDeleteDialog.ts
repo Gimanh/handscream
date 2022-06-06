@@ -5,7 +5,7 @@ import AppBase from '~/components/AppBase';
 export default class TaskDeleteDialog extends AppBase {
     public dialog: boolean = true;
 
-    apply() {
+    accept() {
         this.$emit( 'apply' );
     }
 

@@ -140,7 +140,8 @@
         "sendRecoveryEmailError": "Can not send email with recovery link, please try later.",
         "canNotResetPassword": "Can not reset password.",
         "passwordStrength": "Password is not strength.",
-        "tags": "Tags"
+        "tags": "Tags",
+        "history": "History"
     },
     "stn": {
         "showCompletedItems": "Do not hide completed tasks",
@@ -194,7 +195,9 @@
         "updateDeadlineFailed": "Can not update task deadline.",
         "addSubtask": "Add subtask",
         "deleteTagTitle": "Tag deleting",
-        "deleteTagQuestion": "Do you want delete tag?"
+        "deleteTagQuestion": "Do you want delete tag?",
+        "recover": "Recover",
+        "recoverState": "Recover this state?"
     },
     "admin": {
         "users": "Users",
@@ -214,5 +217,19 @@
         "high": "High",
         "low": "Low",
         "medium": "Medium"
+    },
+    "table": {
+        "headers": {
+            "id": "Id",
+            "parent_id": "Parent",
+            "description": "Description",
+            "complete": "Complete",
+            "goal_list_id": "List",
+            "responsible_id": "Responsible",
+            "deadline": "Deadline",
+            "note": "Note",
+            "priority": "Priority",
+            "actions": "Actions"
+        }
     }
 }

@@ -104,5 +104,14 @@
         "method": "POST",
         "route": "/module/tasks/update/priority",
         "handler": "App\\Modules\\Tasks\\Handlers\\TaskPriorityUpdate"
+    },
+    {
+        "middlewares": [
+            "isLoggedIn",
+            "canAccessTaskHistory"
+        ],
+        "method": "POST",
+        "route": "/module/tasks/fetch/history",
+        "handler": "App\\Modules\\Tasks\\Handlers\\TaskHistory"
     }
 ]

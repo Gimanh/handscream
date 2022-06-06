@@ -236,4 +236,16 @@ class TasksStorage
             ]
         ]);
     }
+
+    public function fetchTaskHistory(int $taskId): array
+    {
+        $result = $this->db->select('select task from history.tasks_tasks where task_id = ? ', [$taskId]);
+        $items = [];
+        if ($result) {
+            foreach ($result as $item) {
+                $items[] = json_decode($item['task']);
+            }
+        }
+        return $items;
+    }
 }

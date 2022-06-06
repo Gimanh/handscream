@@ -131,4 +131,9 @@ class Tasks implements IModule
     {
         return $this->tasksLimit;
     }
+
+    public function fetchHistory(int $taskId): array
+    {
+        return $this->storage->fetchTaskHistory($taskId);
+    }
 }
