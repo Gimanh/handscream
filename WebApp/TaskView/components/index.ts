@@ -51,3 +51,4 @@ export * from './TaskModule/Tasks/components/Task/components/TaskVisualInfo';
 export * from './TaskModule/Tasks/components/Task/components/TaskTags/components/TagDeleteDialog';
 export * from './TaskModule/Tasks/components/TasksToolbar';
 export * from './TaskModule/Tasks/components/TasksSearch';
+export * from './TaskModule/Tasks/components/Task/components/TaskHistory';
