@@ -15,6 +15,7 @@
             >
                 <template #[`item.actions`]="{ item }">
                     <v-dialog
+                        v-if="!item.can_not_recovery"
                         v-model="dialog"
                         width="350"
                     >

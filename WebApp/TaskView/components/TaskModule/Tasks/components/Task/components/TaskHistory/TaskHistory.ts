@@ -1,7 +1,7 @@
 import { Component, Prop } from 'vue-property-decorator';
+import { Action, State } from 'vuex-class';
 import AppBase from '~/components/AppBase';
 import { AppTask, AppTaskHistoryItem } from '~/classes/util/TaskTypes';
-import { Action, State } from 'vuex-class';
 import { TasksState, TasksStoreActions } from '~/store/Tasks';
 import { VuetifyHeaderItems } from '~/classes/util/AppTypes';
 
@@ -44,10 +44,10 @@ export default class TaskHistory extends AppBase {
                 text: this.$t( 'table.headers.parent_id' ) as string,
                 value: 'parent_id'
             },
-            {
-                text: this.$t( 'table.headers.responsible_id' ) as string,
-                value: 'responsible_id'
-            },
+            // {
+            //     text: this.$t( 'table.headers.responsible_id' ) as string,
+            //     value: 'responsible_id'
+            // },
             {
                 text: this.$t( 'table.headers.deadline' ) as string,
                 value: 'deadline'

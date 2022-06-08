@@ -134,7 +134,24 @@ class Tasks implements IModule
 
     public function fetchHistory(int $taskId): array
     {
-        return $this->storage->fetchTaskHistory($taskId);
+        $history = $this->storage->fetchTaskHistory($taskId);
+        foreach ($history as &$task) {
+            $listData = $this->storage->fetchListName($task['goal_list_id']);
+            if ($task['parent_id']) {
+                $taskNameData = $this->storage->fetchTaskById($task['parent_id']);
+                if ($taskNameData) {
+                    $task['parent_id'] = $taskNameData[0]->description;
+                }
+            }
+            if ($listData) {
+                $task['goal_list_id'] = $listData[0]['name'];
+                $task['can_not_recovery'] = false;
+            } else {
+                $task['can_not_recovery'] = true;
+            }
+            $task['complete'] = $task['complete'] ? '[ + ]' : '[ - ]';
+        }
+        return $history;
     }
 
     public function recoveryTaskHistory(int $id): bool

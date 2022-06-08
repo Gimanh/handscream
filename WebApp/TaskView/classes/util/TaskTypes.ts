@@ -160,6 +160,8 @@ export type TaskHistoryId = number;
 export interface AppTaskHistoryItem extends AppTask {
     // eslint-disable-next-line camelcase
     history_id: TaskHistoryId
+    // eslint-disable-next-line camelcase
+    can_not_recovery: boolean
 }
 
 export type TaskPriorities = TTaskPriority[];

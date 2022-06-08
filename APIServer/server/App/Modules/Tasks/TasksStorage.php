@@ -20,6 +20,8 @@ class TasksStorage
 
     protected ?PDOStatement $taskFetchTagsStatement = null;
 
+    protected ?PDOStatement $taskFetchListName = null;
+
 
     public function __construct(?User $user = null)
     {
@@ -239,7 +241,7 @@ class TasksStorage
 
     public function fetchTaskHistory(int $taskId): array
     {
-        $result = $this->db->select('select id as history_id, task from history.tasks_tasks where task_id = ? ', [$taskId]);
+        $result = $this->db->select('select id as history_id, task from history.tasks_tasks where task_id = ? order by id desc', [$taskId]);
         $items = [];
         if ($result) {
             foreach ($result as $item) {
@@ -253,7 +255,7 @@ class TasksStorage
 
     public function fetchTaskHistoryById(int $id): ?array
     {
-        return $this->db->selectOne('select * from history.tasks_tasks where id = ? ', [$id]);
+        return $this->db->selectOne('select * from history.tasks_tasks where id = ?', [$id]);
     }
 
     public function updateTaskState(array $taskData): bool
@@ -271,5 +273,18 @@ class TasksStorage
                 'id' => $taskId,
             ]
         ]);
+    }
+
+    public function fetchListName(int $listId): array
+    {
+        $pdo = $this->db->getConnection();
+        if (!$this->taskFetchListName) {
+            $this->taskFetchListName = $pdo->prepare('select name from tasks.goal_lists where id = ?');
+        }
+        $status = $this->taskFetchListName->execute([$listId]);
+        if ($status) {
+            return $this->taskFetchListName->fetchAll(PDO::FETCH_ASSOC);
+        }
+        return [];
     }
 }
