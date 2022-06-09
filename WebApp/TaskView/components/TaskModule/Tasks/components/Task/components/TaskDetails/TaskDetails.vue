@@ -38,13 +38,6 @@
                     <v-col
                         cols="12"
                     >
-                        <task-history
-                            :task="detailedTask"
-                        />
-                    </v-col>
-                    <v-col
-                        cols="12"
-                    >
                         <task
                             :task="detailedTask"
                             :restricted-mode="true"
@@ -91,6 +84,13 @@
                                 />
                             </v-card-text>
                         </v-card>
+                    </v-col>
+                    <v-col
+                        cols="12"
+                    >
+                        <task-history
+                            :task="detailedTask"
+                        />
                     </v-col>
                 </v-row>
             </v-card-text>
