@@ -62,12 +62,22 @@ class TasksStorage
     /**
      * @return array<int, TaskItem>
      */
-    protected function convertTasksToTaskItem(array $tasks = []): array
+    protected function convertTasksToTaskItem(array $tasks = [], bool $uniqueTaskItemArray = true): array
     {
         $processedTasks = [];
         $result = [];
         foreach ($tasks as &$task) {
-            if (!isset($processedTasks[$task['id']])) {
+            if ($uniqueTaskItemArray) {
+                if (!isset($processedTasks[$task['id']])) {
+                    $taskPermissions = $this->fetchTaskPermissions($task['id']);
+                    foreach ($taskPermissions as $permission) {
+                        $task['permissions'][$permission['name']] = true;
+                    }
+                    $task['tags'] = $this->fetchTagIdsForTask($task['id']);
+                    $result[] = new TaskItem($task);
+                    $processedTasks[$task['id']] = true;
+                }
+            } else {
                 $taskPermissions = $this->fetchTaskPermissions($task['id']);
                 foreach ($taskPermissions as $permission) {
                     $task['permissions'][$permission['name']] = true;
@@ -76,6 +86,7 @@ class TasksStorage
                 $result[] = new TaskItem($task);
                 $processedTasks[$task['id']] = true;
             }
+
         }
         return $result;
     }
@@ -239,6 +250,10 @@ class TasksStorage
         ]);
     }
 
+    /**
+     * @param int $taskId
+     * @return array<int, TaskItem>
+     */
     public function fetchTaskHistory(int $taskId): array
     {
         $result = $this->db->select('select id as history_id, task from history.tasks_tasks where task_id = ? order by id desc', [$taskId]);
@@ -249,6 +264,7 @@ class TasksStorage
                 $task['history_id'] = $item['history_id'];
                 $items[] = $task;
             }
+            $items = $this->convertTasksToTaskItem($items, false);
         }
         return $items;
     }

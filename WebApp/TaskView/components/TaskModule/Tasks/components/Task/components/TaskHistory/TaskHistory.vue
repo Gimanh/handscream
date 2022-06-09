@@ -10,6 +10,7 @@
                 :headers="headers"
                 :items="taskHistory.items"
                 :items-per-page="10"
+                item-key="id"
                 height="300"
                 sort-by="id"
             >
@@ -51,6 +52,9 @@
                             </v-card-actions>
                         </v-card>
                     </v-dialog>
+                </template>
+                <template #[`item.priority`]="{ item }">
+                    <div>{{ getLabel( item ) }}</div>
                 </template>
             </v-data-table>
         </v-card-text>
