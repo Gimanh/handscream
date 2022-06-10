@@ -2,7 +2,9 @@
     "class": "App\\Modules\\AppConfig\\AppConfig",
     "options": {
         "public": {
-            "namespace": "task_view"
+            "namespace": "task_view",
+            "remindPasswordUrlTemplate": "http://localhost:3000/#/?resetCode={code}&login={login}",
+            "remindPasswordBodyTemplate": "<p> Reset password! {link} </p>"
         },
         "private": {
         }
