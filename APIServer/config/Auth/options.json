@@ -18,8 +18,8 @@
         "email": {
             "confirm": true,
             "codeProvider": "ZXC\\Modules\\Auth\\Providers\\AuthConfirmCodeProvider",
-            "confirmUrlTemplate": "http://tvapi.localhost/confirm/email/{code}/login/{login}",
-            "body": "<p> Welcome to the TaskView app! {link} </p>",
+            "confirmUrlGenerator": "ZXC\\Modules\\Auth\\DataGenerators\\AuthConfirmUrlGenerator",
+            "confirmBodyGenerator": "ZXC\\Modules\\Auth\\DataGenerators\\AuthConfirmBodyGenerator",
             "redirectAfterConfirm": "http://localhost:3000/#/"
         },
         "blockWithoutEmailConfirm": true
