@@ -18,8 +18,8 @@
         "email": {
             "confirm": true,
             "codeProvider": "ZXC\\Modules\\Auth\\Providers\\AuthConfirmCodeProvider",
-            "confirmUrlGenerator": "ZXC\\Modules\\Auth\\DataGenerators\\AuthConfirmUrlGenerator",
-            "confirmBodyGenerator": "ZXC\\Modules\\Auth\\DataGenerators\\AuthConfirmBodyGenerator",
+            "confirmUrlGenerator": "App\\Classes\\Auth\\AuthConfirmUrlGenerator",
+            "confirmBodyGenerator": "App\\Classes\\Auth\\AuthConfirmBodyGenerator",
             "redirectAfterConfirm": "http://localhost:3000/#/"
         },
         "blockWithoutEmailConfirm": true
