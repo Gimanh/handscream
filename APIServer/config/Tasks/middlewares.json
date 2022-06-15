@@ -9,5 +9,6 @@
     "canEditDeadline": "App\\Modules\\Tasks\\Middlewares\\CanEditDeadline",
     "canFetchSubtasks": "App\\Modules\\Tasks\\Middlewares\\CanFetchSubtasks",
     "canUpdateTaskPriority": "App\\Modules\\Tasks\\Middlewares\\CanUpdateTaskPriority",
-    "canAccessTaskHistory": "App\\Modules\\Tasks\\Middlewares\\CanAccessTaskHistory"
+    "canAccessTaskHistory": "App\\Modules\\Tasks\\Middlewares\\CanAccessTaskHistory",
+    "canRecoveryTaskHistory": "App\\Modules\\Tasks\\Middlewares\\CanRecoveryTaskHistory"
 }

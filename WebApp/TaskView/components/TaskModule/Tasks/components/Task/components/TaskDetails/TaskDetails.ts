@@ -41,6 +41,10 @@ export default class TaskDetails extends AppBase {
         return !!this.detailedTask.permissions.task_can_edit_note;
     }
 
+    get canAccessHistory(): boolean {
+        return !!this.detailedTask.permissions.task_can_access_history;
+    }
+
     get dialogWidth() {
         return this.$vuetify.breakpoint.xs ? '100%' : '600';
     }

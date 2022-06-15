@@ -33,7 +33,7 @@ import {
     TaskHistoryResponse,
     TaskHistoryState,
     TaskHistoryId,
-    TaskHistoryRecoveryResponse
+    TaskHistoryRecoveryResponse, TaskRecoveryHistoryRequestData
 } from '~/classes/util/TaskTypes';
 import { AppResponse } from '~/classes/util/AppTypes';
 import { TagItem } from '~/classes/util/TagsTypes';
@@ -485,8 +485,8 @@ export class TasksStoreActions extends Actions<TasksState, TasksStoreGetters, Ta
         return result;
     }
 
-    async recoverTaskState( id: TaskHistoryId ): Promise<TaskHistoryRecoveryResponse | void> {
-        return await this.store.$axios.$post<TaskHistoryRecoveryResponse>( this.state.urls.taskHistoryRecovery, qs.stringify( { id } ) )
+    async recoverTaskState( data: TaskRecoveryHistoryRequestData ): Promise<TaskHistoryRecoveryResponse | void> {
+        return await this.store.$axios.$post<TaskHistoryRecoveryResponse>( this.state.urls.taskHistoryRecovery, qs.stringify( data ) )
             .catch( err => console.log( err ) );
     }
 }

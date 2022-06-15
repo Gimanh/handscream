@@ -1,5 +1,6 @@
 <template>
     <v-card
+        v-if="task.permissions.task_can_access_history"
         elevation="1"
     >
         <v-card-subtitle>
@@ -10,53 +11,53 @@
                 :headers="headers"
                 :items="taskHistory.items"
                 :items-per-page="10"
-                item-key="id"
+                item-key="historyId"
                 height="300"
                 sort-by="id"
             >
                 <template #[`item.actions`]="{ item }">
-                    <v-dialog
-                        v-if="!item.can_not_recovery"
-                        v-model="dialog"
-                        width="350"
+                    <v-icon
+                        v-if="!item.canNotRecovery && task.permissions.task_can_recovery_history"
+                        @click="openDialogFor(item)"
                     >
-                        <template #activator="{on}">
-                            <v-icon
-                                v-on="on"
-                            >
-                                mdi-restore
-                            </v-icon>
-                        </template>
-                        <v-card>
-                            <v-card-subtitle>
-                                {{ $t( 'task.recover' ) }}
-                            </v-card-subtitle>
-                            <v-card-text>
-                                {{ $t( 'task.recoverState' ) }}
-                            </v-card-text>
-                            <v-card-actions>
-                                <v-spacer />
-                                <v-btn
-                                    color="error"
-                                    text
-                                    @click="accept(item)"
-                                >
-                                    {{ $t( 'msg.accept' ) }}
-                                </v-btn>
-                                <v-btn
-                                    text
-                                    @click="cancel"
-                                >
-                                    {{ $t( 'msg.cancel' ) }}
-                                </v-btn>
-                            </v-card-actions>
-                        </v-card>
-                    </v-dialog>
+                        mdi-restore
+                    </v-icon>
                 </template>
                 <template #[`item.priority`]="{ item }">
                     <div>{{ getLabel( item ) }}</div>
                 </template>
             </v-data-table>
+            <v-dialog
+                v-model="dialog"
+                persistent
+                hide-overlay
+                width="350"
+            >
+                <v-card>
+                    <v-card-subtitle>
+                        {{ $t( 'task.recover' ) }}
+                    </v-card-subtitle>
+                    <v-card-text>
+                        {{ $t( 'task.recoverState' ) }}
+                    </v-card-text>
+                    <v-card-actions>
+                        <v-spacer />
+                        <v-btn
+                            color="error"
+                            text
+                            @click="accept"
+                        >
+                            {{ $t( 'msg.accept' ) }}
+                        </v-btn>
+                        <v-btn
+                            text
+                            @click="cancel"
+                        >
+                            {{ $t( 'msg.cancel' ) }}
+                        </v-btn>
+                    </v-card-actions>
+                </v-card>
+            </v-dialog>
         </v-card-text>
     </v-card>
 </template>

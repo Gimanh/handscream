@@ -86,6 +86,7 @@
                         </v-card>
                     </v-col>
                     <v-col
+                        v-if="canAccessHistory"
                         cols="12"
                     >
                         <task-history

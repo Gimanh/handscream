@@ -26,6 +26,10 @@ export type AppTaskPermissions = {
     task_can_watch_priority?: true
     // eslint-disable-next-line
     task_can_edit_priority?: true
+    // eslint-disable-next-line
+    task_can_access_history?: true
+    // eslint-disable-next-line
+    task_can_recovery_history?: true
 };
 
 export interface ResponsibleUser {
@@ -156,6 +160,11 @@ export type TTaskPriority = {
 };
 
 export type TaskHistoryId = number;
+
+export type TaskRecoveryHistoryRequestData = {
+    historyId: TaskHistoryId,
+    taskId: AppTask['id']
+};
 
 export interface AppTaskHistoryItem extends AppTask {
     // eslint-disable-next-line camelcase

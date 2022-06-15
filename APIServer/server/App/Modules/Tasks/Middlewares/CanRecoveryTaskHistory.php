@@ -8,14 +8,17 @@ use ZXC\Interfaces\Psr\Server\RequestHandlerInterface;
 use ZXC\Interfaces\Psr\Http\Message\ResponseInterface;
 use ZXC\Interfaces\Psr\Http\Message\ServerRequestInterface;
 
-class CanAccessTaskHistory extends BaseTaskMiddleware
+class CanRecoveryTaskHistory extends BaseTaskMiddleware
 {
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         $this->initUser($request);
         if ($this->user) {
             $task = $this->tasks->getDetailedTask($request->getParsedBody()['taskId']);
-            if ($task->hasPermissions(TaskPermissions::CAN_ACCESS_HISTORY)) {
+            if (
+                $task->hasPermissions(TaskPermissions::CAN_RECOVERY_HISTORY) &&
+                $task->hasPermissions(TaskPermissions::CAN_ACCESS_HISTORY)
+            ) {
                 return $handler->handle($request);
             }
         }

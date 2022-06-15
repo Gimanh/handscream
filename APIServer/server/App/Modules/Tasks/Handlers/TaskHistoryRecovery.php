@@ -13,9 +13,9 @@ class TaskHistoryRecovery extends TasksBaseHandler
     public function __invoke(ServerRequest $request, ResponseInterface $response, RouteParams $routeParams): ResponseInterface
     {
         $data = $request->getParsedBody();
-        if (isset($data['id'])) {
+        if (isset($data['historyId'])) {
             return AppResponse::create($response, [
-                'recovery' => !!$this->tasks->recoveryTaskHistory((int)$data['id'])
+                'recovery' => !!$this->tasks->recoveryTaskHistory((int)$data['historyId'])
             ], $request->getAttribute('rid'));
         }
         return AppResponse::create($response, ['update' => false], $request->getAttribute('rid'));

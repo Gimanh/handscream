@@ -11,10 +11,11 @@ export default class TaskHistory extends AppBase {
         default: () => {
         }
     } )
-
     public task!: AppTask;
 
     public dialog: boolean = false;
+
+    public recoveryItem: AppTaskHistoryItem | null = null;
 
     @State( state => state.Tasks.taskHistory ) taskHistory!: TasksState['taskHistory'];
 
@@ -102,10 +103,16 @@ export default class TaskHistory extends AppBase {
         await this.fetchHistory();
     }
 
-    async accept( item: AppTaskHistoryItem ) {
-        const result = await this.recoverTaskState( item.historyId );
-        if ( result && result.response.recovery ) {
-            this.$router.go( 0 );
+    async accept() {
+        if ( this.recoveryItem ) {
+            const result = await this.recoverTaskState( {
+                historyId: this.recoveryItem.historyId,
+                taskId: this.recoveryItem.id
+            } );
+            if ( result && result.response.recovery ) {
+                this.$router.go( 0 );
+                this.recoveryItem = null;
+            }
         }
     }
 
@@ -113,4 +120,8 @@ export default class TaskHistory extends AppBase {
         this.dialog = false;
     }
 
+    openDialogFor( item: AppTaskHistoryItem ) {
+        this.recoveryItem = item;
+        this.dialog = true;
+    }
 }

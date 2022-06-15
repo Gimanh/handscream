@@ -117,7 +117,7 @@
     {
         "middlewares": [
             "isLoggedIn",
-            "canAccessTaskHistory"
+            "canRecoveryTaskHistory"
         ],
         "method": "POST",
         "route": "/module/tasks/recovery/history/state",
