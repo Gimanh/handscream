@@ -20,6 +20,8 @@ class TasksStorage
 
     protected ?PDOStatement $taskFetchTagsStatement = null;
 
+    protected ?PDOStatement $taskFetchListName = null;
+
 
     public function __construct(?User $user = null)
     {
@@ -60,12 +62,22 @@ class TasksStorage
     /**
      * @return array<int, TaskItem>
      */
-    protected function convertTasksToTaskItem(array $tasks = []): array
+    protected function convertTasksToTaskItem(array $tasks = [], bool $uniqueTaskItemArray = true): array
     {
         $processedTasks = [];
         $result = [];
         foreach ($tasks as &$task) {
-            if (!isset($processedTasks[$task['id']])) {
+            if ($uniqueTaskItemArray) {
+                if (!isset($processedTasks[$task['id']])) {
+                    $taskPermissions = $this->fetchTaskPermissions($task['id']);
+                    foreach ($taskPermissions as $permission) {
+                        $task['permissions'][$permission['name']] = true;
+                    }
+                    $task['tags'] = $this->fetchTagIdsForTask($task['id']);
+                    $result[] = new TaskItem($task);
+                    $processedTasks[$task['id']] = true;
+                }
+            } else {
                 $taskPermissions = $this->fetchTaskPermissions($task['id']);
                 foreach ($taskPermissions as $permission) {
                     $task['permissions'][$permission['name']] = true;
@@ -74,6 +86,7 @@ class TasksStorage
                 $result[] = new TaskItem($task);
                 $processedTasks[$task['id']] = true;
             }
+
         }
         return $result;
     }
@@ -235,5 +248,59 @@ class TasksStorage
                 'id' => $taskId,
             ]
         ]);
+    }
+
+    /**
+     * @param int $taskId
+     * @return array<int, TaskItem>
+     */
+    public function fetchTaskHistory(int $taskId): array
+    {
+        $result = $this->db->select('select id as history_id, task from history.tasks_tasks where task_id = ? order by id desc', [$taskId]);
+        $items = [];
+        if ($result) {
+            foreach ($result as $item) {
+                $task = json_decode($item['task'], true);
+                $task['history_id'] = $item['history_id'];
+                $items[] = $task;
+            }
+            $items = $this->convertTasksToTaskItem($items, false);
+        }
+        return $items;
+    }
+
+    public function fetchTaskHistoryById(int $id): ?array
+    {
+        return $this->db->selectOne('select * from history.tasks_tasks where id = ?', [$id]);
+    }
+
+    public function updateTaskState(array $taskData): bool
+    {
+        $taskId = $taskData['id'];
+        unset($taskData['id']);
+        unset($taskData['creator_id']);
+        unset($taskData['date_creation']);
+        unset($taskData['edit_date']);
+        $taskData['complete'] = (int)$taskData['complete'];
+        return $this->db->update([
+            'table' => 'tasks.tasks',
+            'data' => $taskData,
+            'where' => [
+                'id' => $taskId,
+            ]
+        ]);
+    }
+
+    public function fetchListName(int $listId): array
+    {
+        $pdo = $this->db->getConnection();
+        if (!$this->taskFetchListName) {
+            $this->taskFetchListName = $pdo->prepare('select name from tasks.goal_lists where id = ?');
+        }
+        $status = $this->taskFetchListName->execute([$listId]);
+        if ($status) {
+            return $this->taskFetchListName->fetchAll(PDO::FETCH_ASSOC);
+        }
+        return [];
     }
 }

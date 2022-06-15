@@ -16,6 +16,8 @@ class TaskPermissions
     const CAN_WATCH_TAGS = 'task_can_watch_tags';
     const CAN_EDIT_PRIORITY = 'task_can_edit_priority';
     const CAN_WATCH_PRIORITY = 'task_can_watch_priority';
+    const CAN_ACCESS_HISTORY = 'task_can_access_history';
+    const CAN_RECOVERY_HISTORY = 'task_can_recovery_history';
 
 
     public function __construct(array $permissions = [])

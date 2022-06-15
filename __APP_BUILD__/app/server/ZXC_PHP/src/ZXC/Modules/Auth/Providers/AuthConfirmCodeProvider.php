@@ -3,34 +3,37 @@
 namespace ZXC\Modules\Auth\Providers;
 
 use RuntimeException;
+use ZXC\Modules\Auth\AuthConfirmCode;
+use ZXC\Modules\Auth\DataGenerators\AuthConfirmEmailBodyGenerator;
 use ZXC\Native\Modules;
 use ZXC\Modules\Mailer\Mail;
 use ZXC\Modules\Auth\Data\RegisterData;
 
-class AuthConfirmCodeProvider
+class AuthConfirmCodeProvider implements AuthConfirmCode
 {
     protected ?Mail $mailer;
 
-    public function __construct()
+    protected RegisterData $registerData;
+
+    protected AuthConfirmEmailBodyGenerator $bodyGenerator;
+
+    public function __construct(AuthConfirmEmailBodyGenerator $bodyGenerator, RegisterData $data)
     {
         $this->mailer = Modules::get('mail');
         if (!$this->mailer) {
             throw new RuntimeException('Module "Mail" is required for sending account conformation link.');
         }
+        $this->registerData = $data;
+        $this->bodyGenerator = $bodyGenerator;
     }
 
-    public function __invoke(RegisterData $data, ?string $confirmUrlTemplate, ?string $bodyTemplate)
+    public function __invoke(): void
     {
-        $email = $data->getEmail();
-        $code = $data->getConfirmEmailCode();
-        $login = $data->getLogin();
-        $url = str_replace(['{code}', '{login}'], [$code, $login], $confirmUrlTemplate);
-        $url = "<a href='$url'>Confirm registration</a>";
-        $body = str_replace(['{link}'], [$url], $bodyTemplate);
         $this->mailer
-            ->addTo($email, $email)
-            ->setBody($body)
+            ->addTo($this->registerData->getEmail(), $this->registerData->getEmail())
+            ->setBody($this->bodyGenerator->generate())
             ->setSubject('Confirm registration')
             ->send();
+
     }
 }

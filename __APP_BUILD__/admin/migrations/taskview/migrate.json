@@ -54,5 +54,22 @@
             "Edit tags",
             "Bug fixes"
         ]
+    },
+    "4": {
+        "version": "1.3.0",
+        "name": "Fabula",
+        "releaseDate": "20220615",
+        "scripts": [
+            "/1.3.0/log_changes_tasks_goal-lists.sql",
+            "/1.3.0/log_changes_tasks_goals.sql",
+            "/1.3.0/log_changes_tasks_tasks.sql",
+            "/1.3.0/trigger_set_task_permissions.sql",
+            "/1.3.0/update-permissions.sql"
+        ],
+        "description": [
+            "Added history for tasks",
+            "Added history recovery for tasks",
+            "Added permissions for tasks"
+        ]
     }
 }

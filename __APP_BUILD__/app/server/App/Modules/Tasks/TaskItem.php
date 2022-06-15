@@ -25,6 +25,13 @@ class TaskItem
     public ?int $priorityId;
     public array $tags = [];
 
+    public ?int $historyId;
+    public ?bool $canNotRecovery;
+    public ?string $parentIdDescription;
+    public ?string $goalListIdDescription;
+    public ?string $completeDescription;
+
+
     public function __construct(array $task)
     {
         $this->id = $task['id'] ?? null;
@@ -53,6 +60,12 @@ class TaskItem
         if ($this->hasPermissions(TaskPermissions::CAN_WATCH_PRIORITY)) {
             $this->priorityId = $task['priority_id'];
         }
+
+        $this->historyId = $task['history_id'] ?? null;
+        $this->canNotRecovery = $task['can_not_recovery'] ?? null;
+        $this->parentIdDescription = $task['parent_id_description'] ?? null;
+        $this->goalListIdDescription = $task['goal_list_id_description'] ?? null;
+        $this->completeDescription = $task['complete_description'] ?? null;
     }
 
     public function setResponsibleUser(array $responsibleUser): void
