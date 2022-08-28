@@ -32,6 +32,10 @@ export default class TaskText extends AppBase {
         return this.$t( 'task.task' );
     }
 
+    get descriptionHasBeenChanged() {
+        return this.description !== this.descriptionValue.trim();
+    }
+
     updateDescription() {
         if ( this.descriptionValue.trim() === '' ) {
             if ( this.canDeleteTask ) {
@@ -39,7 +43,7 @@ export default class TaskText extends AppBase {
             } else {
                 this.cancelDelete();
             }
-        } else {
+        } else if ( this.descriptionHasBeenChanged ) {
             this.$emit( 'change', this.descriptionValue );
         }
     }

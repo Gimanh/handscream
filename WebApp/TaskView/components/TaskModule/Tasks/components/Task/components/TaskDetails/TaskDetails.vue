@@ -1,8 +1,8 @@
 <template>
     <v-dialog
         v-model="dialog"
-        :width="dialogWidth"
         :fullscreen="$vuetify.breakpoint.xs"
+        :width="dialogWidth"
         persistent
         scrollable
     >
@@ -31,16 +31,16 @@
             />
             <v-card-text
                 v-if="!loading"
-                style="height: 100%;"
                 class="pt-4"
+                style="height: 100%;"
             >
                 <v-row>
                     <v-col
                         cols="12"
                     >
                         <task
-                            :task="detailedTask"
                             :restricted-mode="true"
+                            :task="detailedTask"
                         />
                     </v-col>
                     <v-col
@@ -48,8 +48,8 @@
                         class="pa-0 pl-15"
                     >
                         <task-priority
-                            :task="detailedTask"
                             :currently-selected="detailedTask.priorityId"
+                            :task="detailedTask"
                         />
                     </v-col>
                     <v-col>
