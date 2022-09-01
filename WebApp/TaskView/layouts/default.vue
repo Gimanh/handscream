@@ -59,7 +59,7 @@
             app
         >
             <v-spacer />
-            <span>&copy; TaskView by Giman Nikoay {{ new Date().getFullYear() }}</span>
+            <span>&copy; TaskView by Giman Nikolay {{ new Date().getFullYear() }}</span>
             <v-spacer />
         </v-footer>
     </v-app>
