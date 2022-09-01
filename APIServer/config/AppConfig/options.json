@@ -6,7 +6,7 @@
             "remindPasswordUrlTemplate": "http://localhost:3000/#/?resetCode={code}&login={login}",
             "remindPasswordBodyTemplate": "<p> Reset password! {link} </p>",
             "confirmEmailUrlTemplate": "http://tvapi.localhost/confirm/email/{code}/login/{login}",
-            "confirmEmailBodyTemplate": "<p> Reset password! {link} </p>"
+            "confirmEmailBodyTemplate": "<p> Confirm email! {link} </p>"
         },
         "private": {
         }
