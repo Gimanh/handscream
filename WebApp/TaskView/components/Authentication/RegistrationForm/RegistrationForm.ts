@@ -1,10 +1,10 @@
 import { Component } from 'vue-property-decorator';
 import qs from 'qs';
-import { passwordStrength } from 'check-password-strength';
 import AppBase from '~/components/AppBase';
 import { RegistrationResult } from '~/components/Authentication/RegistrationForm/Types';
 import { FormFieldRules } from '~/classes/util/AppTypes';
 import { validLogin } from '~/classes/util/Helper';
+import PasswordHelper from '~/classes/util/PasswordHelper';
 
 @Component
 export default class RegistrationForm extends AppBase {
@@ -66,8 +66,7 @@ export default class RegistrationForm extends AppBase {
         return [
             ( v: string ) => !!v || this.$t( 'msg.requiredField' ) as string,
             ( v: string ) => {
-                const result = passwordStrength<'Strong' | 'Medium' | 'Weak' | 'Too weak'>( v );
-                return ( result.value === 'Strong' || result.value === 'Medium' ) || this.$t( 'msg.passwordStrength' ) as string;
+                return PasswordHelper.check( v ) || this.$t( 'msg.passwordStrength' ) as string;
             }
         ];
     }
@@ -76,8 +75,7 @@ export default class RegistrationForm extends AppBase {
         return [
             ( v: string ) => v === this.password || this.$t( 'msg.requiredField' ) as string,
             ( v: string ) => {
-                const result = passwordStrength<'Strong' | 'Medium' | 'Weak' | 'Too weak'>( v );
-                return ( result.value === 'Strong' || result.value === 'Medium' ) || this.$t( 'msg.passwordStrength' ) as string;
+                return PasswordHelper.check( v ) || this.$t( 'msg.passwordStrength' ) as string;
             }
         ];
     }

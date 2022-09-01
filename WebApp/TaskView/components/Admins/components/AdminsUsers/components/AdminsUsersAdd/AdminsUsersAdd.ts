@@ -1,10 +1,10 @@
 import { Component, Prop } from 'vue-property-decorator';
 import qs from 'qs';
-import { passwordStrength } from 'check-password-strength';
 import AppBase from '~/components/AppBase';
 import { isEmail, validLogin } from '~/classes/util/Helper';
 import { AddUserItem, AddUserResponse, UserExistResponse, UserItem } from '~/components/Admins/Types';
 import { FormFieldRules } from '~/classes/util/AppTypes';
+import PasswordHelper from '~/classes/util/PasswordHelper';
 
 @Component
 export default class AdminsUsersAdd extends AppBase {
@@ -74,8 +74,7 @@ export default class AdminsUsersAdd extends AppBase {
         return [
             ( v: string ) => !!v || this.$t( 'msg.requiredField' ) as string,
             ( v: string ) => {
-                const result = passwordStrength<'Strong' | 'Medium' | 'Weak' | 'Too weak'>( v );
-                return ( result.value === 'Strong' || result.value === 'Medium' ) || this.$t( 'msg.passwordStrength' ) as string;
+                return PasswordHelper.check(v) || this.$t( 'msg.passwordStrength' ) as string;
             }
         ];
     }
