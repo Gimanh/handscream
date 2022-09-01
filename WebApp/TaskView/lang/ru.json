@@ -136,7 +136,7 @@
         "registration": "Регистрация",
         "forgotPassword": "Забыли пароль?",
         "passwordRecovery": "Восстановление пароля",
-        "checkEmail": "Проветрте почту",
+        "checkEmail": "Проверте почту",
         "sendRecoveryEmailError": "Не удалось отправить ссылку для восстановления пароля, попробуйте позже.",
         "canNotResetPassword": "Не удалось сбросить пароль.",
         "passwordStrength": "Пароль не надежный.",
