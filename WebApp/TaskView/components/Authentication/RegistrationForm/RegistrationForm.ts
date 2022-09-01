@@ -1,9 +1,9 @@
 import { Component } from 'vue-property-decorator';
 import qs from 'qs';
+import { passwordStrength } from 'check-password-strength';
 import AppBase from '~/components/AppBase';
 import { RegistrationResult } from '~/components/Authentication/RegistrationForm/Types';
 import { FormFieldRules } from '~/classes/util/AppTypes';
-import { passwordStrength } from 'check-password-strength';
 import { validLogin } from '~/classes/util/Helper';
 
 @Component
@@ -11,13 +11,13 @@ export default class RegistrationForm extends AppBase {
 
     public url: string = '/module/auth/registration';
 
-    public login: string = 'userq';
+    public login: string = '';
 
-    public email: string = 'test1@mail.dest'
+    public email: string = ''
 
-    public password: string = 'user1!#Q';
+    public password: string = '';
 
-    public passwordRepeat: string = 'user1!#Q';
+    public passwordRepeat: string = '';
 
     public valid: boolean = true;
 

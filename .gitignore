@@ -3,3 +3,4 @@ ReleasesBuilds/*
 *app.conf.*
 Site
 iconcreator
+*.prod.*
