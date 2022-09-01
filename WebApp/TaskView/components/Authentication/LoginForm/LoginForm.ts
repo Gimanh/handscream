@@ -8,9 +8,11 @@ export default class LoginForm extends AppBase {
 
     public url: string = '/module/auth/login';
 
-    public login: string = 'user';
+    //user
+    public login: string = '';
 
-    public password: string = 'user1!#Q';
+    //user1!#Q
+    public password: string = '';
 
     public valid: boolean = true;
 
