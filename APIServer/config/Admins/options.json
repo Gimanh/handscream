@@ -1,6 +1,6 @@
 {
     "class": "App\\Modules\\Admins\\Admins",
-    "defer": false,
+    "defer": true,
     "options": {
         "usersDbConnection": {
             "dsn": "pgsql:host=localhost;dbname=task_view_server;options='--client_encoding=UTF8'",
