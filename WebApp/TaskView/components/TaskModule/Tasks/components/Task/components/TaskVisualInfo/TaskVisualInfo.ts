@@ -3,7 +3,7 @@ import { State } from 'vuex-class';
 import AppBase from '~/components/AppBase';
 import { AppTask } from '~/classes/util/TaskTypes';
 import { TasksState } from '~/store/Tasks';
-import { canWatchPriority, canWatchTags, getColor } from '~/classes/util/Helper';
+import { canWatchPriority, canWatchTags } from '~/classes/util/Helper';
 import { TagItem } from '~/classes/util/TagsTypes';
 import { TagsState } from '~/store/Tags';
 
@@ -25,14 +25,6 @@ export default class TaskVisualInfo extends AppBase {
 
     get canWatchPriority() {
         return canWatchPriority( this.task );
-    }
-
-    getPriorityColor() {
-        for ( const k of this.priorities ) {
-            if ( +k.id === +this.task.priorityId ) {
-                return getColor( k );
-            }
-        }
     }
 
     getTagColor( tagId: TagItem['id'] ) {
