@@ -36,6 +36,12 @@ export default class RegistrationForm extends AppBase {
 
     public showAlert: boolean = false;
 
+    private termAccepted: boolean = false;
+
+    get isAccepted() {
+        return this.termAccepted;
+    }
+
     get passwordIcon() {
         return this.passwordType === 'password' ? 'mdi-eye' : 'mdi-eye-off';
     }
@@ -135,5 +141,13 @@ export default class RegistrationForm extends AppBase {
 
     inversePasswordRepeatType() {
         this.passwordRepeatType = this.passwordRepeatType === 'text' ? 'password' : 'text';
+    }
+
+    termAcceptSuccessHandler() {
+        this.termAccepted = true;
+    }
+
+    termAcceptCancelHandler() {
+        this.termAccepted = false;
     }
 }

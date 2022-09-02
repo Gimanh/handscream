@@ -56,11 +56,42 @@
                     required
                     @click:append="inversePasswordRepeatType"
                 />
+
+                <term-of-use
+                    v-slot="{attrs, on}"
+                    @accept="termAcceptSuccessHandler"
+                    @cancel="termAcceptCancelHandler"
+                >
+                    <div
+                        style="color: #195288"
+                        v-bind="attrs"
+                        v-on="on"
+                    >
+                        <v-row>
+                            <v-col
+                                cols="1"
+                            >
+                                <v-checkbox
+                                    :value="isAccepted"
+                                    :disabled="true"
+                                    color="primary"
+                                    hide-details
+                                />
+                            </v-col>
+                            <v-col>
+                                <div>
+                                    {{ $t( 'msg.readTermOfUse' ) }}
+                                </div>
+                            </v-col>
+                        </v-row>
+                    </div>
+                </term-of-use>
             </v-form>
         </v-card-text>
         <v-card-actions>
             <v-spacer />
             <v-btn
+                :disabled="!termAccepted"
                 elevation="1"
                 @click="submit"
             >

@@ -52,3 +52,5 @@ export * from './TaskModule/Tasks/components/Task/components/TaskTags/components
 export * from './TaskModule/Tasks/components/TasksToolbar';
 export * from './TaskModule/Tasks/components/TasksSearch';
 export * from './TaskModule/Tasks/components/Task/components/TaskHistory';
+
+export * from './TermOfUse';
