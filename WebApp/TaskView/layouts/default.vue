@@ -22,8 +22,12 @@
                 v-if="isLoggedIn"
                 @click.stop="drawer = !drawer"
             />
-            <app-logo />
-            <app-versions />
+            <div>
+                <app-logo />
+            </div>
+            <div>
+                <app-versions />
+            </div>
             <!--            <v-btn
                             icon
                             @click.stop="miniVariant = !miniVariant"
@@ -41,10 +45,14 @@
             <!--                <img v-else src="@/assets/logo.svg" alt="Logo" width="140">-->
             <!--            </v-toolbar-title>-->
             <v-spacer />
-            <app-lang />
-            <logout
-                v-if="isLoggedIn"
-            />
+            <div>
+                <app-lang />
+            </div>
+            <div>
+                <logout
+                    v-if="isLoggedIn"
+                />
+            </div>
         </v-app-bar>
         <v-main>
             <v-container

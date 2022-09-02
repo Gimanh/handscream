@@ -16,20 +16,27 @@ export default class AppLang extends AppBase {
     setLang( item: AppLanguages[0] ) {
         this.$i18n.setLocale( item.id );
         this.$ls.setValue( APP_LANG_KEY, item.id );
+
+        for ( const k in this.items ) {
+            if ( this.items[ k ].id === item.id ) {
+                this.selected = +k;
+            }
+        }
+    }
+
+    localeExist( locale: string ) {
+        return this.items.find( ( value ) => {
+            return value.id === locale;
+        } );
     }
 
     created() {
-        const lang = this.$ls.getValue( APP_LANG_KEY );
-        if ( lang ) {
-            this.$i18n.setLocale( lang );
+        const lang = this.$ls.getValue( APP_LANG_KEY ) || navigator.language;
+        const locale = this.localeExist( lang );
+        if ( locale ) {
+            this.setLang( locale );
         } else {
-            this.$i18n.setLocale( this.$vuetify.lang.current );
-        }
-
-        for ( const k in this.items ) {
-            if ( this.items[ k ].id === lang ) {
-                this.selected = +k;
-            }
+            this.setLang( this.items[ 1 ] );
         }
     }
 }
