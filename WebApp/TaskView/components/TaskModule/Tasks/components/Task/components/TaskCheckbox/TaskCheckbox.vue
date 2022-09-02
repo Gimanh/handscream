@@ -2,6 +2,7 @@
     <div class="task-priority">
         <v-checkbox
             class="ma-0"
+            :class="getPriorityClassColor()"
             style="z-index: 1;"
             dense
             :disabled="!allowed"
@@ -9,7 +10,6 @@
             @change="emitChange"
             @click.prevent
         />
-        <div class="task-priority-stripe" :style=" !complete ? {border: '2px solid ' + getPriorityColor()} : {}" />
     </div>
 </template>
 
@@ -23,12 +23,15 @@
     align-items: center;
 }
 
-.task-priority-stripe {
-    padding: 1px;
-    position: absolute;
-    width: 10px;
-    height: 10px;
-    margin: 0 auto;
-    z-index: 0;
+.task-priority .task-priority__high .theme--light.v-icon {
+    color: red !important;
+}
+
+.task-priority .task-priority__medium .theme--light.v-icon {
+    color: orange !important;
+}
+
+.task-priority .task-priority__low .theme--light.v-icon {
+    color: grey !important;
 }
 </style>
