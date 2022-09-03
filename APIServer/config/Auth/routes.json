@@ -21,7 +21,7 @@
         "middlewares": [],
         "method": "GET",
         "route": "/confirm/email/:code/login/:login",
-        "handler": "ZXC\\Modules\\Auth\\Handlers\\AuthenticationConfirmEmail"
+        "handler": "App\\Modules\\Auth\\Handlers\\AppAuthenticationConfirmEmail"
     },
     {
         "middlewares": [

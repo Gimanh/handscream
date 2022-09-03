@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        html, body {
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            height: 100%;
+            align-items: center;
+        }
+
+        .alert {
+            padding: 10px 30px;
+            color: #ffffff;
+            border-radius: .3em;
+        }
+
+        .alert-success {
+            background-color: green;
+        }
+
+        .alert-error {
+            background-color: red;
+        }
+
+        .loader {
+            height: 3px;
+            border-radius: .3em;
+            background-color: yellow;
+            width: 0;
+            transition: width 3.5s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div id="alert" class="alert">
+        <p>{$message}</p>
+        <div id="loader" class="loader"></div>
+    </div>
+</div>
+<script>
+    var status = '{$status}';
+    var alert = document.getElementById( 'alert' );
+    if ( alert ) {
+        if ( status === '1' ) {
+            alert.classList.add( 'alert-success' )
+        } else {
+            alert.classList.add( 'alert-error' )
+        }
+    }
+    var loader = document.getElementById( 'loader' );
+    setTimeout( function () {
+        loader.style.width = '100%';
+    }, 500 );
+    window.setTimeout( function () {
+        window.location = '{$redirect}';
+    }, 4000 );
+</script>
+</body>
+</html>
