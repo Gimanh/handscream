@@ -1,6 +1,7 @@
 #!/usr/bin/php
 <?php
 
+use App\Classes\Utils\AppHelper;
 use ZXC\ZXCConfig;
 use ZXC\ZXCFactory;
 use ZXC\Native\Modules;
@@ -40,4 +41,29 @@ if (in_array('--get-password', $argv)) {
     $newPassword = fgets($resource);
     echo "Copy hash between square brackets below and update in database" . PHP_EOL;
     echo '[' . password_hash($newPassword, PASSWORD_BCRYPT, ['cost' => 10]) . ']';
+}
+
+if (in_array('--setup', $argv)) {
+    if (!file_exists($argv[2])) {
+        throw new InvalidArgumentException(
+            'File does not exist. Pass file name as second argument. Example php taskview --setup /user/settings.prod.json'
+        );
+    }
+    $prodSettings = json_decode(file_get_contents($argv[2]), true);
+    $configDir = __DIR__ . '/../config/';
+    foreach ($prodSettings as $moduleName => $moduleOptions) {
+        echo "\e[33mModule '[ $moduleName ]' update in process. \e[0m" . PHP_EOL;
+        $moduleOptionsPath = $configDir . $moduleName . '/options.json';
+        if (!file_exists($moduleOptionsPath)) {
+            throw new RuntimeException('Can not find file "' . $moduleOptionsPath . '"');
+        }
+        $defaultModuleOptions = json_decode(file_get_contents($moduleOptionsPath), true);
+        $defaultModuleOptions['options'] = AppHelper::mergeAssocArrays($defaultModuleOptions['options'], $moduleOptions);
+        $result = file_put_contents($moduleOptionsPath, json_encode($defaultModuleOptions, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
+        if ($result === false) {
+            throw new RuntimeException('Can not save new config to file "' . $moduleOptionsPath . '"');
+        }
+        echo "\e[92mDone! Module '[ $moduleName ]' updated.\e[0m" . PHP_EOL;
+        echo PHP_EOL;
+    }
 }
