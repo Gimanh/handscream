@@ -1,6 +1,6 @@
 {
     "class": "ZXC\\Modules\\Mailer\\Mail",
-    "defer": false,
+    "defer": true,
     "options": {
         "host": "",
         "port": 2525,
