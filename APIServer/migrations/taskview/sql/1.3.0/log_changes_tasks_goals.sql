@@ -19,7 +19,7 @@ create table if not exists history.tasks_goals
     primary key (id, goal_id)
 );
 
-create or replace function tasks.log_changes_tasks_goal_lists()
+create or replace function tasks.log_changes_tasks_goals()
     returns trigger as
 $body$
 begin
@@ -41,4 +41,4 @@ create trigger trigger_log_changes_tasks_goals
     before update or delete
     on tasks.goals
     for each row
-execute procedure tasks.log_changes_tasks_goal_lists();
+execute procedure tasks.log_changes_tasks_goals();
