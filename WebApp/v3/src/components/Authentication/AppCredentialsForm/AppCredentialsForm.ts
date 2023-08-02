@@ -4,7 +4,7 @@ import { LoginTabs } from '@/components/Authentication/AppCredentialsForm/tabs';
 
 
 export default defineComponent( {
-    data() {
+    data(): { [ key: string ]: any } {
         return {
             recoveryModeActive: false,
             tab: 'login-form',
@@ -28,7 +28,7 @@ export default defineComponent( {
     },
 
     computed: {
-        resetPassword() {
+        resetPassword(): boolean {
             return !!this.$route.query.resetCode && !!this.$route.query.login;
         },
 

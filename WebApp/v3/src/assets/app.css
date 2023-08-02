@@ -1,0 +1,3 @@
+.v-list-item--two-line .v-list-item__append, .v-list-item--three-line .v-list-item__append{
+    align-self: center;
+}

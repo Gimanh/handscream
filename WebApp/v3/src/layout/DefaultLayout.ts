@@ -2,6 +2,7 @@ import { defineComponent, ref } from 'vue';
 import { isLoggedIn, goToLoginPage } from '@/helpers/app-helper';
 import { useTheme } from 'vuetify'
 import { mdiInvertColors } from '@mdi/js';
+import { useAppStore } from '@/stores/app';
 
 import { defineAsyncComponent } from 'vue'
 import { useRouter } from 'vue-router';
@@ -21,11 +22,13 @@ export default defineComponent( {
     setup() {
         const theme = useTheme()
         const router = useRouter();
+        const appStore = useAppStore();
         return {
             isLoggedIn: ref( isLoggedIn ),
             mdiInvertColors,
             goToLoginPage: () => goToLoginPage( router ),
-            toggleTheme: () => theme.global.name.value = theme.global.current.value.dark ? 'light' : 'dark'
+            toggleTheme: () => theme.global.name.value = theme.global.current.value.dark ? 'light' : 'dark',
+            appStore
         }
     },
 

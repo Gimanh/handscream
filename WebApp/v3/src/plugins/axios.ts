@@ -2,11 +2,21 @@ import $api from '@/helpers/axios'
 import type { App } from 'vue';
 import qs from 'qs';
 import type { RefreshTokenResponse } from '@/helpers/AppTypes';
+import LocalStorage from '@/helpers/LocalStorage';
 
+let $ls: LocalStorage;
 const api = {
     install( app: App ) {
+        app.config.globalProperties.$ls = new LocalStorage( {
+            namespace: 'task_view',
+            axios: $api
+        } );
         app.config.globalProperties.$axios = $api;
-        const $ls = app.config.globalProperties.$ls;
+
+        $ls = app.config.globalProperties.$ls;
+
+        $ls.checkTokenAndSetForAxios();
+
         const $axios = app.config.globalProperties.$axios;
         let isRefreshing = false;
         let failedQueue: { resolve: ( value: unknown ) => void, reject: ( value: unknown ) => void }[] = [];
@@ -68,4 +78,5 @@ const api = {
     }
 }
 
+export { $ls }
 export default api

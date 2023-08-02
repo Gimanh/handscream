@@ -15,17 +15,18 @@ const router = createRouter( {
             children: []
         },
         {
-            path: '/:company',
-            name: 'company',
-            component: () => import('@/pages/CompanyPage'),
+            path: '/:user',
+            name: 'user',
+            component: () => import('@/pages/UserPage'),
             children: [
-                {
-                    path: ':restaurant',
-                    name: 'company-restaurant',
-                    component: () => import('@/pages/RestaurantPage'),
-                    children: []
-                },
-            ]
+                // {
+                //     path: ':restaurant',
+                //     name: 'company-restaurant',
+                //     component: () => import('@/pages/RestaurantPage'),
+                //     children: []
+                // },
+            ],
+            beforeEnter: [ authenticated ]
         },
         {
             path: '/login',
@@ -33,13 +34,13 @@ const router = createRouter( {
             component: () => import('@/pages/LoginPage'),
             children: []
         },
-        {
-            path: '/admin',
-            name: 'admin',
-            component: () => import('@/pages/AdminPage'),
-            children: [],
-            beforeEnter: [ authenticated ],
-        },
+        // {
+        //     path: '/admin',
+        //     name: 'admin',
+        //     component: () => import('@/pages/AdminPage'),
+        //     children: [],
+        //     beforeEnter: [ authenticated ],
+        // },
     ],
 } );
 

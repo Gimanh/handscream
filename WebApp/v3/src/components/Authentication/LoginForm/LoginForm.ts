@@ -2,7 +2,6 @@ import { defineComponent } from 'vue';
 import qs from 'qs';
 import type { LoginResponse } from '@/components/Authentication/LoginForm/Types';
 import { logError, redirectToUser } from '@/helpers/app-helper';
-import { useRouter } from 'vue-router';
 
 export default defineComponent( {
     data() {
@@ -31,18 +30,16 @@ export default defineComponent( {
         async submit() {
             const { url, login, password } = this;
             const data = { login, password };
-            const validation = this.$refs.form.validate();
-            if ( validation ) {
+            const validation = await this.$refs.form.validate();
+            if ( validation.valid ) {
                 const result = await this.$axios.post<LoginResponse>( url, qs.stringify( data ) )
                     .catch( logError );
-                if ( result && result.access ) {
-                    this.$ls.setToken( result.access );
-                    this.$ls.setRefreshToken( result.refresh );
+                if ( result && result.data.access ) {
+                    this.$ls.setToken( result.data.access );
+                    this.$ls.setRefreshToken( result.data.refresh );
                     this.$ls.updateUserStoreByToken();
-                    const router = useRouter();
-                    await redirectToUser( router );
+                    await redirectToUser( this.$router );
                 }
-                // }
             }
         }
     }

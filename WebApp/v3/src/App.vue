@@ -1,11 +1,7 @@
 <template>
-    <div>
-        <button @click="changeLayout">Change layout</button>
-        <component :is="layout">
-            <RouterView />
-        </component>
-    </div>
-
+    <component :is="layout">
+        <router-view />
+    </component>
 </template>
 
 <script lang="ts">
@@ -13,14 +9,14 @@ import { defineAsyncComponent, defineComponent } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 export default defineComponent( {
+    components: {
+        DefaultLayout: defineAsyncComponent( () => import('@/layout/DefaultLayout.vue') ),
+        AdminLayout: defineAsyncComponent( () => import('@/layout/AdminLayout.vue') )
+    },
     data() {
         return {
             layout: 'DefaultLayout'
         }
-    },
-    components: {
-        DefaultLayout: defineAsyncComponent( () => import('@/layout/DefaultLayout.vue') ),
-        AdminLayout: defineAsyncComponent( () => import('@/layout/AdminLayout.vue') )
     },
     methods: {
         changeLayout() {

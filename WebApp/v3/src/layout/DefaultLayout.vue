@@ -4,8 +4,16 @@
             :clipped-left="true"
             fixed
             app
+            elevation="1"
         >
-            <div>
+            <v-app-bar-nav-icon
+                variant="text"
+                @click.stop="appStore.setDrawer(!appStore.drawer)"
+            />
+
+            <div
+                class="ml-3"
+            >
                 <app-logo />
             </div>
             <v-spacer />

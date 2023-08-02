@@ -15,7 +15,7 @@ export const goToLoginPage = async ( router: Router ) => {
 export const redirectToUser = async ( router: Router ) => {
     const userStore = useUserStore();
     if ( userStore.accessToken ) {
-        await router.push( { name: 'admin' } );
+        await router.push( { name: 'user', params:{user:'1212121'} } );
     }
 }
 
