@@ -5,6 +5,8 @@ import { GoalActions } from '@/components/Goals/components/GoalActions'
 import type { GoalItem } from '@/types/goals';
 import type { GoalEventMoreMenu } from '@/types/goals';
 import { FormDelete } from '@/components/FormDelete';
+import { GoalAdd } from '@/components/Goals/components/GoalAdd';
+
 
 type GoalDataType = {
     open: string[]
@@ -16,7 +18,7 @@ type GoalDataType = {
 };
 
 export default defineComponent( {
-    components: { GoalsItem, GoalActions, FormDelete },
+    components: { GoalsItem, GoalActions, FormDelete, GoalAdd },
     data(): GoalDataType {
         const storage = useGoalsStore();
         return {

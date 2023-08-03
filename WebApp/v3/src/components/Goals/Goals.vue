@@ -6,11 +6,14 @@
     >
         <v-list-group
             value="goals"
+
         >
             <template v-slot:activator="{ props }">
                 <v-list-item
                     v-bind="props"
+                    :ripple="false"
                     :title="$t( 'msg.goals' )"
+                    density="compact"
                 ></v-list-item>
             </template>
             <goals-item

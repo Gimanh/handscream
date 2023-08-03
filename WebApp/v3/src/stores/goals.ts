@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia';
 import type {
+    AddGoalResponse,
     DeleteGoalResponse,
     GoalItem,
     GoalItemAdd,
@@ -27,8 +28,15 @@ export const useGoalsStore = defineStore( 'goals', {
             const result = await $api.get<AppResponse<GoalItem[]>>( this.urls.fetchGoals ).catch( err => console.log( err ) );
             this.goals = result && result.data.response || [];
         },
-        async addGoal( goal: GoalItemAdd ) {
-
+        async addGoal( goal: GoalItemAdd ): Promise<boolean> {
+            const result = await $api.post<AppResponse<AddGoalResponse>>( this.urls.addGoalUrl, qs.stringify( goal ) )
+            if ( result ) {
+                result.data.response.add && result.data.response.goal && this.goals.unshift( result.data.response.goal );
+                if ( result.data.response.add ) {
+                    return true;
+                }
+            }
+            return false;
         },
         async updateGoal( goal: GoalItemUpdate ) {
 

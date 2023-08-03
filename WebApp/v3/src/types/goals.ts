@@ -27,7 +27,7 @@ export type GoalsStoreState = {
     }
 }
 
-export type GoalItemAdd = Omit<GoalItem, 'id' | 'permissions' | 'color' | 'owner'>;
+export type GoalItemAdd = Omit<GoalItem, 'id' | 'permissions' | 'color' | 'owner' | 'description'>;
 
 export type GoalItemUpdate = Omit<GoalItem, 'permissions' | 'color' | 'owner'>;
 
