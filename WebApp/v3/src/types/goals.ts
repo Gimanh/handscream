@@ -43,12 +43,10 @@ export type GoalUpdateResponse = {
     goal?: GoalItem
 }
 
-
 export type GoalEventMoreMenu = {
     activator: HTMLElement,
     goal: GoalItem
 }
-
 
 export type GoalActionsItemsEvents = 'editGoal' | 'deleteGoal';
 export type GoalActionsItems = {
@@ -56,3 +54,7 @@ export type GoalActionsItems = {
     name: string
     eventName: GoalActionsItemsEvents
 }[]
+
+export type DeleteGoalResponse = {
+    delete: boolean
+};

@@ -1,7 +1,15 @@
 import { defineStore } from 'pinia';
-import type { GoalItem, GoalItemAdd, GoalItemDelete, GoalItemUpdate, GoalsStoreState } from '@/types/goals';
+import type {
+    DeleteGoalResponse,
+    GoalItem,
+    GoalItemAdd,
+    GoalItemDelete,
+    GoalItemUpdate,
+    GoalsStoreState
+} from '@/types/goals';
 import $api from '@/helpers/axios';
 import type { AppResponse } from '@/types/global-app';
+import qs from 'qs';
 
 export const useGoalsStore = defineStore( 'goals', {
     state: (): GoalsStoreState => ( {
@@ -25,8 +33,14 @@ export const useGoalsStore = defineStore( 'goals', {
         async updateGoal( goal: GoalItemUpdate ) {
 
         },
-        async deleteGoal( goal: GoalItemDelete ) {
-
+        async deleteGoal( goalId: GoalItemDelete ) {
+            const result = await $api.post<AppResponse<DeleteGoalResponse>>( this.urls.deleteGoal, qs.stringify( { goalId } ) ).catch( err => console.log( err ) );
+            if ( result ) {
+                if ( result.data.response ) {
+                    const index = this.goals.findIndex( ( goal ) => +goal.id === +goalId );
+                    this.goals.splice( index, 1 );
+                }
+            }
         }
     }
 } )

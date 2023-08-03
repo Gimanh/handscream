@@ -2,7 +2,7 @@
     "class": "ZXC\\Modules\\DB\\DB",
     "defer": true,
     "options": {
-        "dsn": "pgsql:host=localhost;dbname=task_view_server;options='--client_encoding=UTF8'",
+        "dsn": "pgsql:host=localhost;dbname=tv_3_dev_db;options='--client_encoding=UTF8'",
         "username": "postgres",
         "password": "12345678pqow"
     }

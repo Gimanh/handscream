@@ -4,23 +4,28 @@ import { GoalsItem } from '@/components/Goals/components/GoalsItem';
 import { GoalActions } from '@/components/Goals/components/GoalActions'
 import type { GoalItem } from '@/types/goals';
 import type { GoalEventMoreMenu } from '@/types/goals';
+import { FormDelete } from '@/components/FormDelete';
+
+type GoalDataType = {
+    open: string[]
+    menuActivator: null | HTMLElement
+    dialogStatus: boolean
+    storage: ReturnType<typeof useGoalsStore>
+    selectedGoal: null | GoalItem
+    showDeleteDialog: boolean
+};
 
 export default defineComponent( {
-    components: { GoalsItem, GoalActions },
-    data(): {
-        open: string[]
-        menuActivator: null | HTMLElement
-        dialogStatus: boolean
-        storage: ReturnType<typeof useGoalsStore>
-        selectedGoal: null | GoalItem
-    } {
+    components: { GoalsItem, GoalActions, FormDelete },
+    data(): GoalDataType {
         const storage = useGoalsStore();
         return {
             storage,
             open: [ 'goals' ],
             menuActivator: null,
             dialogStatus: false,
-            selectedGoal: null
+            selectedGoal: null,
+            showDeleteDialog: false,
         }
     },
     created() {
@@ -29,6 +34,9 @@ export default defineComponent( {
     computed: {
         goals(): GoalItem[] {
             return this.storage.goals;
+        },
+        deleteDialogTitle(): string {
+            return `${ this.$t( 'msg.deletion' ) } (${ this.selectedGoal?.name })`
         }
     },
     methods: {
@@ -45,6 +53,15 @@ export default defineComponent( {
         },
         hideMenu() {
             this.dialogStatus = false;
-        }
+        },
+        showDeleteGoal() {
+            this.showDeleteDialog = true;
+        },
+        cancelDeletion() {
+            this.showDeleteDialog = false;
+        },
+        deleteSelectedGoal() {
+            this.selectedGoal && this.storage.deleteGoal( this.selectedGoal.id );
+        },
     }
 } );

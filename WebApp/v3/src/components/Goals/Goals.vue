@@ -26,8 +26,16 @@
             :activator="menuActivator"
             :goal="selectedGoal"
             @menuClosed="hideMenu"
+            @deleteGoal="showDeleteGoal"
         />
 
+        <form-delete
+            v-model="showDeleteDialog"
+            :title="deleteDialogTitle"
+            :text="$t( 'msg.areYouWantDeleteRecord' )"
+            @cancel="cancelDeletion"
+            @ok="deleteSelectedGoal"
+        />
     </v-list>
 </template>
 
