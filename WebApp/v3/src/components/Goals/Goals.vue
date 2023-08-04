@@ -6,7 +6,6 @@
     >
         <v-list-group
             value="goals"
-
         >
             <template v-slot:activator="{ props }">
                 <v-list-item
@@ -30,6 +29,7 @@
             :goal="selectedGoal"
             @menuClosed="hideMenu"
             @deleteGoal="showDeleteGoal"
+            @editGoal="showGoalEdit"
         />
 
         <form-delete
@@ -38,6 +38,13 @@
             :text="$t( 'msg.areYouWantDeleteRecord' )"
             @cancel="cancelDeletion"
             @ok="deleteSelectedGoal"
+        />
+
+        <goal-edit
+            v-if="showGoalEditDialog"
+            v-model="showGoalEditDialog"
+            :goal="selectedGoal"
+            @cancel="cancelEditGoal"
         />
     </v-list>
 </template>

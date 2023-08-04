@@ -6,6 +6,7 @@ import type { GoalItem } from '@/types/goals';
 import type { GoalEventMoreMenu } from '@/types/goals';
 import { FormDelete } from '@/components/FormDelete';
 import { GoalAdd } from '@/components/Goals/components/GoalAdd';
+import { GoalEdit } from '@/components/Goals/components/GoalEdit';
 
 
 type GoalDataType = {
@@ -15,10 +16,11 @@ type GoalDataType = {
     storage: ReturnType<typeof useGoalsStore>
     selectedGoal: null | GoalItem
     showDeleteDialog: boolean
+    showGoalEditDialog: boolean
 };
 
 export default defineComponent( {
-    components: { GoalsItem, GoalActions, FormDelete, GoalAdd },
+    components: { GoalsItem, GoalActions, FormDelete, GoalAdd, GoalEdit },
     data(): GoalDataType {
         const storage = useGoalsStore();
         return {
@@ -28,6 +30,7 @@ export default defineComponent( {
             dialogStatus: false,
             selectedGoal: null,
             showDeleteDialog: false,
+            showGoalEditDialog: false,
         }
     },
     created() {
@@ -42,6 +45,12 @@ export default defineComponent( {
         }
     },
     methods: {
+        showGoalEdit() {
+            this.showGoalEditDialog = true;
+        },
+        cancelEditGoal() {
+            this.showGoalEditDialog = false;
+        },
         showActionDialog( event: GoalEventMoreMenu ) {
             this.selectedGoal = event.goal;
             this.menuActivator = event.activator;

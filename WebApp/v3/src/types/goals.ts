@@ -1,3 +1,12 @@
+export const DEFAULT_GOAL_ITEM: GoalItem = {
+    id: -1,
+    name: '',
+    description: '',
+    color: '',
+    owner: -1,
+    permissions: {}
+}
+
 export type GoalPermissions = {
     // eslint-disable-next-line
     goal_can_add_users?: true

@@ -6,7 +6,7 @@ import type {
     GoalItemAdd,
     GoalItemDelete,
     GoalItemUpdate,
-    GoalsStoreState
+    GoalsStoreState, GoalUpdateResponse
 } from '@/types/goals';
 import $api from '@/helpers/axios';
 import type { AppResponse } from '@/types/global-app';
@@ -24,7 +24,7 @@ export const useGoalsStore = defineStore( 'goals', {
         }
     } ),
     actions: {
-        async fetchGoals() {
+        async fetchGoals(): Promise<void> {
             const result = await $api.get<AppResponse<GoalItem[]>>( this.urls.fetchGoals ).catch( err => console.log( err ) );
             this.goals = result && result.data.response || [];
         },
@@ -38,10 +38,24 @@ export const useGoalsStore = defineStore( 'goals', {
             }
             return false;
         },
-        async updateGoal( goal: GoalItemUpdate ) {
-
+        async updateGoal( goal: GoalItemUpdate ): Promise<boolean> {
+            const result = await $api.post<AppResponse<GoalUpdateResponse>>( this.urls.updateGoal, qs.stringify( goal ) )
+                .catch( err => console.log( err ) );
+            if ( result ) {
+                const responseGoal = result.data.response.goal;
+                if ( result.data.response.update && responseGoal ) {
+                    const index = this.goals.findIndex( ( goal ) => +goal.id === +responseGoal.id );
+                    if ( index !== -1 ) {
+                        const g = this.goals[ index ]
+                        g.name = responseGoal.name;
+                        g.description = responseGoal.description;
+                        return true;
+                    }
+                }
+            }
+            return false
         },
-        async deleteGoal( goalId: GoalItemDelete ) {
+        async deleteGoal( goalId: GoalItemDelete ): Promise<void> {
             const result = await $api.post<AppResponse<DeleteGoalResponse>>( this.urls.deleteGoal, qs.stringify( { goalId } ) ).catch( err => console.log( err ) );
             if ( result ) {
                 if ( result.data.response ) {
