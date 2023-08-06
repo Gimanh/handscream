@@ -1,12 +1,9 @@
 <template>
     <v-list-item
-        lines="two"
-        :to="goToLists()"
-        :value="goal"
-        :ripple="false"
+        @click="goToTasks"
     >
         <v-list-item-title>
-            {{ goal.name }}
+            {{ list.name }}
         </v-list-item-title>
         <template #append>
             <tv-btn
@@ -22,4 +19,4 @@
     </v-list-item>
 </template>
 
-<script src="./GoalsItem.ts" lang="ts" />
+<script src="./GoalListItem.ts" lang="ts" />

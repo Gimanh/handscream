@@ -1,17 +1,16 @@
 import { defineComponent } from 'vue';
 import type { PropType } from 'vue';
-import type { GoalEventMoreMenu, GoalItem } from '@/types/goals';
-import { mdiDotsVertical } from '@mdi/js';
+import type { GoalListEventMoreMenu, GoalListItem } from '@/types/goal-lists';
 import { TvBtn } from '@/components/TvBtn';
+import { mdiDotsVertical } from '@mdi/js';
 
 export default defineComponent( {
     components: { TvBtn },
     props: {
-        goal: {
-            type: Object as PropType<GoalItem>,
-            required: true
-        },
-
+        list: {
+            type: Object as PropType<GoalListItem>,
+            required: true,
+        }
     },
     data() {
         return {
@@ -19,18 +18,15 @@ export default defineComponent( {
         }
     },
     methods: {
+        goToTasks() {
+            console.log( 'goToTasks' );
+        },
         showActionDialog( ev: Event ) {
-            const event: GoalEventMoreMenu = {
+            const event: GoalListEventMoreMenu = {
                 activator: ev.currentTarget as HTMLElement,
-                goal: this.goal
+                list: this.list
             };
             this.$emit( 'showActions', event );
-        },
-        goToLists() {
-            return {
-                name: 'goal-lists',
-                params: { goalId: this.goal.id }
-            }
         }
     }
 } );

@@ -1,4 +1,4 @@
-import { defineComponent, ref } from 'vue';
+import { defineComponent, reactive, ref } from 'vue';
 import { isLoggedIn, goToLoginPage } from '@/helpers/app-helper';
 import { useTheme } from 'vuetify'
 import { mdiInvertColors } from '@mdi/js';
@@ -24,7 +24,7 @@ export default defineComponent( {
         const router = useRouter();
         const appStore = useAppStore();
         return {
-            isLoggedIn: ref( isLoggedIn ),
+            isLoggedIn: reactive( isLoggedIn ),
             mdiInvertColors,
             goToLoginPage: () => goToLoginPage( router ),
             toggleTheme: () => theme.global.name.value = theme.global.current.value.dark ? 'light' : 'dark',

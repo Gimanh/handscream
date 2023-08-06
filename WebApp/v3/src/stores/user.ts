@@ -9,6 +9,11 @@ export const useUserStore = defineStore( 'user', {
         refreshToken: '',
         authType: 'jwt'
     } ),
+    getters: {
+        isLoggedIn( state ): boolean {
+            return state.login.trim() !== '' && state.accessToken.trim() !== '' && state.refreshToken.trim() !== '';
+        }
+    },
     actions: {
         setAccessToken( token: string ) {
             this.accessToken = token;

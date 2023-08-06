@@ -3,9 +3,9 @@ import { app } from '@/main';
 import type { Router } from 'vue-router';
 import { useUserStore } from '@/stores/user';
 
-const ls = reactive( app.config.globalProperties.$ls );
 export const isLoggedIn = computed( () => {
-    return ls.isLoggedIn;
+    const userStore: ReturnType<typeof useUserStore> = useUserStore();
+    return userStore.isLoggedIn;
 } );
 
 export const goToLoginPage = async ( router: Router ) => {
@@ -13,9 +13,9 @@ export const goToLoginPage = async ( router: Router ) => {
 }
 
 export const redirectToUser = async ( router: Router ) => {
-    const userStore = useUserStore();
+    const userStore: ReturnType<typeof useUserStore> = useUserStore();
     if ( userStore.accessToken ) {
-        await router.push( { name: 'user', params:{user:'1212121'} } );
+        await router.push( { name: 'user', params: { user: userStore.login } } );
     }
 }
 

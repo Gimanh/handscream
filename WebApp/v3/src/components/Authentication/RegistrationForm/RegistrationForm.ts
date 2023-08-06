@@ -2,9 +2,10 @@ import { defineComponent } from 'vue';
 import qs from 'qs';
 import { mdiEye } from '@mdi/js';
 import { mdiEyeOff } from '@mdi/js';
-import type { AppResponse, FormFieldRules, RegistrationResult } from '@/helpers/AppTypes';
+import type { FormFieldRules, RegistrationResult } from '@/helpers/AppTypes';
 import PasswordHelper from '@/helpers/PasswordHelper';
 import { validLogin } from '@/helpers/Helper';
+import type { AppResponse } from '@/types/global-app';
 
 export default defineComponent( {
     data() {

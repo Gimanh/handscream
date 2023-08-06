@@ -19,12 +19,12 @@ const router = createRouter( {
             name: 'user',
             component: () => import('@/pages/UserPage'),
             children: [
-                // {
-                //     path: ':restaurant',
-                //     name: 'company-restaurant',
-                //     component: () => import('@/pages/RestaurantPage'),
-                //     children: []
-                // },
+                {
+                    path: ':goalId',
+                    name: 'goal-lists',
+                    component: () => import('@/components/GoalLists'),
+                    children: []
+                },
             ],
             beforeEnter: [ authenticated ]
         },

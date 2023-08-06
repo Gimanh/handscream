@@ -11,7 +11,6 @@
                 :style="addGoalStyles"
             />
             <goals />
-
         </v-navigation-drawer>
         <RouterView />
     </div>

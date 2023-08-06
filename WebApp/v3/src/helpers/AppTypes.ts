@@ -59,10 +59,10 @@ export interface VuetifyForm {
     validate(): boolean
 }
 
-export type AppResponse<S> = {
-    response: S
-    rid: string
-};
+// export type AppResponse<S> = {
+//     response: S
+//     rid: string
+// };
 
 export type FormFieldRules = ( ( v: string ) => true | string )[];
 
