@@ -5,6 +5,7 @@ import { GoalListItem } from '@/components/GoalLists/components/GoalListItem';
 import type { GoalListActionsItems, GoalListEventMoreMenu, GoalListItems } from '@/types/goal-lists';
 import { ContextActions } from '@/components/ContextActions';
 import { FormDelete } from '@/components/FormDelete';
+import { GoalListEdit } from '@/components/GoalLists/components/GoalListEdit';
 
 type DataType = {
     storage: ReturnType<typeof useGoalListsStore>
@@ -16,7 +17,7 @@ type DataType = {
 };
 export default defineComponent( {
     components: {
-        GoalListAdd, GoalListItem, ContextActions, FormDelete
+        GoalListAdd, GoalListItem, ContextActions, FormDelete, GoalListEdit
     },
     computed: {
         goalId(): string | undefined {
@@ -89,6 +90,9 @@ export default defineComponent( {
             if ( this.selectedList ) {
                 this.storage.deleteList( this.selectedList.id );
             }
+        },
+        cancelEditGoal() {
+            this.showEditDialog = false;
         },
     },
 } );

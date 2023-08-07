@@ -4,7 +4,7 @@ import type {
     GoalListAddResponse, GoalListDeleteResponse,
     GoalListItem,
     GoalListItems,
-    GoalListsStoreState
+    GoalListsStoreState, GoalListUpdateArg, GoalListUpdateResponse
 } from '@/types/goal-lists';
 import $api from '@/helpers/axios';
 import type { AppResponse } from '@/types/global-app';
@@ -52,6 +52,20 @@ export const useGoalListsStore = defineStore( 'goal-lists', {
                     index !== -1 && this.lists.splice( index, 1 );
                 }
             }
+        },
+        async updateList( listData: GoalListUpdateArg ) {
+            const result = await $api.post<AppResponse<GoalListUpdateResponse>>( this.urls.updateList, qs.stringify( listData ) )
+                .catch( err => console.log( err ) );
+            if ( result ) {
+                if ( result.data.response.update && result.data.response.component ) {
+                    const index = this.lists.findIndex( ( item ) => +item.id === +listData.id );
+                    if ( index !== -1 ) {
+                        this.lists[ index ] = result.data.response.component;
+                        return true;
+                    }
+                }
+            }
+            return false;
         },
     }
 } )

@@ -58,3 +58,13 @@ export type GoalListActionsItems = {
 export type GoalListDeleteResponse = {
     delete: boolean
 }
+
+export type GoalListUpdateArg = {
+    id: number
+    name: string
+}
+
+export type GoalListUpdateResponse = {
+    update: boolean
+    component?: GoalListItem
+}

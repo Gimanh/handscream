@@ -18,6 +18,13 @@
                 @ok="deleteSelectedList"
             />
 
+            <goal-list-edit
+                v-if="showEditDialog"
+                v-model="showEditDialog"
+                :list="selectedList"
+                @cencel="cancelEditGoal"
+            />
+
             <goal-list-add
                 :goal-id="goalId"
             />
