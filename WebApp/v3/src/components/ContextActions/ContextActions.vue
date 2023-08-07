@@ -19,4 +19,4 @@
     </v-menu>
 </template>
 
-<script src="./GoalActions.ts" lang="ts"/>
+<script src="./ContextActions.ts" lang="ts" />

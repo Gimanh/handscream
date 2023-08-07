@@ -10,19 +10,14 @@ export default defineComponent( {
         goal: {
             type: Object as PropType<GoalItem>
         },
-        showMenu: Boolean
+        showMenu: Boolean,
+        actions: {
+            type: Array as PropType<GoalActionsItems>
+        },
     },
     data(): { dialogStatusModel: boolean } {
         return {
             dialogStatusModel: false
-        }
-    },
-    computed: {
-        actions(): GoalActionsItems {
-            return [
-                { id: 1, name: this.$t( 'msg.edit' ), eventName: 'editGoal' },
-                { id: 2, name: this.$t( 'msg.delete' ), eventName: 'deleteGoal' },
-            ];
         }
     },
     watch: {

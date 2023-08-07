@@ -23,10 +23,10 @@
             />
         </v-list-group>
 
-        <goal-actions
+        <context-actions
+            :actions="actions"
             :show-menu="dialogStatus"
             :activator="menuActivator"
-            :goal="selectedGoal"
             @menuClosed="hideMenu"
             @deleteGoal="showDeleteGoal"
             @editGoal="showGoalEdit"

@@ -1,5 +1,11 @@
 import { defineStore } from 'pinia';
-import type { GoalListAddArg, GoalListAddResponse, GoalListItems, GoalListsStoreState } from '@/types/goal-lists';
+import type {
+    GoalListAddArg,
+    GoalListAddResponse, GoalListDeleteResponse,
+    GoalListItem,
+    GoalListItems,
+    GoalListsStoreState
+} from '@/types/goal-lists';
 import $api from '@/helpers/axios';
 import type { AppResponse } from '@/types/global-app';
 import qs from 'qs';
@@ -37,6 +43,15 @@ export const useGoalListsStore = defineStore( 'goal-lists', {
                     this.lists = result.data.response
                 }
             }
-        }
+        },
+        async deleteList( listId: GoalListItem['id'] ) {
+            const result = await $api.post<AppResponse<GoalListDeleteResponse>>( this.urls.deleteList, qs.stringify( { listId } ) );
+            if ( result ) {
+                if ( result.data.response.delete ) {
+                    const index = this.lists.findIndex( ( item ) => +item.id === +listId );
+                    index !== -1 && this.lists.splice( index, 1 );
+                }
+            }
+        },
     }
 } )

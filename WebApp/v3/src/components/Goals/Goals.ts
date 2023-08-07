@@ -1,12 +1,13 @@
 import { defineComponent } from 'vue';
 import { useGoalsStore } from '@/stores/goals';
 import { GoalsItem } from '@/components/Goals/components/GoalsItem';
-import { GoalActions } from '@/components/Goals/components/GoalActions'
 import type { GoalItem } from '@/types/goals';
 import type { GoalEventMoreMenu } from '@/types/goals';
 import { FormDelete } from '@/components/FormDelete';
 import { GoalAdd } from '@/components/Goals/components/GoalAdd';
 import { GoalEdit } from '@/components/Goals/components/GoalEdit';
+import { ContextActions } from '@/components/ContextActions';
+import type { GoalActionsItems } from '@/types/goals';
 
 
 type GoalDataType = {
@@ -20,7 +21,7 @@ type GoalDataType = {
 };
 
 export default defineComponent( {
-    components: { GoalsItem, GoalActions, FormDelete, GoalAdd, GoalEdit },
+    components: { GoalsItem, ContextActions, FormDelete, GoalAdd, GoalEdit },
     data(): GoalDataType {
         const storage = useGoalsStore();
         return {
@@ -42,6 +43,12 @@ export default defineComponent( {
         },
         deleteDialogTitle(): string {
             return `${ this.$t( 'msg.deletion' ) } (${ this.selectedGoal?.name })`
+        },
+        actions(): GoalActionsItems {
+            return [
+                { id: 1, name: this.$t( 'msg.edit' ), eventName: 'editGoal' },
+                { id: 2, name: this.$t( 'msg.delete' ), eventName: 'deleteGoal' },
+            ];
         }
     },
     methods: {

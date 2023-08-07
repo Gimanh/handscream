@@ -1,6 +1,23 @@
 <template>
     <v-row>
         <v-col>
+            <context-actions
+                :actions="actions"
+                :show-menu="dialogStatus"
+                :activator="menuActivator"
+                @menuClosed="hideMenu"
+                @deleteList="showDeleteList"
+                @editList="showEditList"
+            />
+
+            <form-delete
+                v-model="showDeleteDialog"
+                :title="deleteDialogTitle"
+                :text="$t( 'msg.areYouWantDeleteRecord' )"
+                @cancel="cancelDeletion"
+                @ok="deleteSelectedList"
+            />
+
             <goal-list-add
                 :goal-id="goalId"
             />
@@ -15,7 +32,6 @@
                 />
             </v-list>
         </v-col>
-        <!--        Component GoalLists {{ $route.params.goalId }}-->
     </v-row>
 </template>
 

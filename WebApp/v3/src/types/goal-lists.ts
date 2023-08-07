@@ -46,3 +46,15 @@ export type GoalListEventMoreMenu = {
     activator: HTMLElement,
     list: GoalListItem
 }
+
+export type GoalListActionsItemsEvents = 'editList' | 'deleteList';
+
+export type GoalListActionsItems = {
+    id: number
+    name: string
+    eventName: GoalListActionsItemsEvents
+}[]
+
+export type GoalListDeleteResponse = {
+    delete: boolean
+}
