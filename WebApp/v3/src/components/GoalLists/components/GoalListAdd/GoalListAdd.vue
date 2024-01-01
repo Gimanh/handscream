@@ -6,8 +6,8 @@
         <t-text-field
             v-model="listName"
             :loading="loading"
-            :label="$t('msg.addTarget')"
-            :placeholder="$t('msg.addTarget')"
+            :label="$t('msg.addList')"
+            :placeholder="$t('msg.addList')"
             :append-inner-icon="inputIcon"
             variant="underlined"
             hide-details

@@ -9,7 +9,7 @@ import type {
 import $api from '@/helpers/axios';
 import type { AppResponse } from '@/types/global-app.types';
 import qs from 'qs';
-import type { GoalItem } from '@/types/goals';
+import type { GoalItem } from '@/types/goals.types';
 
 
 export const useGoalListsStore = defineStore( 'goal-lists', {

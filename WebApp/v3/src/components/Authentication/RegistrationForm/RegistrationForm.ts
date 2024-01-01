@@ -5,7 +5,7 @@ import { mdiEyeOff } from '@mdi/js';
 import type { FormFieldRules, RegistrationResult } from '@/helpers/AppTypes';
 import PasswordHelper from '@/helpers/PasswordHelper';
 import { validLogin } from '@/helpers/Helper';
-import type { AppResponse } from '@/types/global-app';
+import type { AppResponse } from '@/types/global-app.types';
 
 export default defineComponent( {
     data() {

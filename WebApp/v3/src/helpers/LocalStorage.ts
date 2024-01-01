@@ -6,7 +6,7 @@
 import type { AxiosInstance } from 'axios';
 import type { JWTPayload } from '@/helpers/AppTypes';
 import { parseJwt } from '@/helpers/Helper';
-import { useUserStore } from '@/stores/user';
+import { useUserStore } from '@/stores/user.store';
 
 export const ACCESS_TOKEN_KEY = 'access';
 export const REFRESH_TOKEN_KEY = 'refresh';

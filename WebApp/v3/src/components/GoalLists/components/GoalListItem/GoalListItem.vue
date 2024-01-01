@@ -1,6 +1,6 @@
 <template>
     <v-list-item
-        @click="goToTasks"
+        :to="goToTasks"
     >
         <v-list-item-title>
             {{ list.name }}

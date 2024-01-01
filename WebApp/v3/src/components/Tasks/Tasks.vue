@@ -1,5 +1,15 @@
 <template>
-    <h1>Component Tasks {{ $route.params.listId }}</h1>
+    <div>
+        <task-add
+            :list-id="listId"
+        />
+        <m-task
+            v-for="item in tasks"
+            :key="item.id"
+        >
+            {{ item.description }}
+        </m-task>
+    </div>
 </template>
 
 <script src="./Tasks.ts" lang="ts" />

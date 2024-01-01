@@ -1,7 +1,7 @@
 import { reactive, computed } from 'vue';
 import { app } from '@/main';
 import type { Router } from 'vue-router';
-import { useUserStore } from '@/stores/user';
+import { useUserStore } from '@/stores/user.store';
 
 export const isLoggedIn = computed( () => {
     const userStore: ReturnType<typeof useUserStore> = useUserStore();

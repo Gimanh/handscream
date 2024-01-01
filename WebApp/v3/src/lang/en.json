@@ -1,5 +1,6 @@
 {
     "msg": {
+        "addList": "Add list",
         "readTermOfUse": "Read and accept the terms of the user agreement for registration on the site.",
         "local": "Local",
         "remote": "Cloud",

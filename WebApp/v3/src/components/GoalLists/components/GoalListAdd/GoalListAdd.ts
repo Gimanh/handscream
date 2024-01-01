@@ -1,7 +1,7 @@
 import { defineComponent } from 'vue';
 import { TTextField } from '@/components/TTextField';
 import { mdiKeyboardReturn, mdiKeyboardVariant, mdiPlus } from '@mdi/js';
-import { useGoalListsStore } from '@/stores/goal-lists';
+import { useGoalListsStore } from '@/stores/goal-lists.store';
 
 type DataType = {
     storage: ReturnType<typeof useGoalListsStore>

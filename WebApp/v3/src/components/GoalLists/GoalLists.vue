@@ -39,6 +39,9 @@
                 />
             </v-list>
         </v-col>
+        <v-col>
+            <router-view />
+        </v-col>
     </v-row>
 </template>
 

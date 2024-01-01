@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import type { FetchTasksArg, TaskAddArg, TaskAddResponse, TaskItems, TasksStoreState } from '@/types/tasks.types';
 import $api from '@/helpers/axios';
-import type { AppResponse } from '@/types/global-app';
+import type { AppResponse } from '@/types/global-app.types';
 import qs from 'qs';
 
 export const useTasksStore = defineStore( 'tasks', {
@@ -48,7 +48,7 @@ export const useTasksStore = defineStore( 'tasks', {
             const url = `${ this.urls.fetchTasks }?componentId=${ data.componentId }&page=${ data.page }&showCompleted=${ data.showCompleted }&searchText=${ data.searchText }`;
             const result = await $api.get<AppResponse<TaskItems>>( url ).catch( err => console.log( err ) );
             console.log( result );
-            debugger;
+            // debugger;
             if ( result && result.data.response ) {
                 if ( addMore ) {
                     // this.mutations.addTasks( result.response );

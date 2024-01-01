@@ -7,9 +7,9 @@ import type {
     GoalItemDelete,
     GoalItemUpdate,
     GoalsStoreState, GoalUpdateResponse
-} from '@/types/goals';
+} from '@/types/goals.types';
 import $api from '@/helpers/axios';
-import type { AppResponse } from '@/types/global-app';
+import type { AppResponse } from '@/types/global-app.types';
 import qs from 'qs';
 
 export const useGoalsStore = defineStore( 'goals', {

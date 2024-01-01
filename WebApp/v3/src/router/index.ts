@@ -23,7 +23,14 @@ const router = createRouter( {
                     path: ':goalId',
                     name: 'goal-lists',
                     component: () => import('@/components/GoalLists'),
-                    children: []
+                    children: [
+                        {
+                            path: ':listId',
+                            name: 'goal-list-tasks',
+                            component: () => import('@/components/Tasks'),
+                            children: []
+                        }
+                    ]
                 },
             ],
             beforeEnter: [ authenticated ]

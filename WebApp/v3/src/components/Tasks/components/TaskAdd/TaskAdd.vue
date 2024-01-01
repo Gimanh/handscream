@@ -6,8 +6,8 @@
         <t-text-field
             v-model="taskName"
             :loading="loading"
-            :label="$t('msg.addTarget')"
-            :placeholder="$t('msg.addTarget')"
+            :label="$t('msg.addTask')"
+            :placeholder="$t('msg.addTask')"
             :append-inner-icon="inputIcon"
             variant="underlined"
             hide-details

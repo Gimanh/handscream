@@ -2,7 +2,7 @@ import { defineComponent, reactive, ref } from 'vue';
 import { isLoggedIn, goToLoginPage } from '@/helpers/app-helper';
 import { useTheme } from 'vuetify'
 import { mdiInvertColors } from '@mdi/js';
-import { useAppStore } from '@/stores/app';
+import { useAppStore } from '@/stores/app.store';
 
 import { defineAsyncComponent } from 'vue'
 import { useRouter } from 'vue-router';

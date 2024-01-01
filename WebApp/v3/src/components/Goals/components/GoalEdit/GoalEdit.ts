@@ -1,10 +1,10 @@
 import { defineComponent } from 'vue';
 import type { PropType } from 'vue';
-import type { GoalItem } from '@/types/goals';
+import type { GoalItem } from '@/types/goals.types';
 import { TTextField } from '@/components/TTextField';
-import { DEFAULT_GOAL_ITEM } from '@/types/goals';
+import { DEFAULT_GOAL_ITEM } from '@/types/goals.types';
 import { TvBtn } from '@/components/TvBtn';
-import { useGoalsStore } from '@/stores/goals';
+import { useGoalsStore } from '@/stores/goals.store';
 
 type DataType = {
     storage: ReturnType<typeof useGoalsStore>

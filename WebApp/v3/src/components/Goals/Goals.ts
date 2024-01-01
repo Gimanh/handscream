@@ -1,13 +1,13 @@
 import { defineComponent } from 'vue';
-import { useGoalsStore } from '@/stores/goals';
+import { useGoalsStore } from '@/stores/goals.store';
 import { GoalsItem } from '@/components/Goals/components/GoalsItem';
-import type { GoalItem } from '@/types/goals';
-import type { GoalEventMoreMenu } from '@/types/goals';
+import type { GoalItem } from '@/types/goals.types';
+import type { GoalEventMoreMenu } from '@/types/goals.types';
 import { FormDelete } from '@/components/FormDelete';
 import { GoalAdd } from '@/components/Goals/components/GoalAdd';
 import { GoalEdit } from '@/components/Goals/components/GoalEdit';
 import { ContextActions } from '@/components/ContextActions';
-import type { GoalActionsItems } from '@/types/goals';
+import type { GoalActionsItems } from '@/types/goals.types';
 
 
 type GoalDataType = {

@@ -1,6 +1,6 @@
 import { defineComponent } from 'vue';
 import type { PropType } from 'vue';
-import type { GoalActionsItems, GoalItem } from '@/types/goals';
+import type { GoalActionsItems, GoalItem } from '@/types/goals.types';
 
 export default defineComponent( {
     props: {

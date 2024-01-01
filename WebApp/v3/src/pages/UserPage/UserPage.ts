@@ -1,6 +1,6 @@
 import { defineComponent } from 'vue';
 import Goals from '@/components/Goals';
-import { useAppStore } from '@/stores/app';
+import { useAppStore } from '@/stores/app.store';
 import { GoalAdd } from '@/components/Goals/components/GoalAdd';
 
 type DataType = {

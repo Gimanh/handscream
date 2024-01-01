@@ -1,6 +1,6 @@
 import { defineComponent } from 'vue';
 import type { PropType } from 'vue';
-import type { GoalEventMoreMenu, GoalItem } from '@/types/goals';
+import type { GoalEventMoreMenu, GoalItem } from '@/types/goals.types';
 import { mdiDotsVertical } from '@mdi/js';
 import { TvBtn } from '@/components/TvBtn';
 

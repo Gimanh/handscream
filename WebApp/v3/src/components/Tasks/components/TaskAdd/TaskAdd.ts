@@ -1,7 +1,7 @@
 import { defineComponent } from 'vue';
 import { TTextField } from '@/components/TTextField';
 import { mdiKeyboardReturn, mdiKeyboardVariant, mdiPlus } from '@mdi/js';
-import { useTasksStore } from '@/stores/tasks';
+import { useTasksStore } from '@/stores/tasks.store';
 
 type DataType = {
     storage: ReturnType<typeof useTasksStore>
@@ -40,8 +40,8 @@ export default defineComponent( {
             if ( this.taskName.trim() ) {
                 this.loading = true;
                 const result = await this.storage.addTask( {
-                    name: this.taskName,
-                    listId: +this.listId
+                    description: this.taskName,
+                    componentId: +this.listId
                 } );
                 this.loading = false;
                 if ( result ) {

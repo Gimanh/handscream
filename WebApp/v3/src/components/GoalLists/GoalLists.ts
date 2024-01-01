@@ -1,11 +1,12 @@
 import { defineComponent } from 'vue';
 import { GoalListAdd } from '@/components/GoalLists/components/GoalListAdd';
-import { useGoalListsStore } from '@/stores/goal-lists';
+import { useGoalListsStore } from '@/stores/goal-lists.store';
 import { GoalListItem } from '@/components/GoalLists/components/GoalListItem';
-import type { GoalListActionsItems, GoalListEventMoreMenu, GoalListItems } from '@/types/goal-lists';
+import type { GoalListActionsItems, GoalListEventMoreMenu, GoalListItems } from '@/types/goal-lists.types';
 import { ContextActions } from '@/components/ContextActions';
 import { FormDelete } from '@/components/FormDelete';
 import { GoalListEdit } from '@/components/GoalLists/components/GoalListEdit';
+import { Tasks } from '@/components/Tasks';
 
 type DataType = {
     storage: ReturnType<typeof useGoalListsStore>
@@ -17,7 +18,7 @@ type DataType = {
 };
 export default defineComponent( {
     components: {
-        GoalListAdd, GoalListItem, ContextActions, FormDelete, GoalListEdit
+        GoalListAdd, GoalListItem, ContextActions, FormDelete, GoalListEdit, Tasks
     },
     computed: {
         goalId(): string | undefined {

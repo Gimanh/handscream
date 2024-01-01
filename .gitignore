@@ -4,3 +4,10 @@ ReleasesBuilds/*
 Site
 iconcreator
 *.prod.*
+.DS_Store
+node_modules
+__APP_BUILD__
+ssl-create
+update-taskview.sh
+.vscode
+*.tmp.*
