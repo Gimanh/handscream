@@ -5,9 +5,9 @@ import type {
     GoalListItem,
     GoalListItems,
     GoalListsStoreState, GoalListUpdateArg, GoalListUpdateResponse
-} from '@/types/goal-lists';
+} from '@/types/goal-lists.types';
 import $api from '@/helpers/axios';
-import type { AppResponse } from '@/types/global-app';
+import type { AppResponse } from '@/types/global-app.types';
 import qs from 'qs';
 import type { GoalItem } from '@/types/goals';
 

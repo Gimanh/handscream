@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import type { AppStoreState } from '@/types/global-app';
+import type { AppStoreState } from '@/types/global-app.types';
 
 export const useAppStore = defineStore( 'app', {
     state(): AppStoreState {
