@@ -12,15 +12,17 @@ class GoalComponentPermissions
     const CAN_EDIT_ALL_TASKS = 'component_can_edit_all_tasks';
     const CAN_EDIT_THEIR_TASKS = 'component_can_edit_their_tasks';
 
+    private $permissions = [];
+
     public function __construct(array $permissions = [])
     {
         foreach ($permissions as $key => $value) {
-            $this->{$key} = $value;
+            $this->permissions[$key] = $value;
         }
     }
 
     public function hasPermissions(string $permissionName): bool
     {
-        return property_exists($this, $permissionName);
+        return !!$this->permissions[$permissionName];
     }
 }

@@ -19,7 +19,7 @@ class GoalPermissions implements JsonSerializable
 
     public function hasPermissions(string $permissionName): bool
     {
-        return property_exists($this, $permissionName);
+        return !!$this->permissions[$permissionName];
     }
 
     public function jsonSerialize(): mixed
