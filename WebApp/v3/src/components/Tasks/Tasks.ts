@@ -5,7 +5,7 @@ import type { FetchTasksArg, TaskItems } from '@/types/tasks.types';
 import { MTask } from '@/components/Molecules/MTask';
 
 type DataType = { storage: ReturnType<typeof useTasksStore> } & any;
-export default defineComponent( {
+export default defineComponent({
     components: { TaskAdd, MTask },
     data(): DataType {
         const storage = useTasksStore();
@@ -19,13 +19,12 @@ export default defineComponent( {
     },
     computed: {
         listId(): string {
-            return ( this.$route.params.listId as string );
+            return (this.$route.params.listId as string);
         },
         fetchTasksArgs(): FetchTasksArg {
             return {
                 componentId: +this.listId,
                 page: this.currentPage,
-                showCompleted: this.showCompleted ? 1 : 0,
                 searchText: this.searchText
             };
         },
@@ -34,6 +33,6 @@ export default defineComponent( {
         }
     },
     created() {
-        this.storage.fetchTasks( this.fetchTasksArgs )
+        this.storage.fetchTasks(this.fetchTasksArgs)
     }
-} );
+});

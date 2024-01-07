@@ -19,16 +19,22 @@ class TaskPermissions
     const CAN_ACCESS_HISTORY = 'task_can_access_history';
     const CAN_RECOVERY_HISTORY = 'task_can_recovery_history';
 
+    private $permissions = [];
 
     public function __construct(array $permissions = [])
     {
         foreach ($permissions as $key => $value) {
-            $this->{$key} = $value;
+            $this->permissions[$key] = $value;
         }
     }
 
     public function hasPermissions(string $permissionName): bool
     {
-        return property_exists($this, $permissionName);
+        return !!$this->permissions[$permissionName];
+    }
+
+    public function jsonSerialize(): mixed
+    {
+        return $this->permissions;
     }
 }

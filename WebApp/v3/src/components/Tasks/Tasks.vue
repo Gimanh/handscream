@@ -1,14 +1,9 @@
 <template>
     <div>
-        <task-add
-            :list-id="listId"
-        />
-        <m-task
-            v-for="item in tasks"
-            :key="item.id"
-        >
-            {{ item.description }}
-        </m-task>
+        <task-add :list-id="listId" />
+        <m-task v-for="item in tasks"
+                :key="item.id"
+                :task="item" />
     </div>
 </template>
 

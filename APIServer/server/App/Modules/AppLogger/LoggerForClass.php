@@ -11,7 +11,7 @@ trait LoggerForClass
     public function createLogger(string $moduleName = null)
     {
         if (!$moduleName) {
-            $sections = explode('\\', get_class());
+            $sections = explode('\\', get_class($this));
             $moduleName = end($sections);
         }
         $this->logger = new AppLogger($moduleName);

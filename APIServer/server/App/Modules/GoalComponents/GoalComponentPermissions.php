@@ -25,4 +25,9 @@ class GoalComponentPermissions
     {
         return !!$this->permissions[$permissionName];
     }
+
+    public function jsonSerialize(): mixed
+    {
+        return $this->permissions;
+    }
 }

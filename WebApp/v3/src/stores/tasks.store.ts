@@ -1,10 +1,10 @@
 import { defineStore } from 'pinia';
-import type { FetchTasksArg, TaskAddArg, TaskAddResponse, TaskItems, TasksStoreState } from '@/types/tasks.types';
+import type { FetchTasksArg, TaskAddArg, TaskAddResponse, TaskItem, TaskItems, TaskUrlToProp, TasksStoreState, UpdateTaskStatusArg } from '@/types/tasks.types';
 import $api from '@/helpers/axios';
 import type { AppResponse } from '@/types/global-app.types';
 import qs from 'qs';
 
-export const useTasksStore = defineStore( 'tasks', {
+export const useTasksStore = defineStore('tasks', {
     state(): TasksStoreState {
         return {
             urls: {
@@ -23,34 +23,35 @@ export const useTasksStore = defineStore( 'tasks', {
                 taskHistory: '/module/tasks/fetch/history',
                 taskHistoryRecovery: '/module/tasks/recovery/history/state'
             },
-            tasks: []
+            tasks: [],
+            showCompleted: 0,
         }
     },
     actions: {
-        async addTask( task: TaskAddArg ): Promise<boolean> {
-            const result = await $api.post<AppResponse<TaskAddResponse>>( this.urls.addTaskUrl, qs.stringify( task ) )
-                .catch( err => console.log( err ) );
-            if ( result ) {
-                if ( result.data.response.add ) {
-                    this.tasks.unshift( result.data.response.task );
+        async addTask(task: TaskAddArg): Promise<boolean> {
+            const result = await $api.post<AppResponse<TaskAddResponse>>(this.urls.addTaskUrl, qs.stringify(task))
+                .catch(err => console.log(err));
+            if (result) {
+                if (result.data.response.add) {
+                    this.tasks.unshift(result.data.response.task);
                     return true;
                 }
             }
             return false;
         },
 
-        async fetchTasks( data: FetchTasksArg ): Promise<boolean> {
+        async fetchTasks(data: FetchTasksArg): Promise<boolean> {
             let addMore: boolean = false;
             // if ( this.state.currentListId !== data.componentId ) {
             //     this.tasks = [];
             //     addMore = false;
             // }
-            const url = `${ this.urls.fetchTasks }?componentId=${ data.componentId }&page=${ data.page }&showCompleted=${ data.showCompleted }&searchText=${ data.searchText }`;
-            const result = await $api.get<AppResponse<TaskItems>>( url ).catch( err => console.log( err ) );
-            console.log( result );
+            const url = `${this.urls.fetchTasks}?componentId=${data.componentId}&page=${data.page}&showCompleted=${this.showCompleted}&searchText=${data.searchText}`;
+            const result = await $api.get<AppResponse<TaskItems>>(url).catch(err => console.log(err));
+            console.log(result);
             // debugger;
-            if ( result && result.data.response ) {
-                if ( addMore ) {
+            if (result && result.data.response) {
+                if (addMore) {
                     // this.mutations.addTasks( result.response );
                 } else {
                     this.tasks = [...result.data.response];
@@ -58,6 +59,60 @@ export const useTasksStore = defineStore( 'tasks', {
                 return true;
             }
             return false;
-        }
+        },
+
+        // async updateTaskState<P extends keyof TaskItem, V extends TaskItem[P]>(property: P, value: V): Promise<boolean> {
+        //     return false
+        // }
+
+        async updateTaskStatus(data: TaskUrlToProp['updateStatus']['actionArg']): Promise<boolean> {
+            const result = await $api.post<AppResponse<TaskUrlToProp['updateStatus']['serverResponse']>>(this.urls.updateStatus, data).catch(err => console.log(err));
+            if (result) {
+                let taskIndex = -1;
+                const task = this.tasks.find((task: TaskItem, index: number) => {
+                    if (task.id === result.data.response.task.id) {
+                        taskIndex = index;
+                        return task;
+                    }
+                });
+                if (task) {
+                    task.complete = result.data.response.task.complete;
+                    this.tasks.splice(taskIndex, 1);
+                    return true;
+                }
+                console.warn('Can not find task in "task" with "id"', data, this.tasks);
+            }
+            return false;
+        },
+
+        async updateTaskDescription(data: TaskUrlToProp['updateDescription']['actionArg']): Promise<boolean> {
+            const result = await $api.post<AppResponse<TaskUrlToProp['updateDescription']['serverResponse']>>(this.urls.updateDescription, data).catch(err => console.log(err));
+            if (result) {
+                const task = this.tasks.find(({ id }) => id === result.data.response.task.id);
+                if (task) {
+                    task.description = data.description;
+                    return true;
+                }
+            }
+            return false;
+        },
+
+        async deleteTask(data: TaskUrlToProp['deleteTask']['actionArg']): Promise<void> {
+            const result = await $api.post<AppResponse<TaskUrlToProp['deleteTask']['serverResponse']>>(this.urls.deleteTask, data).catch(err => console.log(err));
+            if (result) {
+                let taskIndex = -1;
+                const task = this.tasks.find(({ id }, index: number) => {
+                    if (id === data.taskId) {
+                        taskIndex = index;
+                        return true;
+                    }
+                });
+                if (task) {
+                    this.tasks.splice(taskIndex, 1);
+                } else {
+                    console.warn('Can not find task for deletion');
+                }
+            }
+        },
     }
-} );
+});

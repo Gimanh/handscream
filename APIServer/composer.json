@@ -14,5 +14,8 @@
             "App\\": "server/App",
             "ZXC\\": "server/ZXC_PHP/src/ZXC"
         }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^10"
     }
 }

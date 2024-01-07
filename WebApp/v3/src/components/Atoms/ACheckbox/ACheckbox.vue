@@ -1,13 +1,21 @@
 <template>
-    <v-checkbox
-        v-bind="$attrs"
-        density="compact"
-        hide-details
-    >
-        <template v-for="(_, name) in $slots" v-slot:[name]="slotData" :slot="name" >
-            <slot :name="name" v-bind="slotData" />
+    <v-checkbox-btn v-bind="$attrs"
+                    density="compact"
+                    hide-details
+                    @update:model-value="updateStatus">
+        <template v-for="(_, name) in $slots"
+                  v-slot:[name]="slotData"
+                  :slot="name">
+            <slot :name="name"
+                  v-bind="slotData" />
         </template>
-    </v-checkbox>
+    </v-checkbox-btn>
 </template>
 
-<script src="./ACheckbox.ts" lang="ts" />
+<script setup lang="ts">
+const emit = defineEmits<{ (e: 'change', status: boolean): void }>();
+
+function updateStatus(event: boolean) {
+    emit('change', event);
+}
+</script>

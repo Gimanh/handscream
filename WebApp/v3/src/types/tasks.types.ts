@@ -71,7 +71,8 @@ export type TasksStoreState = {
         taskHistory: string,
         taskHistoryRecovery: string,
     },
-    tasks: TaskItem[]
+    tasks: TaskItem[],
+    showCompleted: 1 | 0,
 }
 
 
@@ -88,6 +89,35 @@ export type TaskAddArg = {
 export type FetchTasksArg = {
     componentId: number
     page: number
-    showCompleted: 1 | 0
     searchText: string
+}
+
+export type TaskItemKeysValueType<T extends keyof TaskItem> = {
+    [key in T]: TaskItem[T]
+}
+
+export type BaseUpdateTaskProp<T extends keyof TaskItem> = {
+    taskId: TaskItem['id'],
+} & TaskItemKeysValueType<T>
+
+
+export type UpdateTaskStatusArg = BaseUpdateTaskProp<'complete'>
+export type UpdateTaskDescriptionArg = BaseUpdateTaskProp<'description'>
+export type DeleteTaskArg = {
+    taskId: TaskItem['id'],
+}
+
+export type TaskUrlToProp = {
+    updateStatus: {
+        actionArg: UpdateTaskStatusArg,
+        serverResponse: { task: TaskItem }
+    },
+    updateDescription: {
+        actionArg: UpdateTaskDescriptionArg,
+        serverResponse: { task: TaskItem }
+    },
+    deleteTask: {
+        actionArg: DeleteTaskArg,
+        serverResponse: { delete: boolean },
+    }
 }
