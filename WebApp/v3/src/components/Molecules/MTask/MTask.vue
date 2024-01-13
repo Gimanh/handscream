@@ -1,12 +1,12 @@
 <template>
     <v-row align="end"
            class="ma-0 mb-1">
-        <v-col cols="1"
-               class="d-flex justify-center">
+
+        <v-col cols="12"
+               class="d-flex align-end">
             <a-checkbox :model-value="task.complete"
-                        @change="updateTaskStatus" />
-        </v-col>
-        <v-col cols="11">
+                        @change="updateTaskStatus"
+                        class="mr-2" />
             <a-text-field :model-value="task.description"
                           @change="updateTaskDescription" />
         </v-col>

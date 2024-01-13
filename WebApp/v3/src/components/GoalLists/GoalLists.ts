@@ -7,6 +7,7 @@ import { ContextActions } from '@/components/ContextActions';
 import { FormDelete } from '@/components/FormDelete';
 import { GoalListEdit } from '@/components/GoalLists/components/GoalListEdit';
 import { Tasks } from '@/components/Tasks';
+import TasksMobileFooter from '@/components/Tasks/components/TasksMobileFooter.vue';
 
 type DataType = {
     storage: ReturnType<typeof useGoalListsStore>
@@ -16,9 +17,9 @@ type DataType = {
     showEditDialog: boolean
     selectedList: null | GoalListEventMoreMenu['list']
 };
-export default defineComponent( {
+export default defineComponent({
     components: {
-        GoalListAdd, GoalListItem, ContextActions, FormDelete, GoalListEdit, Tasks
+        GoalListAdd, GoalListItem, ContextActions, FormDelete, GoalListEdit, Tasks, TasksMobileFooter
     },
     computed: {
         goalId(): string | undefined {
@@ -29,13 +30,27 @@ export default defineComponent( {
         },
         actions(): GoalListActionsItems {
             return [
-                { id: 1, name: this.$t( 'msg.edit' ), eventName: 'editList' },
-                { id: 2, name: this.$t( 'msg.delete' ), eventName: 'deleteList' },
+                { id: 1, name: this.$t('msg.edit'), eventName: 'editList' },
+                { id: 2, name: this.$t('msg.delete'), eventName: 'deleteList' },
             ];
         },
         deleteDialogTitle(): string {
-            return `${ this.$t( 'msg.deletion' ) } (${ this.selectedList?.name })`;
+            return `${this.$t('msg.deletion')} (${this.selectedList?.name})`;
         },
+
+        canShowColumn(): boolean {
+            if ((this.$vuetify.display.sm || this.$vuetify.display.xs) && this.$route.name === 'goal-list-tasks') {
+                return false;
+            }
+            return true;
+        },
+
+        canShowTasksColumn(): boolean {
+            if ((this.$vuetify.display.sm || this.$vuetify.display.xs) && this.$route.name !== 'goal-list-tasks') {
+                return false;
+            }
+            return true;
+        }
     },
     data(): DataType {
         const storage = useGoalListsStore()
@@ -50,8 +65,8 @@ export default defineComponent( {
     },
     watch: {
         '$route.params.goalId': {
-            handler( value: string, oldValue: string ) {
-                if ( value !== oldValue ) {
+            handler(value: string, oldValue: string) {
+                if (value !== oldValue) {
                     this.fetchLists();
                 }
             },
@@ -60,17 +75,17 @@ export default defineComponent( {
     },
     methods: {
         fetchLists() {
-            if ( this.goalId ) {
-                this.storage.fetchLists( +this.goalId );
+            if (this.goalId) {
+                this.storage.fetchLists(+this.goalId);
             }
         },
-        showActions( event: GoalListEventMoreMenu ) {
+        showActions(event: GoalListEventMoreMenu) {
             this.selectedList = event.list;
             this.menuActivator = event.activator;
 
-            setTimeout( () => {
+            setTimeout(() => {
                 this.showMenu();
-            }, 150 );
+            }, 150);
         },
         showMenu() {
             this.dialogStatus = true;
@@ -88,12 +103,12 @@ export default defineComponent( {
             this.showDeleteDialog = false;
         },
         deleteSelectedList() {
-            if ( this.selectedList ) {
-                this.storage.deleteList( this.selectedList.id );
+            if (this.selectedList) {
+                this.storage.deleteList(this.selectedList.id);
             }
         },
         cancelEditGoal() {
             this.showEditDialog = false;
         },
     },
-} );
+});

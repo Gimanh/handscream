@@ -1,0 +1,5 @@
+:root {
+    --v-container-paddings: 8px;
+    --v-header-height: 64px;
+    --tv-row-height: calc(100vh - var(--v-header-height) - var(--v-container-paddings));
+}

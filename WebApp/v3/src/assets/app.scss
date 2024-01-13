@@ -1,3 +1,6 @@
+@import './variables.scss';
+@import './adaptives/index.scss';
+
 .v-list-item--two-line .v-list-item__append,
 .v-list-item--three-line .v-list-item__append {
     align-self: center;
@@ -5,6 +8,38 @@
 
 .start-page-height {
     height: calc(100vh - 75px);
+}
+
+.tv-row-height {
+    height: var(--tv-row-height);
+    overflow: auto;
+
+    .v-col {
+        height: 100%;
+        overflow: auto;
+    }
+}
+
+.tv-add-list {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+}
+
+.tv-add-task {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+}
+
+.tv-task-container {
+    height: 100%;
+    overflow: auto;
+}
+
+.tv-task-column {
+    display: flex;
+    flex-direction: column;
 }
 
 // .index-page-container::before {

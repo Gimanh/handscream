@@ -1,0 +1,19 @@
+@import '../../../node_modules/vuetify/lib/styles/settings/_variables.scss';
+
+@media #{map-get($display-breakpoints, 'sm-and-down')} {
+    .tv-task-column {
+        padding-top: 8px !important;
+        padding-left: 8px !important;
+        padding-right: 8px !important;
+    }
+
+    .tv-tasks-footer {
+        display: flex;
+        align-items: flex-end;
+        // background-color: red;
+
+        &__add-task {
+            width: 100%;
+        }
+    }
+}
