@@ -1,5 +1,15 @@
 <template>
-    <h1>Component ABtn</h1>
+    <v-btn v-bind="$attrs"
+           :slot="$slots">
+        <template v-for="(_, name) in $slots"
+                  v-slot:[name]="slotData"
+                  :slot="name">
+            <slot :name="name"
+                  v-bind="slotData || {}" />
+        </template>
+    </v-btn>
 </template>
 
-<script src="./ABtn.ts" lang="ts"/>
+<script setup lang="ts">
+
+</script>

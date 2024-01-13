@@ -1,0 +1,22 @@
+.v-list-item--two-line .v-list-item__append,
+.v-list-item--three-line .v-list-item__append {
+    align-self: center;
+}
+
+.start-page-height {
+    height: calc(100vh - 75px);
+}
+
+// .index-page-container::before {
+//     content: "";
+//     position: absolute;
+//     bottom: 0;
+//     left: 0;
+//     width: 100%;
+//     height: calc(100vh - 75px);
+//     opacity: .5;
+//     background: url('./logo-circle-1024.png');
+//     background-repeat: no-repeat;
+//     background-position: center;
+//     background-size: 350px;
+// }
