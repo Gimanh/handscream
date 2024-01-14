@@ -25,6 +25,8 @@ export const useTasksStore = defineStore('tasks', {
             },
             tasks: [],
             showCompleted: 0,
+            currentListId: -1,
+            endOfTasks: false
         }
     },
     actions: {
@@ -40,19 +42,26 @@ export const useTasksStore = defineStore('tasks', {
             return false;
         },
 
+        clearTasks() {
+            this.tasks = [];
+        },
+
+        appendTasks(items: TaskItems) {
+            this.tasks = [...this.tasks, ...items];
+        },
+
         async fetchTasks(data: FetchTasksArg): Promise<boolean> {
-            let addMore: boolean = false;
-            // if ( this.state.currentListId !== data.componentId ) {
-            //     this.tasks = [];
-            //     addMore = false;
-            // }
+            let addMore: boolean = data.appendResults && this.currentListId == data.componentId;
+            if (this.currentListId !== data.componentId) {
+                addMore = false;
+                this.clearTasks();
+            }
             const url = `${this.urls.fetchTasks}?componentId=${data.componentId}&page=${data.page}&showCompleted=${this.showCompleted}&searchText=${data.searchText}`;
             const result = await $api.get<AppResponse<TaskItems>>(url).catch(err => console.log(err));
-            console.log(result);
-            // debugger;
             if (result && result.data.response) {
                 if (addMore) {
-                    // this.mutations.addTasks( result.response );
+                    this.endOfTasks = result.data.response.length < 1;
+                    this.appendTasks(result.data.response);
                 } else {
                     this.tasks = [...result.data.response];
                 }

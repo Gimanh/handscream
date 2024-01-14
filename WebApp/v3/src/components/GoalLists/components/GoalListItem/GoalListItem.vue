@@ -1,16 +1,12 @@
 <template>
-    <v-list-item
-        :to="goToTasks"
-    >
+    <v-list-item :to="goToTasks">
         <v-list-item-title>
             {{ list.name }}
         </v-list-item-title>
         <template #append>
-            <tv-btn
-                icon
-                :size="'x-small'"
-                @click.stop="showActionDialog($event)"
-            >
+            <tv-btn icon
+                    :size="'x-small'"
+                    @click.stop.prevent="showActionDialog($event)">
                 <v-icon>
                     {{ mdiDotsVertical }}
                 </v-icon>

@@ -73,6 +73,8 @@ export type TasksStoreState = {
     },
     tasks: TaskItem[],
     showCompleted: 1 | 0,
+    currentListId: number,
+    endOfTasks: boolean
 }
 
 
@@ -90,6 +92,7 @@ export type FetchTasksArg = {
     componentId: number
     page: number
     searchText: string
+    appendResults: boolean
 }
 
 export type TaskItemKeysValueType<T extends keyof TaskItem> = {
