@@ -1,7 +1,17 @@
 # TaskView  
+
+The TaskView project is being developed as a web application, which consists of both client and server-side components. The main development is done using Vue-3, ZXC_PHP, and PostgreSQL. You can install this application on your own servers.   
+Additionally, you can try out the application at [https://taskview.handscream.com](https://taskview.handscream.com).   
+You can also participate in the development of the project.  
+All version will have next format v1.0.0-w (w - means web application)
+
+## Contacts
+
 [Telegram](https://t.me/hand_scream)  
 [Docs](https://gimanh.github.io/task_view_doc/)  
 Service for daily planning, aimed at achieving results. For personal affairs, work tasks and teamwork. www.handscream.com
+
+# Desktop app 
 
 > This repository contains the TaskView app! At first, TaskView was developed with ElectronJS, but then I started 
 developing TaskView with client-server architecture for browsers. Right now I am focusing on TaskView with 
