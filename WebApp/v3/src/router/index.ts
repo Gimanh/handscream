@@ -1,12 +1,12 @@
-import { createRouter, createWebHashHistory } from 'vue-router';
+import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router';
 
 import type { NavigationGuardNext, RouteLocationNormalized, Router } from 'vue-router';
 import IndexPage from '@/pages/IndexPage';
 
 import authenticated from '@/middleware/authenticated';
 
-const router = createRouter( {
-    history: createWebHashHistory(),
+const router = createRouter({
+    history: createWebHistory(),
     routes: [
         {
             path: '/',
@@ -33,7 +33,7 @@ const router = createRouter( {
                     ]
                 },
             ],
-            beforeEnter: [ authenticated ]
+            beforeEnter: [authenticated]
         },
         {
             path: '/login',
@@ -49,6 +49,6 @@ const router = createRouter( {
         //     beforeEnter: [ authenticated ],
         // },
     ],
-} );
+});
 
 export default router;

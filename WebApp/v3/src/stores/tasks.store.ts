@@ -26,7 +26,8 @@ export const useTasksStore = defineStore('tasks', {
             tasks: [],
             showCompleted: 0,
             currentListId: -1,
-            endOfTasks: false
+            endOfTasks: false,
+            currentPage: 0,
         }
     },
     actions: {
@@ -56,6 +57,7 @@ export const useTasksStore = defineStore('tasks', {
                 addMore = false;
                 this.clearTasks();
             }
+            //fixme we can use all this property in store instead of tasks component
             const url = `${this.urls.fetchTasks}?componentId=${data.componentId}&page=${data.page}&showCompleted=${this.showCompleted}&searchText=${data.searchText}`;
             const result = await $api.get<AppResponse<TaskItems>>(url).catch(err => console.log(err));
             if (result && result.data.response) {

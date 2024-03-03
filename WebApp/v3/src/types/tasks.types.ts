@@ -74,7 +74,9 @@ export type TasksStoreState = {
     tasks: TaskItem[],
     showCompleted: 1 | 0,
     currentListId: number,
-    endOfTasks: boolean
+    endOfTasks: boolean,
+    currentPage: number
+    // lastFetchTasksArgs: FetchTasksArg
 }
 
 

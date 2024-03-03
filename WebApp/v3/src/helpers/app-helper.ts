@@ -1,5 +1,4 @@
-import { reactive, computed } from 'vue';
-import { app } from '@/main';
+import { computed } from 'vue';
 import type { Router } from 'vue-router';
 import { useUserStore } from '@/stores/user.store';
 import type { ArgumentsType } from 'vitest';

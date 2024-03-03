@@ -26,6 +26,7 @@ export const useGoalsStore = defineStore( 'goals', {
     actions: {
         async fetchGoals(): Promise<void> {
             const result = await $api.get<AppResponse<GoalItem[]>>( this.urls.fetchGoals ).catch( err => console.log( err ) );
+            debugger;
             this.goals = result && result.data.response || [];
         },
         async addGoal( goal: GoalItemAdd ): Promise<boolean> {

@@ -1,6 +1,6 @@
 import { defineComponent } from 'vue';
 import { TTextField } from '@/components/TTextField';
-import { mdiKeyboardReturn, mdiKeyboardVariant, mdiPlus } from '@mdi/js';
+import { mdiKeyboardReturn, mdiKeyboardVariant, } from '@mdi/js';
 import { useTasksStore } from '@/stores/tasks.store';
 
 type DataType = {
@@ -8,7 +8,7 @@ type DataType = {
     taskName: string
     loading: boolean
 };
-export default defineComponent( {
+export default defineComponent({
     components: { TTextField },
     props: {
         listId: {
@@ -26,7 +26,7 @@ export default defineComponent( {
     },
     computed: {
         inputIcon(): string {
-            if ( this.taskName.trim() ) {
+            if (this.taskName.trim()) {
                 return mdiKeyboardReturn;
             }
             return mdiKeyboardVariant;
@@ -34,21 +34,21 @@ export default defineComponent( {
     },
     methods: {
         async addTask(): Promise<boolean> {
-            if ( this.loading ) {
+            if (this.loading) {
                 return false;
             }
-            if ( this.taskName.trim() ) {
+            if (this.taskName.trim()) {
                 this.loading = true;
-                const result = await this.storage.addTask( {
+                const result = await this.storage.addTask({
                     description: this.taskName,
                     componentId: +this.listId
-                } );
+                });
                 this.loading = false;
-                if ( result ) {
+                if (result) {
                     this.taskName = '';
                 }
             }
             return true;
         }
     }
-} );
+});

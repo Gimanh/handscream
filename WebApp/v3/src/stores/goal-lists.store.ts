@@ -35,6 +35,7 @@ export const useGoalListsStore = defineStore( 'goal-lists', {
             return false;
         },
         async fetchLists( goalId: GoalItem['id'] ) {
+            debugger;
             this.lists = [];
             const result = await $api.get<AppResponse<GoalListItems>>( `${ this.urls.fetchLists }?goalId=${ goalId }` )
                 .catch( err => console.log( err ) );

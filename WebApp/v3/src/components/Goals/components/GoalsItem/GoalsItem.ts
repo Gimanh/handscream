@@ -4,33 +4,37 @@ import type { GoalEventMoreMenu, GoalItem } from '@/types/goals.types';
 import { mdiDotsVertical } from '@mdi/js';
 import { TvBtn } from '@/components/TvBtn';
 
-export default defineComponent( {
+export default defineComponent({
     components: { TvBtn },
     props: {
         goal: {
             type: Object as PropType<GoalItem>,
-            required: true
+            required: true,
         },
-
     },
     data() {
         return {
-            mdiDotsVertical
-        }
+            mdiDotsVertical,
+        };
+    },
+    computed: {
+        isActive() {
+            return this.$route.params.goalId === this.goal.id.toString();
+        },
     },
     methods: {
-        showActionDialog( ev: Event ) {
+        showActionDialog(ev: Event) {
             const event: GoalEventMoreMenu = {
                 activator: ev.currentTarget as HTMLElement,
-                goal: this.goal
+                goal: this.goal,
             };
-            this.$emit( 'showActions', event );
+            this.$emit('showActions', event);
         },
         goToLists() {
-            return {
+            this.$router.push({
                 name: 'goal-lists',
-                params: { goalId: this.goal.id }
-            }
-        }
-    }
-} );
+                params: { goalId: this.goal.id },
+            });
+        },
+    },
+});

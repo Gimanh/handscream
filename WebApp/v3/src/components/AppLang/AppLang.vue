@@ -1,24 +1,21 @@
 <template>
-    <v-menu
-        location="bottom"
-    >
+    <v-menu location="bottom">
         <template v-slot:activator="{ props }">
-            <v-btn
-                icon
-                v-bind="props"
-            >
-                <v-icon>
-                    {{ mdiWeb }}
-                </v-icon>
-            </v-btn>
+            <slot name="activator"
+                  v-bind="{ props }">
+                <v-btn icon
+                       v-bind="props">
+                    <v-icon>
+                        {{ mdiWeb }}
+                    </v-icon>
+                </v-btn>
+            </slot>
         </template>
         <v-list>
-            <v-list-item
-                v-for="(item, index) in items"
-                :key="index"
-                active-class="pink--text"
-                @click="setLang(item)"
-            >
+            <v-list-item v-for="(item, index) in items"
+                         :key="index"
+                         active-class="pink--text"
+                         @click="setLang(item)">
                 <v-list-item-title>
                     {{ item.title }}
                 </v-list-item-title>

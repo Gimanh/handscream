@@ -3,15 +3,17 @@
          class="tv-task-container">
         <task-add v-show="canShowAddTask"
                   :list-id="listId" />
-        <m-task v-for="item in storage.tasks"
-                :key="item.id"
-                :task="item" />
+        <!-- <ToggleCompletedTasks :fetch-tasks-args="fetchTasksArgs" /> -->
+        <MTask v-for="item in storage.tasks"
+               :key="item.id"
+               :task="item" />
         <NoTasksAlert />
     </div>
+    <TasksMobileFooter v-show="!canShowAddTask" />
 </template>
 
 <script setup lang="ts">
-
+import TasksMobileFooter from '@/components/Tasks/components/TasksMobileFooter.vue';
 import { useTasksStore } from '@/stores/tasks.store';
 import type { FetchTasksArg } from '@/types/tasks.types';
 import { computed, ref, watch } from 'vue';
@@ -22,18 +24,15 @@ import { useDisplay } from 'vuetify';
 import { onMounted, onBeforeUnmount } from 'vue';
 import NoTasksAlert from '@/components/Atoms/NoTasksAlert.vue';
 
-
 const display = useDisplay();
 const taskContainer = ref<HTMLElement | null>(null);
 const route = useRoute();
 const storage = useTasksStore();
-const currentPage = ref<number>(0);
-const showCompleted = ref(false);
 const searchText = ref('');
 const listId = computed<string>(() => route.params.listId as string);
 const fetchTasksArgs = computed<FetchTasksArg>(() => ({
     componentId: +listId.value,
-    page: currentPage.value,
+    page: storage.currentPage,
     searchText: searchText.value,
     appendResults: false
 }));
@@ -47,16 +46,17 @@ watch(listId, async () => {
 }, { immediate: true });
 
 function resetDefaultState() {
-    currentPage.value = 0;
+    storage.currentPage = 0;
     searchText.value = '';
     fetchTasksArgs.value.appendResults = false;
     storage.endOfTasks = false;
 }
+
 async function fetchTasksWrap() {
     if (!tasksInProgress && !storage.endOfTasks) {
         tasksInProgress = true;
         await storage.fetchTasks(fetchTasksArgs.value);
-        currentPage.value++;
+        storage.currentPage++;
         tasksInProgress = false;
     }
 }

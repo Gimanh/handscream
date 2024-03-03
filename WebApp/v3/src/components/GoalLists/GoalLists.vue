@@ -32,7 +32,7 @@
         <v-col v-show="canShowTasksColumn"
                class="tv-task-column pa-0">
             <router-view />
-            <TasksMobileFooter v-show="$vuetify.display.sm || $vuetify.display.xs"> </TasksMobileFooter>
+            <!-- <TasksMobileFooter v-show="$vuetify.display.sm || $vuetify.display.xs"> </TasksMobileFooter> -->
         </v-col>
     </v-row>
 </template>

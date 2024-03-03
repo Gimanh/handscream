@@ -7,26 +7,26 @@ import { useAppStore } from '@/stores/app.store';
 import { defineAsyncComponent } from 'vue'
 import { useRouter } from 'vue-router';
 
-const AppLogo = defineAsyncComponent( () =>
+const AppLogo = defineAsyncComponent(() =>
     import('@/components/AppLogo')
 );
-const AppLang = defineAsyncComponent( () =>
+const AppLang = defineAsyncComponent(() =>
     import('@/components/AppLang')
 );
 
-const AppLogout = defineAsyncComponent( () =>
+const AppLogout = defineAsyncComponent(() =>
     import('@/components/Authentication/Logout')
 );
 
-export default defineComponent( {
+export default defineComponent({
     setup() {
         const theme = useTheme()
         const router = useRouter();
         const appStore = useAppStore();
         return {
-            isLoggedIn: reactive( isLoggedIn ),
+            isLoggedIn,
             mdiInvertColors,
-            goToLoginPage: () => goToLoginPage( router ),
+            goToLoginPage: () => goToLoginPage(router),
             toggleTheme: () => theme.global.name.value = theme.global.current.value.dark ? 'light' : 'dark',
             appStore
         }
@@ -37,4 +37,4 @@ export default defineComponent( {
         AppLang,
         AppLogout
     }
-} );
+});

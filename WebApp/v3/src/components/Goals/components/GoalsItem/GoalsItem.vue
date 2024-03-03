@@ -1,8 +1,9 @@
 <template>
     <v-list-item lines="two"
-                 :to="goToLists()"
+                 :active="isActive"
                  :value="goal"
-                 :ripple="false">
+                 :ripple="false"
+                 @click="goToLists">
         <v-list-item-title>
             {{ goal.name }}
         </v-list-item-title>

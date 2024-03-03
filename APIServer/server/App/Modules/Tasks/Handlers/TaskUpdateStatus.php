@@ -14,8 +14,7 @@ class TaskUpdateStatus extends TasksBaseHandler
         $parsedBody = $request->getParsedBody();
         $taskId = (int)$parsedBody['taskId'] ?? null;
         $complete = $parsedBody['complete'] ?? null;
-        if ($taskId && $complete) {
-            $complete = ($complete === 'true' || $complete === true);
+        if ($taskId && $complete !== null) {
             $task = $this->tasks->updateTaskComplete($taskId, $complete);
             if ($task) {
                 return AppResponse::create($response, ['task' => $task], $request->getAttribute('rid'));
